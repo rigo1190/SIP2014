@@ -1,0 +1,80 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NavegadorCatalogos.master.cs" Inherits="SIP.NavegadorCatalogos" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Secretaría de Finanzas y Planeación</title>
+    <link href="<%= ResolveClientUrl("~/Content/bootstrap-theme.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveClientUrl("~/Content/bootstrap.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveClientUrl("~/Content/Site.css") %>" rel="stylesheet" />
+    <script src="<%= ResolveClientUrl("~/Scripts/jquery-1.10.2.js") %>"></script>
+    <script src="<%= ResolveClientUrl("~/Scripts/bootstrap.js") %>"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <header>
+            <div id="encabezado" class="header">
+              
+            </div>
+        </header>    
+    
+        <section>
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+        
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Cambiar Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">SIP</a>
+               </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Administración<b class="caret"></b></a>
+                             <ul class="dropdown-menu">
+                                 
+                            </ul>
+                            
+                        </li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Consultas<b class="caret"></b></a>
+                             <ul class="dropdown-menu">
+                                 
+                            </ul>
+                        </li>
+                        
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/Ejercicios.aspx") %>">Ejercicios</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/Municipios.aspx") %>">Municipios</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/PlantillasPadre.aspx") %>">Plantillas</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catUnidadesPresupuestales.aspx") %>">Unidades Presupuestales</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catProgramas.aspx") %>">Programas</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catGrupoBeneficiarios.aspx") %>">Beneficiarios</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                   <ul class="nav navbar-nav navbar-right">
+                        <asp:Label ID="lblUsuario" class="navbar-brand" runat="server" Text=""></asp:Label>
+                        <li><a href="<%=ResolveClientUrl("~/Formas/Salir.aspx") %>"><b class="glyphicon glyphicon-off"></b></a></li> 
+                    </ul>
+
+
+                </div>
+            </nav>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </section>
+       
+  
+    </form>
+</body>
+</html>

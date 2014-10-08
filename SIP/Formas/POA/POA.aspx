@@ -4,8 +4,39 @@
      <script type="text/javascript">
 
          $(document).ready(function () {
+
                                      
              $('.campoNumerico').autoNumeric('init');
+
+
+             $('*[data-tipo-operacion]').click(function ()
+             {                                 
+                 
+                 if ($("#<%= divEdicion.ClientID %>").is(':visible')) {
+                       return false;
+                 }
+                                 
+                 var strOperacion = $(this).data("tipo-operacion").toUpperCase();
+                 
+                    switch (strOperacion) {
+                       case "EDITAR":
+                           return true;
+                           break;
+                       case "BORRAR":
+                           return confirm("¿Está seguro de eliminar el registro?");
+                           break;
+                        case "EVALUAR":
+                            var url = $(this).data("url-poa");
+                            $(location).attr('href', url);                            
+                           break;
+                       default:
+                           break;
+                   }
+
+                   return false;
+
+               });
+
 
         });
 
@@ -120,8 +151,8 @@
                        <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
                             <ItemTemplate>
                                                     
-                                <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" />
-                                <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClientClick="return confirm('¿Está seguro de eliminar el registro?');" OnClick="imgBtnEliminar_Click"/>
+                                <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" data-tipo-operacion="editar"/>
+                                <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" data-tipo-operacion="borrar"/>
 
                             </ItemTemplate>                         
                         </asp:TemplateField>     
@@ -132,18 +163,17 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-3" HeaderStyle-CssClass="panel-footer">                            
+                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-8" HeaderStyle-CssClass="panel-footer">                            
                             <ItemTemplate>
                                 <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Evaluación de Obra">
+                        <asp:TemplateField HeaderText="Evaluación de Obra" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
                             <ItemTemplate>
-                                    <button type="button" id="btnE" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-ok"></span></button> 
-                            </ItemTemplate>
-                                <HeaderStyle BackColor="#EEEEEE" />
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />                    
+                                    <button type="button" id="btnE" data-tipo-operacion="evaluar" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-ok"></span></button> 
+                            </ItemTemplate>                          
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="50px" />                                            
                         </asp:TemplateField>
 
             </Columns>

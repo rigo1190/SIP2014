@@ -13,6 +13,10 @@ namespace BusinessLogicLayer
         internal Contexto contexto;
         private List<String> errors = new List<String>();
         private IBusinessLogic<Usuario> usuarioBusinessLogic;
+        private IBusinessLogic<Rol> rolBusinessLogic;        
+        private IBusinessLogic<Permiso> permisoBusinessLogic;
+        private IBusinessLogic<OpcionSistema> opcionSistemaBusinessLogic;
+        private IBusinessLogic<UsuarioRol> usuarioRolBusinessLogic;
         private IBusinessLogic<UsuarioUnidadPresupuestal> usuarioUnidadPresupuestalBusinessLogic;
         private IBusinessLogic<Ejercicio> ejercicioBusinessLogic;
         private IBusinessLogic<Municipio> municipioBusinessLogic;
@@ -60,6 +64,58 @@ namespace BusinessLogicLayer
                 }
 
                 return usuarioBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<Rol> RolBusinessLogic
+        {
+            get
+            {
+                if (this.rolBusinessLogic == null)
+                {
+                    this.rolBusinessLogic = new GenericBusinessLogic<Rol>(contexto);
+                }
+
+                return rolBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<UsuarioRol> UsuarioRolBusinessLogic
+        {
+            get
+            {
+                if (this.usuarioRolBusinessLogic == null)
+                {
+                    this.usuarioRolBusinessLogic = new GenericBusinessLogic<UsuarioRol>(contexto);
+                }
+
+                return usuarioRolBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<Permiso> PermisoBusinessLogic
+        {
+            get
+            {
+                if (this.permisoBusinessLogic == null)
+                {
+                    this.permisoBusinessLogic = new GenericBusinessLogic<Permiso>(contexto);
+                }
+
+                return permisoBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<OpcionSistema> OpcionSistemaBusinessLogic
+        {
+            get
+            {
+                if (this.opcionSistemaBusinessLogic == null)
+                {
+                    this.opcionSistemaBusinessLogic = new GenericBusinessLogic<OpcionSistema>(contexto);
+                }
+
+                return opcionSistemaBusinessLogic;
             }
         }
 

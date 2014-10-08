@@ -21,7 +21,7 @@ namespace SIP.Formas.POA
             if (!IsPostBack)
             {
 
-                int idPOADetalle = 1;// Utilerias.StrToInt(Request.QueryString["p"].ToString()); //Se recupera el id del objeto POADETALLE
+                int idPOADetalle =Utilerias.StrToInt(Request.QueryString["p"].ToString()); //Se recupera el id del objeto POADETALLE                
                 BindControlesObra(idPOADetalle);
                 BindArbol(treePlantilla);
                 BindArbol(treePOAPlantilla,false,false);

@@ -700,7 +700,8 @@ namespace SIP.Formas.POA
                     {
                         string url = string.Empty;
                         url = "EvaluacionPOA.aspx?p=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
-                        btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
+                        //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
+                        btnE.Attributes.Add("data-url-poa", url);
                     }
                     
                 }

@@ -10,7 +10,9 @@ namespace SIP
     {
         // Para obtener más información sobre la unión, visite http://go.microsoft.com/fwlink/?LinkId=254726
         public static void RegisterBundles(BundleCollection bundles)
-        {
+        {                   
+                      
+
             bundles.Add(new ScriptBundle("~/bundles/WebFormsJs").Include(
                   "~/Scripts/WebForms/WebForms.js",
                   "~/Scripts/WebForms/WebUIValidation.js",
@@ -31,6 +33,20 @@ namespace SIP
             // para la producción, use la herramienta de creación en http://modernizr.com para elegir solo las pruebas que necesite
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                 "~/Scripts/modernizr-*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+              "~/Scripts/jquery-1.10.2.min.js",
+              "~/Scripts/jquery-1.10.2.intellisense.js",
+              "~/Scripts/autoNumeric/autoNumeric-1.9.25.min.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                "~/Scripts/bootstrap.min.js"));
+
+            BundleTable.EnableOptimizations = true;
+           
+
+
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using SIP;
+using System.Web.UI.WebControls;
 
 namespace SIP
 {
@@ -17,6 +18,7 @@ namespace SIP
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterOpenAuth();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+                       
         }
 
         void Application_End(object sender, EventArgs e)

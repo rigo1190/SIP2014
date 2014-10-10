@@ -148,33 +148,6 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.WebControls.DropDownList ddlPrograma;
         
         /// <summary>
-        /// Control ddlSubprograma.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubprograma;
-        
-        /// <summary>
-        /// Control ddlTipologia.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipologia;
-        
-        /// <summary>
-        /// Control ddlMeta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMeta;
-        
-        /// <summary>
         /// Control txtNumeroBeneficiarios.
         /// </summary>
         /// <remarks>
@@ -247,13 +220,13 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtCostoLiberadoEjerciciosAnteriores;
         
         /// <summary>
-        /// Control txtImporte.
+        /// Control txtPresupuestoEjercicio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtImporte;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtPresupuestoEjercicio;
         
         /// <summary>
         /// Control txtObservaciones.

@@ -8,6 +8,8 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web;
+using System.Web.Services;
+using System.Web.Script.Services;
 
 namespace SIP.Formas.POA
 {
@@ -56,9 +58,9 @@ namespace SIP.Formas.POA
             ddlCriterioPriorizacion.SelectedValue = poadetalle.CriterioPriorizacionId.ToString();
 
             BindearDropDownListPrograma(ddlPrograma, poadetalle);
-            BindearDropDownListSubPrograma(ddlSubprograma, poadetalle);
-            BindearDropDownListSubSubPrograma(ddlTipologia, poadetalle);
-            BindearDropDownListMeta(ddlMeta, poadetalle);            
+            //BindearDropDownListSubPrograma(ddlSubprograma, poadetalle);
+            //BindearDropDownListSubSubPrograma(ddlTipologia, poadetalle);
+            //BindearDropDownListMeta(ddlMeta, poadetalle);            
            
             txtLocalidad.Value = poadetalle.Localidad;            
             txtNumeroBeneficiarios.Value = poadetalle.NumeroBeneficiarios.ToString();
@@ -68,6 +70,8 @@ namespace SIP.Formas.POA
             ddlSituacionObra.SelectedValue = poadetalle.SituacionObraId.ToString();
             ddlModalidad.SelectedValue = ((int)poadetalle.ModalidadObra).ToString();
             txtImporteTotal.Value = poadetalle.ImporteTotal.ToString();
+            txtCostoLiberadoEjerciciosAnteriores.Value = poadetalle.ImporteLiberadoEjerciciosAnteriores.ToString();
+            txtPresupuestoEjercicio.Value = poadetalle.ImportePresupuesto.ToString();
             txtObservaciones.Value = poadetalle.Observaciones;
 
             BindearDropDownListFinalidad(ddlFinalidad, poadetalle);
@@ -95,13 +99,14 @@ namespace SIP.Formas.POA
             txtNumero.Value = String.Empty;
             txtDescripcion.Value = String.Empty;
             ddlMunicipio.SelectedIndex = -1;
+            ddlCriterioPriorizacion.SelectedIndex = -1;
             txtLocalidad.Value = String.Empty;
             ddlTipoLocalidad.SelectedIndex = -1;
             txtEsAccion.Checked = false;
             ddlPrograma.SelectedIndex = -1;
-            ddlSubprograma.Items.Clear();
-            ddlTipologia.Items.Clear();
-            ddlMeta.Items.Clear();
+            //ddlSubprograma.Items.Clear();
+            //ddlTipologia.Items.Clear();
+            //ddlMeta.Items.Clear();
             txtNumeroBeneficiarios.Value = String.Empty;
             txtCantidadUnidades.Value = String.Empty;
             txtEmpleos.Value = String.Empty;
@@ -109,6 +114,9 @@ namespace SIP.Formas.POA
             ddlSituacionObra.SelectedIndex = -1;
             ddlModalidad.SelectedIndex = -1;
             txtImporteTotal.Value = String.Empty;
+            txtCostoLiberadoEjerciciosAnteriores.Value = String.Empty;
+            txtPresupuestoEjercicio.Value = String.Empty;
+
             txtObservaciones.Value = String.Empty;
 
             ddlFinalidad.SelectedIndex = -1;
@@ -223,8 +231,8 @@ namespace SIP.Formas.POA
             poadetalle.TipoLocalidadId = Utilerias.StrToInt(ddlTipoLocalidad.SelectedValue);
             poadetalle.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);
             poadetalle.EsAccion = txtEsAccion.Checked;
-            poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlTipologia.SelectedValue);
-            poadetalle.AperturaProgramaticaMetaId = Utilerias.StrToInt(ddlMeta.SelectedValue);
+            //poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlTipologia.SelectedValue);
+            //poadetalle.AperturaProgramaticaMetaId = Utilerias.StrToInt(ddlMeta.SelectedValue);
             poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString());
             poadetalle.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString());
             poadetalle.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString());
@@ -291,15 +299,13 @@ namespace SIP.Formas.POA
         }
 
         private void BindearDropDownList()
-        {          
+        {
 
-            //Se carga informnacion en el drop de Municipios
-
-            ddlPrograma.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap=> ap.ParentId==null && ap.EjercicioId==ejercicioId).OrderBy(ap=>ap.Orden);
+            ddlPrograma.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == null && ap.EjercicioId == ejercicioId).OrderBy(ap => ap.Orden);
             ddlPrograma.DataValueField = "Id";
             ddlPrograma.DataTextField = "Nombre";
-            ddlPrograma.DataBind();            
-                
+            ddlPrograma.DataBind();
+
             ddlPrograma.Items.Insert(0, new ListItem("Seleccione...", "0"));          
 
 
@@ -334,7 +340,7 @@ namespace SIP.Formas.POA
 
             Utilerias.BindDropDownToEnum(ddlModalidad, typeof(enumModalidadObra));
 
-            ddlFinalidad.DataSource = uow.FuncionalidadBusinessLogic.Get(f=>f.ParentId==null).ToList();
+            ddlFinalidad.DataSource = uow.FuncionalidadBusinessLogic.Get(f => f.ParentId == null).ToList();
             ddlFinalidad.DataValueField = "Id";
             ddlFinalidad.DataTextField = "Descripcion";
             ddlFinalidad.DataBind();
@@ -381,49 +387,49 @@ namespace SIP.Formas.POA
               
         protected void ddlPrograma_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ctrol = sender as DropDownList;
+            //DropDownList ctrol = sender as DropDownList;
 
-            int programaId = Convert.ToInt32(ctrol.SelectedValue);
+            //int programaId = Convert.ToInt32(ctrol.SelectedValue);
 
-            ddlSubprograma.Items.Clear();
-            ddlTipologia.Items.Clear();
-            ddlMeta.Items.Clear();
+            //ddlSubprograma.Items.Clear();
+            //ddlTipologia.Items.Clear();
+            //ddlMeta.Items.Clear();
 
-            ddlSubprograma.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId).OrderBy(r=>r.Orden);
-            ddlSubprograma.DataValueField = "Id";
-            ddlSubprograma.DataTextField = "Nombre";
-            ddlSubprograma.DataBind();
+            //ddlSubprograma.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId).OrderBy(r=>r.Orden);
+            //ddlSubprograma.DataValueField = "Id";
+            //ddlSubprograma.DataTextField = "Nombre";
+            //ddlSubprograma.DataBind();
 
-            ddlSubprograma.Items.Insert(0, new ListItem("Seleccione ...", "0"));
+            //ddlSubprograma.Items.Insert(0, new ListItem("Seleccione ...", "0"));
 
         }
              
         protected void ddlSubprograma_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ctrol = sender as DropDownList;
+            //DropDownList ctrol = sender as DropDownList;
 
-            int subprogramaId = Convert.ToInt32(ctrol.SelectedValue);
+            //int subprogramaId = Convert.ToInt32(ctrol.SelectedValue);
            
-            ddlTipologia.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId).OrderBy(ap => ap.Orden);
-            ddlTipologia.DataValueField = "Id";
-            ddlTipologia.DataTextField = "Nombre";
-            ddlTipologia.DataBind();
+            //ddlTipologia.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId).OrderBy(ap => ap.Orden);
+            //ddlTipologia.DataValueField = "Id";
+            //ddlTipologia.DataTextField = "Nombre";
+            //ddlTipologia.DataBind();
 
-            ddlTipologia.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            //ddlTipologia.Items.Insert(0, new ListItem("Seleccione...", "0"));
         }
 
         protected void ddlTipologia_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DropDownList ctrol = sender as DropDownList;
+            //DropDownList ctrol = sender as DropDownList;
 
-            int subsubprogramaId = Convert.ToInt32(ctrol.SelectedValue);
+            //int subsubprogramaId = Convert.ToInt32(ctrol.SelectedValue);
 
-            ddlMeta.DataSource = uow.AperturaProgramaticaMetaBusinessLogic.Get(ap => ap.AperturaProgramaticaId == subsubprogramaId);
-            ddlMeta.DataValueField = "Id";
-            ddlMeta.DataTextField = "Descripcion";
-            ddlMeta.DataBind();
+            //ddlMeta.DataSource = uow.AperturaProgramaticaMetaBusinessLogic.Get(ap => ap.AperturaProgramaticaId == subsubprogramaId);
+            //ddlMeta.DataValueField = "Id";
+            //ddlMeta.DataTextField = "Descripcion";
+            //ddlMeta.DataBind();
 
-            ddlMeta.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            //ddlMeta.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
         }
         
@@ -489,23 +495,80 @@ namespace SIP.Formas.POA
             ddl.SelectedValue = poadetalle.AperturaProgramaticaMetaId.ToString();
 
         }
-
-        protected void ddlFinalidad_SelectedIndexChanged(object sender, EventArgs e)
+      
+        [WebMethod]
+        public static IQueryable<Municipio> GetFuncionalidad(string cad)
         {
-            DropDownList ctrol = sender as DropDownList;
+            UnitOfWork uow = new UnitOfWork();
 
-            int finalidadId = Convert.ToInt32(ctrol.SelectedValue);
+            IQueryable<Municipio> list = uow.MunicipioBusinessLogic.Get(orderBy:m=>m.OrderBy(r=>r.Orden));
 
-            ddlFuncion.Items.Clear();
-            ddlSubFuncion.Items.Clear();
+            return list;           
 
-            ddlFuncion.DataSource = uow.FuncionalidadBusinessLogic.Get(sf => sf.ParentId == finalidadId).OrderBy(r => r.Orden);
-            ddlFuncion.DataValueField = "Id";
-            ddlFuncion.DataTextField = "Descripcion";
-            ddlFuncion.DataBind();
-
-            ddlFuncion.Items.Insert(0, new ListItem("Seleccione ...", "0"));
+            //return "Mando el siguiente mensaje: " + cad;
         }
+
+        [WebMethod]
+        public static List<ListItem> GetAperturaProgramaticaNivel2(int parentid)
+        {
+            UnitOfWork uow = new UnitOfWork();
+
+            IQueryable<AperturaProgramatica> list = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == parentid, orderBy: m => m.OrderBy(r => r.Orden));
+
+            List<ListItem> result = new List<ListItem>();
+
+            foreach (var item in list)
+            {
+                result.Add(new ListItem { Text=item.Nombre,Value=item.Id.ToString()});
+            }
+
+
+            return result;
+            
+            
+        }
+
+        [WebMethod]
+        public static List<ListItem> GetAperturaProgramaticaNivel3(int parentid)
+        {
+            UnitOfWork uow = new UnitOfWork();
+
+            IQueryable<AperturaProgramatica> list = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == parentid, orderBy: m => m.OrderBy(r => r.Orden));
+
+            List<ListItem> result = new List<ListItem>();
+
+            foreach (var item in list)
+            {
+                result.Add(new ListItem { Text = item.Nombre, Value = item.Id.ToString() });
+            }
+
+
+            return result;
+
+
+        }
+
+        [WebMethod]
+        public static List<ListItem> GetMetasAperturaProgramatica(int tipologiaId)
+        {
+            UnitOfWork uow = new UnitOfWork();
+
+            IQueryable<AperturaProgramaticaMeta> list = uow.AperturaProgramaticaMetaBusinessLogic.Get(apm => apm.AperturaProgramaticaId == tipologiaId, orderBy: m => m.OrderBy(r => r.AperturaProgramaticaUnidad.Orden));
+
+            List<ListItem> result = new List<ListItem>();
+
+            foreach (var item in list)
+            {
+                result.Add(new ListItem { Text = item.Descripcion, Value = item.Id.ToString() });
+            }
+
+
+            return result;
+
+
+        }
+
+
 
         protected void ddlFuncion_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -708,6 +771,10 @@ namespace SIP.Formas.POA
 
             }
         }
+
+
+     
+
                            
     }
 }

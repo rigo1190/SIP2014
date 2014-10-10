@@ -5,21 +5,50 @@
 
          $(document).ready(function () {
 
-                                     
-             $('.campoNumerico').autoNumeric('init');
 
+             alert("document ready");             
+                                                  
+             $('.campoNumerico').autoNumeric('init');             
+
+
+             $("#<%= ddlPrograma.ClientID %>").change(function ()
+             {
+             
+                 var id = $(this).children(":selected").attr("value");
+                 fnc_fillddlSubPrograma(id);
+
+             });
+
+             $("#ddlSubprograma").change(function ()
+             {
+                
+                 var id = $(this).children(":selected").attr("value");
+                 fnc_fillddlSubSubPrograma(id);
+             });
+
+             $("#ddlTipologia").change(function ()
+             {                 
+                 var id = $(this).children(":selected").attr("value");
+                 fnc_fillddlMeta(id);
+
+             });
+             
 
              $('*[data-tipo-operacion]').click(function ()
              {                                 
                  
-                 if ($("#<%= divEdicion.ClientID %>").is(':visible')) {
+                 if ($("#<%= divEdicion.ClientID %>").is(':visible'))
+                 {
                        return false;
                  }
+
+                
                                  
                  var strOperacion = $(this).data("tipo-operacion").toUpperCase();
                  
-                    switch (strOperacion) {
-                       case "EDITAR":
+                 switch (strOperacion) {
+
+                        case "EDITAR":                           
                            return true;
                            break;
                        case "BORRAR":
@@ -35,10 +64,146 @@
 
                    return false;
 
-               });
+             });
+             
 
 
-        });
+         });
+
+         function fnc_fillddlSubPrograma(parentid)
+         {
+             PageMethods.GetAperturaProgramaticaNivel2(parentid,fnc_OnSuccessA, fnc_OnErrorA);
+         }
+
+         function fnc_OnSuccessA(response) {
+             
+
+             if (response != null) {                                
+                      
+
+                 var optionssubprograma = $("#ddlSubprograma");
+                 var optionstipologia = $("#ddlTipologia");
+                 var optionsmeta = $("#ddlMeta");
+
+
+                 if (response.length == 0)
+                 {
+                     optionssubprograma.find('option').remove().end();
+                     optionstipologia.find('option').remove().end();
+                     optionsmeta.find('option').remove().end();
+                 }
+                 else
+                 {
+                     optionssubprograma.find('option').remove().end().append('<option value="0">Seleccione...</option>');
+                     optionstipologia.find('option').remove().end();
+                     optionsmeta.find('option').remove().end();
+
+                     $.each(response, function () {
+                         optionssubprograma.append($("<option />").val(this.Value).text(this.Text));
+                     });
+
+                 }
+                 
+             }
+             else {
+                 alert("Response es null");
+             }
+
+         }
+
+         function fnc_OnErrorA(error) {
+             alert("El error es " + error.get_message());
+         }
+
+       
+
+         function fnc_fillddlSubSubPrograma(parentid) {
+             PageMethods.GetAperturaProgramaticaNivel3(parentid, fnc_OnSuccessB, fnc_OnErrorB);
+         }
+
+         function fnc_OnSuccessB(response)
+         {           
+
+             if (response != null) {
+
+                
+                 var optionstipologia = $("#ddlTipologia");
+                 var optionsmeta = $("#ddlMeta");
+                 
+
+                 if (response.length == 0)
+                 {
+                     optionstipologia.find('option').remove().end();
+                     optionsmeta.find('option').remove().end();
+                 }
+                 else
+                 {
+                     optionstipologia.find('option').remove().end().append('<option value="0">Seleccione...</option>');
+                     optionsmeta.find('option').remove().end();
+
+                     $.each(response, function () {
+                         optionstipologia.append($("<option />").val(this.Value).text(this.Text));
+                     });
+
+                 }
+                 
+
+             }
+             else {
+                 alert("Response es null");
+             }
+
+         }
+
+         function fnc_OnErrorB(error) {
+             alert("El error es " + error.get_message());
+         }
+
+
+         function fnc_fillddlMeta(tipologiaid) {
+             PageMethods.GetMetasAperturaProgramatica(tipologiaid, fnc_OnSuccessC, fnc_OnErrorC);
+         }
+
+         function fnc_OnSuccessC(response)
+         {
+            
+             if (response != null) {                
+                
+                 var optionsmetas = $("#ddlMeta");               
+                 
+                 if (response.length == 0)
+                 {                    
+                     optionsmetas.find('option').remove().end();
+                 }
+                 else
+                 {
+                     optionsmetas.find('option').remove().end().append('<option value="0">Seleccione...</option>');
+                     
+                     $.each(response, function () {
+                         optionsmetas.append($("<option />").val(this.Value).text(this.Text));
+                     });
+
+                 }
+                 
+             }
+             else {
+                 alert("Response es null");
+             }
+
+         }
+
+         function fnc_OnErrorC(error) {
+             alert("El error es " + error.get_message());
+         }
+
+
+
+
+
+
+
+      
+                        
 
          function fnc_Validar() {
 
@@ -73,13 +238,13 @@
                  return false;
              }
 
-             var subsubprograma = $("#<%=ddlTipologia.ClientID%>").val();
+             var subsubprograma = $("#ddlTipologia").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
                  alert("Debe indicar el tipo de la apertura programatica");
                  return false;
              }
 
-             var meta = $("#<%=ddlMeta.ClientID%>").val();
+             var meta = $("#ddlMeta").val();
              if (meta == null || meta.length == 0 || meta == undefined || meta == 0) {
                  alert("Debe indicar la unidad y beneficiario de la meta");
                  return false;
@@ -134,6 +299,12 @@
         function fnc_IrDesdeGrid(url) {
             $(location).attr('href', url);
         }
+             
+
+        window.onload = function () {
+            return "Se dispara evento window.onload";
+        }
+
 
     </script>
     
@@ -141,6 +312,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
        
     
+    <%-- <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>--%>
+
     <div class="container">
        
         <div class="page-header"><h3><asp:Label ID="lblTituloPOA" runat="server" Text=""></asp:Label></h3></div>
@@ -264,28 +437,32 @@
                       <div class="form-group">
                            <label for="Programa">Programa</label>
                          <div>
-                             <asp:DropDownList OnSelectedIndexChanged="ddlPrograma_SelectedIndexChanged" ID="ddlPrograma" CssClass="form-control" runat="server" AutoPostBack="True"></asp:DropDownList>
+                             <asp:DropDownList ID="ddlPrograma" CssClass="form-control" runat="server"></asp:DropDownList>
+                             <%--<select id="ddlPrograma" class="form-control"></select>--%>
                         </div>
                       </div>
 
                       <div class="form-group">
                            <label for="SubPrograma">SubPrograma</label>
                          <div>
-                             <asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSubprograma_SelectedIndexChanged"></asp:DropDownList>
+                             <%--<asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSubprograma_SelectedIndexChanged"></asp:DropDownList>--%>
+                             <select id="ddlSubprograma" class="form-control"></select>                          
                         </div>
                       </div>
 
                        <div class="form-group">
                            <label for="SubSubPrograma">SubSubPrograma</label>
                          <div>
-                             <asp:DropDownList ID="ddlTipologia" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTipologia_SelectedIndexChanged"></asp:DropDownList>
+                             <%--<asp:DropDownList ID="ddlTipologia" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTipologia_SelectedIndexChanged"></asp:DropDownList>--%>
+                             <select id="ddlTipologia" class="form-control"></select>    
                         </div>
                       </div>
 
                        <div class="form-group">
                            <label for="Metas">Metas</label>
                          <div>
-                             <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
+                             <%--<asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>--%>
+                             <select id="ddlMeta" class="form-control"></select> 
                         </div>
                       </div>
 
@@ -337,7 +514,7 @@
                       </div>
 
                      <div class="form-group">
-                           <label for="ImporteTotal">Costo total</label>
+                           <label for="txtImporteTotal">Costo total</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
@@ -345,7 +522,7 @@
                       </div>
 
                       <div class="form-group">
-                           <label for="ImporteTotal">Costo liberado en ejercicios anteriores</label>
+                           <label for="txtCostoLiberadoEjerciciosAnteriores">Costo liberado en ejercicios anteriores</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" class="input-sm required form-control campoNumerico" id="txtCostoLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" />
@@ -353,10 +530,10 @@
                       </div>
 
                      <div class="form-group">
-                           <label for="ImporteTotal">Costo liberado en ejercicios anteriores</label>
+                           <label for="txtPresupuestoEjercicio">Presupuesto del ejercicio</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left; align-items:flex-start" />
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtPresupuestoEjercicio" runat="server" style="text-align: left; align-items:flex-start" />
                         </div>
                       </div>
 
@@ -393,7 +570,7 @@
                                   <div class="form-group">
                                        <label for="Finalidad">Finalidad</label>
                                      <div>
-                                         <asp:DropDownList OnSelectedIndexChanged="ddlFinalidad_SelectedIndexChanged" ID="ddlFinalidad" CssClass="form-control" runat="server" AutoPostBack="True"></asp:DropDownList>
+                                         <asp:DropDownList ID="ddlFinalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
                                     </div>
                                   </div>
 

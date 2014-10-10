@@ -11,6 +11,7 @@ namespace DataAccessLayer.Models
     {
         [Index(IsUnique = true)]
         public int Año { get; set; }
+        public decimal FactorIva { get; set; }
         public bool Activo { get; set; }
     }
 }

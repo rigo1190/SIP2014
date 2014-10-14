@@ -220,7 +220,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Formas\Catalogos\cat.aspx" />
     <Content Include="Formas\Catalogos\catAperturaProgramatica.aspx" />
+    <Content Include="Formas\Catalogos\catEjesPVD.aspx" />
+    <Content Include="Formas\Catalogos\catFondos.aspx" />
+    <Content Include="Formas\Catalogos\catFuncionalidad.aspx" />
     <Content Include="Formas\Catalogos\catGrupoBeneficiarios.aspx" />
+    <Content Include="Formas\Catalogos\catModalidad.aspx" />
+    <Content Include="Formas\Catalogos\catPlanesSectoriales.aspx" />
     <Content Include="Formas\Catalogos\catProgramas.aspx" />
     <Content Include="Formas\Catalogos\catUnidadesPresupuestales.aspx" />
     <Content Include="Formas\Catalogos\Ejercicios.aspx" />
@@ -345,12 +350,42 @@
     <Compile Include="Formas\Catalogos\catAperturaProgramatica.aspx.designer.cs">
       <DependentUpon>catAperturaProgramatica.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\Catalogos\catEjesPVD.aspx.cs">
+      <DependentUpon>catEjesPVD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catEjesPVD.aspx.designer.cs">
+      <DependentUpon>catEjesPVD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catFondos.aspx.cs">
+      <DependentUpon>catFondos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catFondos.aspx.designer.cs">
+      <DependentUpon>catFondos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catFuncionalidad.aspx.cs">
+      <DependentUpon>catFuncionalidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catFuncionalidad.aspx.designer.cs">
+      <DependentUpon>catFuncionalidad.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\Catalogos\catGrupoBeneficiarios.aspx.cs">
       <DependentUpon>catGrupoBeneficiarios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catGrupoBeneficiarios.aspx.designer.cs">
       <DependentUpon>catGrupoBeneficiarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catModalidad.aspx.cs">
+      <DependentUpon>catModalidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catModalidad.aspx.designer.cs">
+      <DependentUpon>catModalidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catPlanesSectoriales.aspx.cs">
+      <DependentUpon>catPlanesSectoriales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catPlanesSectoriales.aspx.designer.cs">
+      <DependentUpon>catPlanesSectoriales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catProgramas.aspx.cs">
       <DependentUpon>catProgramas.aspx</DependentUpon>
@@ -524,7 +559,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7918</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

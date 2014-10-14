@@ -39,7 +39,7 @@ namespace SIP.Formas.Catalogos
         private void BindControles(Ejercicio obj)
         {
             txtAnio.Value = obj.Año.ToString();
-            chkActivo.Checked = obj.Activo;
+            //chkActivo.Checked = obj.Activo;
         }
 
 
@@ -77,7 +77,7 @@ namespace SIP.Formas.Catalogos
            }
 
             obj.Año = Utilerias.StrToInt(txtAnio.Value);
-            obj.Activo = Convert.ToBoolean(chkActivo.Checked);
+            obj.Estatus = enumEstatusEjercicio.Nuevo;
 
             //Se almacena el objeto
             if (_Accion.Text.Equals("N")) //Si el estado de la forma es crear un NUEVo registro
@@ -214,7 +214,7 @@ namespace SIP.Formas.Catalogos
                     if (grid.DataKeys[e.Row.RowIndex].Values["Id"] != null)
                     {
                         obj = uow.EjercicioBusinessLogic.GetByID(Utilerias.StrToInt(grid.DataKeys[e.Row.RowIndex].Values["Id"].ToString()));
-                        ctrl.Text = obj.Activo ? "SI" : "NO";
+                        //ctrl.Text = obj.Activo ? "SI" : "NO";
                     }
                 }
             }

@@ -65,12 +65,18 @@
 
                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-book"></span> Catálogos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catAperturaProgramatica.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Apertura Programática</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catGrupoBeneficiarios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Beneficiarios</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catModalidad.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Clasificación Programática CONAC</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/Ejercicios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Ejercicios</a></li>
-                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/Municipios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Municipios</a></li>
-                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/PlantillasPadre.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Plantillas</a></li>
-                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catUnidadesPresupuestales.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Unidades Presupuestales</a></li>
-                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catProgramas.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Programas</a></li>
-                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catGrupoBeneficiarios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Beneficiarios</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catEjesPVD.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Ejes P.V.D.</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catFuncionalidad.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Estructura Funcional</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catFondos.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Fondos</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/Municipios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Municipios</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catPlanesSectoriales.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Planes Sectoriales</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/PlantillasPadre.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Plantillas</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catProgramas.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Programas</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catUnidadesPresupuestales.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Unidades Presupuestales</a></li>
                             </ul>
                         </li>                                                 
                         <li><a href="<%=ResolveClientUrl("About.aspx") %>"><span class="glyphicon glyphicon-info-sign"></span> Acerca de</a></li>

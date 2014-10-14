@@ -40,19 +40,13 @@ namespace SIP.Formas.Catalogos
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            int orden;
             _Accion.Text = "Nuevo";
 
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             divMsgSuccess.Style.Add("display", "none");
-
-            List<Municipio> lista = uow.MunicipioBusinessLogic.Get().ToList();
-
-            orden = lista.Max(p => p.Orden);
-            orden++;
-            txtOrden.Value = orden.ToString();
+                        
         }
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
@@ -134,16 +128,29 @@ namespace SIP.Formas.Catalogos
             Municipio mun;
             List<Municipio> lista;
             string mensaje = "";
+            int orden;
 
             if (_Accion.Text == "Nuevo")
                 mun = new Municipio();
             else
                 mun = uow.MunicipioBusinessLogic.GetByID(int.Parse(_idMUN.Text));
-                
+
+
+
+
 
             mun.Clave = txtClave.Value;
             mun.Nombre = txtNombre.Value;
-            mun.Orden = int.Parse(txtOrden.Value);
+
+            if (_Accion.Text == "Nuevo") {
+                lista = uow.MunicipioBusinessLogic.Get().ToList();
+                orden = lista.Max(p => p.Orden);
+                orden++;
+
+                mun.Orden = orden;
+            }
+
+
 
 
             //Validaciones
@@ -158,13 +165,9 @@ namespace SIP.Formas.Catalogos
 
                 lista = uow.MunicipioBusinessLogic.Get(p => p.Nombre == mun.Nombre).ToList();
                 if (lista.Count > 0)
-                    uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
+                    uow.Errors.Add("El Nombre que capturo ya ha sido registrada anteriormente, verifique su información");
 
-
-                lista = uow.MunicipioBusinessLogic.Get(p => p.Orden == mun.Orden).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El número de orden que capturo ya ha sido registrada anteriormente, verifique su información");
-
+                
                 uow.MunicipioBusinessLogic.Insert(mun);
                 mensaje = "El nuevo municipio ha sido registrado correctamente";
 
@@ -186,15 +189,7 @@ namespace SIP.Formas.Catalogos
 
                 lista = uow.MunicipioBusinessLogic.Get(p => p.Id != xid && p.Nombre == mun.Nombre).ToList();
                 if (lista.Count > 0)
-                    uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
-
-
-                lista = uow.MunicipioBusinessLogic.Get(p => p.Id != xid && p.Orden == mun.Orden).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El número de orden que capturo ya ha sido registrada anteriormente, verifique su información");
-
-
-
+                    uow.Errors.Add("El Nombre que capturo ya ha sido registrada anteriormente, verifique su información");
 
                 uow.MunicipioBusinessLogic.Update(mun);
                 mensaje = "Los cambios se registraron satisfactoriamente";
@@ -213,8 +208,7 @@ namespace SIP.Formas.Catalogos
                 //ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_EjecutarMensaje('" + mensaje + "')", true);
                 txtClave.Value = string.Empty;
                 txtNombre.Value = string.Empty;
-                txtOrden.Value = string.Empty;
-
+                
                 BindGrid();
 
                 lblMensajeSuccess.Text = mensaje;
@@ -263,7 +257,6 @@ namespace SIP.Formas.Catalogos
         {
             txtClave.Value = UP.Clave;
             txtNombre.Value = UP.Nombre;
-            txtOrden.Value = UP.Orden.ToString();
             _idMUN.Text = UP.Id.ToString();
         }
        

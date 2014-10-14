@@ -1,50 +1,49 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catProgramas.aspx.cs" Inherits="SIP.Formas.Catalogos.catProgramas" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catPlanesSectoriales.aspx.cs" Inherits="SIP.Formas.Catalogos.catPlanesSectoriales" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <script type="text/javascript">
 
         $(document).ready(function () {
             $("#<%= txtDescripcion.ClientID %>").attr('maxlength', '100');
-    });
+        });
 
-    function fnc_Validar() {
+        function fnc_Validar() {
 
-        var desc = $("#<%= txtDescripcion.ClientID%>").val();
-              if (desc == null || desc.length == 0 || desc == undefined) {
-                  alert("El campo nombre no se puede registrar vacio");
-                  return false;
-              }
+            var desc = $("#<%= txtDescripcion.ClientID%>").val();
+        if (desc == null || desc.length == 0 || desc == undefined) {
+            alert("El campo nombre no se puede registrar vacio");
+            return false;
+        }
+        return true;
+    }
+
+    function fnc_limpiarCampos() {
+        $("#<%=  txtClave.ClientID%>").val("");
+              $("#<%=  txtDescripcion.ClientID%>").val("");
               return true;
           }
 
-          function fnc_limpiarCampos() {
-              $("#<%=  txtClave.ClientID%>").val("");
-              $("#<%=  txtDescripcion.ClientID%>").val("");
- 
-            return true;
+          function fnc_OcultarDivs(sender) {
+              $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
+            $("#<%= divEdicion.ClientID %>").css("display", "none");
+            $("#<%= divMsg.ClientID %>").css("display", "none");
+            $("#<%= divMsgSuccess.ClientID %>").css("display", "none");
+
+            $("#<%=  txtClave.ClientID%>").val("");
+            $("#<%=  txtDescripcion.ClientID%>").val("");
+
+            return false;
         }
 
-        function fnc_OcultarDivs(sender) {
-            $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
-              $("#<%= divEdicion.ClientID %>").css("display", "none");
-              $("#<%= divMsg.ClientID %>").css("display", "none");
-              $("#<%= divMsgSuccess.ClientID %>").css("display", "none");
-
-              $("#<%=  txtClave.ClientID%>").val("");
-              $("#<%=  txtDescripcion.ClientID%>").val("");
-
-              return false;
-          }
-
-          function fnc_Confirmar() {
-              return confirm("¿Está seguro de eliminar el registro?");
-          }
+        function fnc_Confirmar() {
+            return confirm("¿Está seguro de eliminar el registro?");
+        }
 
 
-          function fnc_EjecutarMensaje(mensaje) {
-              alert(mensaje);
-          }
+        function fnc_EjecutarMensaje(mensaje) {
+            alert(mensaje);
+        }
 
     </script>
 </asp:Content>
@@ -58,9 +57,10 @@
                 <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
     </div>
 
+    
     <div class="panel panel-success">
         <div class="panel-heading">
-            <h3 class="panel-title">Programas</h3>
+            <h3 class="panel-title">Planes Sectoriales</h3>
         </div>
 
         <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True" OnPageIndexChanging="grid_PageIndexChanging">
@@ -82,10 +82,8 @@
                         <ItemTemplate>
                             <asp:Label ID="Label1" runat="server" Text='<%# Bind("Clave") %>'></asp:Label>
                         </ItemTemplate>
-                        <ItemStyle  Width="100px"  />
+                    <ItemStyle  Width="100px"  />
                     </asp:TemplateField>
-
-
 
                     <asp:TemplateField HeaderText="Descripcion" SortExpression="Descripcion">
                         <EditItemTemplate>
@@ -95,7 +93,6 @@
                             <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    
 
                 </Columns>
                     
@@ -104,14 +101,17 @@
         </asp:GridView>
     </div>
 
+
     <div id="divBtnNuevo" runat="server">
         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClientClick="return fnc_limpiarCampos()" OnClick="btnNuevo_Click" AutoPostBack="false" />
     </div>
+
+
     <div class="row"> 
         <div id="divEdicion" runat="server" class="panel-footer">
 
 
-                <div class="panel panel-success">                
+                 <div class="panel panel-success">                
                     <div class="panel-heading">
                             <h3 class="panel-title">Indique los datos del registro</h3>
                     </div>
@@ -139,13 +139,15 @@
                     </div>
                 </div>
 
+
+                                
                     <div class="form-group">
                     <asp:Button  CssClass="btn btn-default" Text="Guardar" ID="btnCrear" runat="server" OnClick="btnCrear_Click" AutoPostBack="false" ValidationGroup="validateX" />
                     <asp:Button  CssClass="btn btn-default" Text="Cancelar" ID="btnCancelar" runat="server" OnClientClick="return fnc_OcultarDivs()" AutoPostBack="false" />
                 </div>
 
                 <div style="display:none" runat="server">
-                    <asp:TextBox ID="_idPROG" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
+                    <asp:TextBox ID="_ElId" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
                     <asp:TextBox ID="_Accion" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
                                     
                 </div>
@@ -154,4 +156,5 @@
 
             </div>
     </div>
+
 </asp:Content>

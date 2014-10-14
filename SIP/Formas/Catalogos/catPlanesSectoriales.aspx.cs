@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace SIP.Formas.Catalogos
 {
-    public partial class catGrupoBeneficiarios : System.Web.UI.Page
+    public partial class catPlanesSectoriales : System.Web.UI.Page
     {
         private UnitOfWork uow;
 
@@ -31,11 +31,9 @@ namespace SIP.Formas.Catalogos
 
         private void BindGrid()
         {
-            this.grid.DataSource = uow.GrupoBeneficiarioBusinessLogic.Get().ToList();
+            this.grid.DataSource = uow.PlanSectorialBusinessLogic.Get().ToList();
             this.grid.DataBind();
         }
-
-
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
@@ -45,8 +43,6 @@ namespace SIP.Formas.Catalogos
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             divMsgSuccess.Style.Add("display", "none");
-
-
         }
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
@@ -55,8 +51,8 @@ namespace SIP.Formas.Catalogos
             _ElId.Text = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
             _Accion.Text = "update";
 
-            GrupoBeneficiario beneficiario = uow.GrupoBeneficiarioBusinessLogic.GetByID(int.Parse(_ElId.Text));
-            BindCatalogo(beneficiario);
+            PlanSectorial ps = uow.PlanSectorialBusinessLogic.GetByID(int.Parse(_ElId.Text));
+            BindCatalogo(ps);
 
 
             divEdicion.Style.Add("display", "block");
@@ -70,13 +66,13 @@ namespace SIP.Formas.Catalogos
         {
             GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
             _ElId.Text = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
+            PlanSectorial ps = uow.PlanSectorialBusinessLogic.GetByID(int.Parse(_ElId.Text));
 
-            GrupoBeneficiario beneficiario = uow.GrupoBeneficiarioBusinessLogic.GetByID(int.Parse(_ElId.Text));
-            
+
 
             uow.Errors.Clear();
             List<POADetalle> lista;
-            lista = uow.POADetalleBusinessLogic.Get(p => p.GrupoBeneficiarioId == beneficiario.Id).ToList();
+            lista = uow.POADetalleBusinessLogic.Get(p => p.PlanSectorialId == ps.Id).ToList();
 
 
             if (lista.Count > 0)
@@ -86,7 +82,7 @@ namespace SIP.Formas.Catalogos
 
             if (uow.Errors.Count == 0)
             {
-                uow.GrupoBeneficiarioBusinessLogic.Delete(beneficiario);
+                uow.PlanSectorialBusinessLogic.Delete(ps);
                 uow.SaveChanges();
             }
 
@@ -119,52 +115,52 @@ namespace SIP.Formas.Catalogos
             }
         }
 
+
         protected void btnCrear_Click(object sender, EventArgs e)
         {
-            GrupoBeneficiario beneficiario;
-            List<GrupoBeneficiario> lista;
+            PlanSectorial ps;
+            List<PlanSectorial> lista;
             string mensaje = "";
             int orden;
 
             if (_Accion.Text == "Nuevo")
-                beneficiario = new GrupoBeneficiario();
+                ps = new PlanSectorial();
             else
-                beneficiario = uow.GrupoBeneficiarioBusinessLogic.GetByID(int.Parse(_ElId.Text));
+                ps = uow.PlanSectorialBusinessLogic.GetByID(int.Parse(_ElId.Text));
+
+            ps.Clave = txtClave.Value;
+            ps.Descripcion = txtDescripcion.Value;
 
 
-            beneficiario.Clave = txtClave.Value;
-            beneficiario.Nombre = txtNombre.Value;
-            
             if (_Accion.Text == "Nuevo")
             {
-                lista = uow.GrupoBeneficiarioBusinessLogic.Get().ToList();
+                lista = uow.PlanSectorialBusinessLogic.Get().ToList();
 
                 orden = lista.Max(p => p.Orden);
                 orden++;
-                beneficiario.Orden = orden;
+                ps.Orden = orden;
             }
+
+
             
+
 
             //Validaciones
             uow.Errors.Clear();
             if (_Accion.Text == "Nuevo")
             {
 
-                lista = uow.GrupoBeneficiarioBusinessLogic.Get(p => p.Clave == beneficiario.Clave).ToList();
+                lista = uow.PlanSectorialBusinessLogic.Get(p => p.Clave == ps.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
 
 
-                lista = uow.GrupoBeneficiarioBusinessLogic.Get(p => p.Nombre == beneficiario.Nombre).ToList();
+                lista = uow.PlanSectorialBusinessLogic.Get(p => p.Descripcion == ps.Descripcion).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
 
-
-                uow.GrupoBeneficiarioBusinessLogic.Insert(beneficiario);
-                mensaje = "El nuevo beneficiario ha sido registrado correctamente";
-
-
-
+                uow.PlanSectorialBusinessLogic.Insert(ps);
+                mensaje = "El nuevo plan sectorial ha sido registrado correctamente";
 
             }
             else//Update
@@ -174,16 +170,16 @@ namespace SIP.Formas.Catalogos
 
                 xid = int.Parse(_ElId.Text);
 
-                lista = uow.GrupoBeneficiarioBusinessLogic.Get(p => p.Id != xid && p.Clave == beneficiario.Clave).ToList();
+                lista = uow.PlanSectorialBusinessLogic.Get(p => p.Id != xid && p.Clave == ps.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
 
 
-                lista = uow.GrupoBeneficiarioBusinessLogic.Get(p => p.Id != xid && p.Nombre == beneficiario.Nombre).ToList();
+                lista = uow.PlanSectorialBusinessLogic.Get(p => p.Id != xid && p.Descripcion == ps.Descripcion).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
 
-                uow.GrupoBeneficiarioBusinessLogic.Update(beneficiario);
+                uow.PlanSectorialBusinessLogic.Update(ps);
                 mensaje = "Los cambios se registraron satisfactoriamente";
             }
 
@@ -199,7 +195,7 @@ namespace SIP.Formas.Catalogos
             {
                 //ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_EjecutarMensaje('" + mensaje + "')", true);
                 txtClave.Value = string.Empty;
-                txtNombre.Value = string.Empty;
+                txtDescripcion.Value = string.Empty;
 
                 BindGrid();
 
@@ -227,6 +223,13 @@ namespace SIP.Formas.Catalogos
             }
         }
 
+        public void BindCatalogo(PlanSectorial ps)
+        {
+            txtClave.Value = ps.Clave;
+            txtDescripcion.Value = ps.Descripcion;
+            _ElId.Text = ps.Id.ToString();
+        }
+
         protected void grid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             grid.PageIndex = e.NewPageIndex;
@@ -239,15 +242,7 @@ namespace SIP.Formas.Catalogos
             divMsgSuccess.Style.Add("display", "none");
         }
 
-
-        public void BindCatalogo(GrupoBeneficiario beneficiario)
-        {
-            txtClave.Value = beneficiario.Clave;
-            txtNombre.Value = beneficiario.Nombre;
-            _ElId.Text = beneficiario.Id.ToString();
-        }
-       
-
+        
 
     }
 }

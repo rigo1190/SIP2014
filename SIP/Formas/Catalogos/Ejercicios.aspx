@@ -23,7 +23,7 @@
                 <div class="panel panel-success">
 
                     <div class="panel-heading">
-                        <h3 class="panel-title">Catálogo de Ejercicios</h3>
+                        <h3 class="panel-title">Ejercicios</h3>
                     </div>
 
                     <div class="panel-body"> 
@@ -66,6 +66,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control input-sm required numeric" id="txtAnio" runat="server" style="text-align: left; width:500px; align-items:flex-start" />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAnio" ErrorMessage="El campo AÑO no puede quedar en blanco." ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtAnio" ErrorMessage="El campo AÑO debe estar en un rango de 2015-N" MaximumValue="2030" MinimumValue="2015" Type="Integer" ValidationGroup="validateX">*</asp:RangeValidator>
                                     </div>
                                 </div>
                                 <div class="row top-buffer">
@@ -77,8 +79,9 @@
                                     </div>
                                 </div>
                                  <div class="form-group">
-                                    <asp:Button  CssClass="btn btn-default" Text="Guardar" ID="btnCrear" runat="server" OnClick="btnCrear_Click" AutoPostBack="false" />
+                                    <asp:Button  CssClass="btn btn-default" Text="Guardar" ID="btnCrear" runat="server" OnClick="btnCrear_Click" AutoPostBack="false" ValidationGroup="validateX" />
                                     <asp:Button  CssClass="btn btn-default" Text="Cancelar" ID="btnCancelar" runat="server" OnClientClick="return fnc_OcultarDivs()" AutoPostBack="false" />
+                                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="validateX" />
                                 </div>
                             </div>
                         </div>

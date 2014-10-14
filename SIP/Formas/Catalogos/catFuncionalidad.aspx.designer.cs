@@ -10,7 +10,7 @@
 namespace SIP.Formas.Catalogos {
     
     
-    public partial class catAperturaProgramatica {
+    public partial class catFuncionalidad {
         
         /// <summary>
         /// contenedor control.

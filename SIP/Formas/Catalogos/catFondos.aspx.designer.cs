@@ -10,7 +10,7 @@
 namespace SIP.Formas.Catalogos {
     
     
-    public partial class catAperturaProgramatica {
+    public partial class catFondos {
         
         /// <summary>
         /// contenedor control.
@@ -130,13 +130,13 @@ namespace SIP.Formas.Catalogos {
         protected global::System.Web.UI.WebControls.TextBox txtClave;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// txtAbreviatura control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.TextBox txtAbreviatura;
         
         /// <summary>
         /// txtNombre control.
@@ -148,13 +148,13 @@ namespace SIP.Formas.Catalogos {
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
         
         /// <summary>
-        /// RequiredFieldValidator3 control.
+        /// txtOrden control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtOrden;
         
         /// <summary>
         /// divguardar control.
@@ -238,15 +238,6 @@ namespace SIP.Formas.Catalogos {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden _Tipo;
         
         /// <summary>
-        /// _Nivel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _Nivel;
-        
-        /// <summary>
         /// _ElId control.
         /// </summary>
         /// <remarks>
@@ -263,15 +254,6 @@ namespace SIP.Formas.Catalogos {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden _rutaNodoSeleccionado;
-        
-        /// <summary>
-        /// ValidationSummary1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
         
         /// <summary>
         /// btnDel control.

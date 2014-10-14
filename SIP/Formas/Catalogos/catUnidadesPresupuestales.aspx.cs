@@ -40,7 +40,6 @@ namespace SIP.Formas.Catalogos
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            int orden;
             _Accion.Text = "Nuevo";
 
             divEdicion.Style.Add("display", "block");
@@ -50,11 +49,8 @@ namespace SIP.Formas.Catalogos
 
 
 
-            List<UnidadPresupuestal> lista = uow.UnidadPresupuestalBusinessLogic.Get().ToList();
-
-            orden = lista.Max(p => p.Orden);
-            orden++;
-            txtOrden.Value = orden.ToString();
+            
+             
 
         }
 
@@ -119,6 +115,8 @@ namespace SIP.Formas.Catalogos
             {
                 string mensaje;
 
+                divEdicion.Style.Add("display","none");
+                divBtnNuevo.Style.Add("display", "block");
                 divMsg.Style.Add("display", "block");
                 divMsgSuccess.Style.Add("display", "none");
 
@@ -137,6 +135,7 @@ namespace SIP.Formas.Catalogos
             UnidadPresupuestal up;
             List<UnidadPresupuestal> lista;
             string mensaje="";
+            int orden;
                        
             if (_Accion.Text == "Nuevo")
                 up = new UnidadPresupuestal();
@@ -146,7 +145,16 @@ namespace SIP.Formas.Catalogos
             up.Clave = txtClave.Value;
             up.Abreviatura = txtAbreviatura.Value;
             up.Nombre = txtNombre.Value;
-            up.Orden = int.Parse(txtOrden.Value);
+            
+            if (_Accion.Text == "Nuevo")
+            {
+                lista = uow.UnidadPresupuestalBusinessLogic.Get().ToList();
+                orden = lista.Max(p => p.Orden);
+                orden++;
+
+                up.Orden = orden;
+            }
+            
 
 
             //Validaciones
@@ -165,10 +173,6 @@ namespace SIP.Formas.Catalogos
                 if (lista.Count > 0)
                     uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
 
-
-                lista = uow.UnidadPresupuestalBusinessLogic.Get(p => p.Orden == up.Orden).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El número de orden que capturo ya ha sido registrada anteriormente, verifique su información");
 
                 uow.UnidadPresupuestalBusinessLogic.Insert(up);
                 mensaje = "La nueva unidad presupuestal se ha almacenado correctamente";
@@ -197,13 +201,6 @@ namespace SIP.Formas.Catalogos
                     uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
 
 
-                lista = uow.UnidadPresupuestalBusinessLogic.Get(p => p.Id != xid && p.Orden == up.Orden).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El número de orden que capturo ya ha sido registrada anteriormente, verifique su información");
-                
-
-
-
                 uow.UnidadPresupuestalBusinessLogic.Update(up);
                 mensaje = "La unidad presupuestal se ha actualizado correctamente";
             }
@@ -222,8 +219,7 @@ namespace SIP.Formas.Catalogos
                 txtClave.Value = string.Empty;
                 txtAbreviatura.Value = string.Empty;
                 txtNombre.Value = string.Empty;
-                txtOrden.Value = string.Empty;
-
+                
                 BindDataGrid();
 
                 lblMensajeSuccess.Text = mensaje;
@@ -263,8 +259,7 @@ namespace SIP.Formas.Catalogos
             txtClave.Value = UP.Clave;
             txtAbreviatura.Value = UP.Abreviatura;
             txtNombre.Value = UP.Nombre;
-            txtOrden.Value = UP.Orden.ToString();
-            _idUP.Text = UP.Id.ToString();
+           _idUP.Text = UP.Id.ToString();
         }
 
         protected void grid_PageIndexChanging(object sender, GridViewPageEventArgs e)

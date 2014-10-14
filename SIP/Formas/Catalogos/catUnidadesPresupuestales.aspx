@@ -21,7 +21,6 @@
               $("#<%=  txtClave.ClientID%>").val("");
               $("#<%=  txtAbreviatura.ClientID%>").val("");
               $("#<%=  txtNombre.ClientID%>").val("");
-              $("#<%=  txtOrden.ClientID%>").val("");
               return true;
           }
 
@@ -34,10 +33,6 @@
             $("#<%=  txtClave.ClientID%>").val("");
             $("#<%=  txtAbreviatura.ClientID%>").val("");
             $("#<%=  txtNombre.ClientID%>").val("");
-            $("#<%=  txtOrden.ClientID%>").val("");
-
-
-
 
             return false;
         }
@@ -58,9 +53,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="panel-heading">
-            <h3 class="panel-title">Unidades Presupuestales</h3>
-    </div>
     
     <div class="panel-footer alert alert-success" id="divMsgSuccess" style="display:none" runat="server">
                 <asp:Label ID="lblMensajeSuccess" runat="server" Text=""></asp:Label>
@@ -71,8 +63,13 @@
 
 
 
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Unidades Presupuestales</h3>
+        </div>
 
-    <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True" OnPageIndexChanging="grid_PageIndexChanging"
+
+        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True" OnPageIndexChanging="grid_PageIndexChanging"
         >
                 <Columns>
                         <asp:TemplateField HeaderText="Acciones">
@@ -92,6 +89,7 @@
                         <ItemTemplate>
                             <asp:Label ID="Label1" runat="server" Text='<%# Bind("Clave") %>'></asp:Label>
                         </ItemTemplate>
+                        <ItemStyle  Width="100px"  />
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Abreviatura" SortExpression="Abreviatura">
@@ -101,6 +99,7 @@
                         <ItemTemplate>
                             <asp:Label ID="labelAbreviatura" runat="server" Text='<%# Bind("Abreviatura") %>'></asp:Label>
                         </ItemTemplate>
+                        <ItemStyle  Width="100px"  />
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Nombre" SortExpression="Nombre">
@@ -112,15 +111,6 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="Orden" SortExpression="Orden">
-                        <EditItemTemplate>
-                            <asp:TextBox CssClass="input-sm" ID="txtOrden" runat="server" Text='<%# Bind("Orden") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="labelOrden" runat="server" Text='<%# Bind("Orden") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
 
                 </Columns>
                     
@@ -128,12 +118,21 @@
                     
         </asp:GridView>
 
+    </div>
+
     <div id="divBtnNuevo" runat="server">
         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClientClick="return fnc_limpiarCampos()" OnClick="btnNuevo_Click" AutoPostBack="false" />
     </div>
 
     <div class="row"> 
         <div id="divEdicion" runat="server" class="panel-footer">
+
+                <div class="panel panel-success">                
+                    <div class="panel-heading">
+                            <h3 class="panel-title">Indique los datos del registro</h3>
+                    </div>
+                </div>
+
                 <div class="row top-buffer">
                     <div class="col-md-2">
                         <label for="Clave">Clave</label>
@@ -165,16 +164,7 @@
                     </div>
                 </div>
 
-                <div class="row top-buffer">
-                    <div class="col-md-2">
-                        <label for="Orden">Orden</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" class="input-sm required" id="txtOrden" runat="server" style="text-align: left; align-items:flex-start" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtOrden" ErrorMessage="El campo orden es obligatorio" ValidationGroup="validateUP">*</asp:RequiredFieldValidator>
-                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtOrden" ErrorMessage="El orden es un campo númerico" MaximumValue="255" MinimumValue="1" Type="Integer" ValidationGroup="validateUP">*</asp:RangeValidator>
-                    </div>
-                </div>
+
 
                                 
                     <div class="form-group">

@@ -6,20 +6,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 
 namespace SIP.Formas.Catalogos
 {
-    public partial class catAperturaProgramatica : System.Web.UI.Page
+    public partial class catFuncionalidad : System.Web.UI.Page
     {
         private UnitOfWork uow;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork();
-                       
 
-            if (!IsPostBack) {
+            if (!IsPostBack)
+            {
                 CargarArbol();
 
                 divcaptura.Style.Add("display", "none");
@@ -32,47 +34,39 @@ namespace SIP.Formas.Catalogos
                     treeMain.Nodes[0].Select();
                     treeMain.ExpandAll();
                 }
-                
-
-
             }
-
-
         }
 
 
-
-
-
         #region Eventos
+
         protected void treeMain_SelectedNodeChanged(object sender, EventArgs e)
         {
             BindControles(treeMain.SelectedNode);
             divMsg.Style.Add("display", "none");
         }
 
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            AperturaProgramatica obj;
-            AperturaProgramatica objOrigen;
+            Funcionalidad obj;
+            Funcionalidad objOrigen;
 
-            List<AperturaProgramatica> lista;
+            List<Funcionalidad> lista;
             String mensaje = "";
             int orden;
 
             if (_Accion.Value == "Nuevo")
-                obj = new AperturaProgramatica();
+                obj = new Funcionalidad();
             else
-                obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
+                obj = uow.FuncionalidadBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
 
-            obj.EjercicioId = 6;
+
             obj.Clave = txtClave.Text;
-            obj.Nombre = txtNombre.Text;
+            obj.Descripcion = txtNombre.Text;
+            
 
-
-            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
+            lista = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == null).ToList();
 
 
             if (_ElId.Value == "")
@@ -81,46 +75,40 @@ namespace SIP.Formas.Catalogos
                 obj.Nivel = 1;
                 obj.Orden = 1;
 
-            }
-            else
+            }else
             {
 
-
+            
                 if (_Accion.Value == "Nuevo")
                 {
-                    objOrigen = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
+                    objOrigen = uow.FuncionalidadBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
-                    if (objOrigen.ParentId == null)
-                    { //estoy en la primera rama
+                    if (objOrigen.ParentId == null) { //estoy en la primera rama
 
-                        if (_Tipo.Value == "Grupo")
-                        {//agregando un registro del mismo nivel
+                        if (_Tipo.Value == "Grupo"){//agregando un registro del mismo nivel
                             obj.ParentId = null;
                             obj.Nivel = 1;
 
-                            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
+                            lista = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == null).ToList();
 
                         }
-                        else
-                        {//agregando un subnivel
+                        else {//agregando un subnivel
 
                             obj.ParentId = objOrigen.Id;
                             obj.Nivel = 2;
 
-                            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.Id).ToList();
+                            lista = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == objOrigen.Id).ToList();
                         }
 
 
-                    }
-                    else
-                    {// estoy en una segunda o tercera rama
-
+                    } else {// estoy en una segunda o tercera rama
+                    
                         if (_Tipo.Value == "Grupo")
                         {//agregando un registro del mismo nivel
                             obj.ParentId = objOrigen.ParentId;
                             obj.Nivel = objOrigen.Nivel;
 
-                            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.ParentId).ToList();
+                            lista = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == objOrigen.ParentId).ToList();
                         }
                         else
                         {//agregando un subnivel
@@ -130,7 +118,7 @@ namespace SIP.Formas.Catalogos
                                 obj.ParentId = objOrigen.Id;
                                 obj.Nivel = 3;
 
-                                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.Id).ToList();
+                                lista = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == objOrigen.Id).ToList();
                             }
 
                             if (_Nivel.Value == "3")
@@ -138,7 +126,7 @@ namespace SIP.Formas.Catalogos
                                 obj.ParentId = objOrigen.ParentId;
                                 obj.Nivel = 3;
 
-                                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.ParentId).ToList();
+                                lista = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == objOrigen.ParentId).ToList();
                             }
 
                         }
@@ -147,11 +135,11 @@ namespace SIP.Formas.Catalogos
                     }
 
                     if (lista.Count == 0)
-                        orden = 0;
+                        orden = 0;                    
                     else
                         orden = lista.Max(p => p.Orden);
-
-
+                    
+                    
                     orden++;
                     obj.Orden = orden;
 
@@ -168,17 +156,17 @@ namespace SIP.Formas.Catalogos
 
             if (_Accion.Value == "Nuevo")
             {
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Clave == obj.Clave).ToList();
+                lista = uow.FuncionalidadBusinessLogic.Get(p => p.Clave == obj.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
-
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Nombre == obj.Nombre).ToList();
+                
+                lista = uow.FuncionalidadBusinessLogic.Get(p => p.Descripcion == obj.Descripcion).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
-
-                uow.AperturaProgramaticaBusinessLogic.Insert(obj);
+                
+                uow.FuncionalidadBusinessLogic.Insert(obj);
                 mensaje = "El registro se ha  almacenado correctamente";
-
+                
             }
             else
             { //update
@@ -187,18 +175,17 @@ namespace SIP.Formas.Catalogos
 
                 xid = int.Parse(_ElId.Value);
 
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Id != xid && p.Clave == obj.Clave).ToList();
+                lista = uow.FuncionalidadBusinessLogic.Get(p => p.Id != xid && p.Clave == obj.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
 
 
 
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Id != xid && p.Nombre == obj.Nombre).ToList();
+                lista = uow.FuncionalidadBusinessLogic.Get(p => p.Id != xid && p.Descripcion == obj.Descripcion).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
 
-
-                uow.AperturaProgramaticaBusinessLogic.Update(obj);
+                uow.FuncionalidadBusinessLogic.Update(obj);
                 mensaje = "Los cambios se registraron satisfactoriamente";
 
             }
@@ -220,23 +207,23 @@ namespace SIP.Formas.Catalogos
                         {
                             node = new TreeNode();
                             node.Value = obj.Id.ToString();
-                            node.Text = obj.Clave + " " + obj.Nombre;
+                            node.Text = obj.Clave + " " + obj.Descripcion;
                             treeMain.Nodes.Add(node);
                         }
                         else
                         {
-                            objOrigen = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
-
+                            objOrigen = uow.FuncionalidadBusinessLogic.GetByID(int.Parse(_ElId.Value));
+                            
                             node = new TreeNode();
                             node.Value = obj.Id.ToString();
-                            node.Text = obj.Clave + " " + obj.Nombre;
-
+                            node.Text = obj.Clave + " " + obj.Descripcion;
+                            
                             if (_Tipo.Value == "Grupo")//registro
-                            {
+                            {                            
                                 if (objOrigen.Nivel == 1)
                                     treeMain.Nodes.Add(node);
                                 else
-                                    treeMain.SelectedNode.Parent.ChildNodes.Add(node);
+                                    treeMain.SelectedNode.Parent.ChildNodes.Add(node);                            
                             }
                             else//Subnivel
                             {
@@ -259,12 +246,12 @@ namespace SIP.Formas.Catalogos
                         node = treeMain.FindNode(_rutaNodoSeleccionado.Value);
 
                         node.Value = obj.Id.ToString();
-                        node.Text = obj.Clave + " " + obj.Nombre;
+                        node.Text = obj.Clave + " " + obj.Descripcion;
                         BindControles(node);
 
                         break;
                 }
-
+                
                 //Se ocultan los botones de GUARDAR Y CANCELAR del menu y Normalizar pantallas de datos y captura
                 divcaptura.Style.Add("display", "none");
                 divArbol.Style.Add("display", "block");
@@ -323,8 +310,12 @@ namespace SIP.Formas.Catalogos
             }
         }
 
+
+
+
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
+
             if (_ElId.Value == "")
             {
                 txtClave.Text = "";
@@ -332,13 +323,13 @@ namespace SIP.Formas.Catalogos
                 return;
             }
 
-            AperturaProgramatica obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
+            Funcionalidad obj = uow.FuncionalidadBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
             if (obj != null)
             {
                 txtClave.Text = obj.Clave;
-                txtNombre.Text = obj.Nombre;
-
+                txtNombre.Text = obj.Descripcion;
+                
                 //Se busca el nodo del arbol de fondos para colocarlo como seleccionado
                 treeMain.FindNode(_rutaNodoSeleccionado.Value).Select();
             }
@@ -352,21 +343,23 @@ namespace SIP.Formas.Catalogos
 
         protected void btnDel_Click(object sender, EventArgs e)
         {
+
             if (_ElId.Value == "")
                 return;
-            AperturaProgramatica obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
+
+            Funcionalidad obj = uow.FuncionalidadBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
 
 
             uow.Errors.Clear();
             List<POADetalle> lista;
-            lista = uow.POADetalleBusinessLogic.Get(p => p.AperturaProgramaticaId == obj.Id).ToList();
+            lista = uow.POADetalleBusinessLogic.Get(p => p.FuncionalidadId == obj.Id).ToList();
 
             List<Obra> listaObra;
-            listaObra = uow.ObraBusinessLogic.Get(p => p.AperturaProgramaticaId == obj.Id).ToList();
+            listaObra = uow.ObraBusinessLogic.Get(p => p.FuncionalidadId == obj.Id).ToList();
 
-            List<AperturaProgramatica> listaParent;
-            listaParent = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == obj.Id).ToList();
+            List<Funcionalidad> listaParent;
+            listaParent = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == obj.Id).ToList();
 
 
             if (lista.Count > 0)
@@ -381,7 +374,7 @@ namespace SIP.Formas.Catalogos
             //Se elimina el objeto
             if (uow.Errors.Count == 0)
             {
-                uow.AperturaProgramaticaBusinessLogic.Delete(obj);
+                uow.FuncionalidadBusinessLogic.Delete(obj);
                 uow.SaveChanges();
             }
 
@@ -433,13 +426,13 @@ namespace SIP.Formas.Catalogos
             }
 
 
-            List<AperturaProgramatica> lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
+            List<Funcionalidad> lista = uow.FuncionalidadBusinessLogic.Get(p => p.ParentId == null).ToList();
 
-            foreach (AperturaProgramatica obj in lista)
+            foreach (Funcionalidad obj in lista)
             {
                 //Se crea el nodo padre
                 TreeNode nodeNew = new TreeNode();
-                nodeNew.Text = obj.Clave + " " + obj.Nombre;
+                nodeNew.Text = obj.Clave + " " + obj.Descripcion;
                 nodeNew.Value = obj.Id.ToString();
 
                 treeMain.Nodes.Add(nodeNew);
@@ -454,13 +447,13 @@ namespace SIP.Formas.Catalogos
 
         }
 
-        private void GenerarRamas(TreeNode nodeParent, List<AperturaProgramatica> lista)
+        private void GenerarRamas(TreeNode nodeParent, List<Funcionalidad> lista)
         {
-            foreach (AperturaProgramatica obj in lista)
+            foreach (Funcionalidad obj in lista)
             {
                 //Se crea el nodo hijo
                 TreeNode nodeChild = new TreeNode();
-                nodeChild.Text = obj.Clave + " " + obj.Nombre;
+                nodeChild.Text = obj.Clave + " " + obj.Descripcion;
                 nodeChild.Value = obj.Id.ToString();
                 nodeChild.Collapse();
 
@@ -474,16 +467,16 @@ namespace SIP.Formas.Catalogos
 
         private void BindControles(TreeNode node)
         {
-            AperturaProgramatica obj = null;
-
+            Funcionalidad obj = null;
+            
 
             if (node != null)
             {
-                obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(node.Value));
+                obj = uow.FuncionalidadBusinessLogic.GetByID(int.Parse(node.Value));
 
                 txtClave.Text = obj.Clave;
-                txtNombre.Text = obj.Nombre;
-
+                txtNombre.Text = obj.Descripcion;
+                
                 _ElId.Value = obj.Id.ToString();
                 _Nivel.Value = obj.Nivel.ToString();
                 _rutaNodoSeleccionado.Value = node.ValuePath;
@@ -494,7 +487,7 @@ namespace SIP.Formas.Catalogos
             {
                 txtClave.Text = string.Empty;
                 txtNombre.Text = string.Empty;
-
+                 
                 _ElId.Value = string.Empty;
                 _Nivel.Value = string.Empty;
                 _rutaNodoSeleccionado.Value = string.Empty;
@@ -509,15 +502,13 @@ namespace SIP.Formas.Catalogos
 
         #endregion
 
-        
+
 
         
 
         
 
         
-
-       
 
     }
 }

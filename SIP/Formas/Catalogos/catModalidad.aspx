@@ -1,124 +1,124 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catAperturaProgramatica.aspx.cs" Inherits="SIP.Formas.Catalogos.catAperturaProgramatica" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catModalidad.aspx.cs" Inherits="SIP.Formas.Catalogos.catModalidad" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
-  <script type="text/javascript">
-      var id = 0;
-      $(document).ready(function () {
-          try {
-              //
-              $("#<%= contenedor.ClientID %>").bind("contextmenu", function (e) {
-                  e.preventDefault();
-                  $("#custom-menu").css({ top: e.pageY + "px", left: e.pageX + "px" }).show(100);
-              });
-
-              $("#<%= contenedor.ClientID %>").mouseup(function (e) {
-                  var container = $("#custom-menu");
-                  if (container.has(e.target).length == 0) {
-                      container.hide();
-                  }
-              });
-
-              $(document).bind(function () {
-                  $(document).bind("contextmenu", function (e) {
-                      return false;
-                  });
-              });
-
-              $(document).mouseup(function (e) {
-                  var container = $("#custom-menu");
-                  if (container.has(e.target).length == 0) {
-                      container.hide();
-                  }
-              });
-
-              //Se ejecuta el evento de las opciones del menu contextual
-              $('.evento').click(function () {
-                  var control = $(this).attr("id");
-                  $("#<%=  treeMain.ClientID %>").attr("disabled", true)
-                    fnc_ClickMenu(control);
+    
+    <script type="text/javascript">
+        var id = 0;
+        $(document).ready(function () {
+            try {
+                //
+                $("#<%= contenedor.ClientID %>").bind("contextmenu", function (e) {
+                    e.preventDefault();
+                    $("#custom-menu").css({ top: e.pageY + "px", left: e.pageX + "px" }).show(100);
                 });
-            }
-          catch (err) {
-              alert(err);
-          }
 
-      });
+                $("#<%= contenedor.ClientID %>").mouseup(function (e) {
+                    var container = $("#custom-menu");
+                    if (container.has(e.target).length == 0) {
+                        container.hide();
+                    }
+                });
 
-        //Funcion que evita que se "RESCROLEE" el arbol al seleccionar un NODO
-        function SetSelectedTreeNodeVisible(controlID, boolHayPlantillas) {
+                $(document).bind(function () {
+                    $(document).bind("contextmenu", function (e) {
+                        return false;
+                    });
+                });
 
-            var elem = document.getElementById("<%=  treeMain.ClientID%>" + "_SelectedNode");
-            if (elem != null) {
-                var node = document.getElementById(elem.value);
-                if (node != null) {
-                    node.scrollIntoView(true);
-                    $("#<%= divArbol.ClientID %>").scrollLeft = 0;
-                }
-            }
+                $(document).mouseup(function (e) {
+                    var container = $("#custom-menu");
+                    if (container.has(e.target).length == 0) {
+                        container.hide();
+                    }
+                });
 
-            fnc_CargaInicial();
+                //Se ejecuta el evento de las opciones del menu contextual
+                $('.evento').click(function () {
+                    var control = $(this).attr("id");
+                    $("#<%=  treeMain.ClientID %>").attr("disabled", true)
+                fnc_ClickMenu(control);
+            });
         }
+            catch (err) {
+                alert(err);
+            }
 
-        function fnc_CargaInicial() {
+        });
 
-            nodes = document.getElementById("<%= txtNombre.ClientID%>").childNodes;
+    //Funcion que evita que se "RESCROLEE" el arbol al seleccionar un NODO
+    function SetSelectedTreeNodeVisible(controlID, boolHayPlantillas) {
 
-        if (nodes.length == 0) {
-            $("#<%= addsp.ClientID %>").attr("disabled", true);
-            $("#<%= edit.ClientID %>").attr("disabled", true);
-            $("#<%= btnDel.ClientID %>").attr("disabled", true);
-            $("#btnBorrar").attr("disabled", true);
-
-        }
-
-    }
-
-
-    //funcion que permite habiltar o inhabilitar las opciones del menu contextual
-    //de acuerdo al parametro recibido boolhabilitar
-    //Creado por Rigoberto TS
-    //22/09/2014
-    function fnc_HabilitarInHabilitarOpciones(boolHabilitar) {
-
-        var blockNone;
-
-        if (boolHabilitar) {
-            blockNone = "block";
-            $("#<%= divArbol.ClientID %>").css("display", "none")
+        var elem = document.getElementById("<%=  treeMain.ClientID%>" + "_SelectedNode");
+        if (elem != null) {
+            var node = document.getElementById(elem.value);
+            if (node != null) {
+                node.scrollIntoView(true);
+                $("#<%= divArbol.ClientID %>").scrollLeft = 0;
+                 }
              }
-             else {
-                 blockNone = "none";
-                 $("#<%= divArbol.ClientID %>").css("display", "block")
+
+             fnc_CargaInicial();
+         }
+
+         function fnc_CargaInicial() {
+
+             nodes = document.getElementById("<%= txtNombre.ClientID%>").childNodes;
+
+            if (nodes.length == 0) {
+                $("#<%= addsp.ClientID %>").attr("disabled", true);
+                $("#<%= edit.ClientID %>").attr("disabled", true);
+                $("#<%= btnDel.ClientID %>").attr("disabled", true);
+                $("#btnBorrar").attr("disabled", true);
+
             }
-
-
-            $("#<%= divcaptura.ClientID %>").css("display", blockNone)
-             $("#<%= btnMenuCancelar.ClientID%>").css("display", blockNone);
-             $("#<%= btnMenuGuardar.ClientID%>").css("display", blockNone);
-
-
-             $("#<%= addp.ClientID %>").attr("disabled", boolHabilitar);
-             $("#<%= addsp.ClientID %>").attr("disabled", boolHabilitar);
-             $("#<%= btnDel.ClientID %>").attr("disabled", boolHabilitar);
-             $("#btnBorrar").attr("disabled", boolHabilitar);
-
-             $("#<%= edit.ClientID %>").attr("disabled", boolHabilitar)
-
-
-
-            $("#custom-menu").hide();
 
         }
 
 
+        //funcion que permite habiltar o inhabilitar las opciones del menu contextual
+        //de acuerdo al parametro recibido boolhabilitar
+        //Creado por Rigoberto TS
+        //22/09/2014
+        function fnc_HabilitarInHabilitarOpciones(boolHabilitar) {
+
+            var blockNone;
+
+            if (boolHabilitar) {
+                blockNone = "block";
+                $("#<%= divArbol.ClientID %>").css("display", "none")
+            }
+            else {
+                blockNone = "none";
+                $("#<%= divArbol.ClientID %>").css("display", "block")
+             }
+
+
+             $("#<%= divcaptura.ClientID %>").css("display", blockNone)
+            $("#<%= btnMenuCancelar.ClientID%>").css("display", blockNone);
+            $("#<%= btnMenuGuardar.ClientID%>").css("display", blockNone);
+
+
+            $("#<%= addp.ClientID %>").attr("disabled", boolHabilitar);
+            $("#<%= addsp.ClientID %>").attr("disabled", boolHabilitar);
+            $("#<%= btnDel.ClientID %>").attr("disabled", boolHabilitar);
+            $("#btnBorrar").attr("disabled", boolHabilitar);
+
+            $("#<%= edit.ClientID %>").attr("disabled", boolHabilitar)
 
 
 
-        function fnc_LimpiarCampos() {
-            $("#<%= txtClave.ClientID%>").val("");
+             $("#custom-menu").hide();
+
+         }
+
+
+
+
+
+         function fnc_LimpiarCampos() {
+             $("#<%= txtClave.ClientID%>").val("");
             $("#<%= txtNombre.ClientID%>").val("");
-
         }
 
 
@@ -130,38 +130,38 @@
 
                 case "<%= addp.ClientID %>": //AGREGAR Nivel 1
 
-                    $("#<%= _Accion.ClientID%>").val("Nuevo");
-                    $("#<%= _Tipo.ClientID%>").val("Grupo");
+                     $("#<%= _Accion.ClientID%>").val("Nuevo");
+                     $("#<%= _Tipo.ClientID%>").val("Grupo");
 
-                    $("#<%= SpanGrupo.ClientID %>").css("display", "block")
-                    $("#<%= SpanFondo.ClientID %>").css("display", "none")
-                    $("#<%= SpanModificar.ClientID %>").css("display", "none")
-                    break;
+                     $("#<%= SpanGrupo.ClientID %>").css("display", "block")
+                     $("#<%= SpanFondo.ClientID %>").css("display", "none")
+                     $("#<%= SpanModificar.ClientID %>").css("display", "none")
+                     break;
 
-                case "<%= addsp.ClientID %>": //AGREGAR SubNivel
+                 case "<%= addsp.ClientID %>": //AGREGAR SubNivel
 
-                    var idPadre = parseInt($("#<%= _ElId.ClientID%>").val());
+                     var idPadre = parseInt($("#<%= _ElId.ClientID%>").val());
 
                      if (idPadre != 0) {
                          $("#<%= _Accion.ClientID%>").val("Nuevo");
-                        $("#<%= _Tipo.ClientID%>").val("Fondo");
+                         $("#<%= _Tipo.ClientID%>").val("Fondo");
 
-                        $("#<%= SpanGrupo.ClientID %>").css("display", "none")
-                        $("#<%= SpanFondo.ClientID %>").css("display", "block")
-                        $("#<%= SpanModificar.ClientID %>").css("display", "none")
-                    } else {
-                        procede = false;
-                    }
+                         $("#<%= SpanGrupo.ClientID %>").css("display", "none")
+                         $("#<%= SpanFondo.ClientID %>").css("display", "block")
+                         $("#<%= SpanModificar.ClientID %>").css("display", "none")
+                     } else {
+                         procede = false;
+                     }
 
-                    break;
+                     break;
 
-                case "<%= edit.ClientID %>": //EDITAR UN REGISTRO
+                 case "<%= edit.ClientID %>": //EDITAR UN REGISTRO
 
-                    $("#<%= _Accion.ClientID%>").val("Modificar");
+                     $("#<%= _Accion.ClientID%>").val("Modificar");
                      limpiar = false;
 
                      $("#<%= SpanGrupo.ClientID %>").css("display", "none")
-                     $("#<%= SpanFondo.ClientID %>").css("display", "none")
+                    $("#<%= SpanFondo.ClientID %>").css("display", "none")
                      $("#<%= SpanModificar.ClientID %>").css("display", "block")
 
                      break;
@@ -197,27 +197,25 @@
          function fnc_Validar() {
 
              var desc = $("#<%= txtClave.ClientID%>").val();
-             if (desc == null || desc.length == 0 || desc == undefined) {
-                 $("#custom-menu").hide(); //Se oculta el menu contextual 
-                 $("#msgContenido").text("El campo CLAVE no puede ir vacío"); //Se cambia el mensaje del dialogo modal de confirmacion
-                 $("#myModal").modal('show') //Se muestra el modal
-                 return false;
-             }
+            if (desc == null || desc.length == 0 || desc == undefined) {
+                $("#custom-menu").hide(); //Se oculta el menu contextual 
+                $("#msgContenido").text("El campo CLAVE no puede ir vacío"); //Se cambia el mensaje del dialogo modal de confirmacion
+                $("#myModal").modal('show') //Se muestra el modal
+                return false;
+            }
 
 
 
-             desc = $("#<%= txtNombre.ClientID%>").val();
-             if (desc == null || desc.length == 0 || desc == undefined) {
-                 $("#custom-menu").hide(); //Se oculta el menu contextual 
-                 $("#msgContenido").text("El campo NOMBRE no puede ir vacío"); //Se cambia el mensaje del dialogo modal de confirmacion
-                 $("#myModal").modal('show') //Se muestra el modal
-                 return false;
-             }
+            desc = $("#<%= txtNombre.ClientID%>").val();
+            if (desc == null || desc.length == 0 || desc == undefined) {
+                $("#custom-menu").hide(); //Se oculta el menu contextual 
+                $("#msgContenido").text("El campo NOMBRE no puede ir vacío"); //Se cambia el mensaje del dialogo modal de confirmacion
+                $("#myModal").modal('show') //Se muestra el modal
+                return false;
+            }
 
-
-
-             return true;
-         }
+            return true;
+        }
 
 
 
@@ -290,20 +288,21 @@
         color: White;
         }
 </style>
+
 </asp:Content>
 
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<div id="contenedor" runat="server" class="container">
+
+    <div id="contenedor" runat="server" class="container">
         
         <div class="row"> 
             <div id="divDatos" >
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Apertura Programática</h3>
+                        <h3 class="panel-title">Clasificación Programática CONAC</h3>
                     </div>
-                    <div class="panel-body" id="divArbol" style="height:350px; overflow:scroll" runat="server"> 
+                    <div class="panel-body" id="divArbol" style="height:250px; overflow:scroll" runat="server"> 
                         <asp:TreeView runat="server" SelectedNodeStyle-ForeColor="Black" AutoPostBack="false" ID="treeMain"  ShowLines="True"  NodeIndent="25"  AutoGenerateDataBindings="False" Width="117px" OnSelectedNodeChanged="treeMain_SelectedNodeChanged">
                             <ParentNodeStyle Font-Bold="true" />  
                             <SelectedNodeStyle Font-Bold="true" BackColor="LightGray" ForeColor="Green" />  
@@ -311,11 +310,11 @@
                          <div id="custom-menu">
                                 <ol>
                                     <li>
-                                        <asp:Button ID="addp" Width="160px" AutoPostBack="false" CssClass="btn btn-default evento" OnClientClick="return false"  runat="server" Text="Agregar Registro" /> 
+                                        <asp:Button ID="addp" Width="160px" AutoPostBack="false" CssClass="btn btn-default evento" OnClientClick="return false"  runat="server" Text="Agregar Grupo" /> 
 
                                     </li>
                                     <li>
-                                        <asp:Button ID="addsp" Width="160px" AutoPostBack="false" CssClass="btn btn-default evento" OnClientClick="return false"  runat="server" Text="Agregar SubNivel" /> 
+                                        <asp:Button ID="addsp" Width="160px" AutoPostBack="false" CssClass="btn btn-default evento" OnClientClick="return false"  runat="server" Text="Agregar Registro" /> 
                                     </li>
                                     
                                     <li class="list-devider">
@@ -356,8 +355,8 @@
 
                 
                     <span runat="server" id="SpanModificar" class="label label-primary">Modificando ...</span>
-                    <span runat="server" id="SpanGrupo" class="label label-primary">Agregando Registro ...</span>
-                    <span runat="server" id="SpanFondo" class="label label-primary">Agregando Subnivel ...</span>
+                    <span runat="server" id="SpanGrupo" class="label label-primary">Agregando Grupo ...</span>
+                    <span runat="server" id="SpanFondo" class="label label-primary">Agregando Registro ...</span>
 
                      
 
@@ -384,12 +383,11 @@
                         </div>
                     </div>
 
-                
-
+               
 
 
                 <div class="form-group" id="divguardar" runat="server">
-                    <asp:Button  CssClass="btn btn-default" Text="Guardar" Id="btnGuardar" runat="server"  OnClick="btnGuardar_Click" AutoPostBack="false" ValidationGroup="validateX" />
+                    <asp:Button  CssClass="btn btn-default" Text="Guardar" Id="btnGuardar" runat="server"   OnClick="btnGuardar_Click" AutoPostBack="false" ValidationGroup="validateX" />
                     <asp:Button  CssClass="btn btn-default" Text="Cancelar" Id="btnCancelar" runat="server" OnClientClick="fnc_habilitarinhabilitaropciones(false)" OnClick ="btnCancelar_Click" AutoPostBack="false" />
                 </div>
                 
@@ -410,14 +408,13 @@
         <div runat="server" style="display:none">
             <input type="hidden" runat="server" id="_Accion" />
             <input type="hidden" runat="server" id="_Tipo" />
-            <input type="hidden" runat="server" id="_Nivel" />
+            
             <input type="hidden" runat="server" id="_ElId" />
             <input type="hidden" runat="server" id="_rutaNodoSeleccionado" />            
         </div>
 
         <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="validateX" ViewStateMode="Disabled" />
     </div>
-
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
       <div class="modal-dialog modal-sm">
@@ -440,3 +437,4 @@
 
 
 </asp:Content>
+

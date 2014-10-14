@@ -38,19 +38,13 @@ namespace SIP.Formas.Catalogos
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            int orden;
             _Accion.Text = "Nuevo";
 
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             divMsgSuccess.Style.Add("display", "none");
-
-            List<Programa> lista = uow.ProgramaBusinessLogic.Get().ToList();
-
-            orden = lista.Max(p => p.Orden);
-            orden++;
-            txtOrden.Value = orden.ToString();
+                        
         }
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
@@ -129,6 +123,7 @@ namespace SIP.Formas.Catalogos
             Programa prog;
             List<Programa> lista;
             string mensaje = "";
+            int orden;
 
             if (_Accion.Text == "Nuevo")
                 prog = new Programa();
@@ -137,8 +132,16 @@ namespace SIP.Formas.Catalogos
 
             prog.Clave = txtClave.Value;
             prog.Descripcion = txtDescripcion.Value; 
-            prog.Orden = int.Parse(txtOrden.Value);
+            
+            if (_Accion.Text == "Nuevo")
+            {
+                lista = uow.ProgramaBusinessLogic.Get().ToList();
 
+                orden = lista.Max(p => p.Orden);
+                orden++;
+                prog.Orden = orden;
+            }
+            
 
             //Validaciones
             uow.Errors.Clear();
@@ -153,11 +156,6 @@ namespace SIP.Formas.Catalogos
                 lista = uow.ProgramaBusinessLogic.Get(p => p.Descripcion == prog.Descripcion).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
-
-
-                lista = uow.ProgramaBusinessLogic.Get(p => p.Orden == prog.Orden).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El número de orden que capturo ya ha sido registrada anteriormente, verifique su información");
 
                 uow.ProgramaBusinessLogic.Insert(prog);
                 mensaje = "El nuevo programa ha sido registrado correctamente";
@@ -179,14 +177,6 @@ namespace SIP.Formas.Catalogos
                 if (lista.Count > 0)
                     uow.Errors.Add("El nombre que capturo ya ha sido registrada anteriormente, verifique su información");
 
-
-                lista = uow.ProgramaBusinessLogic.Get(p => p.Id != xid && p.Orden == prog.Orden).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El número de orden que capturo ya ha sido registrada anteriormente, verifique su información");
-
-
-
-
                 uow.ProgramaBusinessLogic.Update(prog);
                 mensaje = "Los cambios se registraron satisfactoriamente";
             }
@@ -204,8 +194,7 @@ namespace SIP.Formas.Catalogos
                 //ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_EjecutarMensaje('" + mensaje + "')", true);
                 txtClave.Value = string.Empty;
                 txtDescripcion.Value = string.Empty;
-                txtOrden.Value = string.Empty;
-
+                
                 BindGrid();
 
                 lblMensajeSuccess.Text = mensaje;
@@ -254,7 +243,6 @@ namespace SIP.Formas.Catalogos
         {
             txtClave.Value = prog.Clave;
             txtDescripcion.Value = prog.Descripcion;
-            txtOrden.Value = prog.Orden.ToString();
             _idPROG.Text = prog.Id.ToString();
         }
        

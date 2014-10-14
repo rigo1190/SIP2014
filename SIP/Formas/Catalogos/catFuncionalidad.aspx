@@ -1,5 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catAperturaProgramatica.aspx.cs" Inherits="SIP.Formas.Catalogos.catAperturaProgramatica" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catFuncionalidad.aspx.cs" Inherits="SIP.Formas.Catalogos.catFuncionalidad" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
   <script type="text/javascript">
@@ -8,42 +7,42 @@
           try {
               //
               $("#<%= contenedor.ClientID %>").bind("contextmenu", function (e) {
-                  e.preventDefault();
-                  $("#custom-menu").css({ top: e.pageY + "px", left: e.pageX + "px" }).show(100);
-              });
+                    e.preventDefault();
+                    $("#custom-menu").css({ top: e.pageY + "px", left: e.pageX + "px" }).show(100);
+                });
 
-              $("#<%= contenedor.ClientID %>").mouseup(function (e) {
-                  var container = $("#custom-menu");
-                  if (container.has(e.target).length == 0) {
-                      container.hide();
-                  }
-              });
+                $("#<%= contenedor.ClientID %>").mouseup(function (e) {
+                    var container = $("#custom-menu");
+                    if (container.has(e.target).length == 0) {
+                        container.hide();
+                    }
+                });
 
-              $(document).bind(function () {
-                  $(document).bind("contextmenu", function (e) {
-                      return false;
-                  });
-              });
+                $(document).bind(function () {
+                    $(document).bind("contextmenu", function (e) {
+                        return false;
+                    });
+                });
 
-              $(document).mouseup(function (e) {
-                  var container = $("#custom-menu");
-                  if (container.has(e.target).length == 0) {
-                      container.hide();
-                  }
-              });
+                $(document).mouseup(function (e) {
+                    var container = $("#custom-menu");
+                    if (container.has(e.target).length == 0) {
+                        container.hide();
+                    }
+                });
 
-              //Se ejecuta el evento de las opciones del menu contextual
-              $('.evento').click(function () {
-                  var control = $(this).attr("id");
-                  $("#<%=  treeMain.ClientID %>").attr("disabled", true)
+                //Se ejecuta el evento de las opciones del menu contextual
+                $('.evento').click(function () {
+                    var control = $(this).attr("id");
+                    $("#<%=  treeMain.ClientID %>").attr("disabled", true)
                     fnc_ClickMenu(control);
                 });
             }
-          catch (err) {
-              alert(err);
-          }
+            catch (err) {
+                alert(err);
+            }
 
-      });
+        });
 
         //Funcion que evita que se "RESCROLEE" el arbol al seleccionar un NODO
         function SetSelectedTreeNodeVisible(controlID, boolHayPlantillas) {
@@ -54,56 +53,56 @@
                 if (node != null) {
                     node.scrollIntoView(true);
                     $("#<%= divArbol.ClientID %>").scrollLeft = 0;
-                }
             }
-
-            fnc_CargaInicial();
         }
 
-        function fnc_CargaInicial() {
+        fnc_CargaInicial();
+    }
 
-            nodes = document.getElementById("<%= txtNombre.ClientID%>").childNodes;
+    function fnc_CargaInicial() {
+
+        nodes = document.getElementById("<%= txtNombre.ClientID%>").childNodes;
 
         if (nodes.length == 0) {
             $("#<%= addsp.ClientID %>").attr("disabled", true);
-            $("#<%= edit.ClientID %>").attr("disabled", true);
-            $("#<%= btnDel.ClientID %>").attr("disabled", true);
-            $("#btnBorrar").attr("disabled", true);
+                 $("#<%= edit.ClientID %>").attr("disabled", true);
+                 $("#<%= btnDel.ClientID %>").attr("disabled", true);
+                 $("#btnBorrar").attr("disabled", true);
 
-        }
-
-    }
-
-
-    //funcion que permite habiltar o inhabilitar las opciones del menu contextual
-    //de acuerdo al parametro recibido boolhabilitar
-    //Creado por Rigoberto TS
-    //22/09/2014
-    function fnc_HabilitarInHabilitarOpciones(boolHabilitar) {
-
-        var blockNone;
-
-        if (boolHabilitar) {
-            blockNone = "block";
-            $("#<%= divArbol.ClientID %>").css("display", "none")
              }
-             else {
-                 blockNone = "none";
-                 $("#<%= divArbol.ClientID %>").css("display", "block")
+
+         }
+
+
+         //funcion que permite habiltar o inhabilitar las opciones del menu contextual
+         //de acuerdo al parametro recibido boolhabilitar
+         //Creado por Rigoberto TS
+         //22/09/2014
+         function fnc_HabilitarInHabilitarOpciones(boolHabilitar) {
+
+             var blockNone;
+
+             if (boolHabilitar) {
+                 blockNone = "block";
+                 $("#<%= divArbol.ClientID %>").css("display", "none")
+            }
+            else {
+                blockNone = "none";
+                $("#<%= divArbol.ClientID %>").css("display", "block")
             }
 
 
             $("#<%= divcaptura.ClientID %>").css("display", blockNone)
-             $("#<%= btnMenuCancelar.ClientID%>").css("display", blockNone);
-             $("#<%= btnMenuGuardar.ClientID%>").css("display", blockNone);
+            $("#<%= btnMenuCancelar.ClientID%>").css("display", blockNone);
+            $("#<%= btnMenuGuardar.ClientID%>").css("display", blockNone);
 
 
-             $("#<%= addp.ClientID %>").attr("disabled", boolHabilitar);
-             $("#<%= addsp.ClientID %>").attr("disabled", boolHabilitar);
-             $("#<%= btnDel.ClientID %>").attr("disabled", boolHabilitar);
-             $("#btnBorrar").attr("disabled", boolHabilitar);
+            $("#<%= addp.ClientID %>").attr("disabled", boolHabilitar);
+            $("#<%= addsp.ClientID %>").attr("disabled", boolHabilitar);
+            $("#<%= btnDel.ClientID %>").attr("disabled", boolHabilitar);
+            $("#btnBorrar").attr("disabled", boolHabilitar);
 
-             $("#<%= edit.ClientID %>").attr("disabled", boolHabilitar)
+            $("#<%= edit.ClientID %>").attr("disabled", boolHabilitar)
 
 
 
@@ -118,7 +117,7 @@
         function fnc_LimpiarCampos() {
             $("#<%= txtClave.ClientID%>").val("");
             $("#<%= txtNombre.ClientID%>").val("");
-
+         
         }
 
 
@@ -130,34 +129,34 @@
 
                 case "<%= addp.ClientID %>": //AGREGAR Nivel 1
 
-                    $("#<%= _Accion.ClientID%>").val("Nuevo");
-                    $("#<%= _Tipo.ClientID%>").val("Grupo");
+                     $("#<%= _Accion.ClientID%>").val("Nuevo");
+                     $("#<%= _Tipo.ClientID%>").val("Grupo");
 
-                    $("#<%= SpanGrupo.ClientID %>").css("display", "block")
-                    $("#<%= SpanFondo.ClientID %>").css("display", "none")
-                    $("#<%= SpanModificar.ClientID %>").css("display", "none")
-                    break;
+                     $("#<%= SpanGrupo.ClientID %>").css("display", "block")
+                     $("#<%= SpanFondo.ClientID %>").css("display", "none")
+                     $("#<%= SpanModificar.ClientID %>").css("display", "none")
+                     break;
 
-                case "<%= addsp.ClientID %>": //AGREGAR SubNivel
+                 case "<%= addsp.ClientID %>": //AGREGAR SubNivel
 
-                    var idPadre = parseInt($("#<%= _ElId.ClientID%>").val());
+                     var idPadre = parseInt($("#<%= _ElId.ClientID%>").val());
 
-                     if (idPadre != 0) {
-                         $("#<%= _Accion.ClientID%>").val("Nuevo");
-                        $("#<%= _Tipo.ClientID%>").val("Fondo");
+                    if (idPadre != 0) {
+                        $("#<%= _Accion.ClientID%>").val("Nuevo");
+                         $("#<%= _Tipo.ClientID%>").val("Fondo");
 
-                        $("#<%= SpanGrupo.ClientID %>").css("display", "none")
-                        $("#<%= SpanFondo.ClientID %>").css("display", "block")
-                        $("#<%= SpanModificar.ClientID %>").css("display", "none")
-                    } else {
-                        procede = false;
-                    }
+                         $("#<%= SpanGrupo.ClientID %>").css("display", "none")
+                         $("#<%= SpanFondo.ClientID %>").css("display", "block")
+                         $("#<%= SpanModificar.ClientID %>").css("display", "none")
+                     } else {
+                         procede = false;
+                     }
 
-                    break;
+                     break;
 
-                case "<%= edit.ClientID %>": //EDITAR UN REGISTRO
+                 case "<%= edit.ClientID %>": //EDITAR UN REGISTRO
 
-                    $("#<%= _Accion.ClientID%>").val("Modificar");
+                     $("#<%= _Accion.ClientID%>").val("Modificar");
                      limpiar = false;
 
                      $("#<%= SpanGrupo.ClientID %>").css("display", "none")
@@ -214,10 +213,10 @@
                  return false;
              }
 
+             
 
-
-             return true;
-         }
+            return true;
+        }
 
 
 
@@ -301,7 +300,7 @@
             <div id="divDatos" >
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Apertura Programática</h3>
+                        <h3 class="panel-title">Estructura Funcional</h3>
                     </div>
                     <div class="panel-body" id="divArbol" style="height:350px; overflow:scroll" runat="server"> 
                         <asp:TreeView runat="server" SelectedNodeStyle-ForeColor="Black" AutoPostBack="false" ID="treeMain"  ShowLines="True"  NodeIndent="25"  AutoGenerateDataBindings="False" Width="117px" OnSelectedNodeChanged="treeMain_SelectedNodeChanged">

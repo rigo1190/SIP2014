@@ -51,6 +51,14 @@ namespace SIP.Formas.Catalogos
             Utilerias.LimpiarCampos(this);
             chkActivo.Checked = false;
             _Accion.Text = "N"; //Se cambia el estado de la forma a crear un NUEVo registro
+
+            List<Ejercicio> lista = uow.EjercicioBusinessLogic.Get().ToList();
+
+            int añoMaximo;
+            añoMaximo = lista.Max(p => p.Año);
+            añoMaximo++;
+            txtAnio.Value = añoMaximo.ToString();             
+
         }
 
 
@@ -130,9 +138,38 @@ namespace SIP.Formas.Catalogos
 
             Ejercicio obj=uow.EjercicioBusinessLogic.GetByID(id);
 
-            //Se elimina el objeto
-            uow.EjercicioBusinessLogic.Delete(obj);
-            uow.SaveChanges();
+
+            
+
+
+
+            uow.Errors.Clear();
+            List<DataAccessLayer.Models.POA> listaPOA = uow.POABusinessLogic.Get(p => p.EjercicioId == id).ToList();
+            if (listaPOA.Count > 0)
+                uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
+
+            List<Plantilla> listaPlantilla = uow.PlantillaBusinessLogic.Get(p=>p.EjercicioId == id).ToList();
+            if (listaPlantilla.Count > 0)
+                uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
+
+            List<AperturaProgramatica> listaAP = uow.AperturaProgramaticaBusinessLogic.Get(p=>p.EjercicioId == id).ToList();
+            if (listaAP.Count > 0)
+                uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
+
+
+
+            if (uow.Errors.Count == 0)
+            {
+                //Se elimina el objeto
+                uow.EjercicioBusinessLogic.Delete(obj);
+                uow.SaveChanges();
+            }
+
+            
+
+
+
+
 
             if (uow.Errors.Count > 0) //Si hubo errores
             {

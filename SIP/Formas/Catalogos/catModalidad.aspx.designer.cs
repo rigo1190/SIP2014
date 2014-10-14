@@ -10,7 +10,7 @@
 namespace SIP.Formas.Catalogos {
     
     
-    public partial class catAperturaProgramatica {
+    public partial class catModalidad {
         
         /// <summary>
         /// contenedor control.
@@ -236,15 +236,6 @@ namespace SIP.Formas.Catalogos {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden _Tipo;
-        
-        /// <summary>
-        /// _Nivel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _Nivel;
         
         /// <summary>
         /// _ElId control.

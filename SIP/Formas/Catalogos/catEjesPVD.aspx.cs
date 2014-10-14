@@ -6,20 +6,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
 
 namespace SIP.Formas.Catalogos
 {
-    public partial class catAperturaProgramatica : System.Web.UI.Page
+    public partial class catEjesPVD : System.Web.UI.Page
     {
         private UnitOfWork uow;
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork();
-                       
 
-            if (!IsPostBack) {
+            if (!IsPostBack)
+            {
                 CargarArbol();
 
                 divcaptura.Style.Add("display", "none");
@@ -32,16 +32,9 @@ namespace SIP.Formas.Catalogos
                     treeMain.Nodes[0].Select();
                     treeMain.ExpandAll();
                 }
-                
-
-
             }
 
-
         }
-
-
-
 
 
         #region Eventos
@@ -54,98 +47,42 @@ namespace SIP.Formas.Catalogos
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            AperturaProgramatica obj;
-            AperturaProgramatica objOrigen;
+            Eje obj;
+            Eje objOrigen;
 
-            List<AperturaProgramatica> lista;
+            List<Eje> lista;
             String mensaje = "";
             int orden;
 
-            if (_Accion.Value == "Nuevo")
-                obj = new AperturaProgramatica();
-            else
-                obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
+            if (_Accion.Value == "Nuevo"){
+                obj = new Eje();
 
-
-            obj.EjercicioId = 6;
-            obj.Clave = txtClave.Text;
-            obj.Nombre = txtNombre.Text;
-
-
-            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
-
-
-            if (_ElId.Value == "")
-            {
-                obj.ParentId = null;
+                obj.Clave = txtClave.Text;
+                obj.Descripcion = txtNombre.Text;
                 obj.Nivel = 1;
-                obj.Orden = 1;
 
-            }
-            else
-            {
-
-
-                if (_Accion.Value == "Nuevo")
+                if (_ElId.Value == "")
                 {
-                    objOrigen = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
+                    obj.ParentId = null;
+                    obj.Orden = 1;
+                }
+                else
+                {
 
-                    if (objOrigen.ParentId == null)
-                    { //estoy en la primera rama
+                    objOrigen = uow.EjeBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
-                        if (_Tipo.Value == "Grupo")
-                        {//agregando un registro del mismo nivel
-                            obj.ParentId = null;
-                            obj.Nivel = 1;
+                    if (_Tipo.Value == "Fondo")
+                    {
+                        obj.Nivel = 2;
 
-                            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
-
-                        }
-                        else
-                        {//agregando un subnivel
-
+                        if (objOrigen.ParentId == null)
                             obj.ParentId = objOrigen.Id;
-                            obj.Nivel = 2;
-
-                            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.Id).ToList();
-                        }
-
-
-                    }
-                    else
-                    {// estoy en una segunda o tercera rama
-
-                        if (_Tipo.Value == "Grupo")
-                        {//agregando un registro del mismo nivel
-                            obj.ParentId = objOrigen.ParentId;
-                            obj.Nivel = objOrigen.Nivel;
-
-                            lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.ParentId).ToList();
-                        }
                         else
-                        {//agregando un subnivel
-
-                            if (_Nivel.Value == "2")
-                            {
-                                obj.ParentId = objOrigen.Id;
-                                obj.Nivel = 3;
-
-                                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.Id).ToList();
-                            }
-
-                            if (_Nivel.Value == "3")
-                            {
-                                obj.ParentId = objOrigen.ParentId;
-                                obj.Nivel = 3;
-
-                                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == objOrigen.ParentId).ToList();
-                            }
-
-                        }
-
-
+                            obj.ParentId = objOrigen.ParentId;
                     }
 
+
+                    lista = uow.EjeBusinessLogic.Get(p => p.ParentId == obj.ParentId).ToList();
                     if (lista.Count == 0)
                         orden = 0;
                     else
@@ -154,12 +91,27 @@ namespace SIP.Formas.Catalogos
 
                     orden++;
                     obj.Orden = orden;
+                }
 
-                }//es nuevo
-
-            }//elId
+                
 
 
+            }
+            else//Nuevo
+            {
+                if (_ElId.Value == "")
+                    return;
+
+                obj = uow.EjeBusinessLogic.GetByID(int.Parse(_ElId.Value));
+                obj.Clave = txtClave.Text;
+                obj.Descripcion = txtNombre.Text;
+
+            }//nuevo
+                
+
+
+            
+            
 
 
 
@@ -168,16 +120,20 @@ namespace SIP.Formas.Catalogos
 
             if (_Accion.Value == "Nuevo")
             {
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Clave == obj.Clave).ToList();
+                lista = uow.EjeBusinessLogic.Get(p => p.Clave == obj.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
 
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Nombre == obj.Nombre).ToList();
+
+
+                lista = uow.EjeBusinessLogic.Get(p => p.Descripcion == obj.Descripcion).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
 
-                uow.AperturaProgramaticaBusinessLogic.Insert(obj);
+
+                uow.EjeBusinessLogic.Insert(obj);
                 mensaje = "El registro se ha  almacenado correctamente";
+
 
             }
             else
@@ -187,18 +143,18 @@ namespace SIP.Formas.Catalogos
 
                 xid = int.Parse(_ElId.Value);
 
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Id != xid && p.Clave == obj.Clave).ToList();
+                lista = uow.EjeBusinessLogic.Get(p => p.Id != xid && p.Clave == obj.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
 
 
 
-                lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.Id != xid && p.Nombre == obj.Nombre).ToList();
+                lista = uow.EjeBusinessLogic.Get(p => p.Id != xid && p.Descripcion == obj.Descripcion).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
 
 
-                uow.AperturaProgramaticaBusinessLogic.Update(obj);
+                uow.EjeBusinessLogic.Update(obj);
                 mensaje = "Los cambios se registraron satisfactoriamente";
 
             }
@@ -208,47 +164,39 @@ namespace SIP.Formas.Catalogos
                 uow.SaveChanges();
 
 
-            if (uow.Errors.Count == 0)//Integrando el nuevo nodo en el arbol
+            if (uow.Errors.Count == 0)
             {
+
                 TreeNode node = null;
                 switch (_Accion.Value)
                 {
                     case "Nuevo":
-
-
-                        if (_ElId.Value == "")
+                        
+                        if (_Tipo.Value == "Grupo" || _ElId.Value == "")
                         {
+
                             node = new TreeNode();
                             node.Value = obj.Id.ToString();
-                            node.Text = obj.Clave + " " + obj.Nombre;
+                            node.Text = obj.Clave + " " + obj.Descripcion;
+
                             treeMain.Nodes.Add(node);
+
                         }
-                        else
+
+                        else//Fondo
                         {
-                            objOrigen = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
                             node = new TreeNode();
                             node.Value = obj.Id.ToString();
-                            node.Text = obj.Clave + " " + obj.Nombre;
+                            node.Text = obj.Clave + " " + obj.Descripcion;
 
-                            if (_Tipo.Value == "Grupo")//registro
-                            {
-                                if (objOrigen.Nivel == 1)
-                                    treeMain.Nodes.Add(node);
-                                else
-                                    treeMain.SelectedNode.Parent.ChildNodes.Add(node);
-                            }
-                            else//Subnivel
-                            {
-                                if (objOrigen.Nivel < 3)//nivel 1 y 2
-                                    treeMain.SelectedNode.ChildNodes.Add(node);
-                                else//nivel 3                                    
-                                    treeMain.SelectedNode.Parent.ChildNodes.Add(node);
+                            objOrigen = uow.EjeBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
-                            }
-
-                        }//elIde
-
+                            if (objOrigen.ParentId == null)
+                                treeMain.SelectedNode.ChildNodes.Add(node);
+                            else
+                                treeMain.SelectedNode.Parent.ChildNodes.Add(node);
+                        }
 
                         BindControles(node);
 
@@ -259,11 +207,14 @@ namespace SIP.Formas.Catalogos
                         node = treeMain.FindNode(_rutaNodoSeleccionado.Value);
 
                         node.Value = obj.Id.ToString();
-                        node.Text = obj.Clave + " " + obj.Nombre;
+                        node.Text = obj.Clave + " " + obj.Descripcion;
                         BindControles(node);
 
                         break;
                 }
+
+
+
 
                 //Se ocultan los botones de GUARDAR Y CANCELAR del menu y Normalizar pantallas de datos y captura
                 divcaptura.Style.Add("display", "none");
@@ -321,6 +272,8 @@ namespace SIP.Formas.Catalogos
                 }
 
             }
+
+
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -332,12 +285,13 @@ namespace SIP.Formas.Catalogos
                 return;
             }
 
-            AperturaProgramatica obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
+            
+            Eje obj = uow.EjeBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
             if (obj != null)
             {
                 txtClave.Text = obj.Clave;
-                txtNombre.Text = obj.Nombre;
+                txtNombre.Text = obj.Descripcion;
 
                 //Se busca el nodo del arbol de fondos para colocarlo como seleccionado
                 treeMain.FindNode(_rutaNodoSeleccionado.Value).Select();
@@ -348,25 +302,27 @@ namespace SIP.Formas.Catalogos
 
             divMsg.Style.Add("display", "none");
             divMsgSuccess.Style.Add("display", "none");
+
         }
+
 
         protected void btnDel_Click(object sender, EventArgs e)
         {
+
             if (_ElId.Value == "")
                 return;
-            AperturaProgramatica obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
-
-
+            Eje obj = uow.EjeBusinessLogic.GetByID(int.Parse(_ElId.Value));
+            
             uow.Errors.Clear();
             List<POADetalle> lista;
-            lista = uow.POADetalleBusinessLogic.Get(p => p.AperturaProgramaticaId == obj.Id).ToList();
+            lista = uow.POADetalleBusinessLogic.Get(p => p.EjeId == obj.Id).ToList();
 
             List<Obra> listaObra;
-            listaObra = uow.ObraBusinessLogic.Get(p => p.AperturaProgramaticaId == obj.Id).ToList();
+            listaObra  = uow.ObraBusinessLogic.Get(p => p.EjeId == obj.Id).ToList();
 
-            List<AperturaProgramatica> listaParent;
-            listaParent = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == obj.Id).ToList();
+            List<Eje> listaParent;
+            listaParent = uow.EjeBusinessLogic.Get(p => p.ParentId == obj.Id).ToList();
 
 
             if (lista.Count > 0)
@@ -381,7 +337,7 @@ namespace SIP.Formas.Catalogos
             //Se elimina el objeto
             if (uow.Errors.Count == 0)
             {
-                uow.AperturaProgramaticaBusinessLogic.Delete(obj);
+                uow.EjeBusinessLogic.Delete(obj);
                 uow.SaveChanges();
             }
 
@@ -420,8 +376,8 @@ namespace SIP.Formas.Catalogos
                 divMsgSuccess.Style.Add("display", "none");
             }
         }
-        #endregion
 
+        #endregion
 
         #region Metodos
 
@@ -433,13 +389,13 @@ namespace SIP.Formas.Catalogos
             }
 
 
-            List<AperturaProgramatica> lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
+            List<Eje> lista = uow.EjeBusinessLogic.Get(p => p.ParentId == null).ToList();
 
-            foreach (AperturaProgramatica obj in lista)
+            foreach (Eje obj in lista)
             {
                 //Se crea el nodo padre
                 TreeNode nodeNew = new TreeNode();
-                nodeNew.Text = obj.Clave + " " + obj.Nombre;
+                nodeNew.Text = obj.Clave + " " + obj.Descripcion;
                 nodeNew.Value = obj.Id.ToString();
 
                 treeMain.Nodes.Add(nodeNew);
@@ -454,13 +410,13 @@ namespace SIP.Formas.Catalogos
 
         }
 
-        private void GenerarRamas(TreeNode nodeParent, List<AperturaProgramatica> lista)
+        private void GenerarRamas(TreeNode nodeParent, List<Eje> lista)
         {
-            foreach (AperturaProgramatica obj in lista)
+            foreach (Eje obj in lista)
             {
                 //Se crea el nodo hijo
                 TreeNode nodeChild = new TreeNode();
-                nodeChild.Text = obj.Clave + " " + obj.Nombre;
+                nodeChild.Text = obj.Clave + " " + obj.Descripcion;
                 nodeChild.Value = obj.Id.ToString();
                 nodeChild.Collapse();
 
@@ -474,18 +430,16 @@ namespace SIP.Formas.Catalogos
 
         private void BindControles(TreeNode node)
         {
-            AperturaProgramatica obj = null;
-
+            Eje obj = null;
 
             if (node != null)
             {
-                obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(node.Value));
+                obj = uow.EjeBusinessLogic.GetByID(int.Parse(node.Value));
 
                 txtClave.Text = obj.Clave;
-                txtNombre.Text = obj.Nombre;
-
+                txtNombre.Text = obj.Descripcion;
+                
                 _ElId.Value = obj.Id.ToString();
-                _Nivel.Value = obj.Nivel.ToString();
                 _rutaNodoSeleccionado.Value = node.ValuePath;
 
                 treeMain.FindNode(node.ValuePath).Select();
@@ -494,9 +448,8 @@ namespace SIP.Formas.Catalogos
             {
                 txtClave.Text = string.Empty;
                 txtNombre.Text = string.Empty;
-
+                
                 _ElId.Value = string.Empty;
-                _Nivel.Value = string.Empty;
                 _rutaNodoSeleccionado.Value = string.Empty;
             }
 
@@ -512,12 +465,9 @@ namespace SIP.Formas.Catalogos
         
 
         
-
         
+   
 
-        
-
-       
 
     }
 }

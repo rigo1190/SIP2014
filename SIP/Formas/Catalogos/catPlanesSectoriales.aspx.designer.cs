@@ -10,7 +10,7 @@
 namespace SIP.Formas.Catalogos {
     
     
-    public partial class Municipios {
+    public partial class catPlanesSectoriales {
         
         /// <summary>
         /// divMsgSuccess control.
@@ -103,13 +103,13 @@ namespace SIP.Formas.Catalogos {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// txtNombre control.
+        /// txtDescripcion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtNombre;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtDescripcion;
         
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -139,13 +139,13 @@ namespace SIP.Formas.Catalogos {
         protected global::System.Web.UI.WebControls.Button btnCancelar;
         
         /// <summary>
-        /// _idMUN control.
+        /// _ElId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox _idMUN;
+        protected global::System.Web.UI.WebControls.TextBox _ElId;
         
         /// <summary>
         /// _Accion control.

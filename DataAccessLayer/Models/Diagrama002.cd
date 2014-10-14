@@ -12,6 +12,13 @@
   </Class>
   <Class Name="DataAccessLayer.Models.Plantilla" Collapsed="true">
     <Position X="11" Y="1" Width="2.75" />
+    <AssociationLine Name="Ejercicio" Type="DataAccessLayer.Models.Ejercicio" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="12.75" Y="1" />
+        <Point X="12.75" Y="0.75" />
+        <Point X="15.75" Y="0.75" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAIIAAAAAAAAAAAAAAAAQEBBAAAAEAAAAAAAAAQEAA=</HashCode>
       <FileName>Models\Plantilla.cs</FileName>
@@ -21,7 +28,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="DataAccessLayer.Models.Ejercicio" Collapsed="true">
-    <Position X="15" Y="0.5" Width="1.75" />
+    <Position X="15.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Models\Ejercicio.cs</FileName>
@@ -46,10 +53,8 @@
         <Point X="12.229" Y="9.136" Type="JumpStart" />
         <Point X="12.395" Y="9.136" Type="JumpEnd" />
         <Point X="14.625" Y="9.136" />
-        <Point X="14.625" Y="2.066" />
-        <Point X="14.125" Y="2.066" />
-        <Point X="14.125" Y="1.625" />
-        <Point X="13.75" Y="1.625" />
+        <Point X="14.625" Y="1.5" />
+        <Point X="13.75" Y="1.5" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -87,7 +92,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="DataAccessLayer.Models.POADetalle" Collapsed="true">
-    <Position X="0.75" Y="3.5" Width="2.5" />
+    <Position X="0.75" Y="2.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>ICBQAEAAARCBAwFIADIAABANCCAAkAyEEgIAIADBAgA=</HashCode>
       <FileName>Models\POADetalle.cs</FileName>
@@ -101,20 +106,18 @@
     <AssociationLine Name="POADetalle" Type="DataAccessLayer.Models.POADetalle" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="4.5" Y="5.059" />
-        <Point X="4.125" Y="5.059" />
-        <Point X="4.125" Y="3.626" />
-        <Point X="3.25" Y="3.626" />
+        <Point X="2.812" Y="5.059" />
+        <Point X="2.812" Y="2.941" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.082" Y="-0.287" />
+        <Position X="0.074" Y="0.276" />
       </MemberNameLabel>
     </AssociationLine>
     <AssociationLine Name="Plantilla" Type="DataAccessLayer.Models.Plantilla" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.25" Y="4.25" />
-        <Point X="5.25" Y="3.875" />
-        <Point X="11.25" Y="3.875" />
-        <Point X="11.25" Y="1.691" />
+        <Point X="5.25" Y="1.312" />
+        <Point X="11" Y="1.312" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>

@@ -6,11 +6,15 @@
 
    
     <title>Secretaría de Finanzas y Planeación</title>
-    <link href="<%= ResolveClientUrl("~/Content/Site.css") %>" rel="stylesheet" />
-    <link href="<%= ResolveClientUrl("~/Content/bootstrap.css") %>" rel="stylesheet" />  
-    <script src="<%= ResolveClientUrl("~/Scripts/jquery-1.10.2.js") %>"></script>    
+
+      <%: Scripts.Render("~/bundles/jquery") %>
+      <%: Scripts.Render("~/bundles/bootstrap") %>
+      <%: Styles.Render("~/Content/css") %> 
+      <%: Styles.Render("~/Content/themes/base/css") %>         
+        
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
+
 </head>
 <body>
     <form id="Form1" runat="server">

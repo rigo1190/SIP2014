@@ -11,6 +11,15 @@ namespace DataAccessLayer.Models
     {
         [Index(IsUnique = true)]
         public int Año { get; set; }
-        public bool Activo { get; set; }
+        public decimal FactorIva { get; set; }
+        public enumEstatusEjercicio Estatus { get; set; }
     }
+
+    public enum enumEstatusEjercicio 
+    {
+        Nuevo=0,
+        Activo=1,
+        Cerrado=2
+    }
+
 }

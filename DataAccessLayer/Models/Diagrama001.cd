@@ -33,18 +33,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="DataAccessLayer.Models.Obra">
-    <Position X="9.25" Y="8.75" Width="2.25" />
-    <AssociationLine Name="POADetalle" Type="DataAccessLayer.Models.POADetalle" FixedFromPoint="true">
-      <Path>
-        <Point X="10.688" Y="8.75" />
-        <Point X="10.688" Y="7.04" />
-      </Path>
+    <Position X="9.25" Y="12.5" Width="2.75" />
+    <AssociationLine Name="POADetalle" Type="DataAccessLayer.Models.POADetalle">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.213" Y="0.11" />
+        <Position X="0.11" Y="0.213" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ACAQAAAAABCAAAEAECIAABABAiAAgAwAAAIAAAABAgA=</HashCode>
+      <HashCode>ICBQAEAAARCBAwEIEDIAABAJCiAAkAyAEgIAIADBAgA=</HashCode>
       <FileName>Models\Obra.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -104,7 +100,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAIAAAAAAAAAQAAAAAwAAAAAAAAEAAAoAAAAAQEAA=</HashCode>
+      <HashCode>AAAAIAAABAAAAAQAAAAAwAAAAAAAAEAAAoAAAAAQEAA=</HashCode>
       <FileName>Models\AperturaProgramatica.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -128,7 +124,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ACAQAAAAABCAAAFAACIAABAFACAAgAwAAAIAAAABAgA=</HashCode>
+      <HashCode>ICBQAEAAARCBAwFIADIAABANCCAAkAyEEgIAIADBAgA=</HashCode>
       <FileName>Models\POADetalle.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -198,7 +194,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAACAAAIAAAAAAAgAAIgAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAACAAAIAAAABAAgAAIgAAAAAAAAAAAA=</HashCode>
       <FileName>Models\AperturaProgramaticaMeta.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

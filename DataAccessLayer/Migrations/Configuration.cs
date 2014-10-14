@@ -28,25 +28,71 @@ namespace DataAccessLayer.Migrations
             //    );
             //
 
+
+            context.Roles.AddOrUpdate(
+            
+                new Rol { Id = 1 , Clave="R001", Nombre="Desarrollador", Orden=1},
+                new Rol { Id = 2 , Clave="R002", Nombre="Ejecutivo", Orden = 2 },
+                new Rol { Id = 3 , Clave="R003", Nombre="Administrador", Orden=3},
+                new Rol { Id = 4 , Clave="R004", Nombre="Capturista", Orden=4}              
+            );
+                        
+
             context.Usuarios.AddOrUpdate(
 
-               new Usuario { Id = 1, Login = "sedarpa", Password = "sedarpa", Nombre = "Usuario de SEDARPA", Activo = true },
-               new Usuario { Id = 2, Login = "iiev", Password = "iiev", Nombre = "Usuario de IIEV", Activo = true },
-               new Usuario { Id = 3, Login = "inverbio", Password = "inverbio", Nombre = "Usuario de INVERBIO", Activo = true }               
+               new Usuario { Id = 1, Login = "desarrollador", Password = "desarrollador", Nombre = "Usuario Desarrollador", Activo = true },
+               new Usuario { Id = 2, Login = "ejecutivo", Password = "ejecutivo", Nombre = "Usuario Ejecutivo", Activo = true },
+               new Usuario { Id = 3, Login = "admin", Password = "admin", Nombre = "Usuario Administrador", Activo = true },
+               new Usuario { Id = 4, Login = "sedarpa", Password = "sedarpa", Nombre = "Usuario de SEDARPA", Activo = true },
+               new Usuario { Id = 5, Login = "iiev", Password = "iiev", Nombre = "Usuario de IIEV", Activo = true },
+               new Usuario { Id = 6, Login = "inverbio", Password = "inverbio", Nombre = "Usuario de INVERBIO", Activo = true }               
             );
 
+            context.UsuarioRoles.AddOrUpdate(
 
+                new UsuarioRol { Id = 1, UsuarioId = 1, RolId = 1 },
+                new UsuarioRol { Id = 2, UsuarioId = 2, RolId = 2 },
+                new UsuarioRol { Id = 3, UsuarioId = 3, RolId = 3 },
+                new UsuarioRol { Id = 4, UsuarioId = 4, RolId = 4 },
+                new UsuarioRol { Id = 5, UsuarioId = 5, RolId = 4 },
+                new UsuarioRol { Id = 6, UsuarioId = 6, RolId = 4 }
+            );
+
+            context.OpcionesSistema.AddOrUpdate(
+            
+                new OpcionSistema { Id = 1, Clave = "OS001", Descripcion = "Captura del proyecto de POA",Activo=true,Orden=1},
+                new OpcionSistema { Id = 2, Clave = "OS002", Descripcion = "Ajuste del POA",Activo=true,Orden=2},
+                new OpcionSistema { Id = 3, Clave = "OS003", Descripcion = "Catálogos",Activo=true,Orden=3},
+                new OpcionSistema { Id = 4, Clave = "OS004", Descripcion = "Catálogo de Unidades presupuestales", Activo = true, Orden = 1,ParentId=3 },
+                new OpcionSistema { Id = 5, Clave = "OS005", Descripcion = "Catálogo de Fondos", Activo = true, Orden = 2, ParentId = 3 },
+                new OpcionSistema { Id = 6, Clave = "OS006", Descripcion = "Catálogo de Apertura programatica", Activo = true, Orden = 3, ParentId = 3 },
+                new OpcionSistema { Id = 7, Clave = "OS007", Descripcion = "Catálogo de Municipios", Activo = true, Orden = 4, ParentId = 3 },
+                new OpcionSistema { Id = 8, Clave = "OS008", Descripcion = "Catálogo de Ejercicios", Activo = true, Orden = 5, ParentId = 3 },
+                new OpcionSistema { Id = 9, Clave = "OS009", Descripcion = "Catálogo de Usuarios", Activo = true, Orden = 6, ParentId = 3 }
+
+            );
+
+            context.Permisos.AddOrUpdate(
+
+                new Permiso { Id = 1, RolId = 3, OpcionSistemaId = 4, Operaciones = enumOperaciones.Agregar | enumOperaciones.Editar | enumOperaciones.Detalle | enumOperaciones.Borrar },
+                new Permiso { Id = 2, RolId = 3, OpcionSistemaId = 5, Operaciones = enumOperaciones.Agregar | enumOperaciones.Editar | enumOperaciones.Detalle | enumOperaciones.Borrar },
+                new Permiso { Id = 3, RolId = 3, OpcionSistemaId = 6, Operaciones = enumOperaciones.Agregar | enumOperaciones.Editar | enumOperaciones.Detalle | enumOperaciones.Borrar },
+                new Permiso { Id = 4, RolId = 4, OpcionSistemaId = 1, Operaciones = enumOperaciones.Agregar | enumOperaciones.Editar | enumOperaciones.Detalle | enumOperaciones.Borrar },
+                new Permiso { Id = 5, RolId = 4, OpcionSistemaId = 2, Operaciones = enumOperaciones.Agregar | enumOperaciones.Editar | enumOperaciones.Detalle }
+                
+            );            
+            
 
             context.Ejercicios.AddOrUpdate(
 
-               new Ejercicio { Id = 1, Año =2009,Activo=false },
-               new Ejercicio { Id = 2, Año =2010,Activo=false },
-               new Ejercicio { Id = 3, Año =2011,Activo=false },
-               new Ejercicio { Id = 4, Año =2012,Activo=false },
-               new Ejercicio { Id = 5, Año =2013,Activo=false },
-               new Ejercicio { Id = 6, Año =2014,Activo=true },
-               new Ejercicio { Id = 7, Año =2015,Activo=false },
-               new Ejercicio { Id = 8, Año =2016,Activo=false }
+               new Ejercicio { Id = 1, Año = 2009, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 2, Año = 2010, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 3, Año = 2011, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 4, Año = 2012, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 5, Año = 2013, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 6, Año = 2014, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Activo  },
+               new Ejercicio { Id = 7, Año = 2015, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Nuevo   }
+               
             );
 
             context.UnidadesPresupuestales.AddOrUpdate(
@@ -108,11 +154,35 @@ namespace DataAccessLayer.Migrations
            fais.DetalleSubFondos.Add(new Fondo { Id = 5, Clave = "F012", Abreviatura = "FISM", Nombre = "Fondo para la Infraestructura Social Municipal ", Orden = 2 });
 
            context.ModalidadesFinanciamiento.AddOrUpdate(
+
                 new ModalidadFinanciamiento { Id = 1, Clave = "MF001", Nombre = "Actual", Orden = 1 },
                 new ModalidadFinanciamiento { Id = 2, Clave = "MF002", Nombre = "Remanente", Orden = 2 },
                 new ModalidadFinanciamiento { Id = 3, Clave = "MF003", Nombre = "Intereses", Orden = 3 },
                 new ModalidadFinanciamiento { Id = 4, Clave = "MF004", Nombre = "Prestamo", Orden = 4 }
             );
+
+           context.Años.AddOrUpdate(
+
+              new Año { Id = 1, Anio = 2008 },
+              new Año { Id = 2, Anio = 2009 },
+              new Año { Id = 3 ,Anio = 2010 },
+              new Año { Id = 4 ,Anio = 2011 },
+              new Año { Id = 5 ,Anio = 2012 },
+              new Año { Id = 6 ,Anio = 2013 },
+              new Año { Id = 7 ,Anio = 2014 },
+              new Año { Id = 8 ,Anio = 2015 }
+             
+          );
+
+           var list = from año in context.Años.Local
+                      from mf in context.ModalidadesFinanciamiento.Local
+                      from f in context.Fondos.Local
+                      select new { año, mf, f };
+
+           foreach (var item in list)
+           {
+               context.Financiamientos.Local.Add(new Financiamiento { Año = item.año, ModalidadFinanciamiento = item.mf, Fondo = item.f });
+           }
 
            context.AperturaProgramaticaUnidades.AddOrUpdate(
                new AperturaProgramaticaUnidad { Id = 1, Clave = "APU001", Nombre = "Planta", Orden = 1 },
@@ -173,23 +243,20 @@ namespace DataAccessLayer.Migrations
            sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 6, Nivel = 3 });
            sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 6, Nivel = 3 });
            sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 6, Nivel = 3 });
+                   
 
-           AperturaProgramatica sc_rehabilitacion_plantapotabilizadora = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 22);
-
-           sc_rehabilitacion_plantapotabilizadora.DetalleMetas.Add(new AperturaProgramaticaMeta { AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 });
-
-
-
-           var list = from año in context.Años.Local
-                      from mf in context.ModalidadesFinanciamiento.Local
-                      from f in context.Fondos.Local
-                      select new { año, mf, f };
-
-           foreach (var item in list)
-           {
-               context.Financiamientos.Add(new Financiamiento { Año = item.año, ModalidadFinanciamiento = item.mf, Fondo = item.f });
-           }
-
+          context.AperturaProgramaticaMetas.AddOrUpdate(
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 22, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 23, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 24, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 25, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 26, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 27, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 28, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 29, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 30, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 31, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
+          );
 
            context.Funcionalidad.AddOrUpdate(
             new Funcionalidad { Id = 1, Clave = "F001", Descripcion = "Gobierno", Orden = 1,Nivel=1 },
@@ -317,6 +384,7 @@ namespace DataAccessLayer.Migrations
           poadetalle.ProgramaId = 1;
           poadetalle.GrupoBeneficiarioId = 2;
           poadetalle.CriterioPriorizacionId = 1;
+          poadetalle.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
 
           poa.Detalles.Add(poadetalle);
 
@@ -335,6 +403,8 @@ namespace DataAccessLayer.Migrations
           obra.FechaTermino = new DateTime(2014, 09, 16);
           obra.EsAccion = false;
           obra.ImporteTotal = 12348700;
+          obra.ImporteLiberadoEjerciciosAnteriores = 10200000;
+          obra.ImportePresupuesto = 15000000;
           obra.AperturaProgramaticaId = 22;
           obra.AperturaProgramaticaMetaId = 1;
           obra.NumeroBeneficiarios = 25;
@@ -348,14 +418,15 @@ namespace DataAccessLayer.Migrations
           obra.ProgramaId = 1;
           obra.GrupoBeneficiarioId = 2;
           obra.CriterioPriorizacionId = 1;
+          obra.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012014001";
 
           obra.POADetalle = poadetalle;
 
           context.Obras.Add(obra);
 
-           context.SaveChanges();
+          context.SaveChanges();
 
-           CrearTriggers(context);
+          CrearTriggers(context);
       
            
         }

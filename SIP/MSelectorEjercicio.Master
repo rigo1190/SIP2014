@@ -4,12 +4,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+
     <title>Secretaría de Finanzas y Planeación</title>
-    <link href="<%= ResolveClientUrl("~/Content/bootstrap-theme.css") %>" rel="stylesheet" />
-    <link href="<%= ResolveClientUrl("~/Content/bootstrap.css") %>" rel="stylesheet" />
-    <link href="<%= ResolveClientUrl("~/Content/Site.css") %>" rel="stylesheet" />
-    <script src="<%= ResolveClientUrl("~/Scripts/jquery-1.10.2.js") %>"></script>
-    <script src="<%= ResolveClientUrl("~/Scripts/bootstrap.js") %>"></script>
+    
+      <%: Scripts.Render("~/bundles/jquery") %>
+      <%: Scripts.Render("~/bundles/bootstrap") %>
+      <%: Styles.Render("~/Content/css") %> 
+      <%: Styles.Render("~/Content/themes/base/css") %>            
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
      <webopt:bundlereference runat="server" path="~/Content/css" />

@@ -8,6 +8,8 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web;
+using System.Web.Services;
+using System.Web.Script.Services;
 
 namespace SIP.Formas.POA
 {
@@ -16,11 +18,11 @@ namespace SIP.Formas.POA
         private UnitOfWork uow;
         private int currentId;        
         private int unidadpresupuestalId;
-        private int ejercicioId;
+        private int ejercicioId;        
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            uow = new UnitOfWork();
+            uow = new UnitOfWork();            
                
             if (!IsPostBack)
             {
@@ -55,11 +57,11 @@ namespace SIP.Formas.POA
             ddlTipoLocalidad.SelectedValue = poadetalle.TipoLocalidadId.ToString();
             ddlCriterioPriorizacion.SelectedValue = poadetalle.CriterioPriorizacionId.ToString();
 
-            BindearDropDownListPrograma(ddlPrograma, poadetalle);
-            BindearDropDownListSubPrograma(ddlSubprograma, poadetalle);
-            BindearDropDownListSubSubPrograma(ddlTipologia, poadetalle);
-            BindearDropDownListMeta(ddlMeta, poadetalle);            
-           
+            cddlPrograma.SelectedValue = poadetalle.AperturaProgramatica.Parent.ParentId.ToString();
+            cddlSubprograma.SelectedValue = poadetalle.AperturaProgramatica.ParentId.ToString();
+            cddlSubsubprograma.SelectedValue = poadetalle.AperturaProgramaticaId.ToString();
+            cddlMeta.SelectedValue = poadetalle.AperturaProgramaticaMetaId.ToString();
+                                 
             txtLocalidad.Value = poadetalle.Localidad;            
             txtNumeroBeneficiarios.Value = poadetalle.NumeroBeneficiarios.ToString();
             txtCantidadUnidades.Value = poadetalle.CantidadUnidades.ToString();
@@ -68,18 +70,20 @@ namespace SIP.Formas.POA
             ddlSituacionObra.SelectedValue = poadetalle.SituacionObraId.ToString();
             ddlModalidad.SelectedValue = ((int)poadetalle.ModalidadObra).ToString();
             txtImporteTotal.Value = poadetalle.ImporteTotal.ToString();
+            txtCostoLiberadoEjerciciosAnteriores.Value = poadetalle.ImporteLiberadoEjerciciosAnteriores.ToString();
+            txtPresupuestoEjercicio.Value = poadetalle.ImportePresupuesto.ToString();
             txtObservaciones.Value = poadetalle.Observaciones;
+           
+            cddlFuncionalidadNivel1.SelectedValue = poadetalle.Funcionalidad.Parent.ParentId.ToString();
+            cddlFuncionalidadNivel2.SelectedValue = poadetalle.Funcionalidad.ParentId.ToString();
+            cddlFuncionalidadNivel3.SelectedValue = poadetalle.FuncionalidadId.ToString();
 
-            BindearDropDownListFinalidad(ddlFinalidad, poadetalle);
-            BindearDropDownListFuncion(ddlFuncion,poadetalle);
-            BindearDropDownListSubFuncion(ddlSubFuncion, poadetalle);
+            cddlEjePVD1.SelectedValue = poadetalle.Eje.ParentId.ToString();
+            cddlEjePVD2.SelectedValue = poadetalle.EjeId.ToString();
 
-            BindearDropDownListEjeAgrupador(ddlEjeAgrupador, poadetalle);
-            BindearDropDownListEjeElemento(ddlEjeElemento, poadetalle);
-
-            BindearDropDownListModalidadAgrupador(ddlModalidadAgrupador,poadetalle);
-            BindearDropDownListModalidadElemento(ddlModalidadElemento, poadetalle);
-
+            cddlModalidadAgrupador.SelectedValue = poadetalle.Modalidad.ParentId.ToString();
+            cddlModalidadElemento.SelectedValue = poadetalle.ModalidadId.ToString();
+            
             ddlPlanSectorial.SelectedValue = poadetalle.PlanSectorialId.ToString();
             ddlProgramaPresupuesto.SelectedValue = poadetalle.ProgramaId.ToString();
             ddlGrupoBeneficiario.SelectedValue = poadetalle.GrupoBeneficiarioId.ToString();
@@ -95,13 +99,16 @@ namespace SIP.Formas.POA
             txtNumero.Value = String.Empty;
             txtDescripcion.Value = String.Empty;
             ddlMunicipio.SelectedIndex = -1;
+            ddlCriterioPriorizacion.SelectedIndex = -1;
             txtLocalidad.Value = String.Empty;
             ddlTipoLocalidad.SelectedIndex = -1;
             txtEsAccion.Checked = false;
-            ddlPrograma.SelectedIndex = -1;
-            ddlSubprograma.Items.Clear();
-            ddlTipologia.Items.Clear();
-            ddlMeta.Items.Clear();
+         
+            cddlPrograma.SelectedValue = String.Empty;
+            cddlSubprograma.SelectedValue = String.Empty;
+            cddlSubsubprograma.SelectedValue = String.Empty;
+            cddlMeta.SelectedValue = String.Empty;
+
             txtNumeroBeneficiarios.Value = String.Empty;
             txtCantidadUnidades.Value = String.Empty;
             txtEmpleos.Value = String.Empty;
@@ -109,19 +116,22 @@ namespace SIP.Formas.POA
             ddlSituacionObra.SelectedIndex = -1;
             ddlModalidad.SelectedIndex = -1;
             txtImporteTotal.Value = String.Empty;
-            txtObservaciones.Value = String.Empty;
+            txtCostoLiberadoEjerciciosAnteriores.Value = String.Empty;
+            txtPresupuestoEjercicio.Value = String.Empty;
 
-            ddlFinalidad.SelectedIndex = -1;
-            ddlFuncion.Items.Clear();
-            ddlSubFuncion.Items.Clear();
+            txtObservaciones.Value = String.Empty;                      
 
-            ddlEjeAgrupador.SelectedIndex = -1;
-            ddlEjeElemento.Items.Clear();
+            cddlFuncionalidadNivel1.SelectedValue = String.Empty;
+            cddlFuncionalidadNivel2.SelectedValue = String.Empty;
+            cddlFuncionalidadNivel3.SelectedValue = String.Empty;
+
+            cddlEjePVD1.SelectedValue = String.Empty;
+            cddlEjePVD2.SelectedValue = String.Empty;                       
 
             ddlPlanSectorial.SelectedIndex = -1;
-
-            ddlModalidadAgrupador.SelectedIndex = -1;
-            ddlModalidadElemento.Items.Clear();
+            
+            cddlModalidadAgrupador.SelectedValue = String.Empty;
+            cddlModalidadElemento.SelectedValue = String.Empty;
 
             ddlProgramaPresupuesto.SelectedIndex = -1;
             ddlGrupoBeneficiario.SelectedIndex = -1;
@@ -190,7 +200,8 @@ namespace SIP.Formas.POA
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {                      
-            string msg = "Se ha guardado correctamente";
+            string msg = "Se ha guardado correctamente";          
+            
 
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
@@ -223,7 +234,7 @@ namespace SIP.Formas.POA
             poadetalle.TipoLocalidadId = Utilerias.StrToInt(ddlTipoLocalidad.SelectedValue);
             poadetalle.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);
             poadetalle.EsAccion = txtEsAccion.Checked;
-            poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlTipologia.SelectedValue);
+            poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             poadetalle.AperturaProgramaticaMetaId = Utilerias.StrToInt(ddlMeta.SelectedValue);
             poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString());
             poadetalle.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString());
@@ -238,12 +249,11 @@ namespace SIP.Formas.POA
             poadetalle.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
 
 
-
-
             poadetalle.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
             poadetalle.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
-            poadetalle.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());
-            
+            poadetalle.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());   
+            poadetalle.ImporteLiberadoEjerciciosAnteriores = Convert.ToDecimal(txtCostoLiberadoEjerciciosAnteriores.Value.ToString());
+            poadetalle.ImportePresupuesto = Convert.ToDecimal(txtPresupuestoEjercicio.Value.ToString());            
             poadetalle.Observaciones = txtObservaciones.InnerText;
 
             if (_Accion.Text.Equals("N")) 
@@ -291,17 +301,7 @@ namespace SIP.Formas.POA
         }
 
         private void BindearDropDownList()
-        {          
-
-            //Se carga informnacion en el drop de Municipios
-
-            ddlPrograma.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap=> ap.ParentId==null && ap.EjercicioId==ejercicioId).OrderBy(ap=>ap.Orden);
-            ddlPrograma.DataValueField = "Id";
-            ddlPrograma.DataTextField = "Nombre";
-            ddlPrograma.DataBind();            
-                
-            ddlPrograma.Items.Insert(0, new ListItem("Seleccione...", "0"));          
-
+        {             
 
             ddlMunicipio.DataSource = uow.MunicipioBusinessLogic.Get().ToList();
             ddlMunicipio.DataValueField = "Id";
@@ -334,19 +334,19 @@ namespace SIP.Formas.POA
 
             Utilerias.BindDropDownToEnum(ddlModalidad, typeof(enumModalidadObra));
 
-            ddlFinalidad.DataSource = uow.FuncionalidadBusinessLogic.Get(f=>f.ParentId==null).ToList();
-            ddlFinalidad.DataValueField = "Id";
-            ddlFinalidad.DataTextField = "Descripcion";
-            ddlFinalidad.DataBind();
+            //ddlFinalidad.DataSource = uow.FuncionalidadBusinessLogic.Get(f => f.ParentId == null).ToList();
+            //ddlFinalidad.DataValueField = "Id";
+            //ddlFinalidad.DataTextField = "Descripcion";
+            //ddlFinalidad.DataBind();
 
-            ddlFinalidad.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            //ddlFinalidad.Items.Insert(0, new ListItem("Seleccione...", "0"));
            
-            ddlEjeAgrupador.DataSource = uow.EjeBusinessLogic.Get(f => f.ParentId == null).ToList();
-            ddlEjeAgrupador.DataValueField = "Id";
-            ddlEjeAgrupador.DataTextField = "Descripcion";
-            ddlEjeAgrupador.DataBind();
+            //ddlEjeAgrupador.DataSource = uow.EjeBusinessLogic.Get(f => f.ParentId == null).ToList();
+            //ddlEjeAgrupador.DataValueField = "Id";
+            //ddlEjeAgrupador.DataTextField = "Descripcion";
+            //ddlEjeAgrupador.DataBind();
 
-            ddlEjeAgrupador.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            //ddlEjeAgrupador.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
             
             ddlPlanSectorial.DataSource = uow.PlanSectorialBusinessLogic.Get(orderBy:ps=>ps.OrderBy(o=>o.Orden)).ToList();
@@ -356,12 +356,12 @@ namespace SIP.Formas.POA
 
             ddlPlanSectorial.Items.Insert(0, new ListItem("Seleccione...", "0"));
                         
-            ddlModalidadAgrupador.DataSource = uow.ModalidadBusinessLogic.Get(m=>m.ParentId==null).ToList();
-            ddlModalidadAgrupador.DataValueField = "Id";
-            ddlModalidadAgrupador.DataTextField = "Descripcion";
-            ddlModalidadAgrupador.DataBind();
+            //ddlModalidadAgrupador.DataSource = uow.ModalidadBusinessLogic.Get(m=>m.ParentId==null).ToList();
+            //ddlModalidadAgrupador.DataValueField = "Id";
+            //ddlModalidadAgrupador.DataTextField = "Descripcion";
+            //ddlModalidadAgrupador.DataBind();
 
-            ddlModalidadAgrupador.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            //ddlModalidadAgrupador.Items.Insert(0, new ListItem("Seleccione...", "0"));
             
             ddlProgramaPresupuesto.DataSource = uow.ProgramaBusinessLogic.Get();
             ddlProgramaPresupuesto.DataValueField = "Id";
@@ -377,318 +377,8 @@ namespace SIP.Formas.POA
 
             ddlGrupoBeneficiario.Items.Insert(0, new ListItem("Seleccione...", "0"));
            
-        }
-              
-        protected void ddlPrograma_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ctrol = sender as DropDownList;
-
-            int programaId = Convert.ToInt32(ctrol.SelectedValue);
-
-            ddlSubprograma.Items.Clear();
-            ddlTipologia.Items.Clear();
-            ddlMeta.Items.Clear();
-
-            ddlSubprograma.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId).OrderBy(r=>r.Orden);
-            ddlSubprograma.DataValueField = "Id";
-            ddlSubprograma.DataTextField = "Nombre";
-            ddlSubprograma.DataBind();
-
-            ddlSubprograma.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-
-        }
-             
-        protected void ddlSubprograma_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ctrol = sender as DropDownList;
-
-            int subprogramaId = Convert.ToInt32(ctrol.SelectedValue);
-           
-            ddlTipologia.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId).OrderBy(ap => ap.Orden);
-            ddlTipologia.DataValueField = "Id";
-            ddlTipologia.DataTextField = "Nombre";
-            ddlTipologia.DataBind();
-
-            ddlTipologia.Items.Insert(0, new ListItem("Seleccione...", "0"));
-        }
-
-        protected void ddlTipologia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ctrol = sender as DropDownList;
-
-            int subsubprogramaId = Convert.ToInt32(ctrol.SelectedValue);
-
-            ddlMeta.DataSource = uow.AperturaProgramaticaMetaBusinessLogic.Get(ap => ap.AperturaProgramaticaId == subsubprogramaId);
-            ddlMeta.DataValueField = "Id";
-            ddlMeta.DataTextField = "Descripcion";
-            ddlMeta.DataBind();
-
-            ddlMeta.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
-        }
-        
-        private void BindearDropDownListPrograma(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int programaId = poadetalle.AperturaProgramatica.Parent.Parent.Id;
-
-            ddl.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == null).OrderBy(ap => ap.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Nombre";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione", "0"));
-
-            ddl.SelectedValue = programaId.ToString();
-
-        }
-
-        private void BindearDropDownListSubPrograma(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int programaId = poadetalle.AperturaProgramatica.Parent.Parent.Id;
-            int subprogramaId = poadetalle.AperturaProgramatica.Parent.Id;
-
-            ddl.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId).OrderBy(ap => ap.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Nombre";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-
-            ddl.SelectedValue = subprogramaId.ToString();
-
-        }
-
-        private void BindearDropDownListSubSubPrograma(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int subprogramaId = poadetalle.AperturaProgramatica.Parent.Id;
-
-            ddl.DataSource = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId).OrderBy(ap => ap.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Nombre";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-
-            ddl.SelectedValue = poadetalle.AperturaProgramaticaId.ToString();
-
-        }
-
-        private void BindearDropDownListMeta(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            ddl.DataSource = uow.AperturaProgramaticaMetaBusinessLogic.Get(m => m.AperturaProgramaticaId == poadetalle.AperturaProgramaticaId);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-
-            ddl.SelectedValue = poadetalle.AperturaProgramaticaMetaId.ToString();
-
-        }
-
-        protected void ddlFinalidad_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ctrol = sender as DropDownList;
-
-            int finalidadId = Convert.ToInt32(ctrol.SelectedValue);
-
-            ddlFuncion.Items.Clear();
-            ddlSubFuncion.Items.Clear();
-
-            ddlFuncion.DataSource = uow.FuncionalidadBusinessLogic.Get(sf => sf.ParentId == finalidadId).OrderBy(r => r.Orden);
-            ddlFuncion.DataValueField = "Id";
-            ddlFuncion.DataTextField = "Descripcion";
-            ddlFuncion.DataBind();
-
-            ddlFuncion.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-        }
-
-        protected void ddlFuncion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ctrol = sender as DropDownList;
-
-            int funcionId = Convert.ToInt32(ctrol.SelectedValue);
-           
-            ddlSubFuncion.Items.Clear();
-
-            ddlSubFuncion.DataSource = uow.FuncionalidadBusinessLogic.Get(sf => sf.ParentId == funcionId).OrderBy(r => r.Orden);
-            ddlSubFuncion.DataValueField = "Id";
-            ddlSubFuncion.DataTextField = "Descripcion";
-            ddlSubFuncion.DataBind();
-
-            ddlSubFuncion.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-        }
-
-        protected void ddlSubFuncion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //
-        }
-
-        protected void ddlEje_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //
-        }
-        protected void ddlPlanSectorial_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //
-        }
-        protected void ddlEjeAgrupador_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ctrol = sender as DropDownList;
-
-            int agrupadorId = Convert.ToInt32(ctrol.SelectedValue);
-
-            ddlEjeElemento.Items.Clear();
-
-            ddlEjeElemento.DataSource = uow.EjeBusinessLogic.Get(sf => sf.ParentId == agrupadorId).OrderBy(r => r.Orden);
-            ddlEjeElemento.DataValueField = "Id";
-            ddlEjeElemento.DataTextField = "Descripcion";
-            ddlEjeElemento.DataBind();
-
-            ddlEjeElemento.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-        }
-        protected void ddlModalidadAgrupador_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ctrol = sender as DropDownList;
-
-            int agrupadorId = Convert.ToInt32(ctrol.SelectedValue);
-
-            ddlModalidadElemento.Items.Clear();
-
-            ddlModalidadElemento.DataSource = uow.ModalidadBusinessLogic.Get(m => m.ParentId == agrupadorId).OrderBy(r => r.Orden);
-            ddlModalidadElemento.DataValueField = "Id";
-            ddlModalidadElemento.DataTextField = "Descripcion";
-            ddlModalidadElemento.DataBind();
-
-            ddlModalidadElemento.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-        }
-        protected void ddlModalidadElemento_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //
-        }
-
-        private void BindearDropDownListFinalidad(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int finalidadId = poadetalle.Funcionalidad.Parent.Parent.Id;
-
-            ddl.DataSource = uow.FuncionalidadBusinessLogic.Get(f => f.ParentId == null).OrderBy(f => f.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione", "0"));
-
-            ddl.SelectedValue = finalidadId.ToString();
-
-        }
-
-        private void BindearDropDownListFuncion(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int finalidadId = poadetalle.Funcionalidad.Parent.Parent.Id;
-            int funcionId = poadetalle.Funcionalidad.Parent.Id;
-
-            ddl.DataSource = uow.FuncionalidadBusinessLogic.Get(f => f.ParentId == finalidadId).OrderBy(f => f.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-
-            ddl.SelectedValue = funcionId.ToString();
-
-        }
-
-        private void BindearDropDownListSubFuncion(DropDownList ddl, POADetalle poadetalle)
-        {
-           
-            int funcionId = poadetalle.Funcionalidad.Parent.Id;
-
-            ddl.DataSource = uow.FuncionalidadBusinessLogic.Get(f => f.ParentId == funcionId).OrderBy(f => f.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione ...", "0"));
-
-            ddl.SelectedValue = poadetalle.FuncionalidadId.ToString();
-
-        }
-
-        private void BindearDropDownListEjeAgrupador(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int agrupadorId = poadetalle.Eje.Parent.Id;
-
-            ddl.DataSource = uow.EjeBusinessLogic.Get(f => f.ParentId == null).OrderBy(f => f.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione", "0"));
-
-            ddl.SelectedValue = agrupadorId.ToString();
-
-        }
-
-        private void BindearDropDownListEjeElemento(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int agrupadorId = poadetalle.Eje.Parent.Id;
-
-            ddl.DataSource = uow.EjeBusinessLogic.Get(f => f.ParentId == agrupadorId).OrderBy(f => f.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione", "0"));
-
-            ddl.SelectedValue = poadetalle.EjeId.ToString();
-
-        }
-
-        private void BindearDropDownListModalidadAgrupador(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int agrupadorId = poadetalle.Modalidad.Parent.Id;
-
-            ddl.DataSource = uow.ModalidadBusinessLogic.Get(f => f.ParentId == null).OrderBy(f => f.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione", "0"));
-
-            ddl.SelectedValue = agrupadorId.ToString();
-
-        }
-
-        private void BindearDropDownListModalidadElemento(DropDownList ddl, POADetalle poadetalle)
-        {
-
-            int agrupadorId = poadetalle.Modalidad.Parent.Id;
-
-            ddl.DataSource = uow.ModalidadBusinessLogic.Get(f => f.ParentId == agrupadorId).OrderBy(f => f.Orden);
-            ddl.DataValueField = "Id";
-            ddl.DataTextField = "Descripcion";
-            ddl.DataBind();
-
-            ddl.Items.Insert(0, new ListItem("Seleccione", "0"));
-
-            ddl.SelectedValue = poadetalle.ModalidadId.ToString();
-
-        }
-
-        protected void ddlEjeElemento_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //
-        }
-		
+        }              
+        		
 		protected void GridViewObras_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -700,13 +390,14 @@ namespace SIP.Formas.POA
                     {
                         string url = string.Empty;
                         url = "EvaluacionPOA.aspx?p=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
-                        btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
+                        //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
+                        btnE.Attributes.Add("data-url-poa", url);
                     }
                     
                 }
 
             }
         }
-                           
+                              
     }
 }

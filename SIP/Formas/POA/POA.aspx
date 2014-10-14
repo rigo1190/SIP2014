@@ -1,39 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="POA.aspx.cs" Inherits="SIP.Formas.POA.POA" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="POA.aspx.cs" Inherits="SIP.Formas.POA.POA" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
      <script type="text/javascript">
 
          $(document).ready(function () {
-
-
-             alert("document ready");             
+                                 
                                                   
              $('.campoNumerico').autoNumeric('init');             
 
-
-             $("#<%= ddlPrograma.ClientID %>").change(function ()
-             {
              
-                 var id = $(this).children(":selected").attr("value");
-                 fnc_fillddlSubPrograma(id);
-
-             });
-
-             $("#ddlSubprograma").change(function ()
-             {
-                
-                 var id = $(this).children(":selected").attr("value");
-                 fnc_fillddlSubSubPrograma(id);
-             });
-
-             $("#ddlTipologia").change(function ()
-             {                 
-                 var id = $(this).children(":selected").attr("value");
-                 fnc_fillddlMeta(id);
-
-             });
-             
-
              $('*[data-tipo-operacion]').click(function ()
              {                                 
                  
@@ -68,152 +43,14 @@
              
 
 
-         });
+         }); //$(document).ready
 
-         function fnc_fillddlSubPrograma(parentid)
-         {
-             PageMethods.GetAperturaProgramaticaNivel2(parentid,fnc_OnSuccessA, fnc_OnErrorA);
-         }
-
-         function fnc_OnSuccessA(response) {
-             
-
-             if (response != null) {                                
-                      
-
-                 var optionssubprograma = $("#ddlSubprograma");
-                 var optionstipologia = $("#ddlTipologia");
-                 var optionsmeta = $("#ddlMeta");
-
-
-                 if (response.length == 0)
-                 {
-                     optionssubprograma.find('option').remove().end();
-                     optionstipologia.find('option').remove().end();
-                     optionsmeta.find('option').remove().end();
-                 }
-                 else
-                 {
-                     optionssubprograma.find('option').remove().end().append('<option value="0">Seleccione...</option>');
-                     optionstipologia.find('option').remove().end();
-                     optionsmeta.find('option').remove().end();
-
-                     $.each(response, function () {
-                         optionssubprograma.append($("<option />").val(this.Value).text(this.Text));
-                     });
-
-                 }
-                 
-             }
-             else {
-                 alert("Response es null");
-             }
-
-         }
-
-         function fnc_OnErrorA(error) {
-             alert("El error es " + error.get_message());
-         }
-
-       
-
-         function fnc_fillddlSubSubPrograma(parentid) {
-             PageMethods.GetAperturaProgramaticaNivel3(parentid, fnc_OnSuccessB, fnc_OnErrorB);
-         }
-
-         function fnc_OnSuccessB(response)
-         {           
-
-             if (response != null) {
-
-                
-                 var optionstipologia = $("#ddlTipologia");
-                 var optionsmeta = $("#ddlMeta");
-                 
-
-                 if (response.length == 0)
-                 {
-                     optionstipologia.find('option').remove().end();
-                     optionsmeta.find('option').remove().end();
-                 }
-                 else
-                 {
-                     optionstipologia.find('option').remove().end().append('<option value="0">Seleccione...</option>');
-                     optionsmeta.find('option').remove().end();
-
-                     $.each(response, function () {
-                         optionstipologia.append($("<option />").val(this.Value).text(this.Text));
-                     });
-
-                 }
-                 
-
-             }
-             else {
-                 alert("Response es null");
-             }
-
-         }
-
-         function fnc_OnErrorB(error) {
-             alert("El error es " + error.get_message());
-         }
-
-
-         function fnc_fillddlMeta(tipologiaid) {
-             PageMethods.GetMetasAperturaProgramatica(tipologiaid, fnc_OnSuccessC, fnc_OnErrorC);
-         }
-
-         function fnc_OnSuccessC(response)
-         {
-            
-             if (response != null) {                
-                
-                 var optionsmetas = $("#ddlMeta");               
-                 
-                 if (response.length == 0)
-                 {                    
-                     optionsmetas.find('option').remove().end();
-                 }
-                 else
-                 {
-                     optionsmetas.find('option').remove().end().append('<option value="0">Seleccione...</option>');
-                     
-                     $.each(response, function () {
-                         optionsmetas.append($("<option />").val(this.Value).text(this.Text));
-                     });
-
-                 }
-                 
-             }
-             else {
-                 alert("Response es null");
-             }
-
-         }
-
-         function fnc_OnErrorC(error) {
-             alert("El error es " + error.get_message());
-         }
-
-
-
-
-
-
-
-      
                         
 
-         function fnc_Validar() {
+         function fnc_Validar()
+         {
 
-
-             <%--var numero = $("#<%=txtNumero.ClientID%>").val();
-             if (numero == null || numero.length == 0 || numero == undefined) {
-                 alert("El campo Número no puede estar vacio");
-                 return false;
-             }--%>
-
+          
             var desc = $("#<%=txtDescripcion.ClientID%>").val();
             if (desc == null || desc.length == 0 || desc == undefined) {
                 alert("El campo descripción no puede estar vacio");
@@ -238,13 +75,13 @@
                  return false;
              }
 
-             var subsubprograma = $("#ddlTipologia").val();
+             var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
                  alert("Debe indicar el tipo de la apertura programatica");
                  return false;
              }
 
-             var meta = $("#ddlMeta").val();
+             var meta = $("#<%= ddlMeta.ClientID %>").val();
              if (meta == null || meta.length == 0 || meta == undefined || meta == 0) {
                  alert("Debe indicar la unidad y beneficiario de la meta");
                  return false;
@@ -268,7 +105,7 @@
                  return false;
              }
 
-             var modalidad = $("#<%=ddlModalidad.ClientID%>").val();
+             var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
              if (modalidad == null || modalidad.length == 0 || modalidad == undefined || modalidad == 0) {
                  alert("Debe indicar la modalidad de la obra");
                  return false;
@@ -280,9 +117,63 @@
                  return false;
              }
 
+             var importetotal = $("#<%= txtImporteTotal.ClientID%>").val();
+             if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
+                 alert("El campo Importe total no puede estar vacio");
+                 return false;
+             }
 
+             var importeLiberado = $("#<%= txtCostoLiberadoEjerciciosAnteriores.ClientID %>").val();
+             if (importeLiberado == null || importeLiberado.length == 0 || importeLiberado == undefined) {
+                 alert("El campo <Costo liberado en ejercicios anteriores> no puede estar vacio");
+                 return false;
+             }
 
-            return true;
+             var importePresupuesto = $("#<%= txtPresupuestoEjercicio.ClientID %>").val();
+             if (importePresupuesto == null || importePresupuesto.length == 0 || importePresupuesto == undefined) {
+                 alert("El campo <Presupuesto del ejercicio> no puede estar vacio");
+                 return false;
+             }
+
+             var subfuncion = $("#<%= ddlSubFuncion.ClientID %>").val();
+             if (subfuncion == null || subfuncion.length == 0 || subfuncion == undefined || subfuncion == 0) {
+                 alert("Debe indicar la funcionalidad de la obra");
+                 return false;
+             }
+
+             var eje = $("#<%= ddlEjeElemento.ClientID %>").val();
+             if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
+                 alert("Debe indicar el <Eje del Plan de Desarrollo Veracruzano>");
+                 return false;
+             }
+
+             var eje = $("#<%= ddlPlanSectorial.ClientID %>").val();
+             if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
+                 alert("Debe indicar el <Plan sectorial> correspondiente");
+                 return false;
+             }
+
+             var clasificacionCONAC = $("#<%= ddlModalidadElemento.ClientID %>").val();
+             if (clasificacionCONAC == null || clasificacionCONAC.length == 0 || clasificacionCONAC == undefined || clasificacionCONAC == 0) {
+                 alert("Debe indicar la <Clasificación programática del CONAC> correspondiente");
+                 return false;
+             }
+
+             var programaPresupuestal = $("#<%= ddlProgramaPresupuesto.ClientID %>").val();
+             if (programaPresupuestal == null || programaPresupuestal.length == 0 || programaPresupuestal == undefined || programaPresupuestal == 0) {
+                 alert("Debe indicar el <Programa presupuestal> correspondiente");
+                 return false;
+             }
+
+             var grupoBeneficiario = $("#<%= ddlGrupoBeneficiario.ClientID %>").val();
+             if (grupoBeneficiario == null || grupoBeneficiario.length == 0 || grupoBeneficiario == undefined || grupoBeneficiario == 0) {
+                 alert("Debe indicar el <Grupo de Beneficiarios> correspondiente");
+                 return false;
+             }
+             
+             
+             return true;
+
         }
 
          function fnc_OcultarDivs(sender) {
@@ -300,19 +191,13 @@
             $(location).attr('href', url);
         }
              
-
-        window.onload = function () {
-            return "Se dispara evento window.onload";
-        }
-
-
+        
     </script>
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-       
-    
-    <%-- <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True"></asp:ScriptManager>--%>
+  
+    <ajaxToolkit:ToolkitScriptManager runat="server" />
 
     <div class="container">
        
@@ -438,31 +323,47 @@
                            <label for="Programa">Programa</label>
                          <div>
                              <asp:DropDownList ID="ddlPrograma" CssClass="form-control" runat="server"></asp:DropDownList>
-                             <%--<select id="ddlPrograma" class="form-control"></select>--%>
+                             <ajaxToolkit:CascadingDropDown ID="cddlPrograma" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetProgramas" 
+                                 TargetControlID="ddlPrograma" Category="programaId"
+                                 PromptText="Seleccione el programa..." LoadingText="Loading..."/>                           
+                            
                         </div>
                       </div>
 
                       <div class="form-group">
                            <label for="SubPrograma">SubPrograma</label>
                          <div>
-                             <%--<asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSubprograma_SelectedIndexChanged"></asp:DropDownList>--%>
-                             <select id="ddlSubprograma" class="form-control"></select>                          
+                             <asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
+                             <ajaxToolkit:CascadingDropDown ID="cddlSubprograma" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubProgramas" 
+                                 TargetControlID="ddlSubprograma" ParentControlID="ddlPrograma" Category="subprogramaId"
+                                 PromptText="Seleccione el subprograma..." LoadingText="Loading..."/>                 
+                                                     
                         </div>
                       </div>
 
                        <div class="form-group">
                            <label for="SubSubPrograma">SubSubPrograma</label>
                          <div>
-                             <%--<asp:DropDownList ID="ddlTipologia" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlTipologia_SelectedIndexChanged"></asp:DropDownList>--%>
-                             <select id="ddlTipologia" class="form-control"></select>    
+                             <asp:DropDownList ID="ddlSubsubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
+                             <ajaxToolkit:CascadingDropDown ID="cddlSubsubprograma" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubSubProgramas" 
+                                 TargetControlID="ddlSubsubprograma" ParentControlID="ddlSubprograma" Category="subsubprogramaId"
+                                 PromptText="Seleccione el subsubprograma..." LoadingText="Loading..."/>              
+                             
                         </div>
                       </div>
 
                        <div class="form-group">
                            <label for="Metas">Metas</label>
                          <div>
-                             <%--<asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>--%>
-                             <select id="ddlMeta" class="form-control"></select> 
+                             <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
+                              <ajaxToolkit:CascadingDropDown ID="cddlMeta" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetMetas" 
+                                 TargetControlID="ddlMeta" ParentControlID="ddlSubsubprograma" Category="metaId"
+                                 PromptText="Seleccione la meta..." LoadingText="Loading..."/>
+                           
                         </div>
                       </div>
 
@@ -563,7 +464,7 @@
 
                             <div class="panel panel-default">
                               <div class="panel-heading">
-                                <h3 class="panel-title">Funcionalidad</h3>
+                                <h3 class="panel-title">Clasificación funcional</h3>
                               </div>
                               <div class="panel-body">
 
@@ -571,20 +472,32 @@
                                        <label for="Finalidad">Finalidad</label>
                                      <div>
                                          <asp:DropDownList ID="ddlFinalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                         <ajaxToolkit:CascadingDropDown ID="cddlFuncionalidadNivel1" runat="server" 
+                                             ServicePath="WebServicePOA.asmx" ServiceMethod="GetFuncionalidadNivel1" 
+                                             TargetControlID="ddlFinalidad" Category="finalidadId"
+                                             PromptText="Seleccione la finalidad..." LoadingText="Loading..."/>  
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                        <label for="Funcion">Funcion</label>
                                      <div>
-                                         <asp:DropDownList ID="ddlFuncion" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlFuncion_SelectedIndexChanged"></asp:DropDownList>
+                                         <asp:DropDownList ID="ddlFuncion" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                          <ajaxToolkit:CascadingDropDown ID="cddlFuncionalidadNivel2" runat="server" 
+                                             ServicePath="WebServicePOA.asmx" ServiceMethod="GetFuncionalidadNivel2" 
+                                             TargetControlID="ddlFuncion" ParentControlID="ddlFinalidad" Category="funcionId"
+                                             PromptText="Seleccione la función..." LoadingText="Loading..."/>  
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                      <label for="SubFuncion">SubFuncion</label>
                                      <div>
-                                         <asp:DropDownList ID="ddlSubFuncion" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSubFuncion_SelectedIndexChanged"></asp:DropDownList>
+                                         <asp:DropDownList ID="ddlSubFuncion" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                          <ajaxToolkit:CascadingDropDown ID="cddlFuncionalidadNivel3" runat="server" 
+                                             ServicePath="WebServicePOA.asmx" ServiceMethod="GetFuncionalidadNivel3" 
+                                             TargetControlID="ddlSubFuncion" ParentControlID="ddlFuncion" Category="subfuncionId"
+                                             PromptText="Seleccione la sub función..." LoadingText="Loading..."/>  
                                     </div>
                                   </div>
                                                                   
@@ -594,21 +507,29 @@
 
                             <div class="panel panel-default">
                               <div class="panel-heading">
-                                <h3 class="panel-title">Eje</h3>
+                                <h3 class="panel-title">Eje del PVD</h3>
                               </div>
                               <div class="panel-body">
 
                                   <div class="form-group">
                                        <label for="EjeAgrupador">Agrupador</label>
                                      <div>
-                                         <asp:DropDownList OnSelectedIndexChanged="ddlEjeAgrupador_SelectedIndexChanged" ID="ddlEjeAgrupador" CssClass="form-control" runat="server" AutoPostBack="True"></asp:DropDownList>
+                                         <asp:DropDownList ID="ddlEjeAgrupador" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                         <ajaxToolkit:CascadingDropDown ID="cddlEjePVD1" runat="server" 
+                                             ServicePath="WebServicePOA.asmx" ServiceMethod="GetEjePVDNivel1" 
+                                             TargetControlID="ddlEjeAgrupador" Category="ejeAgrupadorId"
+                                             PromptText="Seleccione el eje agrupador..." LoadingText="Loading..."/>  
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                        <label for="EjeElemento">Elemento</label>
                                      <div>
-                                         <asp:DropDownList OnSelectedIndexChanged="ddlEjeElemento_SelectedIndexChanged" ID="ddlEjeElemento" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                         <asp:DropDownList ID="ddlEjeElemento" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                         <ajaxToolkit:CascadingDropDown ID="cddlEjePVD2" runat="server" 
+                                             ServicePath="WebServicePOA.asmx" ServiceMethod="GetEjePVDNivel2" 
+                                             TargetControlID="ddlEjeElemento" ParentControlID="ddlEjeAgrupador" Category="ejeElementoId"
+                                             PromptText="Seleccione el eje..." LoadingText="Loading..."/>
                                     </div>
                                   </div>
                                                                                                     
@@ -624,7 +545,7 @@
                                <div class="form-group">
                                    <label for="PlanSectorial">Plan Sectorial</label>
                                  <div>
-                                     <asp:DropDownList OnSelectedIndexChanged="ddlPlanSectorial_SelectedIndexChanged" ID="ddlPlanSectorial" CssClass="form-control" runat="server"></asp:DropDownList>
+                                     <asp:DropDownList ID="ddlPlanSectorial" CssClass="form-control" runat="server"></asp:DropDownList>
                                 </div>
                               </div> 
                             
@@ -637,14 +558,22 @@
                                   <div class="form-group">
                                        <label for="ddlModalidadAgrupador">Agrupador</label>
                                      <div>
-                                         <asp:DropDownList OnSelectedIndexChanged="ddlModalidadAgrupador_SelectedIndexChanged" ID="ddlModalidadAgrupador" CssClass="form-control" runat="server" AutoPostBack="True"></asp:DropDownList>
+                                         <asp:DropDownList ID="ddlModalidadAgrupador" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                         <ajaxToolkit:CascadingDropDown ID="cddlModalidadAgrupador" runat="server" 
+                                             ServicePath="WebServicePOA.asmx" ServiceMethod="GetModalidadNivel1" 
+                                             TargetControlID="ddlModalidadAgrupador" Category="modalidadAgrupadorId"
+                                             PromptText="Seleccione el agrupador..." LoadingText="Loading..."/> 
                                     </div>
                                   </div>
 
                                   <div class="form-group">
                                        <label for="ddlModalidadElemento">Elemento</label>
                                      <div>
-                                         <asp:DropDownList OnSelectedIndexChanged="ddlModalidadElemento_SelectedIndexChanged" ID="ddlModalidadElemento" CssClass="form-control" runat="server"></asp:DropDownList>
+                                         <asp:DropDownList ID="ddlModalidadElemento" CssClass="form-control" runat="server"></asp:DropDownList>
+                                         <ajaxToolkit:CascadingDropDown ID="cddlModalidadElemento" runat="server" 
+                                             ServicePath="WebServicePOA.asmx" ServiceMethod="GetModalidadNivel2" 
+                                             TargetControlID="ddlModalidadElemento" ParentControlID="ddlModalidadAgrupador" Category="modalidadElementoId"
+                                             PromptText="Seleccione el elemento..." LoadingText="Loading..."/>
                                     </div>
                                   </div>
                                                                                                     
@@ -683,13 +612,13 @@
 
              <div style="display:none" runat="server">
                 <asp:TextBox ID="_ID" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
-                <asp:TextBox ID="_Accion" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>                                    
+                <asp:TextBox ID="_Accion" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>                                                           
              </div>                       
                      
 
        </div><!--divEdicion-->
 
-    </div>
+    </div><!--div class="container"-->
           
 
 </asp:Content>

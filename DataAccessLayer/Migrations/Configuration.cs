@@ -85,14 +85,14 @@ namespace DataAccessLayer.Migrations
 
             context.Ejercicios.AddOrUpdate(
 
-               new Ejercicio { Id = 1, Año =2009,Activo=false },
-               new Ejercicio { Id = 2, Año =2010,Activo=false },
-               new Ejercicio { Id = 3, Año =2011,Activo=false },
-               new Ejercicio { Id = 4, Año =2012,Activo=false },
-               new Ejercicio { Id = 5, Año =2013,Activo=false },
-               new Ejercicio { Id = 6, Año =2014,Activo=true },
-               new Ejercicio { Id = 7, Año =2015,Activo=false },
-               new Ejercicio { Id = 8, Año =2016,Activo=false }
+               new Ejercicio { Id = 1, Año = 2009, FactorIva = 1.5M, Activo = false },
+               new Ejercicio { Id = 2, Año = 2010, FactorIva = 1.5M, Activo = false },
+               new Ejercicio { Id = 3, Año = 2011, FactorIva = 1.5M, Activo = false },
+               new Ejercicio { Id = 4, Año = 2012, FactorIva = 1.5M, Activo = false },
+               new Ejercicio { Id = 5, Año = 2013, FactorIva = 1.5M, Activo = false },
+               new Ejercicio { Id = 6, Año = 2014, FactorIva = 1.6M, Activo = true  },
+               new Ejercicio { Id = 7, Año = 2015, FactorIva = 1.6M, Activo = false },
+               new Ejercicio { Id = 8, Año = 2016, FactorIva = 1.6M, Activo = false }
             );
 
             context.UnidadesPresupuestales.AddOrUpdate(
@@ -241,15 +241,20 @@ namespace DataAccessLayer.Migrations
            sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 6, Nivel = 3 });
            sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 6, Nivel = 3 });
            sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 6, Nivel = 3 });
+                   
 
-           AperturaProgramatica sc_rehabilitacion_plantapotabilizadora = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 22);
-
-           sc_rehabilitacion_plantapotabilizadora.DetalleMetas.Add(new AperturaProgramaticaMeta { AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 });
-
-
-
-           
-
+          context.AperturaProgramaticaMetas.AddOrUpdate(
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 22, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 23, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 24, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 25, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 26, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 27, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 28, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 29, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 30, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { AperturaProgramaticaId = 31, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
+          );
 
            context.Funcionalidad.AddOrUpdate(
             new Funcionalidad { Id = 1, Clave = "F001", Descripcion = "Gobierno", Orden = 1,Nivel=1 },
@@ -377,6 +382,7 @@ namespace DataAccessLayer.Migrations
           poadetalle.ProgramaId = 1;
           poadetalle.GrupoBeneficiarioId = 2;
           poadetalle.CriterioPriorizacionId = 1;
+          poadetalle.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
 
           poa.Detalles.Add(poadetalle);
 
@@ -395,6 +401,8 @@ namespace DataAccessLayer.Migrations
           obra.FechaTermino = new DateTime(2014, 09, 16);
           obra.EsAccion = false;
           obra.ImporteTotal = 12348700;
+          obra.ImporteLiberadoEjerciciosAnteriores = 10200000;
+          obra.ImportePresupuesto = 15000000;
           obra.AperturaProgramaticaId = 22;
           obra.AperturaProgramaticaMetaId = 1;
           obra.NumeroBeneficiarios = 25;
@@ -408,14 +416,15 @@ namespace DataAccessLayer.Migrations
           obra.ProgramaId = 1;
           obra.GrupoBeneficiarioId = 2;
           obra.CriterioPriorizacionId = 1;
+          obra.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012014001";
 
           obra.POADetalle = poadetalle;
 
           context.Obras.Add(obra);
 
-           context.SaveChanges();
+          context.SaveChanges();
 
-           CrearTriggers(context);
+          CrearTriggers(context);
       
            
         }

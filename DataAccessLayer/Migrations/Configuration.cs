@@ -85,14 +85,14 @@ namespace DataAccessLayer.Migrations
 
             context.Ejercicios.AddOrUpdate(
 
-               new Ejercicio { Id = 1, Año = 2009, FactorIva = 1.5M, Activo = false },
-               new Ejercicio { Id = 2, Año = 2010, FactorIva = 1.5M, Activo = false },
-               new Ejercicio { Id = 3, Año = 2011, FactorIva = 1.5M, Activo = false },
-               new Ejercicio { Id = 4, Año = 2012, FactorIva = 1.5M, Activo = false },
-               new Ejercicio { Id = 5, Año = 2013, FactorIva = 1.5M, Activo = false },
-               new Ejercicio { Id = 6, Año = 2014, FactorIva = 1.6M, Activo = true  },
-               new Ejercicio { Id = 7, Año = 2015, FactorIva = 1.6M, Activo = false },
-               new Ejercicio { Id = 8, Año = 2016, FactorIva = 1.6M, Activo = false }
+               new Ejercicio { Id = 1, Año = 2009, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 2, Año = 2010, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 3, Año = 2011, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 4, Año = 2012, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 5, Año = 2013, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
+               new Ejercicio { Id = 6, Año = 2014, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Activo  },
+               new Ejercicio { Id = 7, Año = 2015, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Nuevo   }
+               
             );
 
             context.UnidadesPresupuestales.AddOrUpdate(
@@ -161,14 +161,16 @@ namespace DataAccessLayer.Migrations
                 new ModalidadFinanciamiento { Id = 4, Clave = "MF004", Nombre = "Prestamo", Orden = 4 }
             );
 
-           context.Años.AddOrUpdate( 
-          
-              new Año { Id = 1 ,Anio = 2010 },
-              new Año { Id = 2 ,Anio = 2011 },
-              new Año { Id = 3 ,Anio = 2012 },
-              new Año { Id = 4 ,Anio = 2013 },
-              new Año { Id = 5 ,Anio = 2014 },
-              new Año { Id = 6 ,Anio = 2015 }
+           context.Años.AddOrUpdate(
+
+              new Año { Id = 1, Anio = 2008 },
+              new Año { Id = 2, Anio = 2009 },
+              new Año { Id = 3 ,Anio = 2010 },
+              new Año { Id = 4 ,Anio = 2011 },
+              new Año { Id = 5 ,Anio = 2012 },
+              new Año { Id = 6 ,Anio = 2013 },
+              new Año { Id = 7 ,Anio = 2014 },
+              new Año { Id = 8 ,Anio = 2015 }
              
           );
 

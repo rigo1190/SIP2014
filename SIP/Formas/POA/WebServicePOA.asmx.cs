@@ -17,7 +17,8 @@ namespace SIP.Formas.POA
     // Para permitir que se llame a este servicio web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
     [System.Web.Script.Services.ScriptService]
     public class WebServicePOA : System.Web.Services.WebService
-    {        
+    {
+        private UnitOfWork uow = new UnitOfWork();
 
         [WebMethod]
         public string HelloWorld()
@@ -28,7 +29,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetProgramas(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -46,7 +47,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetSubProgramas(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -66,7 +67,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetSubSubProgramas(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -86,7 +87,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetMetas(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -107,7 +108,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetFuncionalidadNivel1(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();                        
 
@@ -125,7 +126,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetFuncionalidadNivel2(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -145,7 +146,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetFuncionalidadNivel3(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -165,7 +166,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetEjePVDNivel1(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
            
@@ -184,7 +185,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetEjePVDNivel2(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -204,7 +205,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetModalidadNivel1(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
@@ -223,7 +224,7 @@ namespace SIP.Formas.POA
         [WebMethod]
         public CascadingDropDownNameValue[] GetModalidadNivel2(string knownCategoryValues, string category)
         {
-            UnitOfWork uow = new UnitOfWork();
+            if (uow == null) uow = new UnitOfWork();
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 

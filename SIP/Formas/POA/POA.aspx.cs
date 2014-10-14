@@ -30,7 +30,7 @@ namespace SIP.Formas.POA
                 unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
                 ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
                 
-                lblTituloPOA.Text = String.Format("POA proyectado ejercicio {0}", uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
+                lblTituloPOA.Text = String.Format("Anteproyecto de POA para el ejercicio {0}", uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
                 BindGrid();
                 BindearDropDownList();
             }
@@ -129,9 +129,9 @@ namespace SIP.Formas.POA
             cddlEjePVD2.SelectedValue = String.Empty;                       
 
             ddlPlanSectorial.SelectedIndex = -1;
-            
+
             cddlModalidadAgrupador.SelectedValue = String.Empty;
-            cddlModalidadElemento.SelectedValue = String.Empty;
+            cddlModalidadElemento.SelectedValue = String.Empty;           
 
             ddlProgramaPresupuesto.SelectedIndex = -1;
             ddlGrupoBeneficiario.SelectedIndex = -1;
@@ -332,22 +332,7 @@ namespace SIP.Formas.POA
 
             ddlSituacionObra.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
-            Utilerias.BindDropDownToEnum(ddlModalidad, typeof(enumModalidadObra));
-
-            //ddlFinalidad.DataSource = uow.FuncionalidadBusinessLogic.Get(f => f.ParentId == null).ToList();
-            //ddlFinalidad.DataValueField = "Id";
-            //ddlFinalidad.DataTextField = "Descripcion";
-            //ddlFinalidad.DataBind();
-
-            //ddlFinalidad.Items.Insert(0, new ListItem("Seleccione...", "0"));
-           
-            //ddlEjeAgrupador.DataSource = uow.EjeBusinessLogic.Get(f => f.ParentId == null).ToList();
-            //ddlEjeAgrupador.DataValueField = "Id";
-            //ddlEjeAgrupador.DataTextField = "Descripcion";
-            //ddlEjeAgrupador.DataBind();
-
-            //ddlEjeAgrupador.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
+            Utilerias.BindDropDownToEnum(ddlModalidad, typeof(enumModalidadObra));          
             
             ddlPlanSectorial.DataSource = uow.PlanSectorialBusinessLogic.Get(orderBy:ps=>ps.OrderBy(o=>o.Orden)).ToList();
             ddlPlanSectorial.DataValueField = "Id";
@@ -355,13 +340,13 @@ namespace SIP.Formas.POA
             ddlPlanSectorial.DataBind();
 
             ddlPlanSectorial.Items.Insert(0, new ListItem("Seleccione...", "0"));
-                        
-            //ddlModalidadAgrupador.DataSource = uow.ModalidadBusinessLogic.Get(m=>m.ParentId==null).ToList();
-            //ddlModalidadAgrupador.DataValueField = "Id";
-            //ddlModalidadAgrupador.DataTextField = "Descripcion";
-            //ddlModalidadAgrupador.DataBind();
 
-            //ddlModalidadAgrupador.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            //ddlClasificacionProgramaticaCONAC.DataSource = uow.ModalidadBusinessLogic.Get(m => m.ParentId == null).ToList();
+            //ddlClasificacionProgramaticaCONAC.DataValueField = "Id";
+            //ddlClasificacionProgramaticaCONAC.DataTextField = "Descripcion";
+            //ddlClasificacionProgramaticaCONAC.DataBind();
+
+            //ddlClasificacionProgramaticaCONAC.Items.Insert(0, new ListItem("Seleccione...", "0"));
             
             ddlProgramaPresupuesto.DataSource = uow.ProgramaBusinessLogic.Get();
             ddlProgramaPresupuesto.DataValueField = "Id";

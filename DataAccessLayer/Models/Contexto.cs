@@ -41,6 +41,12 @@ namespace DataAccessLayer.Models
               .WithMany(u => u.Detalles)
               .HasForeignKey(u => u.ObraPlantillaId)
               .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<AperturaProgramaticaMeta>()
+             .HasRequired(u => u.AperturaProgramatica)
+             .WithMany(u => u.DetalleMetas)
+             .HasForeignKey(u => u.AperturaProgramaticaId)
+             .WillCascadeOnDelete(true);         
             
         }
 

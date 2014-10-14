@@ -21,9 +21,7 @@
 </head>
 <body>
    <form id="form1" runat="server">
-
-       <%-- <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="True" ScriptMode="Release" LoadScriptsBeforeUI="true"></asp:ScriptManager>--%>
-
+     
         <header>
             <div id="encabezado" class="header"></div>
         </header>    

@@ -228,7 +228,6 @@
     <Content Include="Formas\Catalogos\catPlanesSectoriales.aspx" />
     <Content Include="Formas\Catalogos\catProgramas.aspx" />
     <Content Include="Formas\Catalogos\catUnidadesPresupuestales.aspx" />
-    <Content Include="Formas\Catalogos\Ejercicios.aspx" />
     <Content Include="Formas\Catalogos\Municipios.aspx" />
     <Content Include="Formas\Catalogos\PlantillaPreguntas.aspx" />
     <Content Include="Formas\Catalogos\Plantillas.aspx" />
@@ -400,13 +399,6 @@
     </Compile>
     <Compile Include="Formas\Catalogos\catUnidadesPresupuestales.aspx.designer.cs">
       <DependentUpon>catUnidadesPresupuestales.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Formas\Catalogos\Ejercicios.aspx.cs">
-      <DependentUpon>Ejercicios.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Formas\Catalogos\Ejercicios.aspx.designer.cs">
-      <DependentUpon>Ejercicios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\Municipios.aspx.cs">
       <DependentUpon>Municipios.aspx</DependentUpon>

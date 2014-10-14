@@ -1,6 +1,6 @@
-﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="SIP.About" %>
+﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="About.aspx.cs" Inherits="SIP.About" %>
 
-<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
+<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1">
     <hgroup class="title">
         <h1><%: Title %>.</h1>
         <h2>Your app description page.</h2>

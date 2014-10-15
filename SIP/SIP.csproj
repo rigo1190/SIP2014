@@ -234,6 +234,7 @@
     <Content Include="Formas\Catalogos\PlantillasPadre.aspx" />
     <Content Include="Formas\frmSelectorEjercicio.aspx" />
     <Content Include="Formas\POA\EvaluacionPOA.aspx" />
+    <Content Include="Formas\POA\frmPOAAjustado.aspx" />
     <Content Include="Formas\POA\POA.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
     <Content Include="Formas\TEST.aspx" />
@@ -247,6 +248,7 @@
     <Content Include="img\img_reportes.png" />
     <Content Include="img\lista.png" />
     <Content Include="img\magnifier.png" />
+    <Content Include="img\photo.png" />
     <Content Include="img\Reporte.png" />
     <Content Include="Login.aspx" />
     <Content Include="packages.config" />
@@ -441,6 +443,13 @@
     </Compile>
     <Compile Include="Formas\POA\EvaluacionPOA.aspx.designer.cs">
       <DependentUpon>EvaluacionPOA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\frmPOAAjustado.aspx.cs">
+      <DependentUpon>frmPOAAjustado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\POA\frmPOAAjustado.aspx.designer.cs">
+      <DependentUpon>frmPOAAjustado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\POA\POA.aspx.cs">
       <DependentUpon>POA.aspx</DependentUpon>

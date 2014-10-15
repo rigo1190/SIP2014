@@ -36,8 +36,7 @@
              <div class="well text-center"><h3>Sistema de Inversión Pública</h3></div>     
             
             <div class="form-group">
-                 <img class="img-circle center-block" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                            alt="">
+                 <img class="img-circle center-block" src="<%= ResolveClientUrl("~/img/photo.png")%>" alt="" />
             </div>          
             
                                                              

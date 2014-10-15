@@ -392,6 +392,7 @@ namespace DataAccessLayer.Migrations
 
 
           Obra obra = new Obra();
+          obra.Consecutivo = 1;
           obra.Numero = "102S110012014001";
           obra.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
           obra.MunicipioId = 1;
@@ -420,6 +421,7 @@ namespace DataAccessLayer.Migrations
           obra.CriterioPriorizacionId = 1;
           obra.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012014001";
 
+          obra.POA = poa; 
           obra.POADetalle = poadetalle;
 
           context.Obras.Add(obra);

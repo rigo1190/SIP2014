@@ -31,20 +31,14 @@ namespace SIP
             var user = uow.UsuarioBusinessLogic.Get(u => u.Login == strlogin && u.Password == strContrasena).FirstOrDefault();
 
             if (user!=null)
-            {                               
-                
-                                    
-
-                        //FormsAuthentication.RedirectFromLoginPage(user.Login, false);
+            {                                               
                         
                         Session.Timeout = 60;
                         Session["IsAuthenticated"] = true;
                         Session["NombreUsuario"] = user.Nombre;
-                        Session["Login"] = user.Login;                     
-                                      
+                        Session["Login"] = user.Login;
 
                         Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
-
             }
 
             else

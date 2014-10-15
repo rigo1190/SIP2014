@@ -47,7 +47,7 @@
                      <div class="form-group">
                            <label for="ddlUnidadPresupuestal" class="control-label" runat="server">Unidad presupuestal:</label>
                             <div>
-                                <asp:DropDownList ID="ddlUnidadPresupuestal" runat="server" Width="1025px" CssClass ="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlUnidadPresupuestal_SelectedIndexChanged"></asp:DropDownList>                                         
+                                <asp:DropDownList ID="ddlUnidadPresupuestal" runat="server" Width="1025px" CssClass ="form-control" AutoPostBack="True" ></asp:DropDownList>                                         
                             </div>
                        </div>      
                                          
@@ -55,7 +55,7 @@
                  <div class="form-group">
                    <label for="ddlEjercicios" class="control-label" runat="server">Ejercicios:</label>
                     <div>
-                        <asp:DropDownList ID="ddlEjercicios" runat="server" Width="1025px" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="ddlEjercicios_SelectedIndexChanged"></asp:DropDownList>                                         
+                        <asp:DropDownList ID="ddlEjercicios" runat="server" Width="1025px" CssClass="form-control" AutoPostBack="True" ></asp:DropDownList>                                         
                     </div>
                  </div>
 

@@ -21,17 +21,7 @@ namespace SIP.Formas
             }
 
         }
-
-        protected void ddlUnidadPresupuestal_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //
-        }
-
-        protected void ddlEjercicios_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //
-        }
-
+      
         protected void btnSeleccionar_Click(object sender, EventArgs e)
         {
             Session["UnidadPresupuestalId"] = ddlUnidadPresupuestal.SelectedValue;

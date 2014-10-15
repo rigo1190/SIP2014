@@ -220,6 +220,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Formas\Catalogos\cat.aspx" />
     <Content Include="Formas\Catalogos\catAperturaProgramatica.aspx" />
+    <Content Include="Formas\Catalogos\catAperturaProgramaticaBeneficiario.aspx" />
+    <Content Include="Formas\Catalogos\catAperturaProgramaticaUnidades.aspx" />
     <Content Include="Formas\Catalogos\catEjesPVD.aspx" />
     <Content Include="Formas\Catalogos\catFondos.aspx" />
     <Content Include="Formas\Catalogos\catFuncionalidad.aspx" />
@@ -351,6 +353,18 @@
     </Compile>
     <Compile Include="Formas\Catalogos\catAperturaProgramatica.aspx.designer.cs">
       <DependentUpon>catAperturaProgramatica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catAperturaProgramaticaBeneficiario.aspx.cs">
+      <DependentUpon>catAperturaProgramaticaBeneficiario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catAperturaProgramaticaBeneficiario.aspx.designer.cs">
+      <DependentUpon>catAperturaProgramaticaBeneficiario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catAperturaProgramaticaUnidades.aspx.cs">
+      <DependentUpon>catAperturaProgramaticaUnidades.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catAperturaProgramaticaUnidades.aspx.designer.cs">
+      <DependentUpon>catAperturaProgramaticaUnidades.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catEjesPVD.aspx.cs">
       <DependentUpon>catEjesPVD.aspx</DependentUpon>

@@ -408,7 +408,7 @@
                       </div>
 
                       <div class="form-group">
-                           <label for="ModalidadObra">Modalidad</label>
+                           <label for="ModalidadObra">Modalidad de ejecución</label>
                          <div>
                               <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>

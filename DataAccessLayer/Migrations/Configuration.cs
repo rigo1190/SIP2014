@@ -233,16 +233,16 @@ namespace DataAccessLayer.Migrations
 
            AperturaProgramatica sc_rehabilitacion = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 16);
 
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 22, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 23, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 6, Nivel = 3 });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 6, Nivel = 3 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 22, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 6, Nivel = 3,EsObraOAccion=enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 23, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
                    
 
           context.AperturaProgramaticaMetas.AddOrUpdate(
@@ -437,7 +437,7 @@ namespace DataAccessLayer.Migrations
         private void CrearTriggers(Contexto contexto)
         {
 
-            string sp001 = @" CREATE TRIGGER trgAsignarNumeroObra ON [dbo].[POADetalle] 
+            string sp001 = @" CREATE TRIGGER trgAsignarNumeroObra_POADetalle ON [dbo].[POADetalle] 
                                 FOR INSERT
                                 AS
 	                               
@@ -474,7 +474,49 @@ namespace DataAccessLayer.Migrations
 
 
 
+            contexto.Database.ExecuteSqlCommand(sp001);
+
+
+            sp001 = @"CREATE TRIGGER trgAsignarNumeroObra_Obra ON [dbo].[Obra] 
+                                FOR INSERT
+                                AS
+	                               
+									 declare @consecutivo int;
+						             declare @UnidadPresupuestalClave varchar(9);
+						             declare @anio int;
+						             declare @obraId int;
+						             declare @poaId int;
+						             declare @numeroObra varchar(100);
+
+						             select @poaId=POAId,@obraId=Id from inserted; 
+
+                                     select
+
+                                         @consecutivo=MAX(obra.Consecutivo),							  
+							             @UnidadPresupuestalClave=UnidadPresupuestal.Clave,
+							             @anio=Ejercicio.Año							   
+
+                                     from Obra 
+                                     inner join POA
+                                     on POA.Id=Obra.POAId
+                                     inner join UnidadPresupuestal
+                                     on UnidadPresupuestal.Id=POA.UnidadPresupuestalId
+                                     inner join Ejercicio
+                                     on Ejercicio.Id=POA.EjercicioId
+                                     where POA.Id=@poaId
+							         group by POA.Id,UnidadPresupuestal.Clave,Ejercicio.Año
+                            
+                            set @consecutivo=@consecutivo+1;                                     
+							
+							set @numeroObra= concat(@UnidadPresupuestalClave,@anio,REPLACE(STR(@consecutivo, 3),SPACE(1),'0'));
+
+                            update Obra set Consecutivo=@consecutivo,Numero=@numeroObra where Id=@obraId";
+
+
+
             contexto.Database.ExecuteSqlCommand(sp001);           
+
+
 
 
         } // Triggers

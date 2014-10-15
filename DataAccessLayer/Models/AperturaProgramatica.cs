@@ -21,6 +21,9 @@ namespace DataAccessLayer.Models
         public string Clave { get; set; }
         public string Nombre { get; set; }
 
+        [Range(1, 2, ErrorMessage = "El campo {0} solo puede tener valores entre {1} y {2}")]
+        public enumObraAccion? EsObraOAccion { get; set; }
+
         [Index("IX_Orden_ParentId", 1, IsUnique = true)]
         public int Orden { get; set; }
 
@@ -32,5 +35,11 @@ namespace DataAccessLayer.Models
         public virtual AperturaProgramatica Parent { get; set; }
         public virtual ICollection<AperturaProgramaticaMeta> DetalleMetas { get; set; }
         public virtual ICollection<AperturaProgramatica> DetalleSubElementos { get; set; }
+    }
+
+    public enum enumObraAccion 
+    {
+        Obra=1,
+        Accion=2
     }
 }

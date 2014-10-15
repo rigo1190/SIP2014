@@ -104,7 +104,7 @@
 
              var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
              if (modalidad == null || modalidad.length == 0 || modalidad == undefined || modalidad == 0) {
-                 alert("Debe indicar la modalidad de la obra");
+                 alert("Debe indicar la modalidad de ejecución de la obra");
                  return false;
              }
 
@@ -407,7 +407,7 @@
                       </div>
 
                       <div class="form-group">
-                           <label for="ModalidadObra">Modalidad</label>
+                           <label for="ModalidadObra">Modalidad de ejecución</label>
                          <div>
                               <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>

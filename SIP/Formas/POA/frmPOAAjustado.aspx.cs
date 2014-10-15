@@ -248,7 +248,7 @@ namespace SIP.Formas.POA
             obra.ProgramaId = Utilerias.StrToInt(ddlProgramaPresupuesto.SelectedValue);
             obra.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
 
-
+            ///
             obra.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
             obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
             obra.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());

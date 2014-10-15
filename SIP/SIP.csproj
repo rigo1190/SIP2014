@@ -356,30 +356,35 @@
     </Compile>
     <Compile Include="Formas\Catalogos\catAperturaProgramaticaBeneficiario.aspx.cs">
       <DependentUpon>catAperturaProgramaticaBeneficiario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catAperturaProgramaticaBeneficiario.aspx.designer.cs">
       <DependentUpon>catAperturaProgramaticaBeneficiario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catAperturaProgramaticaUnidades.aspx.cs">
       <DependentUpon>catAperturaProgramaticaUnidades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catAperturaProgramaticaUnidades.aspx.designer.cs">
       <DependentUpon>catAperturaProgramaticaUnidades.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catEjesPVD.aspx.cs">
       <DependentUpon>catEjesPVD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catEjesPVD.aspx.designer.cs">
       <DependentUpon>catEjesPVD.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catFondos.aspx.cs">
       <DependentUpon>catFondos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catFondos.aspx.designer.cs">
       <DependentUpon>catFondos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catFuncionalidad.aspx.cs">
       <DependentUpon>catFuncionalidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catFuncionalidad.aspx.designer.cs">
       <DependentUpon>catFuncionalidad.aspx</DependentUpon>
@@ -393,12 +398,14 @@
     </Compile>
     <Compile Include="Formas\Catalogos\catModalidad.aspx.cs">
       <DependentUpon>catModalidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catModalidad.aspx.designer.cs">
       <DependentUpon>catModalidad.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catPlanesSectoriales.aspx.cs">
       <DependentUpon>catPlanesSectoriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catPlanesSectoriales.aspx.designer.cs">
       <DependentUpon>catPlanesSectoriales.aspx</DependentUpon>

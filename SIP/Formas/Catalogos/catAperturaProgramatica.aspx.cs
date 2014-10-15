@@ -32,16 +32,30 @@ namespace SIP.Formas.Catalogos
                     treeMain.Nodes[0].Select();
                     treeMain.ExpandAll();
                 }
-                
+
+                ddlBeneficiario.DataSource = uow.AperturaProgramaticaBeneficiarioBusinessLogic.Get().ToList();
+                ddlBeneficiario.DataValueField = "Id";
+                ddlBeneficiario.DataTextField = "Nombre";
+                ddlBeneficiario.DataBind();
 
 
+                ddlUnidad.DataSource = uow.AperturaProgramaticaUnidadBusinessLogic.Get().ToList();
+                ddlUnidad.DataValueField = "Id";
+                ddlUnidad.DataTextField = "Nombre";
+                ddlUnidad.DataBind();
+
+                BindGrid();
+
+                btnMetaGuardar.Style.Add("display", "block");
+                btnMetaUpdate.Style.Add("display", "none");
+                btnMetaCancelarCambios.Style.Add("display", "none");
             }
 
 
         }
 
 
-
+        
 
 
         #region Eventos
@@ -420,10 +434,154 @@ namespace SIP.Formas.Catalogos
                 divMsgSuccess.Style.Add("display", "none");
             }
         }
+
+
+        //metas
+        protected void btnMetaGuardar_Click(object sender, EventArgs e)
+        {
+            AperturaProgramaticaMeta obj = new AperturaProgramaticaMeta();
+
+            obj.AperturaProgramaticaId = int.Parse(_ElId.Value);
+            obj.AperturaProgramaticaBeneficiarioId = int.Parse(ddlBeneficiario.SelectedValue);
+            obj.AperturaProgramaticaUnidadId = int.Parse(ddlUnidad.SelectedValue);
+
+            uow.AperturaProgramaticaMetaBusinessLogic.Insert(obj);
+            uow.SaveChanges();
+
+            if (uow.Errors.Count == 0) {
+                BindGrid();
+
+                lblMensajeSuccess.Text = "La Meta se ha registrado";
+
+                divMsg.Style.Add("display", "none");
+                divMsgSuccess.Style.Add("display", "block");
+            }
+
+        }
+
+
+
+
+        protected void imgBtnEditMeta_Click(object sender, ImageClickEventArgs e)
+        {
+            btnMetaGuardar.Style.Add("display", "none");
+            btnMetaUpdate.Style.Add("display", "block");
+            btnMetaCancelarCambios.Style.Add("display", "block");
+
+            GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
+            _IdMeta.Value = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
+
+            AperturaProgramaticaMeta meta = uow.AperturaProgramaticaMetaBusinessLogic.GetByID(int.Parse(_IdMeta.Value));
+
+            ddlBeneficiario.SelectedValue = meta.AperturaProgramaticaBeneficiarioId.ToString();
+            ddlUnidad.SelectedValue = meta.AperturaProgramaticaUnidadId.ToString();
+
+            divMsg.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "none");
+        }
+
+        protected void btnMetaUpdate_Click(object sender, EventArgs e)
+        {
+            AperturaProgramaticaMeta meta = uow.AperturaProgramaticaMetaBusinessLogic.GetByID(int.Parse(_IdMeta.Value));
+            meta.AperturaProgramaticaBeneficiarioId = int.Parse(ddlBeneficiario.SelectedValue);
+            meta.AperturaProgramaticaUnidadId = int.Parse(ddlUnidad.SelectedValue);
+
+            uow.AperturaProgramaticaMetaBusinessLogic.Update(meta);
+            uow.SaveChanges();
+
+            if (uow.Errors.Count == 0)
+            {
+                BindGrid();
+                btnMetaGuardar.Style.Add("display", "block");
+                btnMetaUpdate.Style.Add("display", "none");
+                btnMetaCancelarCambios.Style.Add("display", "none");
+
+                lblMensajeSuccess.Text = "La Meta se ha actualizado";
+
+                divMsg.Style.Add("display", "none");
+                divMsgSuccess.Style.Add("display", "block");
+            }
+
+        }
+
+        protected void btnMetaCancelarCambios_Click(object sender, EventArgs e)
+        {
+            BindGrid();
+            btnMetaGuardar.Style.Add("display", "block");
+            btnMetaUpdate.Style.Add("display", "none");
+            btnMetaCancelarCambios.Style.Add("display", "none");
+        }
+
+        protected void imgBtnEliminarMeta_Click(object sender, ImageClickEventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
+            int idMeta;
+            idMeta = int.Parse(grid.DataKeys[row.RowIndex].Values["Id"].ToString());
+
+            AperturaProgramaticaMeta meta = uow.AperturaProgramaticaMetaBusinessLogic.GetByID(idMeta);
+
+            uow.Errors.Clear();
+            List<POADetalle> lista;
+            lista = uow.POADetalleBusinessLogic.Get(p => p.AperturaProgramaticaMetaId == meta.Id).ToList();
+
+
+            if (lista.Count > 0)
+                uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
+
+
+
+            if (uow.Errors.Count == 0)
+            {
+                uow.AperturaProgramaticaMetaBusinessLogic.Delete(meta);
+                uow.SaveChanges();
+            }
+
+
+            if (uow.Errors.Count == 0)
+            {
+                BindGrid();
+                lblMensajeSuccess.Text = "La Meta se ha eliminado correctamente";
+
+                divMsg.Style.Add("display", "none");
+                divMsgSuccess.Style.Add("display", "block");
+
+            }
+
+            else
+            {
+                string mensaje;
+
+                divMsg.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+
+                mensaje = string.Empty;
+                foreach (string cad in uow.Errors)
+                    mensaje = mensaje + cad + "<br>";
+
+                lblMensajes.Text = mensaje;
+            }
+
+        }
+
+
+
         #endregion
 
 
         #region Metodos
+
+        private void BindGrid()
+        {
+            int id;
+            if (_ElId.Value == "")
+                return;
+
+            id = int.Parse(_ElId.Value);
+
+            this.grid.DataSource = uow.AperturaProgramaticaMetaBusinessLogic.Get(p=> p.AperturaProgramaticaId == id,includeProperties:"AperturaProgramaticaUnidad,AperturaProgramaticaBeneficiario").ToList();
+            this.grid.DataBind();
+        }
+
 
         private void CargarArbol()
         {
@@ -476,7 +634,6 @@ namespace SIP.Formas.Catalogos
         {
             AperturaProgramatica obj = null;
 
-
             if (node != null)
             {
                 obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(node.Value));
@@ -489,6 +646,18 @@ namespace SIP.Formas.Catalogos
                 _rutaNodoSeleccionado.Value = node.ValuePath;
 
                 treeMain.FindNode(node.ValuePath).Select();
+
+                List<AperturaProgramaticaMeta> listaMetas = uow.AperturaProgramaticaMetaBusinessLogic.Get(p=> p.AperturaProgramaticaId == obj.Id).ToList();
+
+                if (listaMetas.Count > 0)
+                {                    
+                    BindGrid();
+                    btnMetaGuardar.Style.Add("display", "block");
+                    btnMetaUpdate.Style.Add("display", "none");
+                    btnMetaCancelarCambios.Style.Add("display", "none");
+                }
+                    
+
             }
             else
             {
@@ -508,6 +677,10 @@ namespace SIP.Formas.Catalogos
         }
 
         #endregion
+
+       
+
+        
 
         
 

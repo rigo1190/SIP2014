@@ -65,6 +65,8 @@
                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-book"></span> Catálogos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catAperturaProgramatica.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Apertura Programática</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catAperturaProgramaticaBeneficiario.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Apertura Programática::Beneficiario</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catAperturaProgramaticaUnidades.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Apertura Programática::Unidades de Medida</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catGrupoBeneficiarios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Beneficiarios</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catModalidad.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Clasificación Programática CONAC</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/Ejercicios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Ejercicios</a></li>

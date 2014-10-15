@@ -12,7 +12,7 @@ namespace SIP.Formas.POA
 {
     public partial class frmPOAAjustado : System.Web.UI.Page
     {
-
+            
         private UnitOfWork uow;
         private int currentId;
         private int unidadpresupuestalId;

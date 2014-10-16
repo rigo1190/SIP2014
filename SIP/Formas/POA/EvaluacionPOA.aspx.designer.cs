@@ -184,13 +184,22 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.WebControls.GridView grid;
         
         /// <summary>
-        /// Control divGuardarPreguntas.
+        /// Control divEdicionPreguntas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGuardarPreguntas;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divEdicionPreguntas;
+        
+        /// <summary>
+        /// Control divCapturaPreguntas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCapturaPreguntas;
         
         /// <summary>
         /// Control txtPregunta.
@@ -209,15 +218,6 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtObservacionesPregunta;
-        
-        /// <summary>
-        /// Control txtRutaArchivo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtRutaArchivo;
         
         /// <summary>
         /// Control btnBuscarArchivo.

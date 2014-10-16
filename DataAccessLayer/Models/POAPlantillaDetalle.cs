@@ -17,6 +17,8 @@ namespace DataAccessLayer.Models
         public enumRespuesta Respuesta { get; set; }
         public string Observaciones { get; set; }
         public string RutaArchivo { get; set; }
+        public string TipoArchivo { get; set; }
+        public string NombreArchivo { get; set; }
         public virtual POAPlantilla POAPlantilla { get; set; }
         public virtual PlantillaDetalle PlantillaDetalle { get; set; }
  

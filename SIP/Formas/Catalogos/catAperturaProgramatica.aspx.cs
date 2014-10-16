@@ -23,6 +23,7 @@ namespace SIP.Formas.Catalogos
                 CargarArbol();
 
                 divcaptura.Style.Add("display", "none");
+                divMetas.Style.Add("display", "none");
                 btnMenuCancelar.Style.Add("display", "none");
                 btnMenuGuardar.Style.Add("display", "none");
 
@@ -85,6 +86,7 @@ namespace SIP.Formas.Catalogos
             obj.Clave = txtClave.Text;
             obj.Nombre = txtNombre.Text;
 
+            obj.EsObraOAccion = enumObraAccion.Obra;
 
             lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
 
@@ -281,6 +283,7 @@ namespace SIP.Formas.Catalogos
 
                 //Se ocultan los botones de GUARDAR Y CANCELAR del menu y Normalizar pantallas de datos y captura
                 divcaptura.Style.Add("display", "none");
+                divMetas.Style.Add("display", "block");
                 divArbol.Style.Add("display", "block");
 
                 btnMenuCancelar.Style.Add("display", "none");
@@ -315,6 +318,7 @@ namespace SIP.Formas.Catalogos
 
                 divArbol.Style.Add("display", "none");
                 divcaptura.Style.Add("display", "block");
+                divMetas.Style.Add("display", "none");
 
                 SpanModificar.Style.Add("display", "none");
                 SpanGrupo.Style.Add("display", "none");
@@ -359,6 +363,7 @@ namespace SIP.Formas.Catalogos
 
             divArbol.Style.Add("display", "block");
             divcaptura.Style.Add("display", "none");
+            divMetas.Style.Add("display", "block");
 
             divMsg.Style.Add("display", "none");
             divMsgSuccess.Style.Add("display", "none");

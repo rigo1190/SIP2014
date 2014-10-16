@@ -81,6 +81,8 @@
     <Compile Include="Models\Programa.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\SituacionObra.cs" />
+    <Compile Include="Models\TechoFinanciero.cs" />
+    <Compile Include="Models\TechoFinancieroUnidadPresupuestal.cs" />
     <Compile Include="Models\TipoLocalidad.cs" />
     <Compile Include="Models\UnidadPresupuestal.cs" />
     <Compile Include="Models\Usuario.cs" />

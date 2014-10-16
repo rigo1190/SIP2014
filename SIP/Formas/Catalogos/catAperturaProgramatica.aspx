@@ -91,9 +91,13 @@
                  blockNone = "none";
                  $("#<%= divArbol.ClientID %>").css("display", "block")
             }
+               
+            if (blockNone == "block")
+                $("#<%= divMetas.ClientID %>").css("display", "none")
+            else
+                $("#<%= divMetas.ClientID %>").css("display", "block")
 
-
-            $("#<%= divcaptura.ClientID %>").css("display", blockNone)
+             $("#<%= divcaptura.ClientID %>").css("display", blockNone)
              $("#<%= btnMenuCancelar.ClientID%>").css("display", blockNone);
              $("#<%= btnMenuGuardar.ClientID%>").css("display", blockNone);
 
@@ -422,9 +426,9 @@
 
         
 
-
-
-    <div class="panel panel-success">
+    <div id="divMetas" runat="server">
+    
+        <div class="panel panel-success">
         <div class="panel-heading panel-success">
             <h3 class="panel-title">Metas</h3>
         </div>
@@ -468,7 +472,7 @@
         </asp:GridView>
     </div>
 
-            <div class="row">
+        <div class="row">
             <div class="col-md-4"> 
                 <asp:DropDownList ID="ddlUnidad" CssClass="form-control" runat="server"></asp:DropDownList>
             </div>
@@ -488,6 +492,7 @@
             </div>
         </div>        
 
+    </div>
 
 
     </div>

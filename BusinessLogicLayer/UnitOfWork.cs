@@ -48,6 +48,8 @@ namespace BusinessLogicLayer
         private IBusinessLogic<Programa> programaBusinessLogic;
         private IBusinessLogic<GrupoBeneficiario> grupoBeneficiarioBusinessLogic;
         private IBusinessLogic<CriterioPriorizacion> criterioPriorizacionBusinessLogic;
+        private IBusinessLogic<TechoFinanciero> techoFinancieroBusinessLogic;
+        private IBusinessLogic<TechoFinancieroUnidadPresupuestal> techoFinancieroUnidadPresupuestalBusinessLogic;
        
         public UnitOfWork()
         {
@@ -532,6 +534,29 @@ namespace BusinessLogicLayer
             }
         }
 
+        public IBusinessLogic<TechoFinanciero> TechoFinancieroBusinessLogic
+        {
+            get
+            {
+                if (this.techoFinancieroBusinessLogic == null)
+                {
+                    this.techoFinancieroBusinessLogic = new GenericBusinessLogic<TechoFinanciero>(contexto);
+                }
+                return techoFinancieroBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<TechoFinancieroUnidadPresupuestal> TechoFinancieroUnidadPresuestalBusinessLogic
+        {
+            get
+            {
+                if (this.techoFinancieroUnidadPresupuestalBusinessLogic == null)
+                {
+                    this.techoFinancieroUnidadPresupuestalBusinessLogic = new GenericBusinessLogic<TechoFinancieroUnidadPresupuestal>(contexto);
+                }
+                return techoFinancieroUnidadPresupuestalBusinessLogic;
+            }
+        }
      
         public void SaveChanges()
         {

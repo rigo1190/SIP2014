@@ -23,8 +23,7 @@ namespace DataAccessLayer.Models
         public string Localidad { get; set; }
         public int TipoLocalidadId { get; set; }
         public DateTime? FechaInicio { get; set; }
-        public DateTime? FechaTermino { get; set; }
-        public bool EsAccion { get; set; }
+        public DateTime? FechaTermino { get; set; }  
 
         [Index("IX_Consecutivo_POAId", 2)]
         public int POAId { get; set; }

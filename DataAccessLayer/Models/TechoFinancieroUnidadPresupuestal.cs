@@ -25,12 +25,18 @@ namespace DataAccessLayer.Models
         public virtual TechoFinanciero TechoFinanciero { get; set; }
         public virtual UnidadPresupuestal UnidadPresupuestal { get; set; }
         public virtual ICollection<ObraFinanciamiento> DetalleObraFinanciamiento { get; set; }
-        public decimal GetImporteAsignado
+        public string Descripcion
         {
             get
             {
-                return (from of in DetalleObraFinanciamiento select of).Sum(of => of.Importe);
+                return this.TechoFinanciero.Descripcion;
             }
         }
+        public decimal GetImporteAsignado()
+        {          
+          return (from of in DetalleObraFinanciamiento select of).Sum(of => of.Importe);            
+        }
+
+       
     }
 }

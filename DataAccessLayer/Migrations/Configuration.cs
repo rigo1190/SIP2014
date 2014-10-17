@@ -28,7 +28,7 @@ namespace DataAccessLayer.Migrations
             //    );
             //
 
-            return;
+           
             context.Roles.AddOrUpdate(
             
                 new Rol { Id = 1 , Clave="R001", Nombre="Desarrollador", Orden=1},
@@ -174,15 +174,27 @@ namespace DataAccessLayer.Migrations
              
           );
 
-           var list = from año in context.Años.Local
-                      from mf in context.ModalidadesFinanciamiento.Local
-                      from f in context.Fondos.Local
-                      select new { año, mf, f };
+           //var list = from año in context.Años.Local
+           //           from mf in context.ModalidadesFinanciamiento.Local
+           //           from f in context.Fondos.Local
+           //           select new { año, mf, f };
 
-           foreach (var item in list)
-           {
-               context.Financiamientos.Local.Add(new Financiamiento { Año = item.año, ModalidadFinanciamiento = item.mf, Fondo = item.f });
-           }
+           //foreach (var item in list)
+           //{
+           //    context.Financiamientos.Local.Add(new Financiamiento { Año = item.año, ModalidadFinanciamiento = item.mf, Fondo = item.f });
+           //}
+
+
+           context.Financiamientos.AddOrUpdate(
+             new Financiamiento { Id = 1, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 1 }, 
+             new Financiamiento { Id = 2, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 2 },   
+             new Financiamiento { Id = 3, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 3 },   
+             new Financiamiento { Id = 4, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 4 },
+             new Financiamiento { Id = 5, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 1 },
+             new Financiamiento { Id = 6, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 2 },
+             new Financiamiento { Id = 7, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 3 },
+             new Financiamiento { Id = 8, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 4 }  
+           );
 
            context.AperturaProgramaticaUnidades.AddOrUpdate(
                new AperturaProgramaticaUnidad { Id = 1, Clave = "APU001", Nombre = "Planta", Orden = 1 },
@@ -356,80 +368,136 @@ namespace DataAccessLayer.Migrations
             new CriterioPriorizacion { Id = 5, Clave = "CP005", Nombre = "Obras y acciones nuevas que en el mismo ejercicio contemplen los proyectos", Orden = 5 } 
           );
 
-          POA poa = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 6 };
 
-          POADetalle poadetalle = new POADetalle();
-          poadetalle.Consecutivo = 1;
-          poadetalle.Numero = "102S110012014001";
-          poadetalle.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-          poadetalle.MunicipioId = 1;
-          poadetalle.Localidad = "Alguna localidad en Acajete";
-          poadetalle.TipoLocalidadId = 1;
-          poadetalle.SituacionObraId = 1;
-          poadetalle.ModalidadObra = enumModalidadObra.Contrato;
-          poadetalle.EsAccion = false;
-          poadetalle.ImporteTotal = 12348700;
-          poadetalle.ImporteLiberadoEjerciciosAnteriores = 10200000;
-          poadetalle.ImportePresupuesto = 15000000;
-          poadetalle.AperturaProgramaticaId = 22;
-          poadetalle.AperturaProgramaticaMetaId = 1;
-          poadetalle.NumeroBeneficiarios = 25;
-          poadetalle.CantidadUnidades = 17;
-          poadetalle.Empleos = 10;
-          poadetalle.Jornales = 15;
-          poadetalle.FuncionalidadId = 16;
-          poadetalle.EjeId= 5;
-          poadetalle.PlanSectorialId = 1;
-          poadetalle.ModalidadId = 5;
-          poadetalle.ProgramaId = 1;
-          poadetalle.GrupoBeneficiarioId = 2;
-          poadetalle.CriterioPriorizacionId = 1;
-          poadetalle.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
+          context.Plantilla.AddOrUpdate(
+            new Plantilla { Id = 1, Clave = "P001", Descripcion="Plantilla inicial",Orden=1 }
+          );
 
-          poa.Detalles.Add(poadetalle);
+          context.PlantillaDetalle.AddOrUpdate(
+             new PlantillaDetalle { Id = 1, PlantillaId = 1, Clave = "Q001", Pregunta = "¿Cumple con el requisito 1?", Orden = 1 },
+             new PlantillaDetalle { Id = 2, PlantillaId = 1, Clave = "Q002", Pregunta = "¿Cumple con el requisito 2?", Orden = 2 },
+             new PlantillaDetalle { Id = 3, PlantillaId = 1, Clave = "Q003", Pregunta = "¿Cumple con el requisito 3?", Orden = 3 },
+             new PlantillaDetalle { Id = 4, PlantillaId = 1, Clave = "Q004", Pregunta = "¿Cumple con el requisito 4?", Orden = 4 }
+         ); 
+                      
 
-          context.POA.Add(poa);
+          context.TechoFinanciero.AddOrUpdate(
+            new TechoFinanciero { Id = 1, EjercicioId = 6, FinanciamientoId = 1, Importe = 10000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }          
+          );
+
+         context.TechoFinancieroUnidadPresupuestal.AddOrUpdate(
+           new TechoFinancieroUnidadPresupuestal { Id = 1, TechoFinancieroId = 1, UnidadPresupuestalId = 1, Importe = 3000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 2, TechoFinancieroId = 1, UnidadPresupuestalId = 2, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 3, TechoFinancieroId = 1, UnidadPresupuestalId = 3, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 4, TechoFinancieroId = 1, UnidadPresupuestalId = 4, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 5, TechoFinancieroId = 1, UnidadPresupuestalId = 5, Importe = 1000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }
+         ); 
+
+          POA poa2014 = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 6 };  
+          POA poa2015 = new POA { Id = 2, UnidadPresupuestalId = 1, EjercicioId = 7 };
+
+          POADetalle poadetalle2014_001 = new POADetalle();
+          poadetalle2014_001.Consecutivo = 1;
+          poadetalle2014_001.Numero = "102S110012014001";
+          poadetalle2014_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
+          poadetalle2014_001.MunicipioId = 1;
+          poadetalle2014_001.Localidad = "Alguna localidad en Acajete";
+          poadetalle2014_001.TipoLocalidadId = 1;
+          poadetalle2014_001.SituacionObraId = 1;
+          poadetalle2014_001.ModalidadObra = enumModalidadObra.Contrato;
+          poadetalle2014_001.EsAccion = false;
+          poadetalle2014_001.ImporteTotal = 3000;
+          poadetalle2014_001.ImporteLiberadoEjerciciosAnteriores = 0;
+          poadetalle2014_001.ImportePresupuesto = 4000;
+          poadetalle2014_001.AperturaProgramaticaId = 22;
+          poadetalle2014_001.AperturaProgramaticaMetaId = 1;
+          poadetalle2014_001.NumeroBeneficiarios = 25;
+          poadetalle2014_001.CantidadUnidades = 17;
+          poadetalle2014_001.Empleos = 10;
+          poadetalle2014_001.Jornales = 15;
+          poadetalle2014_001.FuncionalidadId = 16;
+          poadetalle2014_001.EjeId = 5;
+          poadetalle2014_001.PlanSectorialId = 1;
+          poadetalle2014_001.ModalidadId = 5;
+          poadetalle2014_001.ProgramaId = 1;
+          poadetalle2014_001.GrupoBeneficiarioId = 2;
+          poadetalle2014_001.CriterioPriorizacionId = 1;
+          poadetalle2014_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
+
+          poa2014.Detalles.Add(poadetalle2014_001);
 
 
-          Obra obra = new Obra();
-          obra.Consecutivo = 1;
-          obra.Numero = "102S110012014001";
-          obra.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-          obra.MunicipioId = 1;
-          obra.Localidad = "Alguna localidad en Acajete";
-          obra.TipoLocalidadId = 1;
-          obra.SituacionObraId = 1;
-          obra.ModalidadObra = enumModalidadObra.Contrato;
-          obra.FechaInicio = new DateTime(2014, 01, 30);
-          obra.FechaTermino = new DateTime(2014, 09, 16);
-          obra.EsAccion = false;
-          obra.ImporteTotal = 12348700;
-          obra.ImporteLiberadoEjerciciosAnteriores = 10200000;
-          obra.ImportePresupuesto = 15000000;
-          obra.AperturaProgramaticaId = 22;
-          obra.AperturaProgramaticaMetaId = 1;
-          obra.NumeroBeneficiarios = 25;
-          obra.CantidadUnidades = 18;
-          obra.Empleos = 10;
-          obra.Jornales = 15;
-          obra.FuncionalidadId = 16;
-          obra.EjeId = 5;
-          obra.PlanSectorialId = 1;
-          obra.ModalidadId = 5;
-          obra.ProgramaId = 1;
-          obra.GrupoBeneficiarioId = 2;
-          obra.CriterioPriorizacionId = 1;
-          obra.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012014001";
+          Obra obra2014_001 = new Obra();
+          obra2014_001.Consecutivo = 1;
+          obra2014_001.Numero = "102S110012014001";
+          obra2014_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
+          obra2014_001.MunicipioId = 1;
+          obra2014_001.Localidad = "Alguna localidad en Acajete";
+          obra2014_001.TipoLocalidadId = 1;
+          obra2014_001.SituacionObraId = 1;
+          obra2014_001.ModalidadObra = enumModalidadObra.Contrato;
+          obra2014_001.FechaInicio = new DateTime(2013, 01, 30);
+          obra2014_001.FechaTermino = new DateTime(2013, 09, 16);
+          obra2014_001.EsAccion = false;
+          obra2014_001.ImporteTotal = 12348700;
+          obra2014_001.ImporteLiberadoEjerciciosAnteriores = 10200000;
+          obra2014_001.ImportePresupuesto = 15000000;
+          obra2014_001.AperturaProgramaticaId = 22;
+          obra2014_001.AperturaProgramaticaMetaId = 1;
+          obra2014_001.NumeroBeneficiarios = 25;
+          obra2014_001.CantidadUnidades = 18;
+          obra2014_001.Empleos = 10;
+          obra2014_001.Jornales = 15;
+          obra2014_001.FuncionalidadId = 16;
+          obra2014_001.EjeId = 5;
+          obra2014_001.PlanSectorialId = 1;
+          obra2014_001.ModalidadId = 5;
+          obra2014_001.ProgramaId = 1;
+          obra2014_001.GrupoBeneficiarioId = 2;
+          obra2014_001.CriterioPriorizacionId = 1;
+          obra2014_001.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012014001";
 
-          obra.POA = poa; 
-          obra.POADetalle = poadetalle;
+          obra2014_001.POA = poa2014;
+          obra2014_001.POADetalle = poadetalle2014_001;
 
-          context.Obras.Add(obra);
+          context.Obras.Add(obra2014_001); 
+              
+
+          POADetalle poadetalle2015_001 = new POADetalle();
+          poadetalle2015_001.Consecutivo = 1;
+          poadetalle2015_001.Numero = "102S110012015001";
+          poadetalle2015_001.Descripcion = "CONSTRUCCION DEL CAMINO JALACINGO-OCAMPO-COLIHUI (3A. ETAPA) DEL KM. 2+300 AL KM. 4+800.";
+          poadetalle2015_001.MunicipioId = 1;
+          poadetalle2015_001.Localidad = "Alguna localidad en Acajete";
+          poadetalle2015_001.TipoLocalidadId = 1;
+          poadetalle2015_001.SituacionObraId = 1;
+          poadetalle2015_001.ModalidadObra = enumModalidadObra.Contrato;
+          poadetalle2015_001.EsAccion = false;
+          poadetalle2015_001.ImporteTotal = 3000;
+          poadetalle2015_001.ImporteLiberadoEjerciciosAnteriores = 0;
+          poadetalle2015_001.ImportePresupuesto = 4000;
+          poadetalle2015_001.AperturaProgramaticaId = 22;
+          poadetalle2015_001.AperturaProgramaticaMetaId = 1;
+          poadetalle2015_001.NumeroBeneficiarios = 25;
+          poadetalle2015_001.CantidadUnidades = 17;
+          poadetalle2015_001.Empleos = 10;
+          poadetalle2015_001.Jornales = 15;
+          poadetalle2015_001.FuncionalidadId = 16;
+          poadetalle2015_001.EjeId = 5;
+          poadetalle2015_001.PlanSectorialId = 1;
+          poadetalle2015_001.ModalidadId = 5;
+          poadetalle2015_001.ProgramaId = 1;
+          poadetalle2015_001.GrupoBeneficiarioId = 2;
+          poadetalle2015_001.CriterioPriorizacionId = 1;
+          poadetalle2015_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012015001";
+
+          poa2015.Detalles.Add(poadetalle2015_001);
+
+          context.POA.Add(poa2015);
 
           context.SaveChanges();
 
-          CrearTriggers(context);
-      
+          CrearTriggers(context);      
            
         }
 

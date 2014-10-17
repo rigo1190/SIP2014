@@ -10,34 +10,17 @@
       <Property Name="Plantilla" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="DataAccessLayer.Models.Plantilla" Collapsed="true">
+  <Class Name="DataAccessLayer.Models.Plantilla">
     <Position X="11" Y="1" Width="2.75" />
-    <AssociationLine Name="Ejercicio" Type="DataAccessLayer.Models.Ejercicio" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="12.75" Y="1" />
-        <Point X="12.75" Y="0.75" />
-        <Point X="15.75" Y="0.75" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAIIAAAAAAAAAAAAAAAAQEBBAAAAEAAAAAAAAAQEAA=</HashCode>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAQEBBAAAAAAAAAAAAAAQEAA=</HashCode>
       <FileName>Models\Plantilla.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Ejercicio" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="DataAccessLayer.Models.Ejercicio" Collapsed="true">
-    <Position X="15.75" Y="0.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Ejercicio.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataAccessLayer.Models.Obra" Collapsed="true">
     <Position X="0.75" Y="9.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>ICBQAEAAARCBAwEIEDIAABAJCiAAkAyAEgIAIADBAgA=</HashCode>
+      <HashCode>ICBQAEAAARCBAwFIEDIAABANCiAAkAyEEgIAIADBAgA=</HashCode>
       <FileName>Models\Obra.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -53,8 +36,8 @@
         <Point X="12.229" Y="9.136" Type="JumpStart" />
         <Point X="12.395" Y="9.136" Type="JumpEnd" />
         <Point X="14.625" Y="9.136" />
-        <Point X="14.625" Y="1.5" />
-        <Point X="13.75" Y="1.5" />
+        <Point X="14.625" Y="3.053" />
+        <Point X="13.75" Y="3.053" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -116,8 +99,8 @@
     <AssociationLine Name="Plantilla" Type="DataAccessLayer.Models.Plantilla" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.25" Y="4.25" />
-        <Point X="5.25" Y="1.312" />
-        <Point X="11" Y="1.312" />
+        <Point X="5.25" Y="2.281" />
+        <Point X="11" Y="2.281" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -139,7 +122,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAEAEAAAAAAAAEACAAAAIAAAAAAAAAAAI=</HashCode>
+      <HashCode>AIAAAAAAAAAAEAEAAAAAAAgEACAAAAIAAAAAQAAAAAI=</HashCode>
       <FileName>Models\POAPlantillaDetalle.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

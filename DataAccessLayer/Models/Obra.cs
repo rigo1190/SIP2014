@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
     public class Obra:Generica
     {
+        public Obra() 
+        {
+            this.DetalleFinanciamientos = new HashSet<ObraFinanciamiento>();
+        }
+
         [Index("IX_Consecutivo_POAId", 1, IsUnique = true)]
         public int Consecutivo { get; set; }
 
@@ -60,6 +62,7 @@ namespace DataAccessLayer.Models
         public virtual Programa Programa { get; set; }
         public virtual GrupoBeneficiario GrupoBeneficiario { get; set; }
         public virtual CriterioPriorizacion CriterioPriorizacion { get; set; }
+        public virtual ICollection<ObraFinanciamiento> DetalleFinanciamientos { get; set; }
 
     }
 

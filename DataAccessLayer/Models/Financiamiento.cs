@@ -14,5 +14,12 @@ namespace DataAccessLayer.Models
         public virtual Año Año{ get; set; }
         public virtual Fondo Fondo { get; set; }
         public virtual ModalidadFinanciamiento ModalidadFinanciamiento { get; set; }
+        public string Descripcion
+        {
+            get
+            {
+                return String.Format("{0} {1} {2}",this.ModalidadFinanciamiento.Nombre,this.Fondo.Abreviatura,this.Año.Anio);
+            }
+        }
     }
 }

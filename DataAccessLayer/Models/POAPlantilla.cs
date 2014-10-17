@@ -14,6 +14,7 @@ namespace DataAccessLayer.Models
 
         [Index("IX_POADetalleId_PlantillaId", 2)]
         public int PlantillaId { get; set; }
+        public bool Aprobado { get; set; }
         public virtual POADetalle POADetalle { get; set; }
         public Plantilla Plantilla { get; set; }
         public virtual ICollection<POAPlantillaDetalle> Detalles { get; set; }

@@ -186,14 +186,22 @@ namespace DataAccessLayer.Migrations
 
 
            context.Financiamientos.AddOrUpdate(
-             new Financiamiento { Id = 1, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 1 }, 
-             new Financiamiento { Id = 2, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 2 },   
-             new Financiamiento { Id = 3, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 3 },   
-             new Financiamiento { Id = 4, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 4 },
-             new Financiamiento { Id = 5, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 1 },
-             new Financiamiento { Id = 6, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 2 },
-             new Financiamiento { Id = 7, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 3 },
-             new Financiamiento { Id = 8, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 4 }  
+             new Financiamiento { Id = 1,  AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 1 }, 
+             new Financiamiento { Id = 2,  AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 2 },   
+             new Financiamiento { Id = 3,  AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 3 },   
+             new Financiamiento { Id = 4,  AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 4 },
+             new Financiamiento { Id = 5,  AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 1 },
+             new Financiamiento { Id = 6,  AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 2 },
+             new Financiamiento { Id = 7,  AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 3 },
+             new Financiamiento { Id = 8,  AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 4 },
+             new Financiamiento { Id = 9,  AñoId = 8, FondoId = 1, ModalidadFinanciamientoId = 1 },
+             new Financiamiento { Id = 10, AñoId = 8, FondoId = 1, ModalidadFinanciamientoId = 2 },
+             new Financiamiento { Id = 11, AñoId = 8, FondoId = 1, ModalidadFinanciamientoId = 3 },
+             new Financiamiento { Id = 12, AñoId = 8, FondoId = 1, ModalidadFinanciamientoId = 4 },  
+             new Financiamiento { Id = 13, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 1 },
+             new Financiamiento { Id = 14, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 2 },
+             new Financiamiento { Id = 15, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 3 },
+             new Financiamiento { Id = 16, AñoId = 8, FondoId = 5, ModalidadFinanciamientoId = 4 }  
            );
 
            context.AperturaProgramaticaUnidades.AddOrUpdate(
@@ -382,15 +390,17 @@ namespace DataAccessLayer.Migrations
                       
 
           context.TechoFinanciero.AddOrUpdate(
-            new TechoFinanciero { Id = 1, EjercicioId = 6, FinanciamientoId = 1, Importe = 10000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }          
+            new TechoFinanciero { Id = 1, EjercicioId = 6, FinanciamientoId = 1, Importe = 10000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } ,
+            new TechoFinanciero { Id = 2, EjercicioId = 6, FinanciamientoId = 6, Importe = 12000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } 
           );
 
          context.TechoFinancieroUnidadPresupuestal.AddOrUpdate(
            new TechoFinancieroUnidadPresupuestal { Id = 1, TechoFinancieroId = 1, UnidadPresupuestalId = 1, Importe = 3000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 2, TechoFinancieroId = 1, UnidadPresupuestalId = 2, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 3, TechoFinancieroId = 1, UnidadPresupuestalId = 3, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 4, TechoFinancieroId = 1, UnidadPresupuestalId = 4, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 5, TechoFinancieroId = 1, UnidadPresupuestalId = 5, Importe = 1000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }
+           new TechoFinancieroUnidadPresupuestal { Id = 2, TechoFinancieroId = 2, UnidadPresupuestalId = 1, Importe = 4500, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 3, TechoFinancieroId = 1, UnidadPresupuestalId = 2, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 4, TechoFinancieroId = 1, UnidadPresupuestalId = 3, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 5, TechoFinancieroId = 1, UnidadPresupuestalId = 4, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 6, TechoFinancieroId = 1, UnidadPresupuestalId = 5, Importe = 1000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }
          ); 
 
           POA poa2014 = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 6 };  

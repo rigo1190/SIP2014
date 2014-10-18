@@ -85,7 +85,7 @@ namespace SIP.Formas.Catalogos
 
             obj.Clave = txtClave.Text;
             obj.Descripcion = txtDescripcion.Text;
-            obj.EjercicioId = Utilerias.StrToInt(ddlEjercicio.SelectedValue);
+            //obj.EjercicioId = Utilerias.StrToInt(ddlEjercicio.SelectedValue);
             obj.Orden = Utilerias.StrToInt(txtOrden.Value);
 
             switch (estado)
@@ -244,7 +244,7 @@ namespace SIP.Formas.Catalogos
             {
                 txtDescripcion.Text = obj.Descripcion;
                 txtClave.Text = obj.Clave;
-                ddlEjercicio.SelectedValue = obj.EjercicioId.ToString();
+                //ddlEjercicio.SelectedValue = obj.EjercicioId.ToString();
                 txtOrden.Value = obj.Orden.ToString();
 
                 //Se busca el nodo del arbol de fondos para colocarlo como seleccionado
@@ -315,7 +315,7 @@ namespace SIP.Formas.Catalogos
                 
                 txtClave.Text = obj.Clave;
                 txtDescripcion.Text = obj.Descripcion;
-                ddlEjercicio.SelectedValue = obj.EjercicioId.ToString();
+                //ddlEjercicio.SelectedValue = obj.EjercicioId.ToString();
                 txtOrden.Value = obj.Orden.ToString();
                 _IDPlantilla.Value = obj.Id.ToString();
                 _rutaNodoSeleccionado.Value = node.ValuePath;

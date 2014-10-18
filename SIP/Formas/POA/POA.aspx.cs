@@ -368,13 +368,13 @@ namespace SIP.Formas.POA
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnE");
+                HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnFinanciamiento");
                 if (btnE != null)
                 {
                     if (GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"] != null)
                     {
                         string url = string.Empty;
-                        url = "EvaluacionPOA.aspx?p=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
+                        url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
                         //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
                         btnE.Attributes.Add("data-url-poa", url);
                     }

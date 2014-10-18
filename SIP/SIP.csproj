@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AbrirDocto.aspx" />
     <Content Include="Ajax.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -236,6 +237,7 @@
     <Content Include="Formas\Catalogos\Plantillas.aspx" />
     <Content Include="Formas\Catalogos\PlantillasPadre.aspx" />
     <Content Include="Formas\frmSelectorEjercicio.aspx" />
+    <Content Include="Formas\POA\AsignarFinanciamientoPOA.aspx" />
     <Content Include="Formas\POA\EvaluacionPOA.aspx" />
     <Content Include="Formas\POA\frmPOAAjustado.aspx" />
     <Content Include="Formas\POA\POA.aspx" />
@@ -309,6 +311,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbrirDocto.aspx.cs">
+      <DependentUpon>AbrirDocto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AbrirDocto.aspx.designer.cs">
+      <DependentUpon>AbrirDocto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Ajax.aspx.cs">
       <DependentUpon>Ajax.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -465,6 +474,13 @@
     </Compile>
     <Compile Include="Formas\frmSelectorEjercicio.aspx.designer.cs">
       <DependentUpon>frmSelectorEjercicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\AsignarFinanciamientoPOA.aspx.cs">
+      <DependentUpon>AsignarFinanciamientoPOA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\POA\AsignarFinanciamientoPOA.aspx.designer.cs">
+      <DependentUpon>AsignarFinanciamientoPOA.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\POA\EvaluacionPOA.aspx.cs">
       <DependentUpon>EvaluacionPOA.aspx</DependentUpon>

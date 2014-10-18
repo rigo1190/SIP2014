@@ -29,7 +29,7 @@ namespace DataAccessLayer.Models
         {
             get
             {
-                return this.TechoFinanciero.Descripcion;
+                return this.TechoFinanciero.Descripcion.ToUpper();
             }
         }
         public decimal GetImporteAsignado()

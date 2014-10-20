@@ -306,14 +306,7 @@
                              <asp:DropDownList ID="ddlCriterioPriorizacion" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
                       </div>
-
-                     <div class="form-group">
-                           <label for="EsAccion">Es acción</label>
-                         <div>
-                             <input type="checkbox" class="input-sm required form-control" id="txtEsAccion" runat="server" style="text-align: right; align-items:flex-start" />
-                        </div>
-                      </div>
-
+                     
                  </div>
 
                  <div class="col-md-4">

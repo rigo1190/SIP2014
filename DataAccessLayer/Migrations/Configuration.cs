@@ -414,8 +414,7 @@ namespace DataAccessLayer.Migrations
           poadetalle2014_001.Localidad = "Alguna localidad en Acajete";
           poadetalle2014_001.TipoLocalidadId = 1;
           poadetalle2014_001.SituacionObraId = 1;
-          poadetalle2014_001.ModalidadObra = enumModalidadObra.Contrato;
-          poadetalle2014_001.EsAccion = false;
+          poadetalle2014_001.ModalidadObra = enumModalidadObra.Contrato;          
           poadetalle2014_001.ImporteTotal = 3000;
           poadetalle2014_001.ImporteLiberadoEjerciciosAnteriores = 0;
           poadetalle2014_001.ImportePresupuesto = 4000;
@@ -447,8 +446,7 @@ namespace DataAccessLayer.Migrations
           obra2014_001.SituacionObraId = 1;
           obra2014_001.ModalidadObra = enumModalidadObra.Contrato;
           obra2014_001.FechaInicio = new DateTime(2013, 01, 30);
-          obra2014_001.FechaTermino = new DateTime(2013, 09, 16);
-          obra2014_001.EsAccion = false;
+          obra2014_001.FechaTermino = new DateTime(2013, 09, 16);        
           obra2014_001.ImporteTotal = 12348700;
           obra2014_001.ImporteLiberadoEjerciciosAnteriores = 10200000;
           obra2014_001.ImportePresupuesto = 15000000;
@@ -481,8 +479,7 @@ namespace DataAccessLayer.Migrations
           poadetalle2015_001.Localidad = "Alguna localidad en Acajete";
           poadetalle2015_001.TipoLocalidadId = 1;
           poadetalle2015_001.SituacionObraId = 1;
-          poadetalle2015_001.ModalidadObra = enumModalidadObra.Contrato;
-          poadetalle2015_001.EsAccion = false;
+          poadetalle2015_001.ModalidadObra = enumModalidadObra.Contrato;         
           poadetalle2015_001.ImporteTotal = 3000;
           poadetalle2015_001.ImporteLiberadoEjerciciosAnteriores = 0;
           poadetalle2015_001.ImportePresupuesto = 4000;

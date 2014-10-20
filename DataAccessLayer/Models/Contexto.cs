@@ -10,7 +10,7 @@ namespace DataAccessLayer.Models
 {
     public class Contexto : DbContext
     {
-        //
+       
         public Contexto()
             : base("SIP")
         {
@@ -114,7 +114,6 @@ namespace DataAccessLayer.Models
         public virtual DbSet<Programa> Programa { get; set; }
         public virtual DbSet<GrupoBeneficiario> GrupoBeneficiario { get; set; }
         public virtual DbSet<CriterioPriorizacion> CriterioPriorizacion { get; set; }
-
         public virtual DbSet<TechoFinanciero> TechoFinanciero { get; set; }
         public virtual DbSet<TechoFinancieroUnidadPresupuestal> TechoFinancieroUnidadPresupuestal { get; set; }
     }

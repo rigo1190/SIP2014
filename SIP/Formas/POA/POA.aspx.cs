@@ -101,8 +101,7 @@ namespace SIP.Formas.POA
             ddlMunicipio.SelectedIndex = -1;
             ddlCriterioPriorizacion.SelectedIndex = -1;
             txtLocalidad.Value = String.Empty;
-            ddlTipoLocalidad.SelectedIndex = -1;
-            txtEsAccion.Checked = false;
+            ddlTipoLocalidad.SelectedIndex = -1;          
          
             cddlPrograma.SelectedValue = String.Empty;
             cddlSubprograma.SelectedValue = String.Empty;
@@ -232,8 +231,7 @@ namespace SIP.Formas.POA
             poadetalle.MunicipioId = Utilerias.StrToInt(ddlMunicipio.SelectedValue);
             poadetalle.Localidad = txtLocalidad.Value;
             poadetalle.TipoLocalidadId = Utilerias.StrToInt(ddlTipoLocalidad.SelectedValue);
-            poadetalle.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);
-            poadetalle.EsAccion = txtEsAccion.Checked;
+            poadetalle.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);            
             poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             poadetalle.AperturaProgramaticaMetaId = Utilerias.StrToInt(ddlMeta.SelectedValue);
             poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString());

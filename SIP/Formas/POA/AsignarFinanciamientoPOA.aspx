@@ -59,9 +59,10 @@
             return true;
          }
 
-         function fnc_OcultarDivs(sender) {
+        function fnc_OcultarDivs(sender) {        
              $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
              $("#<%= divEdicion.ClientID %>").css("display", "none");
+             $("#<%= divMsg.ClientID %>").css("display", "none");
              return false;
          }
 

@@ -12,6 +12,7 @@ namespace SIP.Formas.POA
     public partial class AsignarFinanciamientoPOA : System.Web.UI.Page
     {
         private UnitOfWork uow;
+        private int currentId;
         private int unidadpresupuestalId;
         private int ejercicioId;
         private int poadetalleId;
@@ -50,19 +51,45 @@ namespace SIP.Formas.POA
 
             ddlTechoFinancieroUnidadPresupuestal.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
-        }              
+        }    
+
+        protected void btnNuevo_Click(object sender, EventArgs e)
+        {
+            //Se limpian los controles
+
+            ddlTechoFinancieroUnidadPresupuestal.SelectedIndex = -1;
+            txtImporte.Text = String.Empty;                       
+
+            divEdicion.Style.Add("display", "block");
+            divBtnNuevo.Style.Add("display", "none");
+            divMsg.Style.Add("display", "none");
+            _Accion.Text = "N";
+        }
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
         {
-            //
+
+            GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
+            _ID.Text = GridViewObraFinanciamiento.DataKeys[row.RowIndex].Values["Id"].ToString();
+
+            currentId = Convert.ToInt32(GridViewObraFinanciamiento.DataKeys[row.RowIndex].Values["Id"].ToString());
+
+            ObraFinanciamiento obrafinanciamiento = uow.ObraFinanciamientoBusinessLogic.GetByID(currentId);
+
+            BindControles(obrafinanciamiento);
+
+            divEdicion.Style.Add("display", "block");
+            divBtnNuevo.Style.Add("display", "none");
+            divMsg.Style.Add("display", "none");
+            _Accion.Text = "A";
         }
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)
         {
-            
+
             GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            string msg = "Se ha eliminado correctamente";   
-        
+            string msg = "Se ha eliminado correctamente";
+
             int currentId = Utilerias.StrToInt(GridViewObraFinanciamiento.DataKeys[row.RowIndex].Value.ToString());
 
             ObraFinanciamiento obrafinanciamiento = uow.ObraFinanciamientoBusinessLogic.GetByID(currentId);
@@ -92,23 +119,10 @@ namespace SIP.Formas.POA
             }
         }
 
-        protected void btnNuevo_Click(object sender, EventArgs e)
-        {
-            //Se limpian los controles
-
-            ddlTechoFinancieroUnidadPresupuestal.SelectedIndex = -1;
-            txtImporte.Text = String.Empty;                       
-
-            divEdicion.Style.Add("display", "block");
-            divBtnNuevo.Style.Add("display", "none");
-            divMsg.Style.Add("display", "none");
-            _Accion.Text = "N";
-        }
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             string msg = String.Empty;
-
+                               
             poadetalleId = Utilerias.StrToInt(Request.QueryString["poadetalleId"].ToString());
 
             POADetalle poadetalle = uow.POADetalleBusinessLogic.GetByID(poadetalleId);
@@ -117,7 +131,7 @@ namespace SIP.Formas.POA
 
             if (obra == null) 
             {
-
+                obra = new Obra();
                 obra.Numero = poadetalle.Numero;
                 obra.Descripcion = poadetalle.Descripcion;
                 obra.MunicipioId = poadetalle.MunicipioId;
@@ -145,16 +159,84 @@ namespace SIP.Formas.POA
                 obra.ImportePresupuesto = poadetalle.ImportePresupuesto;
                 obra.Observaciones = poadetalle.Observaciones;
 
+                obra.POAId = poadetalle.POAId;
+                obra.POADetalleId = poadetalle.Id;
+
                 uow.ObraBusinessLogic.Insert(obra);
             }
 
 
-            ObraFinanciamiento obrafinanciamiento = new ObraFinanciamiento();
-            obrafinanciamiento.TechoFinancieroUnidadPresupuestalId = Utilerias.StrToInt(ddlTechoFinancieroUnidadPresupuestal.SelectedValue);
-            obrafinanciamiento.Importe = Convert.ToDecimal(txtImporte.Text);
+            //Superamos el techo financiero?
 
-            obra.DetalleFinanciamientos.Add(obrafinanciamiento);
+            int tfupId = Utilerias.StrToInt(ddlTechoFinancieroUnidadPresupuestal.SelectedValue);
 
+            TechoFinancieroUnidadPresupuestal tfup = uow.TechoFinancieroUnidadPresuestalBusinessLogic.GetByID(tfupId);
+            
+
+            if (_Accion.Text.Equals("N"))
+            {
+                var ofinanciamiento = uow.ObraFinanciamientoBusinessLogic.Get(of => of.ObraId == obra.Id & of.TechoFinancieroUnidadPresupuestalId == tfupId).FirstOrDefault();
+
+                if (ofinanciamiento != null)
+                {
+                    uow.Errors.Add("El importe para este fondo ya fue asignado, intente modificarlo");
+                }
+                else if (tfup.GetImporteAsignado() + Convert.ToDecimal(txtImporte.Text) > tfup.Importe)
+                {
+                    uow.Errors.Add("El importe que intenta asignar más el importe asignado (" + tfup.GetImporteAsignado().ToString("c2") + "),superan el techo financiero: " + tfup.Importe.ToString("c2"));
+                }
+            }
+            else 
+            {
+                currentId = Convert.ToInt32(_ID.Text);
+
+                if (tfup.GetImporteAsignado(currentId) + Convert.ToDecimal(txtImporte.Text) > tfup.Importe)
+                {
+                    uow.Errors.Add("El importe que intenta asignar más el importe asignado (" + tfup.GetImporteAsignado(currentId).ToString("C2") + "),superan el techo financiero: " + tfup.Importe.ToString("c2"));
+                }
+            }
+            
+    
+           
+
+            if (uow.Errors.Count > 0)
+            {
+
+                divMsg.Style.Add("display", "block");
+
+                msg = string.Empty;
+                foreach (string cad in uow.Errors)
+                    msg += cad;
+
+                lblMensajes.Text = msg;
+
+                return;
+
+            }
+
+
+
+
+
+            ObraFinanciamiento obrafinanciamiento;
+
+
+            if (_Accion.Text.Equals("N"))
+            {
+                obrafinanciamiento = new ObraFinanciamiento();
+                obrafinanciamiento.TechoFinancieroUnidadPresupuestalId = Utilerias.StrToInt(ddlTechoFinancieroUnidadPresupuestal.SelectedValue);
+                obrafinanciamiento.Importe = Convert.ToDecimal(txtImporte.Text);             
+
+                obra.DetalleFinanciamientos.Add(obrafinanciamiento);
+            }
+            else
+            {
+                currentId = Convert.ToInt32(_ID.Text);
+                obrafinanciamiento = uow.ObraFinanciamientoBusinessLogic.GetByID(currentId);
+                obrafinanciamiento.TechoFinancieroUnidadPresupuestalId = Utilerias.StrToInt(ddlTechoFinancieroUnidadPresupuestal.SelectedValue);
+                obrafinanciamiento.Importe = Convert.ToDecimal(txtImporte.Text); 
+            }
+               
             
             uow.SaveChanges();
 
@@ -163,6 +245,7 @@ namespace SIP.Formas.POA
                 BindGrid();
                 divEdicion.Style.Add("display", "none");
                 divBtnNuevo.Style.Add("display", "block");
+                divMsg.Style.Add("display", "none");
             }
             else 
             {
@@ -175,6 +258,12 @@ namespace SIP.Formas.POA
                 lblMensajes.Text = msg;
             }            
 
+        }
+
+        public void BindControles(ObraFinanciamiento obrafinanciamiento)
+        {
+            ddlTechoFinancieroUnidadPresupuestal.SelectedValue = obrafinanciamiento.TechoFinancieroUnidadPresupuestalId.ToString();
+            txtImporte.Text = obrafinanciamiento.Importe.ToString();
         }
     }
 }

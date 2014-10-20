@@ -226,13 +226,6 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Evaluación de Obra" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
-                            <ItemTemplate>
-                                    <button type="button" id="btnE" data-tipo-operacion="evaluar" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-ok"></span></button> 
-                            </ItemTemplate>                          
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="50px" />                                            
-                        </asp:TemplateField>
-
             </Columns>
                     
             <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />

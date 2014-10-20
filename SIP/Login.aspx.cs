@@ -37,6 +37,7 @@ namespace SIP
                         Session["IsAuthenticated"] = true;
                         Session["NombreUsuario"] = user.Nombre;
                         Session["Login"] = user.Login;
+                        Session["IdUser"] = user.Id.ToString();
 
                         Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
             }

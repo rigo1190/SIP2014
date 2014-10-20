@@ -22,6 +22,34 @@
                 PageMethods.GuardarPlantillas(cadenaValores, fnc_ResponseGuardarPlantillas);
             });
 
+            //Evento que se dispara al momento de dar clic en la paginacion del grid. Se tiene que
+            //guardar los checks marcaddos en el grid por parte del usuario
+            $('.pager a').click(function () {
+                
+                var cadenaValores = fnc_ObtenerRadioChecks(); //Se recupera la cadena con los checks
+                $("#<%= _CadValoresChecks.ClientID %>").val("");
+                $("#<%= _CadValoresChecks.ClientID %>").val(cadenaValores);
+            });
+
+
+            $("[id*=grid] td").bind("click", function () {
+                var row = $(this).parent();
+                $("[id*=grid] tr").each(function () {
+                    if ($(this)[0] != row[0]) {
+                        $("td", this).removeClass("selected_row");
+                    }
+                });
+                $("td", row).each(function () {
+                    if (!$(this).hasClass("selected_row")) {
+                        if (!$(this).hasClass("pager"))
+                            $(this).addClass("selected_row");
+                    } else {
+                        $(this).removeClass("selected_row");
+                    }
+                });
+                $('.pager a').removeClass("selected_row");
+            });
+
         });
 
         //Funcion que se encarga de recuperar todas las FILAS del GRID de PREGUNTAS
@@ -37,23 +65,25 @@
 
             for (i = 1; i < grid.rows.length; i++) { //Se recorren las filas
                 var idPregunta="";
-                var respuesta=0;
+                var respuesta = 0;
 
                 idPregunta=$("input#ContentPlaceHolder1_grid"+ "_idPregunta_" + index).val();
                 
-                if ($("input#ContentPlaceHolder1_grid"+ "_chkSI_" + index).is(':checked'))
-                    respuesta=1;
-                else if ($("input#ContentPlaceHolder1_grid"+ "_chkNO_" + index).is(':checked'))
-                    respuesta=2;
-                else if ($("input#ContentPlaceHolder1_grid"+ "_chkNOAplica_" + index).is(':checked'))
-                    respuesta=3;
+                if (idPregunta != null && idPregunta != "" && idPregunta != undefined) {
 
-                if (primera) {
-                    cadena+=idPregunta+"="+respuesta;
-                    primera=false;
-                }else
-                    cadena+="|"+idPregunta+"="+respuesta;
+                    if ($("input#ContentPlaceHolder1_grid" + "_chkSI_" + index).is(':checked'))
+                        respuesta = 1;
+                    else if ($("input#ContentPlaceHolder1_grid" + "_chkNO_" + index).is(':checked'))
+                        respuesta = 2;
+                    else if ($("input#ContentPlaceHolder1_grid" + "_chkNOAplica_" + index).is(':checked'))
+                        respuesta = 3;
 
+                    if (primera) {
+                        cadena += idPregunta + "=" + respuesta;
+                        primera = false;
+                    } else
+                        cadena += "|" + idPregunta + "=" + respuesta;
+                }
 
                 index++;
             }
@@ -66,7 +96,8 @@
 
         function fnc_InhabilitarCampos(){
             $("#<%= txtObservacionesPregunta.ClientID %>").prop("disabled",true);
-           <%-- $("#<%= txtRutaArchivo.ClientID %>").prop("disabled",true);--%>
+            <%-- $("#<%= txtRutaArchivo.ClientID %>").prop("disabled",true);--%>
+            $("#<%= divCapturaPreguntas.ClientID %>").css("display", "none");
             $("#<%= btnCancelar.ClientID %>").prop("disabled", true);
             $("#<%= btnBuscarArchivo.ClientID %>").prop("disabled", true);
             $("#<%= _IDPregunta.ClientID %>").val("");
@@ -90,8 +121,7 @@
             }
 
             $("#<%= divMsg.ClientID %>").css("display", "none");
-            
-                
+    
         }
 
         //Funcion a la que se regresa despuess de la llamada al WEB METHOD GetValoresPregunta
@@ -101,7 +131,6 @@
         function fnc_ResponseGetValoresPregunta(response) {
 
             $("#<%= txtObservacionesPregunta.ClientID %>").text(response[0]);
-            <%--$("#<%= txtRutaArchivo.ClientID %>").val(response[1]);--%>
             $("#<%= txtPregunta.ClientID %>").text(response[2]);
 
         }
@@ -122,25 +151,9 @@
                  if (node != null) {
                      node.scrollIntoView(true);
                      $("#<%= divArbol.ClientID %>").scrollLeft = 0;
-                    
-                     $("#<%= divPlantillaImportar.ClientID %>").css("display", "block");
-                     $("#<%= divGuardarPlantilla.ClientID %>").css("display", "block");
-
-                     var value = node.href.substring(node.href.indexOf(",") + 3, node.href.length - 2);
-                     $("#<%= txtDatosPlantilla.ClientID %>").val(node.text);
-                     $("#<%= _IDPlantillaSeleccionada.ClientID %>").val(value);
                 }
             }
 
-        }
-
-        function fnc_Cancelar(sender) {
-            $("#<%= divPlantillaImportar.ClientID %>").css("display", "none");
-            $("#<%= divGuardarPlantilla.ClientID %>").css("display", "none");
-
-            $("#<%= txtDatosPlantilla.ClientID %>").val("");
-            $("#<%= _IDPlantillaSeleccionada.ClientID %>").val("");
-            
         }
 
         function fnc_OcultarDivs() {
@@ -166,6 +179,19 @@
         //15/10/2014
         function fnc_AbrirArchivo(ruta, id) {
             window.open(ruta + '?i=' + id, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,menubar=no,width=750,height=700,top=0');
+        }
+
+
+        function fnc_Test() {
+
+            $("#<%= txtObservacionesPregunta.ClientID %>").prop("disabled", false);
+            <%-- $("#<%= txtRutaArchivo.ClientID %>").prop("disabled",true);--%>
+            $("#<%= divCapturaPreguntas.ClientID %>").css("display", "block");
+            $("#<%= btnCancelar.ClientID %>").prop("disabled", false);
+            $("#<%= btnBuscarArchivo.ClientID %>").prop("disabled", false);
+            $("#<%= _IDPregunta.ClientID %>").val("");
+            $("#<%= _SoloChecks.ClientID %>").val("false");
+            return false;
         }
 
         <%--function fnc_Test() {
@@ -199,6 +225,22 @@
        
     </script>
 
+    <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+        td
+        {
+            cursor: pointer;
+        }
+        .selected_row
+        {
+            background-color: #c2c2c2;
+        }
+    </style>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -231,7 +273,7 @@
                                         <fieldset disabled="disabled">
                                         <div class="form-group">
                                             <label for="disabledSelect">Número de Obra:</label>
-                                            <input class="form-control"  id="txtNumero"  runat="server"/>
+                                            <textarea type="text" class="form-control"  id="txtNumero"  runat="server"/>
                                         </div>
 
                                         <div class="form-group">
@@ -241,44 +283,23 @@
 
                                         <div class="form-group">
                                             <label>Municipio:</label>
-                                            <input class="form-control"  id="txtMunicipio" runat="server"/>
+                                            <textarea type="text" class="form-control"  id="txtMunicipio" runat="server"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="disabledSelect">Localidad:</label>
-                                            <input class="form-control" id="txtLocalidad" type="text"  disabled="disabled"/>
-                                        </div>
+                                        
                                     </fieldset>
                                 
                             </div>
                             <div class="col-lg-6">
-                               
-                                
                                     <fieldset disabled="disabled">
+                                        <div class="form-group">
+                                            <label for="disabledSelect">Localidad:</label>
+                                            <textarea type="text" runat="server" class="form-control" id="txtLocalidad"/>
+                                        </div>
                                         <div class="form-group">
                                             <label for="disabledSelect">Observaciones:</label>
                                             <textarea type="text" name="prueba" runat="server" class="form-control" id="txtObservacion" />
                                         </div>
-
-                                        <div id="divEtiquetaImportar">
-                                            <label for="disabledSelect">Evaluar Obra de POA:</label>
-                                        </div>
                                     </fieldset>
-                                        <button type="button" onclick="fnc_OcultarDivs(this)" runat="server" id="btnImportar" data-toggle="modal" data-target="#myModal" class="btn btn-default">Seleccionar Plantilla</button>
-                                        <div><p>&nbsp;</p></div>
-                                        <div class="form-group" runat="server" id="divPlantillaImportar" style="display:none">
-                                            <label for="disabledSelect">Plantilla a importar:</label>
-                                            <textarea  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtDatosPlantilla" />
-                                            <input runat="server"  type="hidden" id="_IDPlantillaSeleccionada" />
-                                            
-                                        </div>
-                                
-                                        <div id="divGuardarPlantilla" runat="server" style="display:none">
-                                            <asp:Button ID="btnGuardar"  runat="server" Text="Importar" OnClick="btnGuardar_Click" CssClass="btn btn-default" />
-                                            <button type="button" onclick="fnc_Cancelar(this)" class="btn btn-default">Cancelar</button>
-                                        </div>
-                                        
-                               
-                               
                             </div>
                         </div>
                         <div class="panel-footer" id="divMsgImportarPlantilla" style="display:none" runat="server">
@@ -315,13 +336,11 @@
                                     </h3>
                                 </div>
                                 <div class="panel-body">
-                                    <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" OnPageIndexChanging="grid_PageIndexChanging" CssClass="table" ID="grid" OnRowDataBound="grid_RowDataBound" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
+                                    <asp:GridView Height="25px" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" OnPageIndexChanging="grid_PageIndexChanging" CssClass="table" ID="grid" OnRowDataBound="grid_RowDataBound" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
                                         <Columns>
                                             <asp:TemplateField HeaderText="Acciones">
                                                 <ItemTemplate>
-                                                    
-                                                    <asp:ImageButton ID="imgBtnEdit" OnClick="imgBtnEdit_Click" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
-                                                    <%--<asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" />--%>
+                                                    <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" OnClientClick="fnc_Test();return false;" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                 </ItemTemplate>
                                                 <HeaderStyle BackColor="#EEEEEE" />
                                                 <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -364,13 +383,14 @@
                                             </asp:TemplateField>
 
                                         </Columns>
-
+                                        <PagerStyle CssClass="pager" />
                                         <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
-
+                                        
                                     </asp:GridView>
+                                    
                                 </div>
                                 <div class="panel-footer" id="divEdicionPreguntas" runat="server">
-                                    <div class="container-fluid" id="divCapturaPreguntas" runat="server">
+                                    <div class="container-fluid" id="divCapturaPreguntas" style="display:none" runat="server">
                                         <div class="col-lg-12">
                                             <div class="col-lg-6">
                                                  <div class="row top-buffer">
@@ -431,6 +451,7 @@
             <input type="hidden" runat="server" id="_IDPregunta" />
             <input type="hidden" runat="server" id="_CadValoresChecks" />
             <input type="hidden" runat="server" id="_SoloChecks" />
+            <input type="hidden" runat="server" id="_PageIndex" />
           
        </div>
 

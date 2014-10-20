@@ -382,11 +382,30 @@ namespace DataAccessLayer.Migrations
           );
 
           context.PlantillaDetalle.AddOrUpdate(
-             new PlantillaDetalle { Id = 1, PlantillaId = 1, Clave = "Q001", Pregunta = "¿Cumple con el requisito 1?", Orden = 1 },
-             new PlantillaDetalle { Id = 2, PlantillaId = 1, Clave = "Q002", Pregunta = "¿Cumple con el requisito 2?", Orden = 2 },
-             new PlantillaDetalle { Id = 3, PlantillaId = 1, Clave = "Q003", Pregunta = "¿Cumple con el requisito 3?", Orden = 3 },
-             new PlantillaDetalle { Id = 4, PlantillaId = 1, Clave = "Q004", Pregunta = "¿Cumple con el requisito 4?", Orden = 4 }
-         ); 
+             new PlantillaDetalle { Id = 1, PlantillaId = 1, Clave = "Q001", Pregunta = "¿El importe total de la inversión se ajusta a la asignación presupuestal autorizada?", Orden = 1 },
+             new PlantillaDetalle { Id = 2, PlantillaId = 1, Clave = "Q002", Pregunta = "¿Las obras o acciones corresponden al capitulo 6000 \"Infraestructura para el Desarrollo, Obra Pública y Servicios Relacionados con la Misma\"?", Orden = 2 },
+             new PlantillaDetalle { Id = 3, PlantillaId = 1, Clave = "Q003", Pregunta = "¿La descripción de la obra o accón hace referencia clara de los trabajos a realizar?", Orden = 3 },
+             new PlantillaDetalle { Id = 4, PlantillaId = 1, Clave = "Q004", Pregunta = "¿Las claves de los programas, subprogramas y subsubsubprogramas corresponden a la apertura programática y están de acuerdo con la descripción de la obra o acción?", Orden = 4 },
+
+             new PlantillaDetalle { Id = 5, PlantillaId = 1, Clave = "Q005", Pregunta = "¿Las metas de la obra o acción son congruentes con el Subprograma asignado asignado y son susceptibles de medición?", Orden = 5 },
+             new PlantillaDetalle { Id = 6, PlantillaId = 1, Clave = "Q006", Pregunta = "¿Los beneficiarios corresponden a la unidad de medida \"personas\"?", Orden = 6 },
+             new PlantillaDetalle { Id = 7, PlantillaId = 1, Clave = "Q007", Pregunta = "¿Se especifica el nombre completo de la unidad o subunidad presupuestal?", Orden = 7 },
+             new PlantillaDetalle { Id = 8, PlantillaId = 1, Clave = "Q008", Pregunta = "¿Se especifica el número progresivo y el total de hojas utilizadas?", Orden = 8 },
+             new PlantillaDetalle { Id = 9, PlantillaId = 1, Clave = "Q009", Pregunta = "¿Se especifica el municipio y localidad(es) donde se realizará la obra o acción, omitiendo los términos \"varios\" y \"cobertura estatal\"?", Orden = 9 },
+             new PlantillaDetalle { Id = 10, PlantillaId = 1, Clave = "Q0010", Pregunta = "¿Se especifica la modalidad de esjecución de la obra o acción?", Orden = 10 },
+             new PlantillaDetalle { Id = 11, PlantillaId = 1, Clave = "Q0011", Pregunta = "¿Se especifica la situación de la obra o acción? ", Orden = 11 },
+             new PlantillaDetalle { Id = 12, PlantillaId = 1, Clave = "Q0012", Pregunta = "Si la situación de la obra o acción es en \"proceso\", ¿ se especifica el número de obra asignado en el ejercicio anterior y presenta la misma modalidad de ejecución?", Orden = 12 },
+             new PlantillaDetalle { Id = 13, PlantillaId = 1, Clave = "Q0013", Pregunta = "¿El importe que se registra de las acciones en proceso, es coincidente con el saldo del ejercicio anterior?", Orden = 13 },
+             new PlantillaDetalle { Id = 14, PlantillaId = 1, Clave = "Q0014", Pregunta = "¿La programación de los gastos indirectos corresponden a obras por contrato que se están considerando en el POA y además el cálculo es de acuerdo al financiamiento, sin especificar beneficiarios y jornales?", Orden = 14 },
+             new PlantillaDetalle { Id = 15, PlantillaId = 1, Clave = "Q0015", Pregunta = "La meta anual y el número de beneficiarios , ¿son indicativos de la descripción de la obra o acción que se registra?", Orden = 15 },
+             new PlantillaDetalle { Id = 16, PlantillaId = 1, Clave = "Q0016", Pregunta = "¿El documento presenta en cada una de las hojas la antefirma del Titular de la Unidad Presupuestal, así como, su nombre, cargo y firma en la última hoja?", Orden = 16 },
+             new PlantillaDetalle { Id = 17, PlantillaId = 1, Clave = "Q0017", Pregunta = "¿Se especifica la fecha de Firma?", Orden = 17 },
+             new PlantillaDetalle { Id = 18, PlantillaId = 1, Clave = "Q0018", Pregunta = "Los estudios y proyectos no deben especificar beneficiarios y jornales", Orden = 18 },
+             new PlantillaDetalle { Id = 19, PlantillaId = 1, Clave = "Q0019", Pregunta = "Las obras deben especificar los empleos y jornales a generar", Orden = 19 },
+             new PlantillaDetalle { Id = 20, PlantillaId = 1, Clave = "Q0020", Pregunta = "El Capítulo 6000 no incluye el financiamiento para construcción de viviendas", Orden = 20 },
+             new PlantillaDetalle { Id = 21, PlantillaId = 1, Clave = "Q0021", Pregunta = "En cuanto sean asignadas las obras a los fondos correspondientes, checar la normatividad (revisar los gastos indirectos, estudios y proyectos, etc.7)", Orden = 21 }
+
+         );
                       
 
           context.TechoFinanciero.AddOrUpdate(

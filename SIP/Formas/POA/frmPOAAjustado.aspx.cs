@@ -2,6 +2,7 @@
 using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -28,14 +29,107 @@ namespace SIP.Formas.POA
 
                 unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
                 ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
+                
+                int columnsInicial = GridViewObras.Columns.Count;
 
                 lblTituloPOA.Text = String.Format("Proyecto de POA ajustado en el ejercicio {0}", uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
+                
+                InsertarTitulosNuevasColumnas(); //Se insertan nuevas columnas, realativas a la evaluacion de plantillas
+
                 BindGrid();
+
+                InsertarNuevasCeldas(columnsInicial); //Se insertan los botnes necesarios para ir a la EVALUACION de la obra
+
                 BindearDropDownList();
+
             }
 
         }
 
+
+        /// <summary>
+        /// Metodo encargado de crear nuevos encabezados de columnas, realtivos a la evaluacion de plantillas por cada obra
+        /// Creado por Rigoberto TS
+        /// 20/10/2014
+        /// </summary>
+        private void InsertarTitulosNuevasColumnas()
+        {
+            List<Plantilla> list = GetPlantillas(); //Se obtienen las plantillas exitentes en el catalogo
+            
+            if (list.Count > 0)
+            {
+                foreach (Plantilla p in list)
+                {
+                    TemplateField colNew = new TemplateField(); //Se agrega la columna, una por cada plantilla existente
+                    colNew.HeaderText = p.Descripcion;
+                    GridViewObras.Columns.Add(colNew);
+                }
+                
+                
+            }
+        }
+
+        /// <summary>
+        /// Metodo encargado de agregar los botones necesarios por cada fila del grid, se construye la URL de la pagina de Evaluacion
+        /// Creado por Rigoberto TS
+        /// 20/10/2014
+        /// </summary>
+        /// <param name="columnsInicial">A partir de donde se empieza a agregar la celda a la fila</param>
+        private void InsertarNuevasCeldas(int columnsInicial)
+        {
+            List<Plantilla> list = GetPlantillas();
+
+            foreach (GridViewRow row in GridViewObras.Rows) //Se lee cada fila del GRID de OBraS
+            {
+                string id = GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString(); //Se obtiene el ID
+
+                if (list.Count > 0)
+                {
+                    foreach (Plantilla p in list)
+                    {
+                        TableCell cell1 = new TableCell();
+                        string url = "EvaluacionPOA.aspx?p=" + id + "&o=";
+
+                        HtmlButton button = new HtmlButton();
+                        HtmlGenericControl spanButton = new HtmlGenericControl("span");
+                        
+                        //Se construye el BOTON
+                        button.ID = "btn" + p.Orden;
+                        button.Attributes.Add("class", "btn btn-default");
+                        button.Attributes.Add("data-tipo-operacion", "evaluar");
+                        button.Attributes.Add("runat", "server");
+                        url += p.Orden.ToString(); //SE AGREGA PARAMETRO DE ORDEN a la URL
+                        button.Attributes.Add("data-url-poa", url);
+
+                        spanButton.Attributes.Add("class", "glyphicon glyphicon-ok");
+                        button.Controls.Add(spanButton);
+
+                        cell1.Controls.Add(button);
+
+                        row.Cells.AddAt(columnsInicial, cell1); //Se agrega la celda a la fila
+
+                        columnsInicial++;
+                    }
+                    
+
+                }
+
+                row.Cells.RemoveAt(row.Cells.Count - 1);
+
+            }
+        }
+
+        /// <summary>
+        /// Metodo encargado de obtener las PLANTILLAS PADDRE del catalogo de plantillas
+        /// Creado por Rigoberto TS
+        /// 20/10/2014
+        /// </summary>
+        /// <returns></returns>
+        private List<Plantilla> GetPlantillas()
+        {
+            List<Plantilla> list = uow.PlantillaBusinessLogic.Get(e => e.DependeDeId == null).ToList();
+            return list;
+        }
 
         private void BindGrid()
         {
@@ -351,27 +445,6 @@ namespace SIP.Formas.POA
             ddlGrupoBeneficiario.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
         }
-
-        protected void GridViewObras_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnE");
-                if (btnE != null)
-                {
-                    if (GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"] != null)
-                    {
-                        string url = string.Empty;
-                        url = "EvaluacionPOA.aspx?p=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
-                        //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
-                        btnE.Attributes.Add("data-url-poa", url);
-                    }
-
-                }
-
-            }
-        }
-
 
 
     }

@@ -77,6 +77,13 @@
 
     <div class="container">
 
+        <div class="panel panel-default">
+          <div class="panel-heading"><strong>Número de obra o acción: </strong><% Response.Write(obraNumero); %></div>
+          <div class="panel-body">
+            <p><% Response.Write(obraDescripcion); %></p>             
+          </div>
+        </div>
+
         <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
         </div>

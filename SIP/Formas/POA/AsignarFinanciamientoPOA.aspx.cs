@@ -16,16 +16,25 @@ namespace SIP.Formas.POA
         private int unidadpresupuestalId;
         private int ejercicioId;
         private int poadetalleId;
+        protected string obraNumero;
+        protected string obraDescripcion;
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();  
+            uow = new UnitOfWork();
+
+            poadetalleId = Utilerias.StrToInt(Request.QueryString["poadetalleId"].ToString());
+
+            POADetalle poadetalle = uow.POADetalleBusinessLogic.GetByID(poadetalleId);
+            obraNumero = poadetalle.Numero;
+            obraDescripcion = poadetalle.Descripcion;
 
             if (!IsPostBack) 
-            {
-                poadetalleId = Utilerias.StrToInt(Request.QueryString["poadetalleId"].ToString());
+            {                          
+                
                 BindearDropDownList();
                 BindGrid();
             }
+            
         }
 
         private void BindGrid()

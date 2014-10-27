@@ -51,7 +51,13 @@ namespace SIP.Formas.POA
 
             ddlTechoFinancieroUnidadPresupuestal.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
-        }    
+        }
+
+        public void BindControles(ObraFinanciamiento obrafinanciamiento)
+        {
+            ddlTechoFinancieroUnidadPresupuestal.SelectedValue = obrafinanciamiento.TechoFinancieroUnidadPresupuestalId.ToString();
+            txtImporte.Text = obrafinanciamiento.Importe.ToString();
+        }
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
@@ -183,7 +189,7 @@ namespace SIP.Formas.POA
                 }
                 else if (tfup.GetImporteAsignado() + Convert.ToDecimal(txtImporte.Text) > tfup.Importe)
                 {
-                    uow.Errors.Add("El importe que intenta asignar más el importe asignado (" + tfup.GetImporteAsignado().ToString("c2") + "),superan el techo financiero: " + tfup.Importe.ToString("c2"));
+                    uow.Errors.Add("El importe que intenta asignar más el importe asignado (" + tfup.GetImporteAsignado(currentId).ToString("C2") + "),superan el techo financiero (" + tfup.Importe.ToString("c2") + ") para el fondo seleccionado.");
                 }
             }
             else 
@@ -192,7 +198,7 @@ namespace SIP.Formas.POA
 
                 if (tfup.GetImporteAsignado(currentId) + Convert.ToDecimal(txtImporte.Text) > tfup.Importe)
                 {
-                    uow.Errors.Add("El importe que intenta asignar más el importe asignado (" + tfup.GetImporteAsignado(currentId).ToString("C2") + "),superan el techo financiero: " + tfup.Importe.ToString("c2"));
+                    uow.Errors.Add("El importe que intenta asignar más el importe asignado (" + tfup.GetImporteAsignado(currentId).ToString("C2") + "),superan el techo financiero (" + tfup.Importe.ToString("c2") + ") para el fondo seleccionado.");
                 }
             }
             
@@ -259,11 +265,6 @@ namespace SIP.Formas.POA
             }            
 
         }
-
-        public void BindControles(ObraFinanciamiento obrafinanciamiento)
-        {
-            ddlTechoFinancieroUnidadPresupuestal.SelectedValue = obrafinanciamiento.TechoFinancieroUnidadPresupuestalId.ToString();
-            txtImporte.Text = obrafinanciamiento.Importe.ToString();
-        }
+        
     }
 }

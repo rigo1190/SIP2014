@@ -300,10 +300,17 @@
                         </div>
                       </div>
 
-                     <div class="form-group">
-                           <label for="EsAccion">Es acción</label>
+                      <div class="form-group">
+                           <label for="FechaInicio">Fecha de inicio</label>
                          <div>
-                             <input type="checkbox" class="input-sm required form-control" id="txtEsAccion" runat="server" style="text-align: right; align-items:flex-start" />
+                            <input type="text" class="required form-control date-picker" id="txtFechaInicio" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                           <label for="FechaTermino">Fecha de Término</label>
+                         <div>
+                            <input type="text" class="input-sm required form-control date-picker" id="txtFechaTermino" runat="server" data-date-format = "dd/mm/yyyy" autocomplete="off" />
                         </div>
                       </div>
 

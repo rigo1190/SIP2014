@@ -3,13 +3,9 @@ using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web;
-using System.Web.Services;
-using System.Web.Script.Services;
 
 namespace SIP.Formas.POA
 {
@@ -29,24 +25,106 @@ namespace SIP.Formas.POA
 
                 unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
                 ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
+
+                UnidadPresupuestal up = uow.UnidadPresupuestalBusinessLogic.GetByID(unidadpresupuestalId);
                 
-                lblTituloPOA.Text = String.Format("Anteproyecto de POA para el ejercicio {0}", uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
+                lblTituloPOA.Text = String.Format("{0} <br /> Anteproyecto de POA para el ejercicio {1}",up.Nombre,uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
                 BindGrid();
                 BindearDropDownList();
+
+                InsertarInformacionEvaluaciones();
+
             }
             
         }
        
         private void BindGrid()
         {
+            TemplateField tf = new TemplateField();
+            tf.HeaderStyle.CssClass = "panel-footer";
+            tf.HeaderText = "Evaluaciones";
+            tf.ItemStyle.CssClass = "col-md-5";
+            tf.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
+            tf.ItemStyle.VerticalAlign = VerticalAlign.Middle;
+            GridViewObras.Columns.Add(tf);
+
+            tf = new TemplateField();
+            tf.HeaderStyle.CssClass = "panel-footer";
+            tf.HeaderText = "Financiamiento";
+            tf.ItemStyle.CssClass = "col-md-1";
+            GridViewObras.Columns.Add(tf);
 
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(o=>o.POA.UnidadPresupuestalId==unidadpresupuestalId & o.POA.EjercicioId==ejercicioId).ToList();
-            this.GridViewObras.DataBind();
+            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId).ToList();
+            this.GridViewObras.DataBind();            
+                        
         }
-              
+
+        private void BindearDropDownList()
+        {
+
+            ddlMunicipio.DataSource = uow.MunicipioBusinessLogic.Get().ToList();
+            ddlMunicipio.DataValueField = "Id";
+            ddlMunicipio.DataTextField = "Nombre";
+            ddlMunicipio.DataBind();
+
+            ddlMunicipio.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+            ddlTipoLocalidad.DataSource = uow.TipoLocalidadBusinessLogic.Get().ToList();
+            ddlTipoLocalidad.DataValueField = "Id";
+            ddlTipoLocalidad.DataTextField = "Nombre";
+            ddlTipoLocalidad.DataBind();
+
+            ddlTipoLocalidad.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+            ddlCriterioPriorizacion.DataSource = uow.CriterioPriorizacionBusinessLogic.Get().OrderBy(cp => cp.Orden);
+            ddlCriterioPriorizacion.DataValueField = "Id";
+            ddlCriterioPriorizacion.DataTextField = "Nombre";
+            ddlCriterioPriorizacion.DataBind();
+
+            ddlCriterioPriorizacion.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+
+            ddlSituacionObra.DataSource = uow.SituacionObraBusinessLogic.Get().ToList();
+            ddlSituacionObra.DataValueField = "Id";
+            ddlSituacionObra.DataTextField = "Nombre";
+            ddlSituacionObra.DataBind();
+
+            ddlSituacionObra.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+            Utilerias.BindDropDownToEnum(ddlModalidad, typeof(enumModalidadObra));
+
+            ddlPlanSectorial.DataSource = uow.PlanSectorialBusinessLogic.Get(orderBy: ps => ps.OrderBy(o => o.Orden)).ToList();
+            ddlPlanSectorial.DataValueField = "Id";
+            ddlPlanSectorial.DataTextField = "Descripcion";
+            ddlPlanSectorial.DataBind();
+
+            ddlPlanSectorial.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+            //ddlClasificacionProgramaticaCONAC.DataSource = uow.ModalidadBusinessLogic.Get(m => m.ParentId == null).ToList();
+            //ddlClasificacionProgramaticaCONAC.DataValueField = "Id";
+            //ddlClasificacionProgramaticaCONAC.DataTextField = "Descripcion";
+            //ddlClasificacionProgramaticaCONAC.DataBind();
+
+            //ddlClasificacionProgramaticaCONAC.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+            ddlProgramaPresupuesto.DataSource = uow.ProgramaBusinessLogic.Get();
+            ddlProgramaPresupuesto.DataValueField = "Id";
+            ddlProgramaPresupuesto.DataTextField = "Descripcion";
+            ddlProgramaPresupuesto.DataBind();
+
+            ddlProgramaPresupuesto.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+            ddlGrupoBeneficiario.DataSource = uow.GrupoBeneficiarioBusinessLogic.Get();
+            ddlGrupoBeneficiario.DataValueField = "Id";
+            ddlGrupoBeneficiario.DataTextField = "Nombre";
+            ddlGrupoBeneficiario.DataBind();
+
+            ddlGrupoBeneficiario.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+        }              
         
         public void BindControles(POADetalle poadetalle)
         {
@@ -90,8 +168,7 @@ namespace SIP.Formas.POA
             
             
         }
-                    
-
+     
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             //Se limpian los controles
@@ -298,72 +375,9 @@ namespace SIP.Formas.POA
               
         }
 
-        private void BindearDropDownList()
-        {             
-
-            ddlMunicipio.DataSource = uow.MunicipioBusinessLogic.Get().ToList();
-            ddlMunicipio.DataValueField = "Id";
-            ddlMunicipio.DataTextField = "Nombre";            
-            ddlMunicipio.DataBind();
-
-            ddlMunicipio.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
-            ddlTipoLocalidad.DataSource = uow.TipoLocalidadBusinessLogic.Get().ToList();
-            ddlTipoLocalidad.DataValueField = "Id";
-            ddlTipoLocalidad.DataTextField = "Nombre";
-            ddlTipoLocalidad.DataBind();
-
-            ddlTipoLocalidad.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
-            ddlCriterioPriorizacion.DataSource = uow.CriterioPriorizacionBusinessLogic.Get().OrderBy(cp => cp.Orden);
-            ddlCriterioPriorizacion.DataValueField = "Id";
-            ddlCriterioPriorizacion.DataTextField = "Nombre";
-            ddlCriterioPriorizacion.DataBind();
-
-            ddlCriterioPriorizacion.Items.Insert(0, new ListItem("Seleccione...", "0"));
-            
-
-            ddlSituacionObra.DataSource = uow.SituacionObraBusinessLogic.Get().ToList();
-            ddlSituacionObra.DataValueField = "Id";
-            ddlSituacionObra.DataTextField = "Nombre";
-            ddlSituacionObra.DataBind();
-
-            ddlSituacionObra.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
-            Utilerias.BindDropDownToEnum(ddlModalidad, typeof(enumModalidadObra));          
-            
-            ddlPlanSectorial.DataSource = uow.PlanSectorialBusinessLogic.Get(orderBy:ps=>ps.OrderBy(o=>o.Orden)).ToList();
-            ddlPlanSectorial.DataValueField = "Id";
-            ddlPlanSectorial.DataTextField = "Descripcion";
-            ddlPlanSectorial.DataBind();
-
-            ddlPlanSectorial.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
-            //ddlClasificacionProgramaticaCONAC.DataSource = uow.ModalidadBusinessLogic.Get(m => m.ParentId == null).ToList();
-            //ddlClasificacionProgramaticaCONAC.DataValueField = "Id";
-            //ddlClasificacionProgramaticaCONAC.DataTextField = "Descripcion";
-            //ddlClasificacionProgramaticaCONAC.DataBind();
-
-            //ddlClasificacionProgramaticaCONAC.Items.Insert(0, new ListItem("Seleccione...", "0"));
-            
-            ddlProgramaPresupuesto.DataSource = uow.ProgramaBusinessLogic.Get();
-            ddlProgramaPresupuesto.DataValueField = "Id";
-            ddlProgramaPresupuesto.DataTextField = "Descripcion";
-            ddlProgramaPresupuesto.DataBind();
-
-            ddlProgramaPresupuesto.Items.Insert(0, new ListItem("Seleccione...", "0"));
-            
-            ddlGrupoBeneficiario.DataSource = uow.GrupoBeneficiarioBusinessLogic.Get();
-            ddlGrupoBeneficiario.DataValueField = "Id";
-            ddlGrupoBeneficiario.DataTextField = "Nombre";
-            ddlGrupoBeneficiario.DataBind();
-
-            ddlGrupoBeneficiario.Items.Insert(0, new ListItem("Seleccione...", "0"));
-           
-        }              
-        		
 		protected void GridViewObras_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
+        {          
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnFinanciamiento");
@@ -378,9 +392,73 @@ namespace SIP.Formas.POA
                     }
                     
                 }
-
+               
             }
         }
+
+        private void InsertarInformacionEvaluaciones()         
+        {
+            string url = string.Empty;
+
+            List<Plantilla> list = uow.PlantillaBusinessLogic.Get(e => e.DependeDeId == null).ToList();
+
+                                  
+            foreach (GridViewRow row in GridViewObras.Rows) 
+            {
+                string id = GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString(); 
+
+                if (list.Count > 0)
+                {
+                    TableCell cell1 = new TableCell();
+
+                    foreach (Plantilla p in list)
+                    {
+                        
+                        url = "EvaluacionPOA.aspx?p=" + id + "&o=";
+
+                        HtmlButton button = new HtmlButton();
+                        HtmlGenericControl spanButton = new HtmlGenericControl("span");
+
+                        //Se construye el BOTON
+                        button.ID = "btn" + p.Orden;
+                        button.Attributes.Add("class", "btn btn-default");
+                        button.Attributes.Add("data-tipo-operacion", "evaluar");
+                        button.Attributes.Add("runat", "server");
+                        url += p.Orden.ToString(); //SE AGREGA PARAMETRO DE ORDEN a la URL
+                        button.Attributes.Add("data-url-poa", url);
+
+                        spanButton.Attributes.Add("class", "glyphicon glyphicon-ok");
+                        button.Controls.Add(spanButton);
+
+                        cell1.Controls.Add(button);                        
+                    }
+
+                    row.Cells.AddAt(3, cell1);
+
+                }
+
+                row.Cells.RemoveAt(row.Cells.Count - 1);
+      
+
+                TableCell celdafinanciamiento = new TableCell();
+                LinkButton btnfinanciamiento = new LinkButton();
+                btnfinanciamiento.Attributes.Add("class", "btn btn-default glyphicon glyphicon-usd");
+                btnfinanciamiento.Attributes.Add("data-tipo-operacion", "asignarfinanciamiento");                
+                //btnfinanciamiento.Attributes.Add("runat", "server");
+                url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString();
+                btnfinanciamiento.Attributes.Add("data-url-poa", url);               
+
+                celdafinanciamiento.Controls.Add(btnfinanciamiento);
+
+                row.Cells.AddAt(4, celdafinanciamiento);
+                
+                row.Cells.RemoveAt(row.Cells.Count - 1);
+            }                       
+
+
+        }
                               
-    }
+    }      
+    
+
 }

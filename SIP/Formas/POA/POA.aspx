@@ -203,6 +203,10 @@
        
         <div class="page-header"><h3><asp:Label ID="lblTituloPOA" runat="server" Text=""></asp:Label></h3></div>
 
+        <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
+           <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
+        </div>
+
         <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewObras_RowDataBound" runat="server" AllowPaging="True">
             <Columns>
 
@@ -221,17 +225,17 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-8" HeaderStyle-CssClass="panel-footer">                            
+                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-5" HeaderStyle-CssClass="panel-footer">                            
                             <ItemTemplate>
                                 <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
+                        </asp:TemplateField>                       
+                        <%--<asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
                             <ItemTemplate>
                                 <button type="button" id="btnFinanciamiento" data-tipo-operacion="asignarfinanciamiento" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-usd"></span></button> 
                             </ItemTemplate>                          
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="50px" />                                            
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                        
             </Columns>
                     
@@ -242,6 +246,8 @@
         <div id="divBtnNuevo" runat="server" style="display:block">
               <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
          </div>
+
+      
     
         <div id="divEdicion" runat="server" class="panel-footer" style="display:none">
             
@@ -252,9 +258,7 @@
 
             <div class="tab-content">
 
-                <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
-                    <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
-                </div>
+                
                 
                 <div class="tab-pane active" id="datosgenerales">
 
@@ -613,6 +617,6 @@
        </div><!--divEdicion-->
 
     </div><!--div class="container"-->
-          
+                      
 
 </asp:Content>

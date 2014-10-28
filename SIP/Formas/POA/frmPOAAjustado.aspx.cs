@@ -82,16 +82,19 @@ namespace SIP.Formas.POA
         {
             List<Plantilla> list = GetPlantillas();
 
+            int inicio;
+
             foreach (GridViewRow row in GridViewObras.Rows) //Se lee cada fila del GRID de OBraS
             {
                 string id = GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString(); //Se obtiene el ID
 
                 if (list.Count > 0)
                 {
+                    inicio = columnsInicial;
                     foreach (Plantilla p in list)
                     {
                         TableCell cell1 = new TableCell();
-                        string url = "EvaluacionPOA.aspx?p=" + id + "&o=";
+                        string url = "EvaluacionPOA.aspx?ob=" + id + "&o=";
 
                         HtmlButton button = new HtmlButton();
                         HtmlGenericControl spanButton = new HtmlGenericControl("span");
@@ -109,9 +112,9 @@ namespace SIP.Formas.POA
 
                         cell1.Controls.Add(button);
 
-                        row.Cells.AddAt(columnsInicial, cell1); //Se agrega la celda a la fila
+                        row.Cells.AddAt(inicio, cell1); //Se agrega la celda a la fila
 
-                        columnsInicial++;
+                        inicio++;
                     }
                     
 
@@ -237,6 +240,9 @@ namespace SIP.Formas.POA
             ddlProgramaPresupuesto.SelectedIndex = -1;
             ddlGrupoBeneficiario.SelectedIndex = -1;
 
+            int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
+            InsertarNuevasCeldas(inicio);
+
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
@@ -255,6 +261,8 @@ namespace SIP.Formas.POA
             Obra obra = uow.ObraBusinessLogic.GetByID(currentId);
 
             BindControles(obra);
+            int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
+            InsertarNuevasCeldas(inicio);
 
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
@@ -281,8 +289,11 @@ namespace SIP.Formas.POA
 
                 divEdicion.Style.Add("display", "none");
                 divBtnNuevo.Style.Add("display", "block");
+                
                 BindGrid();
 
+                int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
+                InsertarNuevasCeldas(inicio);
             }
             else
             {
@@ -380,6 +391,10 @@ namespace SIP.Formas.POA
                 uow = new UnitOfWork();
 
                 BindGrid();
+
+                int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
+                InsertarNuevasCeldas(inicio);
+
                 divEdicion.Style.Add("display", "none");
                 divBtnNuevo.Style.Add("display", "block");
 

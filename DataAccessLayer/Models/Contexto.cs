@@ -10,13 +10,13 @@ namespace DataAccessLayer.Models
 {
     public class Contexto : DbContext
     {
+        private int userId;
        
         public Contexto()
             : base("SIP")
         {
             System.Diagnostics.Debug.Print(Database.Connection.ConnectionString);
-        }
-       
+        }            
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {          
@@ -50,7 +50,7 @@ namespace DataAccessLayer.Models
             
         }
 
-        public override int SaveChanges()
+        public int SaveChanges(int userId)
         {
 
             var creados = this.ChangeTracker.Entries()
@@ -60,7 +60,7 @@ namespace DataAccessLayer.Models
             foreach (var item in creados)
             {
                 item.CreatedAt = DateTime.Now;
-                item.CreatedBy = null;
+                item.CreatedById = (userId==0)?null:(int?)userId;
             }
 
             var modificados = this.ChangeTracker.Entries()
@@ -70,10 +70,10 @@ namespace DataAccessLayer.Models
             foreach (var item in modificados)
             {
                 item.EditedAt = DateTime.Now;
-                item.EditedBy = null;
+                item.EditedById = (userId == 0) ? null : (int?)userId;
             }
 
-            return base.SaveChanges();
+            return SaveChanges();
             
 
         }

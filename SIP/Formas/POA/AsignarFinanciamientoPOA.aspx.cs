@@ -13,6 +13,7 @@ namespace SIP.Formas.POA
     {
         private UnitOfWork uow;
         private int currentId;
+        private int userId;
         private int unidadpresupuestalId;
         private int ejercicioId;
         private int poadetalleId;
@@ -20,7 +21,8 @@ namespace SIP.Formas.POA
         protected string obraDescripcion;
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            userId = Utilerias.StrToInt(Session["IdUser"].ToString());
+            uow = new UnitOfWork(userId);      
 
             poadetalleId = Utilerias.StrToInt(Request.QueryString["poadetalleId"].ToString());
 

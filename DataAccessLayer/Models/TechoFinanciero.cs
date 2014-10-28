@@ -8,6 +8,10 @@ namespace DataAccessLayer.Models
 {
     public class TechoFinanciero:Generica
     {
+        public TechoFinanciero()
+        {
+            this.detalleUnidadesPresupuestales = new HashSet<TechoFinancieroUnidadPresupuestal>();
+        }
         public int EjercicioId { get; set; }
         public int FinanciamientoId { get; set; }
 
@@ -20,6 +24,13 @@ namespace DataAccessLayer.Models
         public virtual Ejercicio Ejercicio { get; set; }
         public virtual Financiamiento Financiamiento { get; set; }
 
+        public virtual ICollection<TechoFinancieroUnidadPresupuestal> detalleUnidadesPresupuestales { get; set; }
+
+
+        //public decimal GetImporteAsignado(object dataitem)
+        //{
+        //    return (from tfup in detalleUnidadesPresupuestales select tfup).Sum(p => p.Importe);
+        //}
 
     }
 }

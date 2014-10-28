@@ -20,9 +20,8 @@ namespace SIP.Formas.POA
         protected string obraNumero;
         protected string obraDescripcion;
         protected void Page_Load(object sender, EventArgs e)
-        {
-            userId = Utilerias.StrToInt(Session["IdUser"].ToString());
-            uow = new UnitOfWork(userId);      
+        {            
+            uow = new UnitOfWork(Session["IdUser"].ToString());      
 
             poadetalleId = Utilerias.StrToInt(Request.QueryString["poadetalleId"].ToString());
 

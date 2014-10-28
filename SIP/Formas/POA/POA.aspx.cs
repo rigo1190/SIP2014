@@ -11,16 +11,15 @@ namespace SIP.Formas.POA
 {
     public partial class POA : System.Web.UI.Page
     {
-        private UnitOfWork uow;
-        private int userId;
+        private UnitOfWork uow;      
         private int currentId;        
         private int unidadpresupuestalId;
         private int ejercicioId;        
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            userId = Utilerias.StrToInt(Session["IdUser"].ToString());
-            uow = new UnitOfWork(userId);            
+          
+            uow = new UnitOfWork(Session["IdUser"].ToString());            
                
             if (!IsPostBack)
             {

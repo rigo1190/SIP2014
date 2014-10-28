@@ -148,9 +148,9 @@ namespace SIP.Formas.Catalogos
             if (listaPOA.Count > 0)
                 uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
 
-            List<Plantilla> listaPlantilla = uow.PlantillaBusinessLogic.Get(p=>p.EjercicioId == id).ToList();
-            if (listaPlantilla.Count > 0)
-                uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
+            //List<Plantilla> listaPlantilla = uow.PlantillaBusinessLogic.Get(p=>p.EjercicioId == id).ToList();
+            //if (listaPlantilla.Count > 0)
+            //    uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
 
             List<AperturaProgramatica> listaAP = uow.AperturaProgramaticaBusinessLogic.Get(p=>p.EjercicioId == id).ToList();
             if (listaAP.Count > 0)

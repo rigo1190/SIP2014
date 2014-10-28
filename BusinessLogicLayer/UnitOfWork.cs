@@ -11,6 +11,7 @@ namespace BusinessLogicLayer
     public class UnitOfWork : IDisposable
     {       
         internal Contexto contexto;
+        private int userId;
         private List<String> errors = new List<String>();
         private IBusinessLogic<Usuario> usuarioBusinessLogic;
         private IBusinessLogic<Rol> rolBusinessLogic;        
@@ -55,6 +56,12 @@ namespace BusinessLogicLayer
        
         public UnitOfWork()
         {
+            this.contexto = new Contexto();
+        }
+
+        public UnitOfWork(int userId)
+        {           
+            this.userId = userId;
             this.contexto = new Contexto();
         }
 
@@ -585,7 +592,7 @@ namespace BusinessLogicLayer
             try
             {
                 errors.Clear();
-                contexto.SaveChanges();
+                contexto.SaveChanges(userId);
             }
             catch (DbEntityValidationException ex)
             {
@@ -631,8 +638,7 @@ namespace BusinessLogicLayer
                 return errors;
             }
         }
-
-
+        
         public void RollBack()
         {
            

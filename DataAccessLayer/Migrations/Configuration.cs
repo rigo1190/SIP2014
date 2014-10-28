@@ -28,7 +28,7 @@ namespace DataAccessLayer.Migrations
             //    );
             //
 
-            return;
+           
             context.Roles.AddOrUpdate(
             
                 new Rol { Id = 1 , Clave="R001", Nombre="Desarrollador", Orden=1},
@@ -174,15 +174,35 @@ namespace DataAccessLayer.Migrations
              
           );
 
-           var list = from año in context.Años.Local
-                      from mf in context.ModalidadesFinanciamiento.Local
-                      from f in context.Fondos.Local
-                      select new { año, mf, f };
+           //var list = from año in context.Años.Local
+           //           from mf in context.ModalidadesFinanciamiento.Local
+           //           from f in context.Fondos.Local
+           //           select new { año, mf, f };
 
-           foreach (var item in list)
-           {
-               context.Financiamientos.Local.Add(new Financiamiento { Año = item.año, ModalidadFinanciamiento = item.mf, Fondo = item.f });
-           }
+           //foreach (var item in list)
+           //{
+           //    context.Financiamientos.Local.Add(new Financiamiento { Año = item.año, ModalidadFinanciamiento = item.mf, Fondo = item.f });
+           //}
+
+
+           context.Financiamientos.AddOrUpdate(
+             new Financiamiento { Id = 1,  AñoId = 6, FondoId = 1, ModalidadFinanciamientoId = 1 }, 
+             new Financiamiento { Id = 2,  AñoId = 6, FondoId = 1, ModalidadFinanciamientoId = 2 },   
+             new Financiamiento { Id = 3,  AñoId = 6, FondoId = 1, ModalidadFinanciamientoId = 3 },   
+             new Financiamiento { Id = 4,  AñoId = 6, FondoId = 1, ModalidadFinanciamientoId = 4 },
+             new Financiamiento { Id = 5,  AñoId = 6, FondoId = 5, ModalidadFinanciamientoId = 1 },
+             new Financiamiento { Id = 6,  AñoId = 6, FondoId = 5, ModalidadFinanciamientoId = 2 },
+             new Financiamiento { Id = 7,  AñoId = 6, FondoId = 5, ModalidadFinanciamientoId = 3 },
+             new Financiamiento { Id = 8,  AñoId = 6, FondoId = 5, ModalidadFinanciamientoId = 4 },
+             new Financiamiento { Id = 9,  AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 1 },
+             new Financiamiento { Id = 10, AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 2 },
+             new Financiamiento { Id = 11, AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 3 },
+             new Financiamiento { Id = 12, AñoId = 7, FondoId = 1, ModalidadFinanciamientoId = 4 },  
+             new Financiamiento { Id = 13, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 1 },
+             new Financiamiento { Id = 14, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 2 },
+             new Financiamiento { Id = 15, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 3 },
+             new Financiamiento { Id = 16, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 4 }  
+           );
 
            context.AperturaProgramaticaUnidades.AddOrUpdate(
                new AperturaProgramaticaUnidad { Id = 1, Clave = "APU001", Nombre = "Planta", Orden = 1 },
@@ -246,16 +266,16 @@ namespace DataAccessLayer.Migrations
                    
 
           context.AperturaProgramaticaMetas.AddOrUpdate(
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 22, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 23, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 24, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 25, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 26, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 27, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 28, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 29, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 30, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { AperturaProgramaticaId = 31, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
+              new AperturaProgramaticaMeta { Id = 1,AperturaProgramaticaId = 22, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 2, AperturaProgramaticaId = 23, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 3, AperturaProgramaticaId = 24, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 4, AperturaProgramaticaId = 25, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 5, AperturaProgramaticaId = 26, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 6, AperturaProgramaticaId = 27, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 7, AperturaProgramaticaId = 28, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 8, AperturaProgramaticaId = 29, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 9, AperturaProgramaticaId = 30, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
+              new AperturaProgramaticaMeta { Id = 10, AperturaProgramaticaId = 31, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
           );
 
            context.Funcionalidad.AddOrUpdate(
@@ -356,80 +376,154 @@ namespace DataAccessLayer.Migrations
             new CriterioPriorizacion { Id = 5, Clave = "CP005", Nombre = "Obras y acciones nuevas que en el mismo ejercicio contemplen los proyectos", Orden = 5 } 
           );
 
-          POA poa = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 6 };
 
-          POADetalle poadetalle = new POADetalle();
-          poadetalle.Consecutivo = 1;
-          poadetalle.Numero = "102S110012014001";
-          poadetalle.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-          poadetalle.MunicipioId = 1;
-          poadetalle.Localidad = "Alguna localidad en Acajete";
-          poadetalle.TipoLocalidadId = 1;
-          poadetalle.SituacionObraId = 1;
-          poadetalle.ModalidadObra = enumModalidadObra.Contrato;
-          poadetalle.EsAccion = false;
-          poadetalle.ImporteTotal = 12348700;
-          poadetalle.ImporteLiberadoEjerciciosAnteriores = 10200000;
-          poadetalle.ImportePresupuesto = 15000000;
-          poadetalle.AperturaProgramaticaId = 22;
-          poadetalle.AperturaProgramaticaMetaId = 1;
-          poadetalle.NumeroBeneficiarios = 25;
-          poadetalle.CantidadUnidades = 17;
-          poadetalle.Empleos = 10;
-          poadetalle.Jornales = 15;
-          poadetalle.FuncionalidadId = 16;
-          poadetalle.EjeId= 5;
-          poadetalle.PlanSectorialId = 1;
-          poadetalle.ModalidadId = 5;
-          poadetalle.ProgramaId = 1;
-          poadetalle.GrupoBeneficiarioId = 2;
-          poadetalle.CriterioPriorizacionId = 1;
-          poadetalle.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
+          context.Plantilla.AddOrUpdate(
+            new Plantilla { Id = 1, Clave = "P001", Descripcion="Plantilla inicial",Orden=1 }
+          );
 
-          poa.Detalles.Add(poadetalle);
+          context.PlantillaDetalle.AddOrUpdate(
+             new PlantillaDetalle { Id = 1, PlantillaId = 1, Clave = "Q001", Pregunta = "¿El importe total de la inversión se ajusta a la asignación presupuestal autorizada?", Orden = 1 },
+             new PlantillaDetalle { Id = 2, PlantillaId = 1, Clave = "Q002", Pregunta = "¿Las obras o acciones corresponden al capitulo 6000 \"Infraestructura para el Desarrollo, Obra Pública y Servicios Relacionados con la Misma\"?", Orden = 2 },
+             new PlantillaDetalle { Id = 3, PlantillaId = 1, Clave = "Q003", Pregunta = "¿La descripción de la obra o accón hace referencia clara de los trabajos a realizar?", Orden = 3 },
+             new PlantillaDetalle { Id = 4, PlantillaId = 1, Clave = "Q004", Pregunta = "¿Las claves de los programas, subprogramas y subsubsubprogramas corresponden a la apertura programática y están de acuerdo con la descripción de la obra o acción?", Orden = 4 },
 
-          context.POA.Add(poa);
+             new PlantillaDetalle { Id = 5, PlantillaId = 1, Clave = "Q005", Pregunta = "¿Las metas de la obra o acción son congruentes con el Subprograma asignado asignado y son susceptibles de medición?", Orden = 5 },
+             new PlantillaDetalle { Id = 6, PlantillaId = 1, Clave = "Q006", Pregunta = "¿Los beneficiarios corresponden a la unidad de medida \"personas\"?", Orden = 6 },
+             new PlantillaDetalle { Id = 7, PlantillaId = 1, Clave = "Q007", Pregunta = "¿Se especifica el nombre completo de la unidad o subunidad presupuestal?", Orden = 7 },
+             new PlantillaDetalle { Id = 8, PlantillaId = 1, Clave = "Q008", Pregunta = "¿Se especifica el número progresivo y el total de hojas utilizadas?", Orden = 8 },
+             new PlantillaDetalle { Id = 9, PlantillaId = 1, Clave = "Q009", Pregunta = "¿Se especifica el municipio y localidad(es) donde se realizará la obra o acción, omitiendo los términos \"varios\" y \"cobertura estatal\"?", Orden = 9 },
+             new PlantillaDetalle { Id = 10, PlantillaId = 1, Clave = "Q0010", Pregunta = "¿Se especifica la modalidad de esjecución de la obra o acción?", Orden = 10 },
+             new PlantillaDetalle { Id = 11, PlantillaId = 1, Clave = "Q0011", Pregunta = "¿Se especifica la situación de la obra o acción? ", Orden = 11 },
+             new PlantillaDetalle { Id = 12, PlantillaId = 1, Clave = "Q0012", Pregunta = "Si la situación de la obra o acción es en \"proceso\", ¿ se especifica el número de obra asignado en el ejercicio anterior y presenta la misma modalidad de ejecución?", Orden = 12 },
+             new PlantillaDetalle { Id = 13, PlantillaId = 1, Clave = "Q0013", Pregunta = "¿El importe que se registra de las acciones en proceso, es coincidente con el saldo del ejercicio anterior?", Orden = 13 },
+             new PlantillaDetalle { Id = 14, PlantillaId = 1, Clave = "Q0014", Pregunta = "¿La programación de los gastos indirectos corresponden a obras por contrato que se están considerando en el POA y además el cálculo es de acuerdo al financiamiento, sin especificar beneficiarios y jornales?", Orden = 14 },
+             new PlantillaDetalle { Id = 15, PlantillaId = 1, Clave = "Q0015", Pregunta = "La meta anual y el número de beneficiarios , ¿son indicativos de la descripción de la obra o acción que se registra?", Orden = 15 },
+             new PlantillaDetalle { Id = 16, PlantillaId = 1, Clave = "Q0016", Pregunta = "¿El documento presenta en cada una de las hojas la antefirma del Titular de la Unidad Presupuestal, así como, su nombre, cargo y firma en la última hoja?", Orden = 16 },
+             new PlantillaDetalle { Id = 17, PlantillaId = 1, Clave = "Q0017", Pregunta = "¿Se especifica la fecha de Firma?", Orden = 17 },
+             new PlantillaDetalle { Id = 18, PlantillaId = 1, Clave = "Q0018", Pregunta = "Los estudios y proyectos no deben especificar beneficiarios y jornales", Orden = 18 },
+             new PlantillaDetalle { Id = 19, PlantillaId = 1, Clave = "Q0019", Pregunta = "Las obras deben especificar los empleos y jornales a generar", Orden = 19 },
+             new PlantillaDetalle { Id = 20, PlantillaId = 1, Clave = "Q0020", Pregunta = "El Capítulo 6000 no incluye el financiamiento para construcción de viviendas", Orden = 20 },
+             new PlantillaDetalle { Id = 21, PlantillaId = 1, Clave = "Q0021", Pregunta = "En cuanto sean asignadas las obras a los fondos correspondientes, checar la normatividad (revisar los gastos indirectos, estudios y proyectos, etc.7)", Orden = 21 }
+
+         );
+                      
+
+          context.TechoFinanciero.AddOrUpdate(
+            new TechoFinanciero { Id = 1, EjercicioId = 6, FinanciamientoId = 2, Importe = 10000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } ,
+            new TechoFinanciero { Id = 2, EjercicioId = 6, FinanciamientoId = 9, Importe = 12000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } 
+          );
+
+         context.TechoFinancieroUnidadPresupuestal.AddOrUpdate(
+           new TechoFinancieroUnidadPresupuestal { Id = 1, TechoFinancieroId = 1, UnidadPresupuestalId = 1, Importe = 3000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 2, TechoFinancieroId = 2, UnidadPresupuestalId = 1, Importe = 4500, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 3, TechoFinancieroId = 1, UnidadPresupuestalId = 2, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 4, TechoFinancieroId = 1, UnidadPresupuestalId = 3, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 5, TechoFinancieroId = 1, UnidadPresupuestalId = 4, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+           new TechoFinancieroUnidadPresupuestal { Id = 6, TechoFinancieroId = 1, UnidadPresupuestalId = 5, Importe = 1000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }
+         ); 
+
+          POA poa2013 = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 5 };  
+          POA poa2014 = new POA { Id = 2, UnidadPresupuestalId = 1, EjercicioId = 6 };
+
+          POADetalle poadetalle2013_001 = new POADetalle();
+          poadetalle2013_001.Consecutivo = 1;
+          poadetalle2013_001.Numero = "102S110012013001";
+          poadetalle2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
+          poadetalle2013_001.MunicipioId = 1;
+          poadetalle2013_001.Localidad = "Alguna localidad en Acajete";
+          poadetalle2013_001.TipoLocalidadId = 1;
+          poadetalle2013_001.SituacionObraId = 1;
+          poadetalle2013_001.ModalidadObra = enumModalidadObra.Contrato;          
+          poadetalle2013_001.ImporteTotal = 3000;
+          poadetalle2013_001.ImporteLiberadoEjerciciosAnteriores = 0;
+          poadetalle2013_001.ImportePresupuesto = 4000;
+          poadetalle2013_001.AperturaProgramaticaId = 22;
+          poadetalle2013_001.AperturaProgramaticaMetaId = 1;
+          poadetalle2013_001.NumeroBeneficiarios = 25;
+          poadetalle2013_001.CantidadUnidades = 17;
+          poadetalle2013_001.Empleos = 10;
+          poadetalle2013_001.Jornales = 15;
+          poadetalle2013_001.FuncionalidadId = 16;
+          poadetalle2013_001.EjeId = 5;
+          poadetalle2013_001.PlanSectorialId = 1;
+          poadetalle2013_001.ModalidadId = 5;
+          poadetalle2013_001.ProgramaId = 1;
+          poadetalle2013_001.GrupoBeneficiarioId = 2;
+          poadetalle2013_001.CriterioPriorizacionId = 1;
+          poadetalle2013_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012013001";
+
+          poa2013.Detalles.Add(poadetalle2013_001);
 
 
-          Obra obra = new Obra();
-          obra.Consecutivo = 1;
-          obra.Numero = "102S110012014001";
-          obra.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-          obra.MunicipioId = 1;
-          obra.Localidad = "Alguna localidad en Acajete";
-          obra.TipoLocalidadId = 1;
-          obra.SituacionObraId = 1;
-          obra.ModalidadObra = enumModalidadObra.Contrato;
-          obra.FechaInicio = new DateTime(2014, 01, 30);
-          obra.FechaTermino = new DateTime(2014, 09, 16);
-          obra.EsAccion = false;
-          obra.ImporteTotal = 12348700;
-          obra.ImporteLiberadoEjerciciosAnteriores = 10200000;
-          obra.ImportePresupuesto = 15000000;
-          obra.AperturaProgramaticaId = 22;
-          obra.AperturaProgramaticaMetaId = 1;
-          obra.NumeroBeneficiarios = 25;
-          obra.CantidadUnidades = 18;
-          obra.Empleos = 10;
-          obra.Jornales = 15;
-          obra.FuncionalidadId = 16;
-          obra.EjeId = 5;
-          obra.PlanSectorialId = 1;
-          obra.ModalidadId = 5;
-          obra.ProgramaId = 1;
-          obra.GrupoBeneficiarioId = 2;
-          obra.CriterioPriorizacionId = 1;
-          obra.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012014001";
+          Obra obra2013_001 = new Obra();
+          obra2013_001.Consecutivo = 1;
+          obra2013_001.Numero = "102S110012013001";
+          obra2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
+          obra2013_001.MunicipioId = 1;
+          obra2013_001.Localidad = "Alguna localidad en Acajete";
+          obra2013_001.TipoLocalidadId = 1;
+          obra2013_001.SituacionObraId = 1;
+          obra2013_001.ModalidadObra = enumModalidadObra.Contrato;
+          obra2013_001.FechaInicio = new DateTime(2013, 01, 30);
+          obra2013_001.FechaTermino = new DateTime(2013, 09, 16);        
+          obra2013_001.ImporteTotal = 12348700;
+          obra2013_001.ImporteLiberadoEjerciciosAnteriores = 10200000;
+          obra2013_001.ImportePresupuesto = 15000000;
+          obra2013_001.AperturaProgramaticaId = 22;
+          obra2013_001.AperturaProgramaticaMetaId = 1;
+          obra2013_001.NumeroBeneficiarios = 25;
+          obra2013_001.CantidadUnidades = 18;
+          obra2013_001.Empleos = 10;
+          obra2013_001.Jornales = 15;
+          obra2013_001.FuncionalidadId = 16;
+          obra2013_001.EjeId = 5;
+          obra2013_001.PlanSectorialId = 1;
+          obra2013_001.ModalidadId = 5;
+          obra2013_001.ProgramaId = 1;
+          obra2013_001.GrupoBeneficiarioId = 2;
+          obra2013_001.CriterioPriorizacionId = 1;
+          obra2013_001.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012013001";
 
-          obra.POA = poa; 
-          obra.POADetalle = poadetalle;
+          obra2013_001.POA = poa2013;
+          obra2013_001.POADetalle = poadetalle2013_001;
 
-          context.Obras.Add(obra);
+          context.Obras.Add(obra2013_001); 
+              
+
+          POADetalle poadetalle2014_001 = new POADetalle();
+          poadetalle2014_001.Consecutivo = 1;
+          poadetalle2014_001.Numero = "102S110012014001";
+          poadetalle2014_001.Descripcion = "CONSTRUCCION DEL CAMINO JALACINGO-OCAMPO-COLIHUI (3A. ETAPA) DEL KM. 2+300 AL KM. 4+800.";
+          poadetalle2014_001.MunicipioId = 1;
+          poadetalle2014_001.Localidad = "Alguna localidad en Acajete";
+          poadetalle2014_001.TipoLocalidadId = 1;
+          poadetalle2014_001.SituacionObraId = 1;
+          poadetalle2014_001.ModalidadObra = enumModalidadObra.Contrato;         
+          poadetalle2014_001.ImporteTotal = 3000;
+          poadetalle2014_001.ImporteLiberadoEjerciciosAnteriores = 0;
+          poadetalle2014_001.ImportePresupuesto = 4000;
+          poadetalle2014_001.AperturaProgramaticaId = 22;
+          poadetalle2014_001.AperturaProgramaticaMetaId = 1;
+          poadetalle2014_001.NumeroBeneficiarios = 25;
+          poadetalle2014_001.CantidadUnidades = 17;
+          poadetalle2014_001.Empleos = 10;
+          poadetalle2014_001.Jornales = 15;
+          poadetalle2014_001.FuncionalidadId = 16;
+          poadetalle2014_001.EjeId = 5;
+          poadetalle2014_001.PlanSectorialId = 1;
+          poadetalle2014_001.ModalidadId = 5;
+          poadetalle2014_001.ProgramaId = 1;
+          poadetalle2014_001.GrupoBeneficiarioId = 2;
+          poadetalle2014_001.CriterioPriorizacionId = 1;
+          poadetalle2014_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
+
+          poa2014.Detalles.Add(poadetalle2014_001);
+
+          context.POA.Add(poa2014);
 
           context.SaveChanges();
 
-          CrearTriggers(context);
-      
+          CrearTriggers(context);      
            
         }
 

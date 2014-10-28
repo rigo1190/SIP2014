@@ -2,6 +2,7 @@
 using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -28,14 +29,110 @@ namespace SIP.Formas.POA
 
                 unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
                 ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
+                
+                int columnsInicial = GridViewObras.Columns.Count;
 
-                lblTituloPOA.Text = String.Format("Proyecto de POA ajustado en el ejercicio {0}", uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
+                UnidadPresupuestal up = uow.UnidadPresupuestalBusinessLogic.GetByID(unidadpresupuestalId);
+                Ejercicio ejercicio = uow.EjercicioBusinessLogic.GetByID(ejercicioId); 
+
+                lblTituloPOA.Text = String.Format("{0}<br />Proyecto de POA ajustado en el ejercicio {1}",up.Nombre,ejercicio.Año);
+                
+                InsertarTitulosNuevasColumnas(); //Se insertan nuevas columnas, realativas a la evaluacion de plantillas
+
                 BindGrid();
+
+                InsertarNuevasCeldas(columnsInicial); //Se insertan los botnes necesarios para ir a la EVALUACION de la obra
+
                 BindearDropDownList();
+
             }
 
         }
 
+
+        /// <summary>
+        /// Metodo encargado de crear nuevos encabezados de columnas, realtivos a la evaluacion de plantillas por cada obra
+        /// Creado por Rigoberto TS
+        /// 20/10/2014
+        /// </summary>
+        private void InsertarTitulosNuevasColumnas()
+        {
+            List<Plantilla> list = GetPlantillas(); //Se obtienen las plantillas exitentes en el catalogo
+            
+            if (list.Count > 0)
+            {
+                foreach (Plantilla p in list)
+                {
+                    TemplateField colNew = new TemplateField(); //Se agrega la columna, una por cada plantilla existente
+                    colNew.HeaderText = p.Descripcion;
+                    GridViewObras.Columns.Add(colNew);
+                }
+                
+                
+            }
+        }
+
+        /// <summary>
+        /// Metodo encargado de agregar los botones necesarios por cada fila del grid, se construye la URL de la pagina de Evaluacion
+        /// Creado por Rigoberto TS
+        /// 20/10/2014
+        /// </summary>
+        /// <param name="columnsInicial">A partir de donde se empieza a agregar la celda a la fila</param>
+        private void InsertarNuevasCeldas(int columnsInicial)
+        {
+            List<Plantilla> list = GetPlantillas();
+
+            foreach (GridViewRow row in GridViewObras.Rows) //Se lee cada fila del GRID de OBraS
+            {
+                string id = GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString(); //Se obtiene el ID
+
+                if (list.Count > 0)
+                {
+                    foreach (Plantilla p in list)
+                    {
+                        TableCell cell1 = new TableCell();
+                        string url = "EvaluacionPOA.aspx?p=" + id + "&o=";
+
+                        HtmlButton button = new HtmlButton();
+                        HtmlGenericControl spanButton = new HtmlGenericControl("span");
+                        
+                        //Se construye el BOTON
+                        button.ID = "btn" + p.Orden;
+                        button.Attributes.Add("class", "btn btn-default");
+                        button.Attributes.Add("data-tipo-operacion", "evaluar");
+                        button.Attributes.Add("runat", "server");
+                        url += p.Orden.ToString(); //SE AGREGA PARAMETRO DE ORDEN a la URL
+                        button.Attributes.Add("data-url-poa", url);
+
+                        spanButton.Attributes.Add("class", "glyphicon glyphicon-ok");
+                        button.Controls.Add(spanButton);
+
+                        cell1.Controls.Add(button);
+
+                        row.Cells.AddAt(columnsInicial, cell1); //Se agrega la celda a la fila
+
+                        columnsInicial++;
+                    }
+                    
+
+                }
+
+                row.Cells.RemoveAt(row.Cells.Count - 1);
+
+            }
+        }
+
+        /// <summary>
+        /// Metodo encargado de obtener las PLANTILLAS PADDRE del catalogo de plantillas
+        /// Creado por Rigoberto TS
+        /// 20/10/2014
+        /// </summary>
+        /// <returns></returns>
+        private List<Plantilla> GetPlantillas()
+        {
+            List<Plantilla> list = uow.PlantillaBusinessLogic.Get(e => e.DependeDeId == null).ToList();
+            return list;
+        }
 
         private void BindGrid()
         {
@@ -46,7 +143,6 @@ namespace SIP.Formas.POA
             this.GridViewObras.DataSource = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId).ToList();
             this.GridViewObras.DataBind();
         }
-
 
         public void BindControles(Obra obra)
         {
@@ -63,6 +159,10 @@ namespace SIP.Formas.POA
             cddlMeta.SelectedValue = obra.AperturaProgramaticaMetaId.ToString();
 
             txtLocalidad.Value = obra.Localidad;
+
+            txtFechaInicio.Value =String.Format("{0:d}",obra.FechaInicio);
+            txtFechaTermino.Value = String.Format("{0:d}", obra.FechaTermino);
+
             txtNumeroBeneficiarios.Value = obra.NumeroBeneficiarios.ToString();
             txtCantidadUnidades.Value = obra.CantidadUnidades.ToString();
             txtEmpleos.Value = obra.Empleos.ToString();
@@ -90,8 +190,7 @@ namespace SIP.Formas.POA
 
 
         }
-
-
+        
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
             //Se limpian los controles
@@ -102,7 +201,9 @@ namespace SIP.Formas.POA
             ddlCriterioPriorizacion.SelectedIndex = -1;
             txtLocalidad.Value = String.Empty;
             ddlTipoLocalidad.SelectedIndex = -1;
-            txtEsAccion.Checked = false;
+
+            txtFechaInicio.Value = String.Empty;
+            txtFechaTermino.Value = String.Empty;
 
             cddlPrograma.SelectedValue = String.Empty;
             cddlSubprograma.SelectedValue = String.Empty;
@@ -232,8 +333,7 @@ namespace SIP.Formas.POA
             obra.MunicipioId = Utilerias.StrToInt(ddlMunicipio.SelectedValue);
             obra.Localidad = txtLocalidad.Value;
             obra.TipoLocalidadId = Utilerias.StrToInt(ddlTipoLocalidad.SelectedValue);
-            obra.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);
-            obra.EsAccion = txtEsAccion.Checked;
+            obra.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);           
             obra.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             obra.AperturaProgramaticaMetaId = Utilerias.StrToInt(ddlMeta.SelectedValue);
             obra.NumeroBeneficiarios = Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString());
@@ -248,13 +348,16 @@ namespace SIP.Formas.POA
             obra.ProgramaId = Utilerias.StrToInt(ddlProgramaPresupuesto.SelectedValue);
             obra.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
 
-            ///
+            
             obra.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
             obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
             obra.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());
             obra.ImporteLiberadoEjerciciosAnteriores = Convert.ToDecimal(txtCostoLiberadoEjerciciosAnteriores.Value.ToString());
             obra.ImportePresupuesto = Convert.ToDecimal(txtPresupuestoEjercicio.Value.ToString());
             obra.Observaciones = txtObservaciones.InnerText;
+
+            obra.FechaInicio = Convert.ToDateTime(txtFechaInicio.Value);
+            obra.FechaTermino = Convert.ToDateTime(txtFechaTermino.Value);
 
             if (_Accion.Text.Equals("N"))
             {
@@ -352,27 +455,6 @@ namespace SIP.Formas.POA
             ddlGrupoBeneficiario.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
         }
-
-        protected void GridViewObras_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnE");
-                if (btnE != null)
-                {
-                    if (GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"] != null)
-                    {
-                        string url = string.Empty;
-                        url = "EvaluacionPOA.aspx?p=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
-                        //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
-                        btnE.Attributes.Add("data-url-poa", url);
-                    }
-
-                }
-
-            }
-        }
-
 
 
     }

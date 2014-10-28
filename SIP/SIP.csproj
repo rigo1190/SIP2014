@@ -156,12 +156,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="AbrirDocto.aspx" />
     <Content Include="Ajax.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datepicker.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -236,6 +238,7 @@
     <Content Include="Formas\Catalogos\Plantillas.aspx" />
     <Content Include="Formas\Catalogos\PlantillasPadre.aspx" />
     <Content Include="Formas\frmSelectorEjercicio.aspx" />
+    <Content Include="Formas\POA\AsignarFinanciamientoPOA.aspx" />
     <Content Include="Formas\POA\EvaluacionPOA.aspx" />
     <Content Include="Formas\POA\frmPOAAjustado.aspx" />
     <Content Include="Formas\POA\POA.aspx" />
@@ -267,6 +270,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\autoNumeric\autoNumeric-1.9.25.js" />
     <Content Include="Scripts\autoNumeric\autoNumeric-1.9.25.min.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -311,6 +315,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbrirDocto.aspx.cs">
+      <DependentUpon>AbrirDocto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AbrirDocto.aspx.designer.cs">
+      <DependentUpon>AbrirDocto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Ajax.aspx.cs">
       <DependentUpon>Ajax.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -467,6 +478,13 @@
     </Compile>
     <Compile Include="Formas\frmSelectorEjercicio.aspx.designer.cs">
       <DependentUpon>frmSelectorEjercicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\AsignarFinanciamientoPOA.aspx.cs">
+      <DependentUpon>AsignarFinanciamientoPOA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\POA\AsignarFinanciamientoPOA.aspx.designer.cs">
+      <DependentUpon>AsignarFinanciamientoPOA.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\POA\EvaluacionPOA.aspx.cs">
       <DependentUpon>EvaluacionPOA.aspx</DependentUpon>

@@ -19,8 +19,7 @@ namespace DataAccessLayer.Models
         public string Descripcion { get; set; }
         public int MunicipioId { get; set; }
         public string Localidad { get; set; }
-        public int TipoLocalidadId { get; set; }        
-        public bool EsAccion { get; set; }
+        public int TipoLocalidadId { get; set; }              
 
         [Index("IX_Consecutivo_POAId", 2)]
         public int POAId { get; set; }

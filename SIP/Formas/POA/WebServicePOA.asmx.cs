@@ -15,10 +15,11 @@ namespace SIP.Formas.POA
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // Para permitir que se llame a este servicio web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
-    [System.Web.Script.Services.ScriptService]
+    [System.Web.Script.Services.ScriptService]   
     public class WebServicePOA : System.Web.Services.WebService
     {
         private UnitOfWork uow = new UnitOfWork();
+        private int ejercicioId = 0;
 
         [WebMethod]
         public string HelloWorld()
@@ -26,14 +27,19 @@ namespace SIP.Formas.POA
             return "Hola a todos";
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession=true)]
         public CascadingDropDownNameValue[] GetProgramas(string knownCategoryValues, string category)
         {
             if (uow == null) uow = new UnitOfWork();
 
+            if (ejercicioId == 0) 
+            {
+                ejercicioId = Convert.ToInt32(Session["EjercicioId"]);
+            }
+
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
-            var programas = uow.AperturaProgramaticaBusinessLogic.Get(ap=>ap.ParentId==null,orderBy:ap=>ap.OrderBy(r=>r.Orden));
+            var programas = uow.AperturaProgramaticaBusinessLogic.Get(ap=>ap.ParentId==null & ap.EjercicioId==ejercicioId,orderBy:ap=>ap.OrderBy(r=>r.Orden));
 
             foreach (var item in programas)
             {
@@ -44,16 +50,21 @@ namespace SIP.Formas.POA
 
         }
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public CascadingDropDownNameValue[] GetSubProgramas(string knownCategoryValues, string category)
         {
             if (uow == null) uow = new UnitOfWork();
+
+            if (ejercicioId == 0)
+            {
+                ejercicioId = Convert.ToInt32(Session["EjercicioId"]);
+            }
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
             int programaId =Utilerias.StrToInt(CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues)["programaId"]);
 
-            var subprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId, orderBy: ap => ap.OrderBy(r => r.Orden));
+            var subprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId & ap.EjercicioId==ejercicioId, orderBy: ap => ap.OrderBy(r => r.Orden));
 
             foreach (var item in subprogramas)
             {
@@ -64,16 +75,21 @@ namespace SIP.Formas.POA
 
         }
 
-        [WebMethod]
+         [WebMethod(EnableSession = true)]
         public CascadingDropDownNameValue[] GetSubSubProgramas(string knownCategoryValues, string category)
         {
             if (uow == null) uow = new UnitOfWork();
+
+            if (ejercicioId == 0)
+            {
+                ejercicioId = Convert.ToInt32(Session["EjercicioId"]);
+            }
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
             int subprogramaId = Utilerias.StrToInt(CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues)["subprogramaId"]);
 
-            var subsubprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId, orderBy: ap => ap.OrderBy(r => r.Orden));
+            var subsubprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId & ap.EjercicioId==ejercicioId, orderBy: ap => ap.OrderBy(r => r.Orden));
 
             foreach (var item in subsubprogramas)
             {
@@ -88,7 +104,7 @@ namespace SIP.Formas.POA
         public CascadingDropDownNameValue[] GetMetas(string knownCategoryValues, string category)
         {
             if (uow == null) uow = new UnitOfWork();
-
+          
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
             int subsubprogramaId = Utilerias.StrToInt(CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues)["subsubprogramaId"]);

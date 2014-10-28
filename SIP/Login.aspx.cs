@@ -18,8 +18,7 @@ namespace SIP
         
         protected void Page_Load(object sender, EventArgs e)
         {            
-            uow = new UnitOfWork();
-            
+            uow = new UnitOfWork();            
         }
 
         protected void btnEntrar_Click(object sender, EventArgs e)
@@ -37,6 +36,7 @@ namespace SIP
                         Session["IsAuthenticated"] = true;
                         Session["NombreUsuario"] = user.Nombre;
                         Session["Login"] = user.Login;
+                        Session["IdUser"] = user.Id.ToString();
 
                         Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
             }

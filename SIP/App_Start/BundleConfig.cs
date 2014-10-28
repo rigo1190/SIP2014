@@ -37,7 +37,8 @@ namespace SIP
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
               "~/Scripts/jquery-1.10.2.min.js",
               "~/Scripts/jquery-1.10.2.intellisense.js",
-              "~/Scripts/autoNumeric/autoNumeric-1.9.25.min.js"));
+              "~/Scripts/autoNumeric/autoNumeric-1.9.25.min.js",
+              "~/Scripts/bootstrap-datepicker.js"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(

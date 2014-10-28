@@ -16,38 +16,74 @@
                 $("#<%= divEvaluacion.ClientID %>").css("display", "block");
             });
             
+            //Evento que dispara la llamada a un WEB METHOD que se encarga de guardar las respuestas que se hayan cheqeado en el grid
             $("#btnGuardarPreguntas").click(function () {
                 var cadenaValores = fnc_ObtenerRadioChecks();
                 PageMethods.GuardarPlantillas(cadenaValores, fnc_ResponseGuardarPlantillas);
             });
 
+            //Evento que se dispara al momento de dar clic en la paginacion del grid. Se tiene que
+            //guardar los checks marcaddos en el grid por parte del usuario
+            $('.pager a').click(function () {
+                
+                var cadenaValores = fnc_ObtenerRadioChecks(); //Se recupera la cadena con los checks
+                $("#<%= _CadValoresChecks.ClientID %>").val("");
+                $("#<%= _CadValoresChecks.ClientID %>").val(cadenaValores);
+            });
+
+
+            $("[id*=grid] td").bind("click", function () {
+                var row = $(this).parent();
+                $("[id*=grid] tr").each(function () {
+                    if ($(this)[0] != row[0]) {
+                        $("td", this).removeClass("selected_row");
+                    }
+                });
+                $("td", row).each(function () {
+                    if (!$(this).hasClass("selected_row")) {
+                        if (!$(this).hasClass("pager"))
+                            $(this).addClass("selected_row");
+                    } else {
+                        $(this).removeClass("selected_row");
+                    }
+                });
+                $('.pager a').removeClass("selected_row");
+            });
+
         });
 
+        //Funcion que se encarga de recuperar todas las FILAS del GRID de PREGUNTAS
+        //Para armar la cadena que se enviara al codigo de c# con el 
+        //formato de ID=VALOR|ID=VALOR|ID=VALOR|ID=VALOR|ID=VALOR|.................
+        //Creada por Rigoberto TS
+        //07/10/2014
         function fnc_ObtenerRadioChecks(edicion) {
             var cadena = "";
             var index=0;
-            var grid = document.getElementById('<%=grid.ClientID %>');
+            var grid = document.getElementById('<%=grid.ClientID %>'); //Se recupera el grid
             var primera=true;
 
-            for (i = 1; i < grid.rows.length; i++) {
+            for (i = 1; i < grid.rows.length; i++) { //Se recorren las filas
                 var idPregunta="";
-                var respuesta=0;
+                var respuesta = 0;
 
                 idPregunta=$("input#ContentPlaceHolder1_grid"+ "_idPregunta_" + index).val();
                 
-                if ($("input#ContentPlaceHolder1_grid"+ "_chkSI_" + index).is(':checked'))
-                    respuesta=1;
-                else if ($("input#ContentPlaceHolder1_grid"+ "_chkNO_" + index).is(':checked'))
-                    respuesta=2;
-                else if ($("input#ContentPlaceHolder1_grid"+ "_chkNOAplica_" + index).is(':checked'))
-                    respuesta=3;
+                if (idPregunta != null && idPregunta != "" && idPregunta != undefined) {
 
-                if (primera) {
-                    cadena+=idPregunta+"="+respuesta;
-                    primera=false;
-                }else
-                    cadena+="|"+idPregunta+"="+respuesta;
+                    if ($("input#ContentPlaceHolder1_grid" + "_chkSI_" + index).is(':checked'))
+                        respuesta = 1;
+                    else if ($("input#ContentPlaceHolder1_grid" + "_chkNO_" + index).is(':checked'))
+                        respuesta = 2;
+                    else if ($("input#ContentPlaceHolder1_grid" + "_chkNOAplica_" + index).is(':checked'))
+                        respuesta = 3;
 
+                    if (primera) {
+                        cadena += idPregunta + "=" + respuesta;
+                        primera = false;
+                    } else
+                        cadena += "|" + idPregunta + "=" + respuesta;
+                }
 
                 index++;
             }
@@ -56,14 +92,12 @@
                 $("#<%= _CadValoresChecks.ClientID %>").val(cadena);
             else
                 return cadena;
-           
-
-
         }
 
         function fnc_InhabilitarCampos(){
             $("#<%= txtObservacionesPregunta.ClientID %>").prop("disabled",true);
-            $("#<%= txtRutaArchivo.ClientID %>").prop("disabled",true);
+            <%-- $("#<%= txtRutaArchivo.ClientID %>").prop("disabled",true);--%>
+            $("#<%= divCapturaPreguntas.ClientID %>").css("display", "none");
             $("#<%= btnCancelar.ClientID %>").prop("disabled", true);
             $("#<%= btnBuscarArchivo.ClientID %>").prop("disabled", true);
             $("#<%= _IDPregunta.ClientID %>").val("");
@@ -71,6 +105,11 @@
             
         }
         
+
+        //Funcion que dispara la llamda a un WEB METHOD en C#
+        //para traer informacion de la pregunta que se haya seleccionado o "cliqueado" en el grid
+        //Creada por Rigoberto TS
+        //07/10/2014
         function fnc_ClickRow(index) {
             var idPregunta = "";
 
@@ -78,18 +117,20 @@
 
             if (idPregunta != "" || idPregunta != null || idPregunta != undefined) {
                 $("#<%= _IDPregunta.ClientID %>").val(idPregunta);
-                PageMethods.GetValoresPregunta(idPregunta, fnc_ResponseGetValoresPregunta);
+                PageMethods.GetValoresPregunta(idPregunta, fnc_ResponseGetValoresPregunta); //Se manda a llamar el metodo a C#
             }
 
             $("#<%= divMsg.ClientID %>").css("display", "none");
-            
-                
+    
         }
 
-
+        //Funcion a la que se regresa despuess de la llamada al WEB METHOD GetValoresPregunta
+        //Se traen los valores de la pregunta, y se colocan en los controles correspondientes
+        //Creada por Rigoberto TS
+        //07/10/2014
         function fnc_ResponseGetValoresPregunta(response) {
+
             $("#<%= txtObservacionesPregunta.ClientID %>").text(response[0]);
-            $("#<%= txtRutaArchivo.ClientID %>").val(response[1]);
             $("#<%= txtPregunta.ClientID %>").text(response[2]);
 
         }
@@ -110,31 +151,16 @@
                  if (node != null) {
                      node.scrollIntoView(true);
                      $("#<%= divArbol.ClientID %>").scrollLeft = 0;
-                    
-                     $("#<%= divPlantillaImportar.ClientID %>").css("display", "block");
-                     $("#<%= divGuardarPlantilla.ClientID %>").css("display", "block");
-
-                     var value = node.href.substring(node.href.indexOf(",") + 3, node.href.length - 2);
-                     $("#<%= txtDatosPlantilla.ClientID %>").val(node.text);
-                     $("#<%= _IDPlantillaSeleccionada.ClientID %>").val(value);
                 }
             }
 
-        }
-
-        function fnc_Cancelar(sender) {
-            $("#<%= divPlantillaImportar.ClientID %>").css("display", "none");
-            $("#<%= divGuardarPlantilla.ClientID %>").css("display", "none");
-
-            $("#<%= txtDatosPlantilla.ClientID %>").val("");
-            $("#<%= _IDPlantillaSeleccionada.ClientID %>").val("");
-            
         }
 
         function fnc_OcultarDivs() {
             $("#<%= divMsgImportarPlantilla.ClientID %>").css("display", "none");
         }
 
+        
         function fnc_DesmarcarChecks(sender, index, grid,radio1,radio2) {
 
             if ($(sender).is(':checked')) {
@@ -148,7 +174,25 @@
 
         }
 
-        
+        //Functin que se encarga de abrir una nueva ventana con el contenido del archivo que se haya adjuntado en la pregunta
+        //Creado por Rigoberto TS
+        //15/10/2014
+        function fnc_AbrirArchivo(ruta, id) {
+            window.open(ruta + '?i=' + id, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,menubar=no,width=750,height=700,top=0');
+        }
+
+
+        function fnc_Test() {
+
+            $("#<%= txtObservacionesPregunta.ClientID %>").prop("disabled", false);
+            <%-- $("#<%= txtRutaArchivo.ClientID %>").prop("disabled",true);--%>
+            $("#<%= divCapturaPreguntas.ClientID %>").css("display", "block");
+            $("#<%= btnCancelar.ClientID %>").prop("disabled", false);
+            $("#<%= btnBuscarArchivo.ClientID %>").prop("disabled", false);
+            $("#<%= _IDPregunta.ClientID %>").val("");
+            $("#<%= _SoloChecks.ClientID %>").val("false");
+            return false;
+        }
 
         <%--function fnc_Test() {
             //PageMethods.GuardarPlantillas("cadena", fnc_Success);
@@ -181,6 +225,21 @@
        
     </script>
 
+    <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+        td
+        {
+            cursor: pointer;
+        }
+        .selected_row
+        {
+            background-color: #c2c2c2;
+        }
+    </style>
 
 </asp:Content>
 
@@ -214,54 +273,33 @@
                                         <fieldset disabled="disabled">
                                         <div class="form-group">
                                             <label for="disabledSelect">Número de Obra:</label>
-                                            <input class="form-control" placeholder="Número de Obra" id="txtNumero"  runat="server"/>
+                                            <textarea type="text" class="form-control"  id="txtNumero"  runat="server"/>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Descripción:</label>
-                                            <textarea type="text" placeholder="Descripción" name="prueba" runat="server" class="form-control" id="txtDescripcion" />
+                                            <textarea type="text"  name="prueba" runat="server" class="form-control" id="txtDescripcion" />
                                         </div>
 
                                         <div class="form-group">
                                             <label>Municipio:</label>
-                                            <input class="form-control" placeholder="Municipio" id="txtMunicipio" runat="server"/>
+                                            <textarea type="text" class="form-control"  id="txtMunicipio" runat="server"/>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="disabledSelect">Localidad:</label>
-                                            <input class="form-control" id="txtLocalidad" type="text" placeholder="Localidad" disabled="disabled"/>
-                                        </div>
+                                        
                                     </fieldset>
                                 
                             </div>
                             <div class="col-lg-6">
-                               
-                                
                                     <fieldset disabled="disabled">
                                         <div class="form-group">
-                                            <label for="disabledSelect">Observaciones:</label>
-                                            <textarea type="text" placeholder="Descripción" name="prueba" runat="server" class="form-control" id="txtObservacion" />
+                                            <label for="disabledSelect">Localidad:</label>
+                                            <textarea type="text" runat="server" class="form-control" id="txtLocalidad"/>
                                         </div>
-
-                                        <div id="divEtiquetaImportar">
-                                            <label for="disabledSelect">Evaluar Obra de POA:</label>
+                                        <div class="form-group">
+                                            <label for="disabledSelect">Observaciones:</label>
+                                            <textarea type="text" name="prueba" runat="server" class="form-control" id="txtObservacion" />
                                         </div>
                                     </fieldset>
-                                        <button type="button" onclick="fnc_OcultarDivs(this)" runat="server" id="btnImportar" data-toggle="modal" data-target="#myModal" class="btn btn-default">Seleccionar Plantilla</button>
-                                        <div><p>&nbsp;</p></div>
-                                        <div class="form-group" runat="server" id="divPlantillaImportar" style="display:none">
-                                            <label for="disabledSelect">Plantilla a importar:</label>
-                                            <textarea  type="text" placeholder="Plantilla" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtDatosPlantilla" />
-                                            <input runat="server"  type="hidden" id="_IDPlantillaSeleccionada" />
-                                            
-                                        </div>
-                                
-                                        <div id="divGuardarPlantilla" runat="server" style="display:none">
-                                            <asp:Button ID="btnGuardar"  runat="server" Text="Importar" OnClick="btnGuardar_Click" CssClass="btn btn-default" />
-                                            <button type="button" onclick="fnc_Cancelar(this)" class="btn btn-default">Cancelar</button>
-                                        </div>
-                                        
-                               
-                               
                             </div>
                         </div>
                         <div class="panel-footer" id="divMsgImportarPlantilla" style="display:none" runat="server">
@@ -298,13 +336,11 @@
                                     </h3>
                                 </div>
                                 <div class="panel-body">
-                                    <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" OnRowDataBound="grid_RowDataBound" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
+                                    <asp:GridView Height="25px" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" OnPageIndexChanging="grid_PageIndexChanging" CssClass="table" ID="grid" OnRowDataBound="grid_RowDataBound" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
                                         <Columns>
                                             <asp:TemplateField HeaderText="Acciones">
                                                 <ItemTemplate>
-                                                    
-                                                    <asp:ImageButton ID="imgBtnEdit" OnClick="imgBtnEdit_Click" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
-                                                    <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" />
+                                                    <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" OnClientClick="fnc_Test();return false;" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                 </ItemTemplate>
                                                 <HeaderStyle BackColor="#EEEEEE" />
                                                 <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -339,62 +375,65 @@
                                                 <ItemStyle HorizontalAlign="Center" />
                                             </asp:TemplateField>
 
+                                            <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                <ItemTemplate>
+                                                    <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                </ItemTemplate>
+                                                <ItemStyle HorizontalAlign="Center" />
+                                            </asp:TemplateField>
+
                                         </Columns>
-
+                                        <PagerStyle CssClass="pager" />
                                         <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
-
+                                        
                                     </asp:GridView>
+                                    
                                 </div>
-                                <div class="panel-footer" id="divGuardarPreguntas" runat="server">
-                                    
-                                         
-                                    
-                                    <div class="container">
-                                            <div class="row top-buffer">
-                                                <div class="col-md-2">
-                                                    <label for="disabledSelect">Pregunta de Evaluación</label>
+                                <div class="panel-footer" id="divEdicionPreguntas" runat="server">
+                                    <div class="container-fluid" id="divCapturaPreguntas" style="display:none" runat="server">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-6">
+                                                 <div class="row top-buffer">
+                                                    <div class="col-md-3">
+                                                        <label for="disabledSelect">Pregunta de Evaluación</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <textarea  type="text"  disabled="disabled" name="prueba" runat="server" class="form-control" id="txtPregunta" />
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <textarea  type="text"  disabled="disabled" name="prueba" runat="server" class="form-control" id="txtPregunta" />
-                                                </div>
-                                            </div>
-                                            <p>&nbsp;</p>
-                                            <div class="row top-buffer">
-                                                <div class="col-md-2">
-                                                    <label for="disabledSelect">Observaciones:</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <textarea  type="text" placeholder="Observaciones" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtObservacionesPregunta" />
-                                                </div>
-                                            </div>
-                                            <div>
                                                 <p>&nbsp;</p>
-                                            </div>
-                                            <div class="row top-buffer">
-                                                <div class="col-md-2">
-                                                    <label for="disabledSelect">Documento Soporte:</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input class="form-control" id="txtRutaArchivo" runat="server" type="text" disabled="disabled"/>
-                                                    <label for="disabledSelect">Cargar Archivo:</label>
-                                                    <asp:FileUpload ID="btnBuscarArchivo" Enabled="false" runat="server" />
+                                                <div class="row top-buffer">
+                                                    <div class="col-md-3">
+                                                        <label for="disabledSelect">Observaciones:</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <textarea  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtObservacionesPregunta" />
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row top-buffer">
-                                                <div class="col-md-6"  id="divBtnGuardarDatosPreguntas" runat="server">
-                                                    <input id="btnGuardarDatosPreguntas" class="btn btn-default" runat="server" onclick="fnc_ObtenerRadioChecks(true);" onserverclick="btnGuardarDatosPreguntas_ServerClick" type="button" value="Guardar" />
-                                                    <input id="btnCancelar" disabled="disabled" class="btn btn-default"  runat="server" type="button" onclick="fnc_InhabilitarCampos();" value="Cancelar" />
+                                            <div class="col-lg-6">
+                                                <div class="row top-buffer">
+                                                    <div class="col-md-2">
+                                                        <label for="disabledSelect">Documento Soporte:</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <asp:FileUpload ID="btnBuscarArchivo" Enabled="false" runat="server" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row top-buffer">
-                                                <div class="col-md-6" id="divMsg" style="display:none" runat="server">
-                                                    <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
-                                                </div>
-                                            </div>
-                                            
                                         </div>
-                                      
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <div class="col-md-6"  id="divBtnGuardarDatosPreguntas" runat="server">
+                                            <input id="btnGuardarDatosPreguntas" class="btn btn-default" runat="server" onclick="fnc_ObtenerRadioChecks(true);" onserverclick="btnGuardarDatosPreguntas_ServerClick" type="button" value="Guardar" />
+                                            <input id="btnCancelar" disabled="disabled" class="btn btn-default"  runat="server" type="button" onclick="fnc_InhabilitarCampos();" value="Cancelar" />
+                                        </div>
+                                    </div>
+                                    <div class="row top-buffer">
+                                        <div class="col-md-6" id="divMsg" style="display:none" runat="server">
+                                            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
+                                        </div>
+                                    </div> 
                                        
                                 </div>
 
@@ -412,6 +451,7 @@
             <input type="hidden" runat="server" id="_IDPregunta" />
             <input type="hidden" runat="server" id="_CadValoresChecks" />
             <input type="hidden" runat="server" id="_SoloChecks" />
+            <input type="hidden" runat="server" id="_PageIndex" />
           
        </div>
 

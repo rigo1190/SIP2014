@@ -202,7 +202,7 @@
        
         <div class="page-header"><h3><asp:Label ID="lblTituloPOA" runat="server" Text=""></asp:Label></h3></div>
 
-        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewObras_RowDataBound" runat="server" AllowPaging="True">
+        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
             <Columns>
 
                        <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
@@ -224,13 +224,6 @@
                             <ItemTemplate>
                                 <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
-
-                        <asp:TemplateField HeaderText="Evaluación de Obra" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
-                            <ItemTemplate>
-                                    <button type="button" id="btnE" data-tipo-operacion="evaluar" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-ok"></span></button> 
-                            </ItemTemplate>                          
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="50px" />                                            
                         </asp:TemplateField>
 
             </Columns>
@@ -307,10 +300,17 @@
                         </div>
                       </div>
 
-                     <div class="form-group">
-                           <label for="EsAccion">Es acción</label>
+                      <div class="form-group">
+                           <label for="FechaInicio">Fecha de inicio</label>
                          <div>
-                             <input type="checkbox" class="input-sm required form-control" id="txtEsAccion" runat="server" style="text-align: right; align-items:flex-start" />
+                            <input type="text" class="required form-control date-picker" id="txtFechaInicio" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                           <label for="FechaTermino">Fecha de Término</label>
+                         <div>
+                            <input type="text" class="input-sm required form-control date-picker" id="txtFechaTermino" runat="server" data-date-format = "dd/mm/yyyy" autocomplete="off" />
                         </div>
                       </div>
 

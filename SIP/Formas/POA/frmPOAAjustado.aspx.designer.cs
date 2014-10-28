@@ -130,13 +130,22 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.WebControls.DropDownList ddlCriterioPriorizacion;
         
         /// <summary>
-        /// Control txtEsAccion.
+        /// Control txtFechaInicio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox txtEsAccion;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtFechaInicio;
+        
+        /// <summary>
+        /// Control txtFechaTermino.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtFechaTermino;
         
         /// <summary>
         /// Control ddlPrograma.

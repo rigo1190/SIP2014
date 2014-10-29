@@ -57,7 +57,7 @@ namespace SIP.Formas.POA
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId).ToList();
+            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea==false).ToList();
             this.GridViewObras.DataBind();            
                         
         }
@@ -330,6 +330,7 @@ namespace SIP.Formas.POA
             poadetalle.ImporteLiberadoEjerciciosAnteriores = Convert.ToDecimal(txtCostoLiberadoEjerciciosAnteriores.Value.ToString());
             poadetalle.ImportePresupuesto = Convert.ToDecimal(txtPresupuestoEjercicio.Value.ToString());            
             poadetalle.Observaciones = txtObservaciones.InnerText;
+            poadetalle.Extemporanea = false;
 
             if (_Accion.Text.Equals("N")) 
             {

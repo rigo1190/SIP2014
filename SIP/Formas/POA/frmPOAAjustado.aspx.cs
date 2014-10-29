@@ -22,7 +22,7 @@ namespace SIP.Formas.POA
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
              
             if (!IsPostBack)
             {
@@ -319,6 +319,7 @@ namespace SIP.Formas.POA
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
             DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
+            POADetalle poadetalle = null;
             Obra obra = null;
 
             if (poa == null)
@@ -331,7 +332,9 @@ namespace SIP.Formas.POA
 
 
             if (_Accion.Text.Equals("N"))
+            {                
                 obra = new Obra();
+            }
             else
             {
                 currentId = Convert.ToInt32(_ID.Text);
@@ -372,8 +375,44 @@ namespace SIP.Formas.POA
 
             if (_Accion.Text.Equals("N"))
             {
+
+                //Crear un poadetalle para una nueva obra
+
+                poadetalle = new POADetalle();
+                poadetalle.Numero = obra.Numero;
+                poadetalle.Descripcion = obra.Descripcion;
+                poadetalle.MunicipioId = obra.MunicipioId;
+                poadetalle.Localidad = obra.Localidad;
+                poadetalle.TipoLocalidadId = obra.TipoLocalidadId;
+                poadetalle.CriterioPriorizacionId = obra.CriterioPriorizacionId;
+                poadetalle.AperturaProgramaticaId = obra.AperturaProgramaticaId;
+                poadetalle.AperturaProgramaticaMetaId = obra.AperturaProgramaticaMetaId;
+                poadetalle.NumeroBeneficiarios = obra.NumeroBeneficiarios;
+                poadetalle.CantidadUnidades = obra.CantidadUnidades;
+                poadetalle.Empleos = obra.Empleos;
+                poadetalle.Jornales = obra.Jornales;
+
+                poadetalle.FuncionalidadId = obra.FuncionalidadId;
+                poadetalle.EjeId = obra.EjeId;
+                poadetalle.PlanSectorialId = obra.PlanSectorialId;
+                poadetalle.ModalidadId = obra.ModalidadId;
+                poadetalle.ProgramaId = obra.ProgramaId;
+                poadetalle.GrupoBeneficiarioId = obra.GrupoBeneficiarioId;
+
+
+                poadetalle.SituacionObraId = obra.SituacionObraId;
+                poadetalle.ModalidadObra = obra.ModalidadObra;
+                poadetalle.ImporteTotal = obra.ImporteTotal;
+                poadetalle.ImporteLiberadoEjerciciosAnteriores = obra.ImporteLiberadoEjerciciosAnteriores;
+                poadetalle.ImportePresupuesto = obra.ImportePresupuesto;
+                poadetalle.Observaciones = obra.Observaciones;
+                poadetalle.Extemporanea = true;
+                poadetalle.POA = poa;                
+                
                 obra.POA = poa;
+                obra.POADetalle = poadetalle;
                 uow.ObraBusinessLogic.Insert(obra);
+
             }
             else
             {
@@ -386,9 +425,10 @@ namespace SIP.Formas.POA
             {
 
                 // Esto solo es necesario para recargar en memoria
-                // los cambios que se realizan mediante un trigger
+                // los cambios que se realizan automaticamente en la base de datos 
+                // mediante un trigger de inserción
                 uow = null;
-                uow = new UnitOfWork();
+                uow = new UnitOfWork(Session["IdUser"].ToString());
 
                 BindGrid();
 

@@ -42,6 +42,7 @@ namespace DataAccessLayer.Models
         public int GrupoBeneficiarioId { get; set; }
         public int CriterioPriorizacionId { get; set; }
         public string Observaciones { get; set; }
+        public bool Extemporanea { get; set; }
         public virtual POA POA { get; set; }
         public virtual Municipio Municipio { get; set; }
         public virtual TipoLocalidad TipoLocalidad { get; set; }

@@ -27,7 +27,7 @@ namespace DataAccessLayer.Models
 
         [Index("IX_Consecutivo_POAId", 2)]
         public int POAId { get; set; }
-        public int? POADetalleId { get; set; }       
+        public int? POADetalleId { get; set; }            
         public int AperturaProgramaticaId { get; set; }
         public int AperturaProgramaticaMetaId { get; set; }
         public int NumeroBeneficiarios { get; set; }
@@ -46,7 +46,7 @@ namespace DataAccessLayer.Models
         public int ProgramaId { get; set; }
         public int GrupoBeneficiarioId { get; set; }
         public int CriterioPriorizacionId { get; set; }
-        public string Observaciones { get; set; }
+        public string Observaciones { get; set; }       
         public virtual POA POA { get; set; }
         public virtual POADetalle POADetalle { get; set; }
         public virtual Municipio Municipio { get; set; }

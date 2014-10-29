@@ -12,17 +12,15 @@ namespace SIP.Formas.POA
     public partial class AsignarFinanciamientoPOA : System.Web.UI.Page
     {
         private UnitOfWork uow;
-        private int currentId;
-        private int userId;
+        private int currentId;     
         private int unidadpresupuestalId;
         private int ejercicioId;
         private int poadetalleId;
         protected string obraNumero;
         protected string obraDescripcion;
         protected void Page_Load(object sender, EventArgs e)
-        {
-            userId = Utilerias.StrToInt(Session["IdUser"].ToString());
-            uow = new UnitOfWork(userId);      
+        {            
+            uow = new UnitOfWork(Session["IdUser"].ToString());      
 
             poadetalleId = Utilerias.StrToInt(Request.QueryString["poadetalleId"].ToString());
 
@@ -174,7 +172,7 @@ namespace SIP.Formas.POA
                 obra.ImporteTotal =poadetalle.ImporteTotal;
                 obra.ImporteLiberadoEjerciciosAnteriores = poadetalle.ImporteLiberadoEjerciciosAnteriores;
                 obra.ImportePresupuesto = poadetalle.ImportePresupuesto;
-                obra.Observaciones = poadetalle.Observaciones;
+                obra.Observaciones = poadetalle.Observaciones;               
 
                 obra.POAId = poadetalle.POAId;
                 obra.POADetalleId = poadetalle.Id;

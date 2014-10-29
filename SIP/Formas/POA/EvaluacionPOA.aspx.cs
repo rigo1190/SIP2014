@@ -18,16 +18,20 @@ namespace SIP.Formas.POA
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork();
+
             if (!IsPostBack)
             {
                 string M = string.Empty;
+                int idPOADetalle = Request.QueryString["pd"] !=null? Utilerias.StrToInt(Request.QueryString["pd"].ToString()):0;
+                int idObra = Request.QueryString["ob"] != null ? Utilerias.StrToInt(Request.QueryString["ob"].ToString()) : 0; //Se recupera el id del objeto OBRA            
 
-                int idPOADetalle =Utilerias.StrToInt(Request.QueryString["p"].ToString()); //Se recupera el id del objeto POADETALLE                
                 int ordenPlantilla = Utilerias.StrToInt(Request.QueryString["o"].ToString()); //Se recupera el orden de la plantilla que sera evaluada          
-                
-                BindControlesObra(idPOADetalle); //Se bindean los datos del poadetalle, se pasa como argumento el ID, recuperado de la sesion
+
+                BindControlesObra(idObra, idPOADetalle); //Se bindean los datos del poadetalle, se pasa como argumento el ID, recuperado de la sesion
 
                 Plantilla plantilla = uow.PlantillaBusinessLogic.Get(p => p.Orden == ordenPlantilla).FirstOrDefault();
+
+                idPOADetalle = Utilerias.StrToInt(_IDPOADetalle.Value); //DEPENDIENDO DE DONDE SE HAYA LLAMADO LA EVALUACION, SE COLOCA EL POADETALLEID
 
                 POAPlantilla poaPlantilla = uow.POAPlantillaBusinessLogic.Get(pp => pp.PlantillaId == plantilla.Id && pp.POADetalleId == idPOADetalle).FirstOrDefault(); //Se recupera POAPlantilla
 
@@ -202,23 +206,35 @@ namespace SIP.Formas.POA
         /// 29/09/2014
         /// </summary>
         /// <param name="idPOADetalle"></param>
-        public void BindControlesObra(int idPOADetalle)
+        public void BindControlesObra(int idObra,int idPoaDetalle)
         {
-            POADetalle obj = uow.POADetalleBusinessLogic.GetByID(idPOADetalle); //Se recupera el objeto
-            if (obj != null)
+            Obra obra;
+            POADetalle poaDetalle;
+
+            if (idObra!=0) 
             {
-                txtDescripcion.Value = obj.Descripcion;
-                txtMunicipio.Value = obj.Municipio.Nombre;
-                txtNumero.Value = obj.Numero;
-                txtObservacion.Value = obj.Observaciones;
-                _IDPOADetalle.Value = idPOADetalle.ToString();
+
+                obra = uow.ObraBusinessLogic.GetByID(idObra);
+
+                //Se bindean con los datos de la OBRA, es decir, viene de POA AJUSTADO
+                txtDescripcion.Value = obra.Descripcion;
+                txtMunicipio.Value = obra.Municipio.Nombre;
+                txtNumero.Value = obra.Numero;
+                txtObservacion.Value = obra.Observaciones;
+                _IDPOADetalle.Value = obra.POADetalleId.ToString(); //Se coloca el id de POADETALLE, por que sobre ese obj es donde se realizara la EVALUACION DE PLANTILLAS
+
             }
-            else
-            {
-                txtDescripcion.Value = string.Empty;
-                txtMunicipio.Value = string.Empty;
-                txtNumero.Value = string.Empty;
-                txtObservacion.Value = string.Empty;
+            else if (idPoaDetalle != 0)
+            {  //Quiere decir que se esta abriendo desde ANTEPROYECTO DE POA
+                
+                poaDetalle = uow.POADetalleBusinessLogic.GetByID(idPoaDetalle);
+
+                //Se bindean los datos directamente de POADETALLE
+                txtDescripcion.Value = poaDetalle.Descripcion;
+                txtMunicipio.Value = poaDetalle.Municipio.Nombre;
+                txtNumero.Value = poaDetalle.Numero;
+                txtObservacion.Value = poaDetalle.Observaciones;
+                _IDPOADetalle.Value = idPoaDetalle.ToString();
             }
 
         }

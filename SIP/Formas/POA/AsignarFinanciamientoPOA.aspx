@@ -121,7 +121,7 @@
         <div id="divBtnNuevo" runat="server" style="display:block">
               <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
               <hr />
-              <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-arrow-left"></span> Anteproyecto de POA</a>
+              <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-arrow-left"></span> regresar al Anteproyecto de POA</a>
          </div>
 
         <div id="divEdicion" runat="server" class="panel-footer" style="display:none">

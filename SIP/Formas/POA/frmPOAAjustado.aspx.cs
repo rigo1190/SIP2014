@@ -94,7 +94,7 @@ namespace SIP.Formas.POA
                     foreach (Plantilla p in list)
                     {
                         TableCell cell1 = new TableCell();
-                        string url = "EvaluacionPOA.aspx?ob=" + id + "&o=";
+                        string url = "EvaluacionPOA.aspx?ob=" + id + "&pd=0&o=";
 
                         HtmlButton button = new HtmlButton();
                         HtmlGenericControl spanButton = new HtmlGenericControl("span");

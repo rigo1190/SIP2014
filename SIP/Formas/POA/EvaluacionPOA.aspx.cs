@@ -30,8 +30,9 @@ namespace SIP.Formas.POA
                 BindControlesObra(idObra); //Se bindean los datos del poadetalle, se pasa como argumento el ID, recuperado de la sesion
 
                 Plantilla plantilla = uow.PlantillaBusinessLogic.Get(p => p.Orden == ordenPlantilla).FirstOrDefault();
+                int idPOADetalle = Utilerias.StrToInt(_IDPOADetalle.Value);
 
-                POAPlantilla poaPlantilla = uow.POAPlantillaBusinessLogic.Get(pp => pp.PlantillaId == plantilla.Id && pp.POADetalleId == Utilerias.StrToInt(_IDPOADetalle.Value)).FirstOrDefault(); //Se recupera POAPlantilla
+                POAPlantilla poaPlantilla = uow.POAPlantillaBusinessLogic.Get(pp => pp.PlantillaId == plantilla.Id && pp.POADetalleId == idPOADetalle).FirstOrDefault(); //Se recupera POAPlantilla
 
                 if (poaPlantilla == null) //Si no existe ningun objeto con la plantilla creada, entonces se procede a clonar la plantilla
                     M = CopiarPlantilla(plantilla.Id);

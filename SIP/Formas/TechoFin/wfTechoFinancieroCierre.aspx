@@ -24,7 +24,7 @@
 
 
 
-    <div class="panel panel-success">
+    <div id="divClose" class="panel panel-success" runat="server">
 
             <div class="panel-heading">
                 <h3 class="panel-title">Cerrar etapa de carga inicial</h3>
@@ -46,6 +46,29 @@
                 <div class="pull-right">                
                     <asp:Button ID="btnCerrar" runat="server" Text="Cerrar Carga Inicial" CssClass="btn btn-primary" OnClick="btnCerrar_Click"  OnClientClick="return fnc_Confirmar()"></asp:Button>
                     <asp:Button ID="btnCancelar" runat="server" Text="Regresar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" ></asp:Button>
+                </div>
+
+            </div>
+           
+    </div>
+
+
+
+    <div id="divNoSePuedeCerrar" class="panel panel-warning" runat="server">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Cerrar etapa de carga inicial</h3>
+            </div>
+        
+            <div class="panel-body">
+                No se puede cerrar la carga inicial porque hay techos financieros pendientes de dispersar al 100%
+                
+            </div>
+
+            <div class="panel-footer clearfix">
+
+                <div class="pull-right">                                
+                    <asp:Button ID="btnRegresar2" runat="server" Text="Regresar" CssClass="btn btn-primary" OnClick="btnCancelar_Click" ></asp:Button>
                 </div>
 
             </div>

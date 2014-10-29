@@ -13,6 +13,15 @@ namespace SIP.Formas.TechoFin {
     public partial class wfTechoFinancieroCierre {
         
         /// <summary>
+        /// divClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divClose;
+        
+        /// <summary>
         /// btnCerrar control.
         /// </summary>
         /// <remarks>
@@ -29,5 +38,23 @@ namespace SIP.Formas.TechoFin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancelar;
+        
+        /// <summary>
+        /// divNoSePuedeCerrar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoSePuedeCerrar;
+        
+        /// <summary>
+        /// btnRegresar2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnRegresar2;
     }
 }

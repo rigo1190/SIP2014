@@ -17,8 +17,25 @@ namespace SIP.Formas.TechoFin
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork();
+            int idEjercicio=0;
+            
             if (!IsPostBack)
             {
+                idEjercicio = int.Parse(Session["EjercicioId"].ToString());
+
+                
+                
+                List<TechoFinanciero> lista = uow.TechoFinancieroBusinessLogic.Get(p => p.EjercicioId == idEjercicio 
+                                                                         && p.Importe > p.detalleUnidadesPresupuestales.Sum(q => q.Importe)).ToList();
+
+
+                if (lista.Count == 0){
+                    divClose.Style.Add("display","block");
+                    divNoSePuedeCerrar.Style.Add("display","none");
+                }else{
+                    divClose.Style.Add("display", "none");
+                    divNoSePuedeCerrar.Style.Add("display", "block");
+                }
 
             }
         }

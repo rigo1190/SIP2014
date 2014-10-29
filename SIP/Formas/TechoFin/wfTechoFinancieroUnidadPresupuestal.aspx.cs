@@ -219,57 +219,50 @@ namespace SIP.Formas.TechoFin
             GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
             int id;
 
-            id = int.Parse( grid.DataKeys[row.RowIndex].Values["Id"].ToString());
-            
+            id = int.Parse( grid.DataKeys[row.RowIndex].Values["Id"].ToString());            
             obj = uow.TechoFinancieroUnidadPresuestalBusinessLogic.GetByID(id);
 
-            uow.TechoFinancieroUnidadPresuestalBusinessLogic.Delete(obj);
-            uow.SaveChanges();
-
-            BindGrid();
 
 
-
-            //
-            //uow.Errors.Clear();
-            //List<TechoFinancieroUnidadPresupuestal> lista;
-            //lista = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(p => p.TechoFinancieroId == tf.Id).ToList();
-
-
-            //if (lista.Count > 0)
-            //    uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
+            
+            uow.Errors.Clear();
+            List<ObraFinanciamiento> lista;
+            lista = uow.ObraFinanciamientoBusinessLogic.Get(p => p.TechoFinancieroUnidadPresupuestalId == obj.Id).ToList();
 
 
+            if (lista.Count > 0)
+                uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
 
 
-            //if (uow.Errors.Count == 0)
-            //{
-            //    uow.TechoFinancieroBusinessLogic.Delete(tf);
-            //    uow.SaveChanges();
+            if (uow.Errors.Count == 0)
+            {
+                uow.TechoFinancieroUnidadPresuestalBusinessLogic.Delete(obj);
+                uow.SaveChanges();
+
                 
-            //    divMsgSuccess.Style.Add("display", "block");
-            //    lblMensajeSuccess.Text = "El registro se ha eliminado correctamente";
-            //}
+                //divMsgSuccess.Style.Add("display", "block");
+                //lblMensajeSuccess.Text = "El registro se ha eliminado correctamente";
+            }
 
 
-            //if (uow.Errors.Count == 0)
-            //{
-            //    BindGrid();
+            if (uow.Errors.Count == 0)
+            {
+                BindGrid();
 
-            //}
-            //else
-            //{
+            }
+            else
+            {
+
                 
-            //    divMsgSuccess.Style.Add("display", "none");
-            //    divMsgFail.Style.Add("display", "block");
+                divMsgFail.Style.Add("display", "block");
 
-            //    string mensaje;
-            //    mensaje = string.Empty;
-            //    foreach (string cad in uow.Errors)
-            //        mensaje = mensaje + cad + "<br>";
+                string mensaje;
+                mensaje = string.Empty;
+                foreach (string cad in uow.Errors)
+                    mensaje = mensaje + cad + "<br>";
 
-            //    lblMensajeFail.Text = mensaje;
-            //}
+                lblMensajeFail.Text = mensaje;
+            }
 
 
 

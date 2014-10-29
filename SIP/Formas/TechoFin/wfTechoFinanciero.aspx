@@ -9,11 +9,15 @@
 
 
      <div class="row panel-footer alert alert-success">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <asp:Label ID="Label1" runat="server" Text="Techos Financieros"></asp:Label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
+        </div>
+
+        <div class="col-md-4">
+            <asp:LinkButton ID="idLinkClose" runat="server" PostBackUrl="~/Formas/TechoFin/wfTechoFinancieroCierre.aspx">Cerrar Apertura de Techos Financieros</asp:LinkButton>
         </div>
     </div>
 

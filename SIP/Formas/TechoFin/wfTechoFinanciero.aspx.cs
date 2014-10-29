@@ -56,10 +56,13 @@ namespace SIP.Formas.TechoFin
             {
                 divBtnNuevo.Style.Add("display", "none");
                 lblStatus.Text = "Status: Cerrado";
+                idLinkClose.Visible = false;
             }
             else
             {
                 lblStatus.Text = "Status: Abierto para captura";
+
+                idLinkClose.Visible = true;
             }
                 
                 

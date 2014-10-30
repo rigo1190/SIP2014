@@ -225,44 +225,44 @@ namespace DataAccessLayer.Migrations
            );
 
            context.AperturaProgramatica.AddOrUpdate(
-               new AperturaProgramatica { Id = 1, Clave = "SC", Nombre = "Agua y saneamiento (Agua potable)", Orden = 1, EjercicioId = 6,Nivel=1 },
-               new AperturaProgramatica { Id = 2, Clave = "SD", Nombre = "Agua y saneamiento (Drenaje)", Orden = 2, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 3, Clave = "SE", Nombre = "Urbanización municipal", Orden = 3, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 4, Clave = "SG", Nombre = "Electrificación", Orden = 4, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 5, Clave = "SO", Nombre = "Salud", Orden = 5, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 6, Clave = "SJ", Nombre = "Educación", Orden = 6, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 7, Clave = "SH", Nombre = "Vivienda", Orden = 7, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 8, Clave = "UB", Nombre = "Caminos rurales", Orden = 8, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 9, Clave = "IR", Nombre = "Infraestructura productiva rural", Orden = 9, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 10, Clave = "UM", Nombre = "Equipamiento urbano", Orden = 10, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 11, Clave = "PE", Nombre = "Protección y preservación ecológica", Orden = 11, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 12, Clave = "BE", Nombre = "Bienes muebles", Orden = 12, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 13, Clave = "BI", Nombre = "Bienes inmuebles", Orden = 13, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 14, Clave = "PM", Nombre = "Planeación municipal", Orden = 14, EjercicioId = 6, Nivel = 1 },
-               new AperturaProgramatica { Id = 15, Clave = "SB", Nombre = "Estímulos a la educación", Orden = 15, EjercicioId = 6, Nivel = 1 }
+               new AperturaProgramatica { Id = 1, Clave = "SC", Nombre = "Agua y saneamiento (Agua potable)", Orden = 1, EjercicioId = 7,Nivel=1 },
+               new AperturaProgramatica { Id = 2, Clave = "SD", Nombre = "Agua y saneamiento (Drenaje)", Orden = 2, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 3, Clave = "SE", Nombre = "Urbanización municipal", Orden = 3, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 4, Clave = "SG", Nombre = "Electrificación", Orden = 4, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 5, Clave = "SO", Nombre = "Salud", Orden = 5, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 6, Clave = "SJ", Nombre = "Educación", Orden = 6, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 7, Clave = "SH", Nombre = "Vivienda", Orden = 7, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 8, Clave = "UB", Nombre = "Caminos rurales", Orden = 8, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 9, Clave = "IR", Nombre = "Infraestructura productiva rural", Orden = 9, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 10, Clave = "UM", Nombre = "Equipamiento urbano", Orden = 10, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 11, Clave = "PE", Nombre = "Protección y preservación ecológica", Orden = 11, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 12, Clave = "BE", Nombre = "Bienes muebles", Orden = 12, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 13, Clave = "BI", Nombre = "Bienes inmuebles", Orden = 13, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 14, Clave = "PM", Nombre = "Planeación municipal", Orden = 14, EjercicioId = 7, Nivel = 1 },
+               new AperturaProgramatica { Id = 15, Clave = "SB", Nombre = "Estímulos a la educación", Orden = 15, EjercicioId = 7, Nivel = 1 }
             );
 
            AperturaProgramatica sc = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SC");
 
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 16, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 6, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 17, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 6, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 18, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 6, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 19, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 6, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 20, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 6, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 21, Clave = "06", Nombre = "Sustitución", Orden = 6, EjercicioId = 6, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 16, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 7, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 17, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 7, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 18, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 7, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 19, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 7, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 20, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 7, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 21, Clave = "06", Nombre = "Sustitución", Orden = 6, EjercicioId = 7, Nivel = 2 });
 
            AperturaProgramatica sc_rehabilitacion = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 16);
 
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 22, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 6, Nivel = 3,EsObraOAccion=enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 23, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 6, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 22, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 7, Nivel = 3,EsObraOAccion=enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 23, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 7, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
                    
 
           context.AperturaProgramaticaMetas.AddOrUpdate(
@@ -408,118 +408,118 @@ namespace DataAccessLayer.Migrations
          );
                       
 
-          context.TechoFinanciero.AddOrUpdate(
-            new TechoFinanciero { Id = 1, EjercicioId = 6, FinanciamientoId = 2, Importe = 10000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } ,
-            new TechoFinanciero { Id = 2, EjercicioId = 6, FinanciamientoId = 9, Importe = 12000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } 
-          );
+         // context.TechoFinanciero.AddOrUpdate(
+         //   new TechoFinanciero { Id = 1, EjercicioId = 7, FinanciamientoId = 2, Importe = 10000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } ,
+         //   new TechoFinanciero { Id = 2, EjercicioId = 7, FinanciamientoId = 9, Importe = 12000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } 
+         // );
 
-         context.TechoFinancieroUnidadPresupuestal.AddOrUpdate(
-           new TechoFinancieroUnidadPresupuestal { Id = 1, TechoFinancieroId = 1, UnidadPresupuestalId = 1, Importe = 3000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 2, TechoFinancieroId = 2, UnidadPresupuestalId = 1, Importe = 4500, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 3, TechoFinancieroId = 1, UnidadPresupuestalId = 2, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 4, TechoFinancieroId = 1, UnidadPresupuestalId = 3, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 5, TechoFinancieroId = 1, UnidadPresupuestalId = 4, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-           new TechoFinancieroUnidadPresupuestal { Id = 6, TechoFinancieroId = 1, UnidadPresupuestalId = 5, Importe = 1000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }
-         ); 
+         //context.TechoFinancieroUnidadPresupuestal.AddOrUpdate(
+         //  new TechoFinancieroUnidadPresupuestal { Id = 1, TechoFinancieroId = 1, UnidadPresupuestalId = 1, Importe = 3000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+         //  new TechoFinancieroUnidadPresupuestal { Id = 2, TechoFinancieroId = 2, UnidadPresupuestalId = 1, Importe = 4500, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+         //  new TechoFinancieroUnidadPresupuestal { Id = 3, TechoFinancieroId = 1, UnidadPresupuestalId = 2, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+         //  new TechoFinancieroUnidadPresupuestal { Id = 4, TechoFinancieroId = 1, UnidadPresupuestalId = 3, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+         //  new TechoFinancieroUnidadPresupuestal { Id = 5, TechoFinancieroId = 1, UnidadPresupuestalId = 4, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
+         //  new TechoFinancieroUnidadPresupuestal { Id = 6, TechoFinancieroId = 1, UnidadPresupuestalId = 5, Importe = 1000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }
+         //); 
 
-          POA poa2013 = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 5 };  
-          POA poa2014 = new POA { Id = 2, UnidadPresupuestalId = 1, EjercicioId = 6 };
+         // POA poa2013 = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 5 };  
+         // POA poa2014 = new POA { Id = 2, UnidadPresupuestalId = 1, EjercicioId = 7 };
 
-          POADetalle poadetalle2013_001 = new POADetalle();
-          poadetalle2013_001.Consecutivo = 1;
-          poadetalle2013_001.Numero = "102S110012013001";
-          poadetalle2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-          poadetalle2013_001.MunicipioId = 1;
-          poadetalle2013_001.Localidad = "Alguna localidad en Acajete";
-          poadetalle2013_001.TipoLocalidadId = 1;
-          poadetalle2013_001.SituacionObraId = 1;
-          poadetalle2013_001.ModalidadObra = enumModalidadObra.Contrato;          
-          poadetalle2013_001.ImporteTotal = 3000;
-          poadetalle2013_001.ImporteLiberadoEjerciciosAnteriores = 0;
-          poadetalle2013_001.ImportePresupuesto = 4000;
-          poadetalle2013_001.AperturaProgramaticaId = 22;
-          poadetalle2013_001.AperturaProgramaticaMetaId = 1;
-          poadetalle2013_001.NumeroBeneficiarios = 25;
-          poadetalle2013_001.CantidadUnidades = 17;
-          poadetalle2013_001.Empleos = 10;
-          poadetalle2013_001.Jornales = 15;
-          poadetalle2013_001.FuncionalidadId = 16;
-          poadetalle2013_001.EjeId = 5;
-          poadetalle2013_001.PlanSectorialId = 1;
-          poadetalle2013_001.ModalidadId = 5;
-          poadetalle2013_001.ProgramaId = 1;
-          poadetalle2013_001.GrupoBeneficiarioId = 2;
-          poadetalle2013_001.CriterioPriorizacionId = 1;
-          poadetalle2013_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012013001";
+         // POADetalle poadetalle2013_001 = new POADetalle();
+         // poadetalle2013_001.Consecutivo = 1;
+         // poadetalle2013_001.Numero = "102S110012013001";
+         // poadetalle2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
+         // poadetalle2013_001.MunicipioId = 1;
+         // poadetalle2013_001.Localidad = "Alguna localidad en Acajete";
+         // poadetalle2013_001.TipoLocalidadId = 1;
+         // poadetalle2013_001.SituacionObraId = 1;
+         // poadetalle2013_001.ModalidadObra = enumModalidadObra.Contrato;          
+         // poadetalle2013_001.ImporteTotal = 3000;
+         // poadetalle2013_001.ImporteLiberadoEjerciciosAnteriores = 0;
+         // poadetalle2013_001.ImportePresupuesto = 4000;
+         // poadetalle2013_001.AperturaProgramaticaId = 22;
+         // poadetalle2013_001.AperturaProgramaticaMetaId = 1;
+         // poadetalle2013_001.NumeroBeneficiarios = 25;
+         // poadetalle2013_001.CantidadUnidades = 17;
+         // poadetalle2013_001.Empleos = 10;
+         // poadetalle2013_001.Jornales = 15;
+         // poadetalle2013_001.FuncionalidadId = 16;
+         // poadetalle2013_001.EjeId = 5;
+         // poadetalle2013_001.PlanSectorialId = 1;
+         // poadetalle2013_001.ModalidadId = 5;
+         // poadetalle2013_001.ProgramaId = 1;
+         // poadetalle2013_001.GrupoBeneficiarioId = 2;
+         // poadetalle2013_001.CriterioPriorizacionId = 1;
+         // poadetalle2013_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012013001";
 
-          poa2013.Detalles.Add(poadetalle2013_001);
+         // poa2013.Detalles.Add(poadetalle2013_001);
 
 
-          Obra obra2013_001 = new Obra();
-          obra2013_001.Consecutivo = 1;
-          obra2013_001.Numero = "102S110012013001";
-          obra2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-          obra2013_001.MunicipioId = 1;
-          obra2013_001.Localidad = "Alguna localidad en Acajete";
-          obra2013_001.TipoLocalidadId = 1;
-          obra2013_001.SituacionObraId = 1;
-          obra2013_001.ModalidadObra = enumModalidadObra.Contrato;
-          obra2013_001.FechaInicio = new DateTime(2013, 01, 30);
-          obra2013_001.FechaTermino = new DateTime(2013, 09, 16);        
-          obra2013_001.ImporteTotal = 12348700;
-          obra2013_001.ImporteLiberadoEjerciciosAnteriores = 10200000;
-          obra2013_001.ImportePresupuesto = 15000000;
-          obra2013_001.AperturaProgramaticaId = 22;
-          obra2013_001.AperturaProgramaticaMetaId = 1;
-          obra2013_001.NumeroBeneficiarios = 25;
-          obra2013_001.CantidadUnidades = 18;
-          obra2013_001.Empleos = 10;
-          obra2013_001.Jornales = 15;
-          obra2013_001.FuncionalidadId = 16;
-          obra2013_001.EjeId = 5;
-          obra2013_001.PlanSectorialId = 1;
-          obra2013_001.ModalidadId = 5;
-          obra2013_001.ProgramaId = 1;
-          obra2013_001.GrupoBeneficiarioId = 2;
-          obra2013_001.CriterioPriorizacionId = 1;
-          obra2013_001.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012013001";
+         // Obra obra2013_001 = new Obra();
+         // obra2013_001.Consecutivo = 1;
+         // obra2013_001.Numero = "102S110012013001";
+         // obra2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
+         // obra2013_001.MunicipioId = 1;
+         // obra2013_001.Localidad = "Alguna localidad en Acajete";
+         // obra2013_001.TipoLocalidadId = 1;
+         // obra2013_001.SituacionObraId = 1;
+         // obra2013_001.ModalidadObra = enumModalidadObra.Contrato;
+         // obra2013_001.FechaInicio = new DateTime(2013, 01, 30);
+         // obra2013_001.FechaTermino = new DateTime(2013, 09, 16);        
+         // obra2013_001.ImporteTotal = 12348700;
+         // obra2013_001.ImporteLiberadoEjerciciosAnteriores = 10200000;
+         // obra2013_001.ImportePresupuesto = 15000000;
+         // obra2013_001.AperturaProgramaticaId = 22;
+         // obra2013_001.AperturaProgramaticaMetaId = 1;
+         // obra2013_001.NumeroBeneficiarios = 25;
+         // obra2013_001.CantidadUnidades = 18;
+         // obra2013_001.Empleos = 10;
+         // obra2013_001.Jornales = 15;
+         // obra2013_001.FuncionalidadId = 16;
+         // obra2013_001.EjeId = 5;
+         // obra2013_001.PlanSectorialId = 1;
+         // obra2013_001.ModalidadId = 5;
+         // obra2013_001.ProgramaId = 1;
+         // obra2013_001.GrupoBeneficiarioId = 2;
+         // obra2013_001.CriterioPriorizacionId = 1;
+         // obra2013_001.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012013001";
 
-          obra2013_001.POA = poa2013;
-          obra2013_001.POADetalle = poadetalle2013_001;
+         // obra2013_001.POA = poa2013;
+         // obra2013_001.POADetalle = poadetalle2013_001;
 
-          context.Obras.Add(obra2013_001); 
+         // context.Obras.Add(obra2013_001); 
               
 
-          POADetalle poadetalle2014_001 = new POADetalle();
-          poadetalle2014_001.Consecutivo = 1;
-          poadetalle2014_001.Numero = "102S110012014001";
-          poadetalle2014_001.Descripcion = "CONSTRUCCION DEL CAMINO JALACINGO-OCAMPO-COLIHUI (3A. ETAPA) DEL KM. 2+300 AL KM. 4+800.";
-          poadetalle2014_001.MunicipioId = 1;
-          poadetalle2014_001.Localidad = "Alguna localidad en Acajete";
-          poadetalle2014_001.TipoLocalidadId = 1;
-          poadetalle2014_001.SituacionObraId = 1;
-          poadetalle2014_001.ModalidadObra = enumModalidadObra.Contrato;         
-          poadetalle2014_001.ImporteTotal = 3000;
-          poadetalle2014_001.ImporteLiberadoEjerciciosAnteriores = 0;
-          poadetalle2014_001.ImportePresupuesto = 4000;
-          poadetalle2014_001.AperturaProgramaticaId = 22;
-          poadetalle2014_001.AperturaProgramaticaMetaId = 1;
-          poadetalle2014_001.NumeroBeneficiarios = 25;
-          poadetalle2014_001.CantidadUnidades = 17;
-          poadetalle2014_001.Empleos = 10;
-          poadetalle2014_001.Jornales = 15;
-          poadetalle2014_001.FuncionalidadId = 16;
-          poadetalle2014_001.EjeId = 5;
-          poadetalle2014_001.PlanSectorialId = 1;
-          poadetalle2014_001.ModalidadId = 5;
-          poadetalle2014_001.ProgramaId = 1;
-          poadetalle2014_001.GrupoBeneficiarioId = 2;
-          poadetalle2014_001.CriterioPriorizacionId = 1;
-          poadetalle2014_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
+         // POADetalle poadetalle2014_001 = new POADetalle();
+         // poadetalle2014_001.Consecutivo = 1;
+         // poadetalle2014_001.Numero = "102S110012014001";
+         // poadetalle2014_001.Descripcion = "CONSTRUCCION DEL CAMINO JALACINGO-OCAMPO-COLIHUI (3A. ETAPA) DEL KM. 2+300 AL KM. 4+800.";
+         // poadetalle2014_001.MunicipioId = 1;
+         // poadetalle2014_001.Localidad = "Alguna localidad en Acajete";
+         // poadetalle2014_001.TipoLocalidadId = 1;
+         // poadetalle2014_001.SituacionObraId = 1;
+         // poadetalle2014_001.ModalidadObra = enumModalidadObra.Contrato;         
+         // poadetalle2014_001.ImporteTotal = 3000;
+         // poadetalle2014_001.ImporteLiberadoEjerciciosAnteriores = 0;
+         // poadetalle2014_001.ImportePresupuesto = 4000;
+         // poadetalle2014_001.AperturaProgramaticaId = 22;
+         // poadetalle2014_001.AperturaProgramaticaMetaId = 1;
+         // poadetalle2014_001.NumeroBeneficiarios = 25;
+         // poadetalle2014_001.CantidadUnidades = 17;
+         // poadetalle2014_001.Empleos = 10;
+         // poadetalle2014_001.Jornales = 15;
+         // poadetalle2014_001.FuncionalidadId = 16;
+         // poadetalle2014_001.EjeId = 5;
+         // poadetalle2014_001.PlanSectorialId = 1;
+         // poadetalle2014_001.ModalidadId = 5;
+         // poadetalle2014_001.ProgramaId = 1;
+         // poadetalle2014_001.GrupoBeneficiarioId = 2;
+         // poadetalle2014_001.CriterioPriorizacionId = 1;
+         // poadetalle2014_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
 
-          poa2014.Detalles.Add(poadetalle2014_001);
+         // poa2014.Detalles.Add(poadetalle2014_001);
 
-          context.POA.Add(poa2014);
+         // context.POA.Add(poa2014);
 
           context.SaveChanges();
 

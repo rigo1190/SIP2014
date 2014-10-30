@@ -143,7 +143,7 @@ namespace SIP.Formas.POA
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.GridViewObras.DataSource = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId).ToList();
+            this.GridViewObras.DataSource = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId,orderBy:r=>r.OrderBy(ro=>ro.Numero)).ToList();
             this.GridViewObras.DataBind();
         }
 

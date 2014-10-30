@@ -566,7 +566,7 @@ namespace DataAccessLayer.Migrations
                             
                             set @consecutivo=@consecutivo+1;                                     
 							
-							set @numeroObra= concat(@UnidadPresupuestalClave,@anio,REPLACE(STR(@consecutivo, 3),SPACE(1),'0'));
+							set @numeroObra= CAST(@UnidadPresupuestalClave AS varchar(9))  + CAST(@anio AS varchar(4)) + REPLACE(STR(@consecutivo, 3),SPACE(1),'0');
 
                             update POADetalle set Consecutivo=@consecutivo,Numero=@numeroObra where Id=@poadetalleId";
 
@@ -577,38 +577,17 @@ namespace DataAccessLayer.Migrations
 
             sp001 = @"CREATE TRIGGER trgAsignarNumeroObra_Obra ON [dbo].[Obra] 
                                 FOR INSERT
-                                AS
-	                               
-									 declare @consecutivo int;
-						             declare @UnidadPresupuestalClave varchar(9);
-						             declare @anio int;
+                                AS	                               									 
+						             declare @consecutivo int;
 						             declare @obraId int;
-						             declare @poaId int;
+						             declare @poaDetalleId int;
 						             declare @numeroObra varchar(100);
 
-						             select @poaId=POAId,@obraId=Id from inserted; 
+						             select @poaDetalleId=POADetalleId,@obraId=Id from inserted; 
 
-                                     select
-
-                                         @consecutivo=MAX(obra.Consecutivo),							  
-							             @UnidadPresupuestalClave=UnidadPresupuestal.Clave,
-							             @anio=Ejercicio.Año							   
-
-                                     from Obra 
-                                     inner join POA
-                                     on POA.Id=Obra.POAId
-                                     inner join UnidadPresupuestal
-                                     on UnidadPresupuestal.Id=POA.UnidadPresupuestalId
-                                     inner join Ejercicio
-                                     on Ejercicio.Id=POA.EjercicioId
-                                     where POA.Id=@poaId
-							         group by POA.Id,UnidadPresupuestal.Clave,Ejercicio.Año
-                            
-                            set @consecutivo=@consecutivo+1;                                     
-							
-							set @numeroObra= concat(@UnidadPresupuestalClave,@anio,REPLACE(STR(@consecutivo, 3),SPACE(1),'0'));
-
-                            update Obra set Consecutivo=@consecutivo,Numero=@numeroObra where Id=@obraId";
+                                     select @consecutivo=Consecutivo,@numeroObra=Numero from POADetalle where Id=@poaDetalleId     
+                        
+                                update Obra set Consecutivo=@consecutivo,Numero=@numeroObra where Id=@obraId";
 
 
 

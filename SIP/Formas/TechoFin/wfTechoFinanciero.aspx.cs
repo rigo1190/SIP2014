@@ -68,8 +68,8 @@ namespace SIP.Formas.TechoFin
         private void BindGrid()
         {
             var lista = from tf in uow.TechoFinancieroBusinessLogic.Get()
-                        where tf.EjercicioId == idEjercicio  
-                        select new { tf.Id, tf.Ejercicio, tf.EjercicioId, tf.Financiamiento, tf.FinanciamientoId, tf.Importe, ImporteAsignado = tf.detalleUnidadesPresupuestales.Sum(p=>p.Importe) };
+                        where tf.EjercicioId == idEjercicio
+                        select new { tf.Id, tf.Ejercicio, tf.EjercicioId, tf.Financiamiento, tf.FinanciamientoId, tf.Importe, ImporteAsignado = tf.detalleUnidadesPresupuestales.Sum(p => p.Importe), ImportePendiente = tf.Importe - tf.detalleUnidadesPresupuestales.Sum(p => p.Importe) };
 
 
             //this.grid.DataSource = uow.TechoFinancieroBusinessLogic.Get(p=> p.EjercicioId == idEjercicio ,includeProperties:"Financiamiento").ToList();

@@ -406,6 +406,10 @@ namespace DataAccessLayer.Migrations
              new PlantillaDetalle { Id = 21, PlantillaId = 1, Clave = "Q0021", Pregunta = "En cuanto sean asignadas las obras a los fondos correspondientes, checar la normatividad (revisar los gastos indirectos, estudios y proyectos, etc.7)", Orden = 21 }
 
          );
+
+          context.TechoFinancieroStatus.AddOrUpdate(
+            new TechoFinancieroStatus { Id = 1, EjercicioId = 7, Status=1 }          
+          );
                       
 
          // context.TechoFinanciero.AddOrUpdate(

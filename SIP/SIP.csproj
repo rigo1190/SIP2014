@@ -259,6 +259,7 @@
     <Content Include="img\magnifier.png" />
     <Content Include="img\photo.png" />
     <Content Include="img\Reporte.png" />
+    <Content Include="img\Sub.png" />
     <Content Include="Login.aspx" />
     <Content Include="packages.config" />
     <Content Include="MLogin.Master" />

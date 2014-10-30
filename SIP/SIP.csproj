@@ -244,7 +244,6 @@
     <Content Include="Formas\POA\POA.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
     <Content Include="Formas\TechoFin\wfTechoFinanciero.aspx" />
-    <Content Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroUnidadPresupuestal.aspx" />
     <Content Include="Formas\TEST.aspx" />
     <Content Include="Default.aspx" />
@@ -259,7 +258,6 @@
     <Content Include="img\magnifier.png" />
     <Content Include="img\photo.png" />
     <Content Include="img\Reporte.png" />
-    <Content Include="img\Sub.png" />
     <Content Include="Login.aspx" />
     <Content Include="packages.config" />
     <Content Include="MLogin.Master" />
@@ -520,13 +518,6 @@
     </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinanciero.aspx.designer.cs">
       <DependentUpon>wfTechoFinanciero.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx.cs">
-      <DependentUpon>wfTechoFinancieroCierre.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx.designer.cs">
-      <DependentUpon>wfTechoFinancieroCierre.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinancieroUnidadPresupuestal.aspx.cs">
       <DependentUpon>wfTechoFinancieroUnidadPresupuestal.aspx</DependentUpon>

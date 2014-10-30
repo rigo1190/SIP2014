@@ -15,7 +15,6 @@
 
 
 
-
     <div class="row panel-footer alert alert-success">
         <div class="col-md-4">
             <asp:Label ID="lblUPnombre" runat="server" Text=""></asp:Label>
@@ -98,21 +97,32 @@
 
 
                     <asp:TemplateField HeaderText="UnidadPresupuestal" SortExpression="UnidadPresupuestal">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtUnidadPresupuestal" runat="server" Text='<%# Bind("UnidadPresupuestal.Nombre") %> '></asp:TextBox>
+                        </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="labelUnidadPresupuestal" runat="server" Text='<%# Bind("UnidadPresupuestal.Nombre") %>'></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="900px"  />
                     </asp:TemplateField>
                     
-                    <asp:TemplateField HeaderText="Importe">
+                    <asp:TemplateField HeaderText="Importe" SortExpression="Importe">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtImporte" runat="server" Text='<%# Bind("Importe") %>'></asp:TextBox>
+                        </EditItemTemplate>
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Importe")).ToString("c") %>   
-                        </ItemTemplate>                        
+                            <asp:Label ID="labelImporte" runat="server" Text='<%# Bind("Importe") %>'></asp:Label>
+                        </ItemTemplate>
                     </asp:TemplateField>
+                    
+
                     
                     
 
                 </Columns>
+                    
+                
+                    
         </asp:GridView>
     </div>
 

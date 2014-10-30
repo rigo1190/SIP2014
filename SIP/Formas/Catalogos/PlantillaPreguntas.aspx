@@ -51,7 +51,7 @@
                     </div>
                      <div class="panel-body">
                     <div class="row">
-                       <asp:GridView ShowHeaderWhenEmpty="true" CssClass="table" Width="100%" OnRowDataBound="grid_RowDataBound" ShowFooter="true" AutoGenerateColumns="false" ID="grid" DataKeyNames="Id"  runat="server">
+                       <asp:GridView ShowHeaderWhenEmpty="true" CssClass="table" Width="100%" AllowPaging="true" OnPageIndexChanging="grid_PageIndexChanging" OnRowDataBound="grid_RowDataBound" ShowFooter="true" AutoGenerateColumns="false" ID="grid" DataKeyNames="Id,PlantillaId"  runat="server">
                            <Columns>
                                <asp:TemplateField HeaderText="Acciones">
                                         <ItemTemplate> 
@@ -62,14 +62,11 @@
                                         </ItemTemplate>
                                         <HeaderStyle BackColor="#EEEEEE" />
                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
-                                        <FooterTemplate>
-                                            <asp:Label ID="label" Font-Bold="true" runat="server" Text="Total" />
-                                        </FooterTemplate>
                                 </asp:TemplateField>
                                
                                <asp:TemplateField HeaderText="Plantilla">
                                     <ItemTemplate>
-                                        <%# DataBinder.Eval(Container.DataItem, "Plantilla.Descripcion") %>
+                                        <asp:Label ID="lblPlantilla" runat="server"></asp:Label>
                                     </ItemTemplate>                    
                                 </asp:TemplateField>
 
@@ -94,7 +91,10 @@
                         <asp:Button ID="btnRegresar" runat="server" Text="Regresar a Plantillas"  CssClass="btn btn-default" OnClick="btnRegresar_Click" AutoPostBack="false" />
                         
                     </div>
-                    <div id="divCaptura" runat="server" >
+                    <div id="divCaptura" runat="server" class="panel panel-success" >
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Indique los datos del registro</h3>
+                        </div>
                         <div class="row top-buffer">
                             <div class="col-md-2">
                                 <p class="text-right"><strong>Clave</strong></p>
@@ -108,7 +108,7 @@
                                 <p class="text-right"><strong>Pregunta</strong></p>
                             </div>
                             <div class="col-md-2">
-                                <asp:TextBox Width="650px" ID="txtPregunta" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox Width="650px" ID="txtPregunta" TextMode="MultiLine" Height="250px" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -119,9 +119,14 @@
                     
                 </div> 
 
-                <div class="panel-footer" id="divMsg" style="display:none" runat="server">
-                    <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
+               
+
+               <div class="alert alert-danger" runat="server" id="divMsgError" style="display:none">
+                    <asp:Label ID="lblMsgError" EnableViewState="false" runat="server" Text="" CssClass="font-weight:bold"></asp:Label>
                 </div>
+                <div class="alert alert-success" runat="server" id="divMsgSuccess" style="display:none">
+                    <asp:Label ID="lblMsgSuccess" EnableViewState="false" runat="server" Text="" CssClass="font-weight:bold"></asp:Label>
+                </div>  
 
                 <div runat="server" style="display:none">
                     <input type="hidden" runat="server" id="_Accion" />

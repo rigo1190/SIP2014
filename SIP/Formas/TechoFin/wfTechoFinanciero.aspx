@@ -9,15 +9,11 @@
 
 
      <div class="row panel-footer alert alert-success">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <asp:Label ID="Label1" runat="server" Text="Techos Financieros"></asp:Label>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
-        </div>
-
-        <div class="col-md-4">
-            <asp:LinkButton ID="idLinkClose" runat="server" PostBackUrl="~/Formas/TechoFin/wfTechoFinancieroCierre.aspx">Cerrar Apertura de Techos Financieros</asp:LinkButton>
         </div>
     </div>
 
@@ -39,6 +35,9 @@
 
 
                     <asp:TemplateField HeaderText="Fondo" SortExpression="Fondo">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtFondo" runat="server" Text='<%# Bind("Financiamiento.Fondo.Abreviatura") %> '></asp:TextBox>
+                        </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="labelFondo" runat="server" Text='<%# Bind("Financiamiento.Fondo.Abreviatura") %>'></asp:Label>
                         </ItemTemplate>
@@ -46,6 +45,9 @@
                     </asp:TemplateField>
                                         
                     <asp:TemplateField HeaderText="Modalidad" SortExpression="Modalidad">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtModalidad" runat="server" Text='<%# Bind("Financiamiento.ModalidadFinanciamiento.Nombre") %> '></asp:TextBox>
+                        </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="labelModalidad" runat="server" Text='<%# Bind("Financiamiento.ModalidadFinanciamiento.Nombre") %>'></asp:Label>
                         </ItemTemplate>
@@ -53,6 +55,9 @@
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Año" SortExpression="Año">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtAño" runat="server" Text='<%# Bind("Financiamiento.Año.Anio") %> '></asp:TextBox>
+                        </EditItemTemplate>
                         <ItemTemplate>
                             <asp:Label ID="labelAño" runat="server" Text='<%# Bind("Financiamiento.Año.Anio") %>'></asp:Label>
                         </ItemTemplate>
@@ -60,30 +65,26 @@
                     </asp:TemplateField>
 
 
-
-
                     <asp:TemplateField HeaderText="Techo Financiero">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtImporte" runat="server" Text='<%# Bind("Importe") %>'></asp:TextBox>
+                        </EditItemTemplate>
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Importe")).ToString("c") %>   
-                        </ItemTemplate>                        
+                            <asp:Label ID="labelImporte" runat="server" Text='<%# Bind("Importe") %>'></asp:Label>
+                        </ItemTemplate>
                     </asp:TemplateField>
 
 
                     <asp:TemplateField HeaderText="Importe Asignado">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtImporteAsignado" runat="server" Text='<%# Bind("ImporteAsignado") %>'></asp:TextBox>
+                        </EditItemTemplate>
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignado")).ToString("c") %>   
-                        </ItemTemplate>                        
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="Importe Pendiente">
-                        <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImportePendiente")).ToString("c") %>   
-                        </ItemTemplate>                        
+                            <asp:Label ID="labelImporteAsignado" runat="server" Text='<%# Bind("ImporteAsignado")  %>'></asp:Label>
+                        </ItemTemplate>
                     </asp:TemplateField>
 
 
-
-                      
 
                 </Columns>
                     

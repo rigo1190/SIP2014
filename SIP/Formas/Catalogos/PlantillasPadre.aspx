@@ -76,7 +76,8 @@
              $("#<%= divGuardar.ClientID%>").css("display", blockNone); 
              $("#<%= btnCancelar.ClientID%>").css("display", blockNone); 
              $("#<%= btnGuardar2.ClientID%>").css("display", blockNone); 
-             $("#<%= divMsg.ClientID%>").css("display", "none"); 
+             $("#<%= divMsgError.ClientID%>").css("display", "none");
+             $("#<%= divMsgSuccess.ClientID%>").css("display", "none"); 
 
              
             
@@ -99,7 +100,6 @@
          function fnc_HabilitarControlesPlantilla() {
              $("#<%= txtDescripcion.ClientID%>").removeAttr("disabled");
              $("#<%= txtClave.ClientID%>").removeAttr("disabled");
-             $("#<%= ddlEjercicio.ClientID%>").removeAttr("disabled");
              $("#<%= txtOrden.ClientID%>").removeAttr("disabled");
          }
 
@@ -110,7 +110,6 @@
              //Se limpian los controles
              $("#<%= txtDescripcion.ClientID%>").val("");
              $("#<%= txtClave.ClientID%>").val("");
-             $("#<%= ddlEjercicio.ClientID%>").selectedindex = 0;
              $("#<%= txtOrden.ClientID%>").val("");
          }
 
@@ -178,12 +177,23 @@
         function fnc_Validar() {
 
             var desc = $("#<%=txtDescripcion.ClientID%>").val();
+            var orden = $("#<%=txtOrden.ClientID%>").val();
+
             if (desc == null || desc.length == 0 || desc == undefined) {
                 $("#custom-menu").hide(); //Se oculta el menu contextual 
                 $("#msgContenido").text("La descripción no puede ir vacía"); //Se cambia el mensaje del dialogo modal de confirmacion
                 $("#myModal").modal('show') //Se muestra el modal
                 return false;
             }
+
+            if (orden == null || orden.length == 0 || orden == undefined) {
+                $("#custom-menu").hide(); //Se oculta el menu contextual 
+                $("#msgContenido").text("El orden no puede ir vacio"); //Se cambia el mensaje del dialogo modal de confirmacion
+                $("#myModal").modal('show') //Se muestra el modal
+                return false;
+            }
+
+
             return true;
         }
 
@@ -354,14 +364,6 @@
                         </div>
                     </div>
                    <div class="row top-buffer">
-                       <div class="col-md-2">  
-                            <p class="text-right"><strong>Ejercicio</strong></p>
-                        </div>
-                        <div class="col-md-6">
-                            <asp:DropDownList  Width="180px" ID="ddlEjercicio" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                    </div>
-                   <div class="row top-buffer">
                        <div class="col-md-2"> 
                             <p class="text-right"><strong>Orden</strong></p>
                         </div>
@@ -388,9 +390,12 @@
                     <asp:Button ID="btnCancelar2" runat="server" Text="Cancelar" CssClass="btn btn-default" OnClick="btnCancelar_Click" AutoPostBack="false" OnClientClick="fnc_HabilitarInHabilitarOpciones(false)" />
                 </div> 
 
-                 <div class="panel-footer" id="divMsg" style="display:none" runat="server">
-                    <asp:Label  ID="lblMensajes" runat="server"></asp:Label>
+                 <div class="alert alert-danger" runat="server" id="divMsgError" style="display:none">
+                    <asp:Label ID="lblMsgError" EnableViewState="false" runat="server" Text="" CssClass="font-weight:bold"></asp:Label>
                 </div>
+                <div class="alert alert-success" runat="server" id="divMsgSuccess" style="display:none">
+                    <asp:Label ID="lblMsgSuccess" EnableViewState="false" runat="server" Text="" CssClass="font-weight:bold"></asp:Label>
+                </div>  
 
             </div>
         </div>

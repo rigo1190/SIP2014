@@ -20,7 +20,6 @@ namespace SIP.Formas.Catalogos
             if (!IsPostBack)
             {
                 BindArbol();
-                BindDrops();
 
                 _Padre.Value = "N";  //Se pone la bandera de que si se va a agregar un fondo padre en N
 
@@ -32,7 +31,7 @@ namespace SIP.Formas.Catalogos
                 txtClave.Enabled = false;
                 txtDescripcion.Enabled = false;
                 txtOrden.Disabled = true;
-                ddlEjercicio.Enabled = false;
+               
 
 
                 //Se bindea los datos para el primer plantilla, si existe
@@ -61,7 +60,8 @@ namespace SIP.Formas.Catalogos
         #region EVENTOS
         protected void treePlantilla_SelectedNodeChanged(object sender, EventArgs e)
         {
-            divMsg.Style.Add("display", "none");
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "none");
             BindControles(treePlantilla.SelectedNode); //Se bindean los datos
         }
 
@@ -85,7 +85,6 @@ namespace SIP.Formas.Catalogos
 
             obj.Clave = txtClave.Text;
             obj.Descripcion = txtDescripcion.Text;
-            //obj.EjercicioId = Utilerias.StrToInt(ddlEjercicio.SelectedValue);
             obj.Orden = Utilerias.StrToInt(txtOrden.Value);
 
             switch (estado)
@@ -122,11 +121,10 @@ namespace SIP.Formas.Catalogos
                 foreach (string cad in uow.Errors)
                     msg += cad;
 
-                lblMensajes.Text = msg;
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
+                divMsgError.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+                lblMsgError.Text = msg;
 
-                //lblMensajes.Attributes.Add("class", "alert alert-danger");
-                divMsg.Style.Add("display", "block");
                 return;
             }
 
@@ -169,14 +167,15 @@ namespace SIP.Formas.Catalogos
                     break;
             }
 
-            lblMensajes.Text = msg;
-            lblMensajes.ForeColor = System.Drawing.Color.Black;
+            lblMsgSuccess.Text = msg;
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "block");
 
             //Se ocultan los botones de GUARDAR Y CANCELAR
             divGuardar.Style.Add("display", "none");
             btnCancelar.Style.Add("display", "none"); //Se oculta opcion del menu contextual
             btnGuardar2.Style.Add("display", "none");//Se oculta opcion del menu contextual
-            divMsg.Style.Add("display", "block");
+            
             
             //Se habiltan las opciones del menu contextual
            
@@ -206,16 +205,12 @@ namespace SIP.Formas.Catalogos
                 foreach (string cad in uow.Errors)
                     msg += cad;
 
-                lblMensajes.Text = msg;
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
-
-                divMsg.Style.Add("display", "block");
+                divMsgError.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+                lblMsgError.Text = msg;
 
                 return;
             }
-
-            lblMensajes.Text = msg;
-            lblMensajes.ForeColor = System.Drawing.Color.Black;
 
             //Se vuelve a RECONSTRUIR el ARBOL
             BindArbol();
@@ -228,9 +223,11 @@ namespace SIP.Formas.Catalogos
                 BindControles(null);
                 ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_CargaInicial()", true);
             }
-                
 
-            divMsg.Style.Add("display", "block");
+
+            lblMsgSuccess.Text = msg;
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "block");
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
@@ -244,11 +241,12 @@ namespace SIP.Formas.Catalogos
             {
                 txtDescripcion.Text = obj.Descripcion;
                 txtClave.Text = obj.Clave;
-                //ddlEjercicio.SelectedValue = obj.EjercicioId.ToString();
                 txtOrden.Value = obj.Orden.ToString();
-
                 //Se busca el nodo del arbol de fondos para colocarlo como seleccionado
                 treePlantilla.FindNode(_rutaNodoSeleccionado.Value).Select();
+
+                divMsgError.Style.Add("display", "none");
+                divMsgSuccess.Style.Add("display", "none");
             }
 
            
@@ -315,7 +313,6 @@ namespace SIP.Formas.Catalogos
                 
                 txtClave.Text = obj.Clave;
                 txtDescripcion.Text = obj.Descripcion;
-                //ddlEjercicio.SelectedValue = obj.EjercicioId.ToString();
                 txtOrden.Value = obj.Orden.ToString();
                 _IDPlantilla.Value = obj.Id.ToString();
                 _rutaNodoSeleccionado.Value = node.ValuePath;
@@ -325,10 +322,6 @@ namespace SIP.Formas.Catalogos
             {
                 txtClave.Text = string.Empty;
                 txtDescripcion.Text = string.Empty;
-                
-                if (ddlEjercicio.Items.Count > 0)
-                    ddlEjercicio.SelectedIndex = 0;
-                
                 txtOrden.Value = string.Empty;
                 _IDPlantilla.Value = string.Empty;
                 _rutaNodoSeleccionado.Value = string.Empty;
@@ -341,7 +334,7 @@ namespace SIP.Formas.Catalogos
 
         private void BindDrops()
         {
-            Utilerias.ConstruyeCatalogos<Ejercicio>(uow.EjercicioBusinessLogic.Get().ToList<Ejercicio>(), this.ddlEjercicio, "Id", "Año");
+            //Utilerias.ConstruyeCatalogos<Ejercicio>(uow.EjercicioBusinessLogic.Get().ToList<Ejercicio>(), this.ddlEjercicio, "Id", "Año");
         }
 
 

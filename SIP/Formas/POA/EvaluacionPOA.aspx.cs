@@ -17,7 +17,7 @@ namespace SIP.Formas.POA
         private UnitOfWork uow;
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
 
             if (!IsPostBack)
             {
@@ -102,7 +102,7 @@ namespace SIP.Formas.POA
                     POAPlantillaDetalle objPOAPlantillaDetalle = new POAPlantillaDetalle();
                     objPOAPlantillaDetalle.POAPlantillaId = POAPlantillaID; //ID del obj POAPlantilla
                     objPOAPlantillaDetalle.PlantillaDetalleId = obj.Id; //Id del obj Plantilla detalle
-                    objPOAPlantillaDetalle.CreatedById = Utilerias.StrToInt(Session["IdUser"].ToString());
+                    
 
                     uow.POAPlantillaDetalleBusinessLogic.Insert(objPOAPlantillaDetalle);
                     uow.SaveChanges();
@@ -260,7 +260,7 @@ namespace SIP.Formas.POA
             POAPlantilla obj = new POAPlantilla();
             obj.PlantillaId = IDPlantilla;
             obj.POADetalleId = IDPoaDetalle;
-            obj.CreatedById = Utilerias.StrToInt(Session["IdUser"].ToString());
+            
             
 
             //SE ALMACENA EL POAPLANTILLA
@@ -298,7 +298,7 @@ namespace SIP.Formas.POA
                     obj = new POAPlantilla();
                     obj.PlantillaId = p.Id;
                     obj.POADetalleId = IDPoaDetalle;
-                    obj.CreatedById = Utilerias.StrToInt(Session["IdUser"].ToString());
+                    
 
                     //SE ALMACENA EL POAPLANTILLA
                     uow.POAPlantillaBusinessLogic.Insert(obj);
@@ -352,7 +352,7 @@ namespace SIP.Formas.POA
                 POAPlantillaDetalle objPOAPlantillaDetalle = new POAPlantillaDetalle();
                 objPOAPlantillaDetalle.POAPlantillaId = IDPOAPlantilla; //ID del obj POAPlantilla
                 objPOAPlantillaDetalle.PlantillaDetalleId = pregunta.Id; //Id del obj Plantilla detalle
-                objPOAPlantillaDetalle.CreatedById = Utilerias.StrToInt(Session["IdUser"].ToString());
+                
                 //Se agregan mas datos, los de bitacora....pendiente
 
                 uow.POAPlantillaDetalleBusinessLogic.Insert(objPOAPlantillaDetalle);
@@ -623,12 +623,42 @@ namespace SIP.Formas.POA
             if (obj != null)
             {
                 R.Add(obj.Observaciones != null && obj.Observaciones != string.Empty ? obj.Observaciones : string.Empty);
-                R.Add(obj.RutaArchivo!=null && obj.RutaArchivo!=string.Empty?Path.GetFileName(obj.RutaArchivo):string.Empty);
+                R.Add(obj.NombreArchivo!=null && obj.NombreArchivo!=string.Empty?obj.NombreArchivo:string.Empty);
                 R.Add(obj.PlantillaDetalle.Pregunta);
             }
 
             return R;
 
+        }
+        private string EliminarArchivo(int id, string nombreArchivo)
+        {
+            string M = string.Empty;
+            try
+            {
+                string ruta = string.Empty;
+
+                //eliminar archivo
+                ruta = System.Configuration.ConfigurationManager.AppSettings["ArchivosPlantilla"];
+
+                if (!ruta.EndsWith("/"))
+                    ruta += "/";
+
+                ruta += id.ToString() + "/";
+
+                if (ruta.StartsWith("~") || ruta.StartsWith("/"))   //Es una ruta relativa al sitio
+                    ruta = Server.MapPath(ruta);
+
+                File.Delete(ruta + "\\" + nombreArchivo);
+                Directory.Delete(ruta);
+
+            }
+            catch (Exception ex)
+            {
+                M = ex.Message;
+            }
+
+
+            return M;
         }
 
 
@@ -737,6 +767,7 @@ namespace SIP.Formas.POA
                     HtmlInputRadioButton chkSI = (HtmlInputRadioButton)e.Row.FindControl("chkSI");
                     HtmlInputRadioButton chkNO = (HtmlInputRadioButton)e.Row.FindControl("chkNO");
                     HtmlInputRadioButton chkNOAplica = (HtmlInputRadioButton)e.Row.FindControl("chkNOAplica");
+                    Label lblArchivo = (Label)e.Row.FindControl("lblArchivo");
 
                     //Se coloca la FUNCION de fnc_DesmarcarChecks en JAVASCRIPT
                     chkSI.Attributes["onchange"] = "fnc_DesmarcarChecks(this," + e.Row.RowIndex + ",'" + grid.ID + "','" + chkNO.ID + "','" + chkNOAplica.ID + "')"; 
@@ -763,6 +794,14 @@ namespace SIP.Formas.POA
                                 break;
                         }
                     }
+
+                    if (obj.NombreArchivo != null)
+                        if (!obj.NombreArchivo.Equals(string.Empty))
+                            lblArchivo.Text = obj.NombreArchivo;
+                        else
+                            lblArchivo.Text = "No existe archivo adjunto";
+                    else
+                        lblArchivo.Text = "No existe archivo adjunto";
 
                     //Se coloca la fucnion a corespondiente para visualizar el DOCUMENTO ADJUNTO A LA PREGUNTA
                     HtmlButton btnVer = (HtmlButton)e.Row.FindControl("btnVer");
@@ -795,11 +834,12 @@ namespace SIP.Formas.POA
 
             txtPregunta.Value = obj.PlantillaDetalle.Pregunta;
             txtObservacionesPregunta.Value = obj.Observaciones;
-            //txtRutaArchivo.Value = obj.RutaArchivo != null && obj.RutaArchivo != string.Empty ? Path.GetFileName(obj.RutaArchivo) : string.Empty;
+            txtArchivoAdjunto.Value = obj.NombreArchivo != null && obj.NombreArchivo != string.Empty ? obj.NombreArchivo : string.Empty;
 
             divEvaluacion.Style.Add("display", "block");
             divDatos.Style.Add("display", "none");
-            divMsg.Style.Add("display", "none");
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "none");
             divCapturaPreguntas.Style.Add("display", "block");
 
             _SoloChecks.Value = "false"; //Se indica que tambien se almacenaran datos de la PREGUNTA, no solo las respuestas SI, NO, NO APLICA
@@ -827,8 +867,10 @@ namespace SIP.Formas.POA
                 //Siempre se van a actualizar datos de la pregunta (Observaciones y el archivo de soporte)
                 int idPregunta = Utilerias.StrToInt(_IDPregunta.Value);
                 _SoloChecks.Value = "true";
+                string nomAnterior = string.Empty;
                 POAPlantillaDetalle obj = uow.POAPlantillaDetalleBusinessLogic.GetByID(idPregunta);
-
+                
+                nomAnterior = obj.NombreArchivo;
 
                 //Se tiene que almacenar el archivo adjunto, si es que se cargo uno
                 if (!btnBuscarArchivo.PostedFile.FileName.Equals(string.Empty))
@@ -836,21 +878,31 @@ namespace SIP.Formas.POA
                     //Validar el tamaño del archivo
                     if (btnBuscarArchivo.FileBytes.Length > 10485296)
                     {
-                        lblMensajes.Text = "Se ha excedido en el tamaño del archivo, el máximo permitido es de 10 Mb";
-                        lblMensajes.ForeColor = System.Drawing.Color.Red;
-                        divMsg.Style.Add("display", "block");
+                        divMsgError.Style.Add("display", "block");
+                        divMsgSuccess.Style.Add("display", "none");
+                        lblMsgError.Text = "Se ha excedido en el tamaño del archivo, el máximo permitido es de 10 Mb";
 
                         return;
                     }
+
+
+                    if (nomAnterior != null)
+                    {
+                        if (!nomAnterior.Equals(Path.GetFileName(btnBuscarArchivo.FileName)))  //Se elimina el archivo anterior
+                            if (!nomAnterior.Equals(string.Empty))
+                                M = EliminarArchivo(obj.Id, nomAnterior);
+
+                    }
+
 
                     R = GuardarArchivo(btnBuscarArchivo.PostedFile, idPregunta); //Se guarda el archivo
 
                     //Si hubo errores
                     if (!R[0].Equals(string.Empty))
                     {
-                        lblMensajes.Text = R[0];
-                        lblMensajes.ForeColor = System.Drawing.Color.Red;
-                        divMsg.Style.Add("display", "block");
+                        divMsgError.Style.Add("display", "block");
+                        divMsgSuccess.Style.Add("display", "none");
+                        lblMsgError.Text = R[0];
                         return;
                     }
 
@@ -861,7 +913,7 @@ namespace SIP.Formas.POA
 
 
                 obj.Observaciones = txtObservacionesPregunta.Value;
-                obj.EditedById =Utilerias.StrToInt(Session["IdUser"].ToString());
+                
 
                 uow.POAPlantillaDetalleBusinessLogic.Update(obj);
                 uow.SaveChanges();
@@ -872,10 +924,9 @@ namespace SIP.Formas.POA
                     M = string.Empty;
                     foreach (string cad in uow.Errors)
                         M += cad;
-
-                    lblMensajes.Text = M;
-                    lblMensajes.ForeColor = System.Drawing.Color.Red;
-                    divMsg.Style.Add("display", "block");
+                    divMsgError.Style.Add("display", "block");
+                    divMsgSuccess.Style.Add("display", "none");
+                    lblMsgError.Text = M;
                     return;
 
                 }
@@ -886,8 +937,6 @@ namespace SIP.Formas.POA
             //Se tienen que almacenar los checks de cada una de las preguntas que se pudieran
             //haber marcado
 
-            
-            
             R = null;
 
             R = GuardarPlantillas(_CadValoresChecks.Value, uow, Utilerias.StrToInt(Session["IdUser"].ToString())); //Se guarda las respuestas que se hayan marcado en el grid SI, NO, NO APLICA
@@ -895,9 +944,10 @@ namespace SIP.Formas.POA
             //Si hubo errores
             if (R.Count > 1)
             {
-                lblMensajes.Text = R[1];
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
-                divMsg.Style.Add("display", "block");
+                
+                divMsgError.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+                lblMsgError.Text = R[1];
 
                 return;
             }
@@ -908,10 +958,9 @@ namespace SIP.Formas.POA
             btnBuscarArchivo.Enabled = false;
             txtObservacionesPregunta.Disabled = true;
 
-
-            lblMensajes.Text = R[0];
-            lblMensajes.ForeColor = System.Drawing.Color.Black;
-            divMsg.Style.Add("display", "block");
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "block");
+            lblMsgSuccess.Text = R[0];
             divEvaluacion.Style.Add("display", "block");
             divDatos.Style.Add("display", "none");
             divCapturaPreguntas.Style.Add("display", "none");
@@ -938,13 +987,18 @@ namespace SIP.Formas.POA
 
             if (R.Count > 1)
             {
-                lblMensajes.Text = R[1];
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
-                divMsg.Style.Add("display", "block");
+                
+                divMsgError.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+                lblMsgError.Text = R[1];
                 return;
             }
             else
-                divMsg.Style.Add("display", "none");
+            {
+                divMsgError.Style.Add("display", "none");
+                divMsgSuccess.Style.Add("display", "none");
+            }
+                
 
             BindGrid(Utilerias.StrToInt(_IDPlantilla.Value)); //Se bindea el grid
             divEvaluacion.Style.Add("display", "block");

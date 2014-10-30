@@ -29,12 +29,24 @@ namespace SIP.Formas.Catalogos
 
                 divCaptura.Style.Add("display", "none");
                 divGuardar.Style.Add("display", "none");
-                divMsg.Style.Add("display", "none");
+                divMsgError.Style.Add("display", "none");
+                divMsgSuccess.Style.Add("display", "none");
             }
         }
 
 
         #region EVENTOS
+        protected void grid_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            grid.PageIndex = e.NewPageIndex;
+            BindGrid();
+
+            divCaptura.Style.Add("display", "none");
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "none");
+            divGuardar.Style.Add("display", "none");
+            divBtnNuevo.Style.Add("display", "block");
+        }
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
         {
@@ -52,7 +64,8 @@ namespace SIP.Formas.Catalogos
             divCaptura.Style.Add("display", "block");
             divGuardar.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
-            divMsg.Style.Add("display", "none");
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "none");
         }
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)
@@ -75,21 +88,23 @@ namespace SIP.Formas.Catalogos
                 foreach (string cad in uow.Errors)
                     msg += cad;
 
-                lblMensajes.Text = msg;
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
+                //MANEJAR EL ERROR
+                divMsgError.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+                lblMsgError.Text = msg;
 
 
                 return;
             }
 
-            lblMensajes.Text = msg;
-            lblMensajes.ForeColor = System.Drawing.Color.Black;
-
             BindGrid();
+
+            lblMsgSuccess.Text = msg;
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "block");
             divCaptura.Style.Add("display", "none");
             divBtnNuevo.Style.Add("display", "block");
-            divMsg.Style.Add("display", "block");
-        
+           
         }
 
 
@@ -111,20 +126,22 @@ namespace SIP.Formas.Catalogos
                 foreach (string cad in uow.Errors)
                     msg += cad;
 
-                lblMensajes.Text = msg;
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
+                divMsgError.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+                lblMsgError.Text = msg;
 
 
                 return;
             }
 
-            lblMensajes.Text = msg;
-            lblMensajes.ForeColor = System.Drawing.Color.Black;
+           
 
             BindGrid();
             divCaptura.Style.Add("display", "none");
             divBtnNuevo.Style.Add("display", "block");
-            divMsg.Style.Add("display", "block");
+            lblMsgSuccess.Text = msg;
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "block");
         }
 
         protected void btnNuevo_Click(object sender, EventArgs e)
@@ -132,7 +149,10 @@ namespace SIP.Formas.Catalogos
             divCaptura.Style.Add("display", "block");
             divGuardar.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
-            divMsg.Style.Add("display", "none");
+            
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "none");
+
             Utilerias.LimpiarCampos(this);
             _Accion.Value = "N";
         }
@@ -182,19 +202,20 @@ namespace SIP.Formas.Catalogos
                 foreach (string cad in uow.Errors)
                     msg += cad;
 
-                lblMensajes.Text = msg;
-                lblMensajes.ForeColor = System.Drawing.Color.Red;
-                divMsg.Style.Add("display", "block");
+                divMsgError.Style.Add("display", "block");
+                divMsgSuccess.Style.Add("display", "none");
+                lblMsgError.Text = msg;
+                
                 return;
             }
 
-            lblMensajes.Text = msg;
-            lblMensajes.ForeColor = System.Drawing.Color.Black;
-
             BindGrid();  //Se bindean los datos 
+
+            divMsgError.Style.Add("display", "none");
+            divMsgSuccess.Style.Add("display", "block");
+            lblMsgSuccess.Text = msg;
             divCaptura.Style.Add("display", "none");
             divGuardar.Style.Add("display", "none");
-            divMsg.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "block");
         }
 
@@ -208,15 +229,14 @@ namespace SIP.Formas.Catalogos
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                ImageButton ctrl = (ImageButton)e.Row.FindControl("imgBtnEliminar");
+                ImageButton imgBtnEliminar = (ImageButton)e.Row.FindControl("imgBtnEliminar");
+                Label lblPlantilla = (Label)e.Row.FindControl("lblPlantilla");
+                Plantilla plantilla = uow.PlantillaBusinessLogic.GetByID(Utilerias.StrToInt(grid.DataKeys[e.Row.RowIndex].Values["PlantillaId"].ToString()));
 
-                if (ctrl != null)
-                {
-                    if (grid.DataKeys[e.Row.RowIndex].Values["Id"] != null)
-                    {
-                        ctrl.Attributes.Add("onclick", "fnc_ColocarIDPregunta(" + grid.DataKeys[e.Row.RowIndex].Values["Id"] + ")");
-                    }
-                }
+                if (imgBtnEliminar != null)
+                    imgBtnEliminar.Attributes.Add("onclick", "fnc_ColocarIDPregunta(" + grid.DataKeys[e.Row.RowIndex].Values["Id"] + ")");
+
+                lblPlantilla.Text = plantilla.Descripcion;
             }
         }
         #endregion
@@ -243,6 +263,8 @@ namespace SIP.Formas.Catalogos
         }
 
         #endregion
+
+        
 
         
 

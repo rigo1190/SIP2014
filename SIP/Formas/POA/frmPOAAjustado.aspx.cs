@@ -143,7 +143,7 @@ namespace SIP.Formas.POA
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.GridViewObras.DataSource = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId).ToList();
+            this.GridViewObras.DataSource = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId,orderBy:r=>r.OrderBy(ro=>ro.Numero)).ToList();
             this.GridViewObras.DataBind();
         }
 
@@ -509,6 +509,32 @@ namespace SIP.Formas.POA
 
             ddlGrupoBeneficiario.Items.Insert(0, new ListItem("Seleccione...", "0"));
 
+        }
+
+        protected void GridViewObras_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnFinanciamiento");
+                if (btnE != null)
+                {
+                    if (GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                    {
+                        string url = string.Empty;
+
+                        int obraId = Utilerias.StrToInt(GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+
+                        Obra obra = uow.ObraBusinessLogic.GetByID(obraId);
+
+                        url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + obra.POADetalleId.ToString();
+                        btnE.Attributes.Add("data-url-financiamiento", url);                      
+                                              
+
+                    }
+
+                }
+
+            }
         }
 
 

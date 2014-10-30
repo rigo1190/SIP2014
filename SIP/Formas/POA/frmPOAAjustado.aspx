@@ -27,6 +27,10 @@
                      case "BORRAR":
                          return confirm("¿Está seguro de eliminar el registro?");
                          break;
+                     case "ASIGNARFINANCIAMIENTO":
+                         var url = $(this).data("url-financiamiento");
+                         $(location).attr('href', url);
+                         break;
                      case "EVALUAR":
                          var url = $(this).data("url-poa");
                          $(location).attr('href', url);
@@ -202,7 +206,7 @@
        
         <div class="page-header"><h3><asp:Label ID="lblTituloPOA" runat="server" Text=""></asp:Label></h3></div>
 
-        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
+        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewObras_RowDataBound"   runat="server" AllowPaging="True">
             <Columns>
 
                        <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
@@ -225,10 +229,13 @@
                                 <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-
-
-
-
+                        <asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
+                            <ItemTemplate>
+                                <button type="button" id="btnFinanciamiento" data-tipo-operacion="asignarfinanciamiento" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-usd"></span></button> 
+                            </ItemTemplate>                          
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="50px" />                                            
+                        </asp:TemplateField>
+                
             </Columns>
                     
             <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />

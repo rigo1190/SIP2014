@@ -32,7 +32,7 @@ namespace SIP.Formas.POA
                 BindGrid();
                 BindearDropDownList();
 
-                InsertarInformacionEvaluaciones();
+                //InsertarInformacionEvaluaciones();
 
             }
             
@@ -40,24 +40,24 @@ namespace SIP.Formas.POA
        
         private void BindGrid()
         {
-            TemplateField tf = new TemplateField();
-            tf.HeaderStyle.CssClass = "panel-footer";
-            tf.HeaderText = "Evaluaciones";
-            tf.ItemStyle.CssClass = "col-md-5";
-            tf.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
-            tf.ItemStyle.VerticalAlign = VerticalAlign.Middle;
-            GridViewObras.Columns.Add(tf);
+            //TemplateField tf = new TemplateField();
+            //tf.HeaderStyle.CssClass = "panel-footer";
+            //tf.HeaderText = "Evaluaciones";
+            //tf.ItemStyle.CssClass = "col-md-5";
+            //tf.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
+            //tf.ItemStyle.VerticalAlign = VerticalAlign.Middle;
+            //GridViewObras.Columns.Add(tf);
 
-            tf = new TemplateField();
-            tf.HeaderStyle.CssClass = "panel-footer";
-            tf.HeaderText = "Financiamiento";
-            tf.ItemStyle.CssClass = "col-md-1";
-            GridViewObras.Columns.Add(tf);
+            //tf = new TemplateField();
+            //tf.HeaderStyle.CssClass = "panel-footer";
+            //tf.HeaderText = "Financiamiento";
+            //tf.ItemStyle.CssClass = "col-md-1";
+            //GridViewObras.Columns.Add(tf);
 
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea==false).ToList();
+            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea==false,orderBy:r=>r.OrderBy(ro=>ro.Numero)).ToList();
             this.GridViewObras.DataBind();            
                         
         }
@@ -390,6 +390,16 @@ namespace SIP.Formas.POA
                         url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
                         //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
                         btnE.Attributes.Add("data-url-poa", url);
+
+                        int poadetalleId = Utilerias.StrToInt(GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+
+                        Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalleId).FirstOrDefault();
+
+                        if (obra != null) 
+                        {
+                            btnE.Attributes.Add("disabled", "disabled");
+                        }
+                        
                     }
                     
                 }

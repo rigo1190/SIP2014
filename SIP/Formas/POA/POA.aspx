@@ -225,12 +225,12 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-5" HeaderStyle-CssClass="panel-footer">                            
+                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-10" HeaderStyle-CssClass="panel-footer">                            
                             <ItemTemplate>
                                 <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>                       
-                        <asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
+                        <asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
                             <ItemTemplate>
                                 <button type="button" id="btnFinanciamiento" data-tipo-operacion="asignarfinanciamiento" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-usd"></span></button> 
                             </ItemTemplate>                          

@@ -31,33 +31,18 @@ namespace SIP.Formas.POA
                 lblTituloPOA.Text = String.Format("{0} <br /> Anteproyecto de POA para el ejercicio {1}",up.Nombre,uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
                 BindGrid();
                 BindearDropDownList();
-
-                InsertarInformacionEvaluaciones();
-
+               
             }
             
         }
        
         private void BindGrid()
-        {
-            TemplateField tf = new TemplateField();
-            tf.HeaderStyle.CssClass = "panel-footer";
-            tf.HeaderText = "Evaluaciones";
-            tf.ItemStyle.CssClass = "col-md-5";
-            tf.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
-            tf.ItemStyle.VerticalAlign = VerticalAlign.Middle;
-            GridViewObras.Columns.Add(tf);
-
-            tf = new TemplateField();
-            tf.HeaderStyle.CssClass = "panel-footer";
-            tf.HeaderText = "Financiamiento";
-            tf.ItemStyle.CssClass = "col-md-1";
-            GridViewObras.Columns.Add(tf);
+        {            
 
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea==false).ToList();
+            this.GridViewObras.DataSource = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea==false,orderBy:r=>r.OrderBy(ro=>ro.Numero)).ToList();
             this.GridViewObras.DataBind();            
                         
         }

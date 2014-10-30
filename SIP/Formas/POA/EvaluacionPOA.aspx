@@ -120,7 +120,8 @@
                 PageMethods.GetValoresPregunta(idPregunta, fnc_ResponseGetValoresPregunta); //Se manda a llamar el metodo a C#
             }
 
-            $("#<%= divMsg.ClientID %>").css("display", "none");
+            $("#<%= divMsgError.ClientID %>").css("display", "none");
+            $("#<%= divMsgSuccess.ClientID %>").css("display", "none");
     
         }
 
@@ -131,7 +132,9 @@
         function fnc_ResponseGetValoresPregunta(response) {
 
             $("#<%= txtObservacionesPregunta.ClientID %>").text(response[0]);
+            $("#<%= txtArchivoAdjunto.ClientID %>").val(response[1]);
             $("#<%= txtPregunta.ClientID %>").text(response[2]);
+            
 
         }
 
@@ -178,14 +181,13 @@
         //Creado por Rigoberto TS
         //15/10/2014
         function fnc_AbrirArchivo(ruta, id) {
-            window.open(ruta + '?i=' + id, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,menubar=no,width=750,height=700,top=0');
+            window.open(ruta + '?i=' + id, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,menubar=no,width=750,height=600,top=0');
         }
 
 
-        function fnc_Test() {
+        function fnc_Edicion() {
 
             $("#<%= txtObservacionesPregunta.ClientID %>").prop("disabled", false);
-            <%-- $("#<%= txtRutaArchivo.ClientID %>").prop("disabled",true);--%>
             $("#<%= divCapturaPreguntas.ClientID %>").css("display", "block");
             $("#<%= btnCancelar.ClientID %>").prop("disabled", false);
             $("#<%= btnBuscarArchivo.ClientID %>").prop("disabled", false);
@@ -247,7 +249,13 @@
      <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
     <div class="container">
        
-       <div class="row">
+      
+        <div class="page-header"">
+            <h3>Evaluación de POA</h3>
+        </div>
+
+
+           <div class="row">
             <div class="container-fluid">
                 <div id="divMenu" runat="server">
                     <ul class="nav nav-tabs nav-justified panel-success">
@@ -258,7 +266,7 @@
             </div>
         </div>
 
-       <div id="divDatos" runat="server">
+           <div id="divDatos" runat="server">
             <div class="container-fluid">
                 <div class="row">
                     <div class="panel panel-success">
@@ -310,7 +318,7 @@
             </div>
         </div>
 
-       <div class="row">
+           <div class="row">
             <div id="divEvaluacion" style="display:none" runat="server">
                 <div class="container-fluid">
                     <div class="panel panel-success">
@@ -340,7 +348,7 @@
                                         <Columns>
                                             <asp:TemplateField HeaderText="Acciones">
                                                 <ItemTemplate>
-                                                    <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" OnClientClick="fnc_Test();return false;" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                    <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" OnClientClick="fnc_Edicion();return false;" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                 </ItemTemplate>
                                                 <HeaderStyle BackColor="#EEEEEE" />
                                                 <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -377,6 +385,14 @@
 
                                             <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                 <ItemTemplate>
+                                                   <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                </ItemTemplate>
+                                                <ItemStyle HorizontalAlign="Center" />
+                                            </asp:TemplateField>
+
+
+                                            <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                <ItemTemplate>
                                                     <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                 </ItemTemplate>
                                                 <ItemStyle HorizontalAlign="Center" />
@@ -391,37 +407,34 @@
                                 </div>
                                 <div class="panel-footer" id="divEdicionPreguntas" runat="server">
                                     <div class="container-fluid" id="divCapturaPreguntas" style="display:none" runat="server">
-                                        <div class="col-lg-12">
+                                        
                                             <div class="col-lg-6">
-                                                 <div class="row top-buffer">
-                                                    <div class="col-md-3">
+                                                 
+                                                    <div class="form-group">
                                                         <label for="disabledSelect">Pregunta de Evaluación</label>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <textarea  type="text"  disabled="disabled" name="prueba" runat="server" class="form-control" id="txtPregunta" />
                                                     </div>
-                                                </div>
-                                                <p>&nbsp;</p>
-                                                <div class="row top-buffer">
-                                                    <div class="col-md-3">
+                                                    <div class="form-group">
                                                         <label for="disabledSelect">Observaciones:</label>
-                                                    </div>
-                                                    <div class="col-md-6">
                                                         <textarea  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtObservacionesPregunta" />
                                                     </div>
-                                                </div>
+                                                   
+                                               
                                             </div>
                                             <div class="col-lg-6">
-                                                <div class="row top-buffer">
-                                                    <div class="col-md-2">
-                                                        <label for="disabledSelect">Documento Soporte:</label>
+                                                
+                                                    <div class="form-group">
+                                                        <label>Documento Soporte actual:</label>
+                                                        <input type="text" disabled="disabled" name="prueba" id="txtArchivoAdjunto" runat="server" class="form-control"  />
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="disabledSelect">Documento Soporte:</label>
                                                         <asp:FileUpload ID="btnBuscarArchivo" Enabled="false" runat="server" />
                                                     </div>
-                                                </div>
+                                                    
+                                                
                                             </div>
-                                        </div>
+
                                     </div>
                                     <div class="row top-buffer">
                                         <div class="col-md-6"  id="divBtnGuardarDatosPreguntas" runat="server">
@@ -430,9 +443,12 @@
                                         </div>
                                     </div>
                                     <div class="row top-buffer">
-                                        <div class="col-md-6" id="divMsg" style="display:none" runat="server">
-                                            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
+                                         <div class="alert alert-danger" runat="server" id="divMsgError" style="display:none">
+                                            <asp:Label ID="lblMsgError" EnableViewState="false" runat="server" Text="" CssClass="font-weight:bold"></asp:Label>
                                         </div>
+                                        <div class="alert alert-success" runat="server" id="divMsgSuccess" style="display:none">
+                                            <asp:Label ID="lblMsgSuccess" EnableViewState="false" runat="server" Text="" CssClass="font-weight:bold"></asp:Label>
+                                        </div>  
                                     </div> 
                                        
                                 </div>
@@ -445,7 +461,7 @@
             </div>
         </div>
 
-       <div runat="server" style="display:none">
+           <div runat="server" style="display:none">
             <input type="hidden" runat="server" id="_IDPlantilla" />
             <input type="hidden" runat="server" id="_IDPOADetalle" />
             <input type="hidden" runat="server" id="_IDPregunta" />
@@ -454,6 +470,11 @@
             <input type="hidden" runat="server" id="_PageIndex" />
           
        </div>
+
+
+       
+
+       
 
    </div>
     

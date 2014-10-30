@@ -175,6 +175,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtObservacionesPregunta;
         
         /// <summary>
+        /// Control txtArchivoAdjunto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtArchivoAdjunto;
+        
+        /// <summary>
         /// Control btnBuscarArchivo.
         /// </summary>
         /// <remarks>
@@ -211,22 +220,40 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnCancelar;
         
         /// <summary>
-        /// Control divMsg.
+        /// Control divMsgError.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsgError;
         
         /// <summary>
-        /// Control lblMensajes.
+        /// Control lblMsgError.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensajes;
+        protected global::System.Web.UI.WebControls.Label lblMsgError;
+        
+        /// <summary>
+        /// Control divMsgSuccess.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsgSuccess;
+        
+        /// <summary>
+        /// Control lblMsgSuccess.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsgSuccess;
         
         /// <summary>
         /// Control _IDPlantilla.

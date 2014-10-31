@@ -39,8 +39,19 @@ namespace SIP.Formas.POA
 
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
+
+            DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
+
+            List<Obra> obras = uow.ObraBusinessLogic.Get(ob => ob.POAId == poa.Id).ToList();
+
+            List<int> colObrasId = new List<int>();
+
+            foreach (var item in obras)
+            {
+                colObrasId.Add(item.POADetalleId.Value);
+            }                     
            
-            this.GridViewPOADetalle.DataSource = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea == false, orderBy: r => r.OrderBy(ro => ro.Numero)).ToList();
+            this.GridViewPOADetalle.DataSource = uow.POADetalleBusinessLogic.Get(pd => !colObrasId.Contains(pd.Id) & pd.Extemporanea == false & pd.POAId==poa.Id, orderBy: r => r.OrderBy(ro => ro.Numero)).ToList();
             this.GridViewPOADetalle.DataBind();
 
         }

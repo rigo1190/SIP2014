@@ -18,7 +18,7 @@ namespace DataAccessLayer.Models
         {
             get
             {
-                return String.Format("{0} {1} {2}",this.ModalidadFinanciamiento.Nombre,this.Fondo.Abreviatura,this.Año.Anio);
+                return String.Format("{0} ({1} {2})",this.Fondo.Abreviatura,this.ModalidadFinanciamiento.Nombre,this.Año.Anio);
             }
         }
     }

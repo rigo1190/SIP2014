@@ -45,6 +45,40 @@
     <div class="container">
 
         <div class="page-header"><h3><asp:Label ID="lblTitulo" runat="server" Text=""></asp:Label></h3></div>
+      
+        <div class="alert alert-danger" id="divTechoFinancieroError" style="display:none" runat="server">
+            <p><strong>Aún no se ha cerrado la apertura de Techos financieros para este ejercicio.</strong></p>
+        </div>
+
+        <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:none" runat="server">
+            <div class="panel-heading"><strong>Techo financiero de la unidad presupuestal</strong></div>
+            <div class="panel-body">
+
+                      <asp:GridView ID="GridViewTechoFinanciero" runat="server" CssClass="table"
+                        ItemType="DataAccessLayer.Models.TechoFinancieroUnidadPresupuestal" DataKeyNames="Id"
+                        SelectMethod="GridViewTechoFinanciero_GetData"
+                        AutoGenerateColumns="false">
+                        <Columns>
+                            <asp:DynamicField DataField="Id" Visible="false"/>
+                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción"/>
+                            <asp:DynamicField DataField="Importe" HeaderText="Presupuestado" DataFormatString="{0:C}"/>                                        
+                            <asp:TemplateField HeaderText="Asignado">
+                              <ItemTemplate>
+                                <asp:Label Text="<%# Item.GetImporteAsignado() %>" runat="server" />
+                              </ItemTemplate>
+                            </asp:TemplateField>
+                             <asp:TemplateField HeaderText="Disponible">
+                              <ItemTemplate>
+                                <asp:Label Text="<%# Item.GetImporteDisponible() %>" runat="server" />
+                              </ItemTemplate>
+                            </asp:TemplateField>      
+                        </Columns>
+                      </asp:GridView>
+
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+
 
         <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewPOADetalle" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewPOADetalle_RowDataBound" runat="server" AllowPaging="True">
             <Columns>                                   

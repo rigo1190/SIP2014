@@ -61,17 +61,17 @@
                         <Columns>
                             <asp:DynamicField DataField="Id" Visible="false"/>
                             <asp:DynamicField DataField="Descripcion" HeaderText="Descripción"/>
-                            <asp:DynamicField DataField="Importe" HeaderText="Presupuestado" DataFormatString="{0:C}"/>                                        
+                            <asp:DynamicField DataField="Importe" HeaderText="Techo financiero" DataFormatString="{0:C}"/>                                                                    
                             <asp:TemplateField HeaderText="Asignado">
                               <ItemTemplate>
-                                <asp:Label Text="<%# Item.GetImporteAsignado() %>" runat="server" />
+                                <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteAsignado()) %>' runat="server" />
                               </ItemTemplate>
                             </asp:TemplateField>
-                             <asp:TemplateField HeaderText="Disponible">
+                            <asp:TemplateField HeaderText="Disponible">
                               <ItemTemplate>
-                                <asp:Label Text="<%# Item.GetImporteDisponible() %>" runat="server" />
+                                <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
                               </ItemTemplate>
-                            </asp:TemplateField>      
+                            </asp:TemplateField>                               
                         </Columns>
                       </asp:GridView>
 

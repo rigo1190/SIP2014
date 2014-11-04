@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -62,6 +63,11 @@ namespace DataAccessLayer.Models
         public virtual GrupoBeneficiario GrupoBeneficiario { get; set; }
         public virtual CriterioPriorizacion CriterioPriorizacion { get; set; }
         public virtual ICollection<ObraFinanciamiento> DetalleFinanciamientos { get; set; }
+
+        public decimal GetImporteAsignado()
+        {
+            return (from of in DetalleFinanciamientos select of).Sum(of => of.Importe);
+        }
 
     }
 

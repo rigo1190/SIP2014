@@ -18,11 +18,24 @@ namespace SIP.Formas.POA
         private int poadetalleId;
         protected string obraNumero;
         protected string obraDescripcion;
+        protected bool enproyectopoa;
         protected void Page_Load(object sender, EventArgs e)
         {            
             uow = new UnitOfWork(Session["IdUser"].ToString());      
 
             poadetalleId = Utilerias.StrToInt(Request.QueryString["poadetalleId"].ToString());
+            enproyectopoa = Convert.ToBoolean(Request.QueryString["EnProyecto"]);
+
+            if (enproyectopoa)
+            {
+                divlinkPOAFinanciamiento.Style.Add("display", "block");
+                divlinkPOAAjustadoFinanciamiento.Style.Add("display", "none");
+            }
+            else 
+            {
+                divlinkPOAFinanciamiento.Style.Add("display", "none");
+                divlinkPOAAjustadoFinanciamiento.Style.Add("display", "block");
+            }
 
             POADetalle poadetalle = uow.POADetalleBusinessLogic.GetByID(poadetalleId);
             obraNumero = poadetalle.Numero;
@@ -46,6 +59,8 @@ namespace SIP.Formas.POA
 
             this.GridViewObraFinanciamiento.DataSource = uow.ObraFinanciamientoBusinessLogic.Get(of => of.TechoFinancieroUnidadPresupuestal.UnidadPresupuestalId == unidadpresupuestalId & of.TechoFinancieroUnidadPresupuestal.TechoFinanciero.EjercicioId == ejercicioId & of.Obra.POADetalleId==poadetalleId, includeProperties: "TechoFinancieroUnidadPresupuestal").ToList();
             this.GridViewObraFinanciamiento.DataBind();
+
+            this.GridViewTechoFinanciero.DataBind();
         }
 
         private void BindearDropDownList()
@@ -274,6 +289,30 @@ namespace SIP.Formas.POA
             }            
 
         }
+
+        // El tipo devuelto puede ser modificado a IEnumerable, sin embargo, para ser compatible con paginación y ordenación 
+        // , se deben agregar los siguientes parametros:
+        //     int maximumRows
+        //     int startRowIndex
+        //     out int totalRowCount
+        //     string sortByExpression
+        public IQueryable<DataAccessLayer.Models.TechoFinancieroUnidadPresupuestal> GridViewTechoFinanciero_GetData()
+        {
+
+            unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
+            ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
+
+            List<TechoFinanciero> listTechofinanciero = uow.TechoFinancieroBusinessLogic.Get(tf => tf.EjercicioId == ejercicioId).ToList();
+            List<int> colIdsTechoFinanciero = new List<int>();
+
+            listTechofinanciero.ForEach(item => colIdsTechoFinanciero.Add(item.Id));
+
+            IQueryable<TechoFinancieroUnidadPresupuestal> source = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tf => colIdsTechoFinanciero.Contains(tf.TechoFinancieroId) & tf.UnidadPresupuestalId == unidadpresupuestalId);
+
+            return source;
+
+        }
+
         
     }
 }

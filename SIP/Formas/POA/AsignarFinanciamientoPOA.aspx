@@ -84,6 +84,39 @@
           </div>
         </div>
 
+         <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:block" runat="server">
+            <div class="panel-heading"><strong>Techo financiero de la unidad presupuestal</strong></div>
+            <div class="panel-body">
+
+                      <asp:GridView ID="GridViewTechoFinanciero" runat="server" CssClass="table"
+                        ItemType="DataAccessLayer.Models.TechoFinancieroUnidadPresupuestal" DataKeyNames="Id"
+                        SelectMethod="GridViewTechoFinanciero_GetData"
+                        AutoGenerateColumns="false">
+                        <Columns>
+                            <asp:DynamicField DataField="Id" Visible="false"/>
+                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción"/>
+                            <asp:DynamicField DataField="Importe" HeaderText="Techo financiero" DataFormatString="{0:C}"/>                                                                    
+                            <asp:TemplateField HeaderText="Asignado">
+                              <ItemTemplate>
+                                <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteAsignado()) %>' runat="server" />
+                              </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Disponible">
+                              <ItemTemplate>
+                                <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
+                              </ItemTemplate>
+                            </asp:TemplateField>                               
+                        </Columns>
+                      </asp:GridView>
+
+            </div>
+            <div class="panel-footer"></div>
+        </div>
+
+
+
+
+
         <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
         </div>
@@ -121,8 +154,14 @@
         <div id="divBtnNuevo" runat="server" style="display:block">
               <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
               <hr />
-              <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-arrow-left"></span> regresar</a>
-         </div>
+              <div id="divlinkPOAFinanciamiento" style="display:none" runat="server">
+                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> regresar</a>
+              </div>
+              <div id="divlinkPOAAjustadoFinanciamiento" style="display:none" runat="server">
+                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> regresar</a>
+              </div>              
+              
+        </div>
 
         <div id="divEdicion" runat="server" class="panel-footer" style="display:none">
 

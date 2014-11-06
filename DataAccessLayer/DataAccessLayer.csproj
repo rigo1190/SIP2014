@@ -82,8 +82,12 @@
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\SituacionObra.cs" />
     <Compile Include="Models\TechoFinanciero.cs" />
-    <Compile Include="Models\TechoFinancieroBitacora.cs" />
-    <Compile Include="Models\TechoFinancieroBitacoraMovimientos.cs" />
+    <Compile Include="Models\TechoFinancieroBitacora.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TechoFinancieroBitacoraMovimientos.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\TechoFinancieroStatus.cs" />
     <Compile Include="Models\TechoFinancieroTMPtransferencias.cs" />
     <Compile Include="Models\TechoFinancieroUnidadPresupuestal.cs" />

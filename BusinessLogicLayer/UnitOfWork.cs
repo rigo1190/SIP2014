@@ -53,6 +53,10 @@ namespace BusinessLogicLayer
         private IBusinessLogic<TechoFinancieroStatus> techofinancierostatusbussineslogic;
         private IBusinessLogic<TechoFinanciero> techoFinancieroBusinessLogic;
         private IBusinessLogic<TechoFinancieroUnidadPresupuestal> techoFinancieroUnidadPresupuestalBusinessLogic;
+
+        private IBusinessLogic<TechoFinancieroBitacora> techofinancierobitacoraBL;
+        private IBusinessLogic<TechoFinancieroBitacoraMovimientos> techofinancierobitacoramovimientosBL;
+        private IBusinessLogic<TechoFinancieroTMPtransferencias> techofinancierotmptransferenciasBL;
        
         public UnitOfWork()
         {
@@ -581,7 +585,43 @@ namespace BusinessLogicLayer
         }
 
 
+        public IBusinessLogic<TechoFinancieroBitacora> TechoFinancieroBitacoraBL
+        {
+            get
+            {
+                if (this.techofinancierobitacoraBL == null)
+                {
+                    this.techofinancierobitacoraBL = new GenericBusinessLogic<TechoFinancieroBitacora>(contexto);
+                }
+                return techofinancierobitacoraBL;
+            }
+        }
 
+
+        public IBusinessLogic< TechoFinancieroBitacoraMovimientos> TechoFinancieroBitacoraMovimientosBL
+        {
+            get
+            {
+                if (this.techofinancierobitacoramovimientosBL == null)
+                {
+                    this.techofinancierobitacoramovimientosBL = new GenericBusinessLogic<TechoFinancieroBitacoraMovimientos>(contexto);
+                }
+                return this.techofinancierobitacoramovimientosBL;
+            }
+        }
+
+
+        public IBusinessLogic<TechoFinancieroTMPtransferencias> TechoFinancieroTMPtransferenciasBL
+        {
+            get
+            {
+                if (this.techofinancierotmptransferenciasBL == null)
+                {
+                    this.techofinancierotmptransferenciasBL = new GenericBusinessLogic<TechoFinancieroTMPtransferencias>(contexto);
+                }
+                return this.techofinancierotmptransferenciasBL;
+            }
+        }
 
 
 

@@ -242,6 +242,8 @@
     <Content Include="Formas\POA\EvaluacionPOA.aspx" />
     <Content Include="Formas\POA\frmPOAAjustado.aspx" />
     <Content Include="Formas\POA\POA.aspx" />
+    <Content Include="Formas\POA\POAAjustadoFinanciamiento.aspx" />
+    <Content Include="Formas\POA\POAFinanciamiento.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
     <Content Include="Formas\TechoFin\wfTechoFinanciero.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx" />
@@ -509,6 +511,18 @@
     </Compile>
     <Compile Include="Formas\POA\POA.aspx.designer.cs">
       <DependentUpon>POA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\POAAjustadoFinanciamiento.aspx.cs">
+      <DependentUpon>POAAjustadoFinanciamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\POAAjustadoFinanciamiento.aspx.designer.cs">
+      <DependentUpon>POAAjustadoFinanciamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\POAFinanciamiento.aspx.cs">
+      <DependentUpon>POAFinanciamiento.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\POAFinanciamiento.aspx.designer.cs">
+      <DependentUpon>POAFinanciamiento.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\POA\WebServicePOA.asmx.cs">
       <DependentUpon>WebServicePOA.asmx</DependentUpon>

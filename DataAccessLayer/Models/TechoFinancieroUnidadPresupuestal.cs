@@ -37,6 +37,11 @@ namespace DataAccessLayer.Models
           return (from of in DetalleObraFinanciamiento select of).Sum(of => of.Importe);            
         }
 
+        public decimal GetImporteDisponible()
+        {
+            return Importe - GetImporteAsignado();
+        }
+
         public decimal GetImporteAsignado(int excluirObraFinanciamientoId)
         {
             return (from of in DetalleObraFinanciamiento select of).Where(of=> of.Id!=excluirObraFinanciamientoId).Sum(of => of.Importe);

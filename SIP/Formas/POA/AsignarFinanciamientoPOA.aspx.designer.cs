@@ -13,6 +13,24 @@ namespace SIP.Formas.POA {
     public partial class AsignarFinanciamientoPOA {
         
         /// <summary>
+        /// Control divTechoFinancieroEstatus.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTechoFinancieroEstatus;
+        
+        /// <summary>
+        /// Control GridViewTechoFinanciero.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewTechoFinanciero;
+        
+        /// <summary>
         /// Control divMsg.
         /// </summary>
         /// <remarks>
@@ -56,6 +74,24 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnNuevo;
+        
+        /// <summary>
+        /// Control divlinkPOAFinanciamiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divlinkPOAFinanciamiento;
+        
+        /// <summary>
+        /// Control divlinkPOAAjustadoFinanciamiento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divlinkPOAAjustadoFinanciamiento;
         
         /// <summary>
         /// Control divEdicion.

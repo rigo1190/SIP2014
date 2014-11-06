@@ -30,6 +30,11 @@ namespace DataAccessLayer.Models
                .WithMany(d => d.DetalleUnidadesPresupuestales)
                .HasForeignKey(c => c.UsuarioId);
 
+            modelBuilder.Entity<UsuarioRol>()
+              .HasRequired(c => c.Usuario)
+              .WithMany(d => d.DetalleRoles)
+              .HasForeignKey(c => c.UsuarioId);
+
             modelBuilder.Entity<PlantillaDetalle>()
               .HasRequired(u => u.Plantilla)
               .WithMany(u => u.DetallePreguntas)

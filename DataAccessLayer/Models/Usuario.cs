@@ -9,6 +9,7 @@ namespace DataAccessLayer.Models
         public Usuario()
         {
             this.DetalleUnidadesPresupuestales = new HashSet<UsuarioUnidadPresupuestal>();
+            this.DetalleRoles = new HashSet<UsuarioRol>();
         }
         public int Id { get; set; }
 
@@ -23,6 +24,7 @@ namespace DataAccessLayer.Models
         public string Nombre { get; set; }
         public bool Activo { get; set; }
         public virtual ICollection<UsuarioUnidadPresupuestal> DetalleUnidadesPresupuestales { get; set; }
+        public virtual ICollection<UsuarioRol> DetalleRoles { get; set; }
 
     }
 }

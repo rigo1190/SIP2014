@@ -56,10 +56,12 @@ namespace SIP.Formas.TechoFin
             {
                 divBtnNuevo.Style.Add("display", "none");
                 lblStatus.Text = "Status: Cerrado";
+                idLinkClose.Visible = false;
             }
             else
             {
                 lblStatus.Text = "Status: Abierto para captura";
+                idLinkClose.Visible = true;
             }
                 
                 
@@ -128,8 +130,7 @@ namespace SIP.Formas.TechoFin
 
 
         #endregion
-
-
+        
         #region Eventos
 
 
@@ -380,14 +381,6 @@ namespace SIP.Formas.TechoFin
             Response.Redirect("wfTechoFinancieroUnidadPresupuestal.aspx?id=" + id);
         }
         #endregion
-
-        
-
-
-
-        
-
-
 
 
     }

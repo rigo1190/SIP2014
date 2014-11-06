@@ -38,7 +38,10 @@ namespace SIP
                         Session["Login"] = user.Login;
                         Session["IdUser"] = user.Id.ToString();
 
-                        Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
+                        //Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
+                        Session["UnidadPresupuestalId"] = 1;
+                        Session["EjercicioId"] = 11;
+                        Response.Redirect("~/Formas/POA/POA.aspx");
             }
 
             else

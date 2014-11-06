@@ -12,6 +12,8 @@ namespace DataAccessLayer.Models
         public TechoFinanciero()
         {
             this.detalleUnidadesPresupuestales = new HashSet<TechoFinancieroUnidadPresupuestal>();
+            this.detalleBitacoraMovimientos = new HashSet<TechoFinancieroBitacoraMovimientos>();
+                 
         }
 
         [Index("IX_EjercicioId_FinanciamientoId", 1, IsUnique = true)]
@@ -33,6 +35,7 @@ namespace DataAccessLayer.Models
         }
 
         public virtual ICollection<TechoFinancieroUnidadPresupuestal> detalleUnidadesPresupuestales { get; set; }
+        public virtual ICollection<TechoFinancieroBitacoraMovimientos> detalleBitacoraMovimientos { get; set; }
 
 
     }

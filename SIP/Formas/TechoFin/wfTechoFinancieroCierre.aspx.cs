@@ -26,7 +26,7 @@ namespace SIP.Formas.TechoFin
 
 
                 List<TechoFinanciero> lista = uow.TechoFinancieroBusinessLogic.Get(p => p.EjercicioId == idEjercicio
-                                                                         && p.Importe > p.detalleUnidadesPresupuestales.Sum(q => q.Importe)).ToList();
+                                                                         && p.Importe >  ((p.detalleUnidadesPresupuestales.Count > 0 ) ?p.detalleUnidadesPresupuestales.Sum(q => q.Importe):0)).ToList();
 
 
                 if (lista.Count == 0)
@@ -52,11 +52,46 @@ namespace SIP.Formas.TechoFin
 
             ejercicio = int.Parse(Session["EjercicioId"].ToString());
 
-            TechoFinancieroStatus obj = uow.TechoFinancieroStatusBusinessLogic.Get(p => p.EjercicioId == ejercicio).First();
+            
 
+
+
+            TechoFinancieroBitacora tfBit = new TechoFinancieroBitacora();
+            tfBit.EjercicioId = ejercicio;
+            tfBit.Movimiento = 1;
+            tfBit.Tipo = EnumTipoMovimientoTechoFinanciero.CargaInicial;
+            tfBit.Fecha = DateTime.Now;
+            uow.TechoFinancieroBitacoraBL.Insert(tfBit);
+
+
+            List<TechoFinancieroUnidadPresupuestal> lista = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(p => p.TechoFinanciero.EjercicioId == ejercicio).ToList();
+
+            foreach (TechoFinancieroUnidadPresupuestal elemento in lista) {
+                TechoFinancieroBitacoraMovimientos tfBitMov = new TechoFinancieroBitacoraMovimientos();
+
+                tfBitMov.TechoFinancieroBitacoraId = tfBit.Id;
+                tfBitMov.TechoFinancieroId = elemento.TechoFinancieroId;
+                tfBitMov.UnidadPresupuestalId = elemento.UnidadPresupuestalId;
+                tfBitMov.Incremento = elemento.Importe;
+                tfBitMov.Decremento = 0;
+
+                uow.TechoFinancieroBitacoraMovimientosBL.Insert(tfBitMov);
+
+            }
+
+
+
+            TechoFinancieroStatus obj = uow.TechoFinancieroStatusBusinessLogic.Get(p => p.EjercicioId == ejercicio).First();
             obj.Status = 2;
             uow.TechoFinancieroStatusBusinessLogic.Update(obj);
+
+
             uow.SaveChanges();
+
+            //if (uow.Errors.Count > 0)
+            //    uow = new UnitOfWork();
+
+
 
             Response.Redirect("wfTechoFinanciero.aspx");
 

@@ -117,6 +117,12 @@ namespace DataAccessLayer.Models
         public virtual DbSet<TechoFinanciero> TechoFinanciero { get; set; }
         public virtual DbSet<TechoFinancieroUnidadPresupuestal> TechoFinancieroUnidadPresupuestal { get; set; }
         public virtual DbSet<TechoFinancieroStatus> TechoFinancieroStatus { get; set; }
+        public virtual DbSet<TechoFinancieroBitacora> TechoFinancieroBitacora { get; set; }
+        public virtual DbSet<TechoFinancieroBitacoraMovimientos> TechoFinancieroBitacoraMovimientos { get; set; }
+
+        public virtual DbSet<TechoFinancieroTMPtransferencias> TechoFinancieroTMPtransferencias { get; set; }
+
+
     }
 
 }

@@ -13,6 +13,8 @@ namespace DataAccessLayer.Models
         public UnidadPresupuestal()
         {
             this.DetalleSubUnidadesPresupuestales = new HashSet<UnidadPresupuestal>();
+            this.DetalleTechoFinanciero = new HashSet<TechoFinancieroUnidadPresupuestal>();
+            this.DetalleTechoFinancieroBitacoraMovimientos = new HashSet<TechoFinancieroBitacoraMovimientos>();
         }
 
         [Index(IsUnique = true)]
@@ -32,6 +34,10 @@ namespace DataAccessLayer.Models
         public virtual UnidadPresupuestal Parent { get; set; }
 
         public virtual ICollection<UnidadPresupuestal> DetalleSubUnidadesPresupuestales { get; set; }
+
+        public virtual ICollection<TechoFinancieroUnidadPresupuestal> DetalleTechoFinanciero { get; set; }
+
+        public virtual ICollection<TechoFinancieroBitacoraMovimientos> DetalleTechoFinancieroBitacoraMovimientos { get; set; }
      
     }
 }

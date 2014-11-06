@@ -92,7 +92,7 @@
         </asp:GridView>
 
     
-
+        
     <div id="divBtnNuevo" runat="server">
         <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default"  AutoPostBack="false" OnClick="btnNuevo_Click" />
     </div>

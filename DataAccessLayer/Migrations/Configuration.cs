@@ -34,29 +34,31 @@ namespace DataAccessLayer.Migrations
                 new Rol { Id = 1 , Clave="R001", Nombre="Desarrollador", Orden=1},
                 new Rol { Id = 2 , Clave="R002", Nombre="Ejecutivo", Orden = 2 },
                 new Rol { Id = 3 , Clave="R003", Nombre="Administrador", Orden=3},
-                new Rol { Id = 4 , Clave="R004", Nombre="Capturista", Orden=4}              
+                new Rol { Id = 4 , Clave="R004", Nombre="Capturista", Orden=4},
+                new Rol { Id = 5,  Clave="R005", Nombre="Analista", Orden = 5 }   
             );
                         
 
             context.Usuarios.AddOrUpdate(
 
-               new Usuario { Id = 1, Login = "desarrollador", Password = "desarrollador", Nombre = "Usuario Desarrollador", Activo = true },
-               new Usuario { Id = 2, Login = "ejecutivo", Password = "ejecutivo", Nombre = "Usuario Ejecutivo", Activo = true },
-               new Usuario { Id = 3, Login = "admin", Password = "admin", Nombre = "Usuario Administrador", Activo = true },
-               new Usuario { Id = 4, Login = "sedarpa", Password = "sedarpa", Nombre = "Usuario de SEDARPA", Activo = true },
-               new Usuario { Id = 5, Login = "iiev", Password = "iiev", Nombre = "Usuario de IIEV", Activo = true },
-               new Usuario { Id = 6, Login = "inverbio", Password = "inverbio", Nombre = "Usuario de INVERBIO", Activo = true }               
+               new Usuario { Id = 1, Login = "desarrollador", Password = "desarrollador", Nombre = "Usuario Desarrollador", Activo = true,RolId=1 },
+               new Usuario { Id = 2, Login = "ejecutivo", Password = "ejecutivo", Nombre = "Usuario Ejecutivo", Activo = true, RolId = 2 },
+               new Usuario { Id = 3, Login = "admin", Password = "admin", Nombre = "Usuario Administrador", Activo = true, RolId = 3 },
+               new Usuario { Id = 4, Login = "sedarpa", Password = "sedarpa", Nombre = "Capturista de SEDARPA", Activo = true, RolId = 4 },
+               new Usuario { Id = 5, Login = "iiev", Password = "iiev", Nombre = "Capturista de IIEV", Activo = true, RolId = 4 },
+               new Usuario { Id = 6, Login = "inverbio", Password = "inverbio", Nombre = "Capturista de INVERBIO", Activo = true, RolId = 4 } ,
+               new Usuario { Id = 7, Login = "analista", Password = "analista", Nombre = "Analista en SEFIPLAN", Activo = true, RolId = 5 }               
             );
 
-            context.UsuarioRoles.AddOrUpdate(
+            //context.UsuarioRoles.AddOrUpdate(
 
-                new UsuarioRol { Id = 1, UsuarioId = 1, RolId = 1 },
-                new UsuarioRol { Id = 2, UsuarioId = 2, RolId = 2 },
-                new UsuarioRol { Id = 3, UsuarioId = 3, RolId = 3 },
-                new UsuarioRol { Id = 4, UsuarioId = 4, RolId = 4 },
-                new UsuarioRol { Id = 5, UsuarioId = 5, RolId = 4 },
-                new UsuarioRol { Id = 6, UsuarioId = 6, RolId = 4 }
-            );
+            //    new UsuarioRol { Id = 1, UsuarioId = 1, RolId = 1 },
+            //    new UsuarioRol { Id = 2, UsuarioId = 2, RolId = 2 },
+            //    new UsuarioRol { Id = 3, UsuarioId = 3, RolId = 3 },
+            //    new UsuarioRol { Id = 4, UsuarioId = 4, RolId = 4 },
+            //    new UsuarioRol { Id = 5, UsuarioId = 5, RolId = 4 },
+            //    new UsuarioRol { Id = 6, UsuarioId = 6, RolId = 4 }
+            //);
 
             context.OpcionesSistema.AddOrUpdate(
             

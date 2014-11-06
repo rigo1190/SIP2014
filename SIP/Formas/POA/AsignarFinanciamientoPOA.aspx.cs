@@ -41,9 +41,10 @@ namespace SIP.Formas.POA
             obraNumero = poadetalle.Numero;
             obraDescripcion = poadetalle.Descripcion;
 
+           
+
             if (!IsPostBack) 
-            {                          
-                
+            {
                 BindearDropDownList();
                 BindGrid();
             }
@@ -68,7 +69,21 @@ namespace SIP.Formas.POA
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            ddlTechoFinancieroUnidadPresupuestal.DataSource = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.UnidadPresupuestalId == unidadpresupuestalId & tfup.TechoFinanciero.EjercicioId == ejercicioId);
+            List<int> list_tfupIds=new List<int>();
+
+            Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalleId).FirstOrDefault();
+
+            if (obra != null) 
+            {
+                foreach (var item in obra.DetalleFinanciamientos)
+                {
+                    list_tfupIds.Add(item.TechoFinancieroUnidadPresupuestalId);
+                }
+            }
+
+           
+
+            ddlTechoFinancieroUnidadPresupuestal.DataSource = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.UnidadPresupuestalId == unidadpresupuestalId & tfup.TechoFinanciero.EjercicioId == ejercicioId & !list_tfupIds.Contains(tfup.Id));
             ddlTechoFinancieroUnidadPresupuestal.DataValueField = "Id";
             ddlTechoFinancieroUnidadPresupuestal.DataTextField = "Descripcion";
             ddlTechoFinancieroUnidadPresupuestal.DataBind();
@@ -272,6 +287,7 @@ namespace SIP.Formas.POA
 
             if (uow.Errors.Count == 0)
             {
+                BindearDropDownList();
                 BindGrid();
                 divEdicion.Style.Add("display", "none");
                 divBtnNuevo.Style.Add("display", "block");

@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Text;
 using System.Security.Cryptography;
 using BusinessLogicLayer;
+using DataAccessLayer.Models;
 
 namespace SIP
 {
@@ -15,10 +16,15 @@ namespace SIP
     {
         private UnitOfWork uow;
         public string clave = "3ncript4d4"; // Clave de cifrado.
+        private int ejercicioActivoId;
         
         protected void Page_Load(object sender, EventArgs e)
         {            
-            uow = new UnitOfWork();            
+            uow = new UnitOfWork();
+
+            ejercicioActivoId = uow.EjercicioBusinessLogic.Get(ej => ej.Estatus == enumEstatusEjercicio.Activo).FirstOrDefault().Id; 
+
+
         }
 
         protected void btnEntrar_Click(object sender, EventArgs e)
@@ -38,7 +44,39 @@ namespace SIP
                         Session["Login"] = user.Login;
                         Session["IdUser"] = user.Id.ToString();
 
-                        Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
+                        UsuarioRol usuarioRol=user.DetalleRoles.FirstOrDefault();
+
+                        switch (usuarioRol.RolId) 
+                        {
+                            case 1: //Desarrollador
+
+                                break;
+
+                            case 2: //Ejecutivo
+
+                                break;
+
+                            case 3: //Administrador
+
+                                Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
+                                break;
+
+                            case 4: //Capturista
+
+                                UsuarioUnidadPresupuestal usuarioUp = user.DetalleUnidadesPresupuestales.FirstOrDefault();
+                               
+                                Session["UnidadPresupuestalId"] = usuarioUp.UnidadPresupuestalId;
+                                Session["EjercicioId"] = ejercicioActivoId;     
+                                Response.Redirect("~/Formas/POA/POA.aspx");
+                                break;
+
+                            default:
+
+                                break;
+
+                        }
+
+                      
             }
 
             else

@@ -25,7 +25,7 @@ namespace SIP.Formas.POA
 
             TechoFinancieroStatus tfestatus = uow.TechoFinancieroStatusBusinessLogic.Get(tfe => tfe.EjercicioId == ejercicioId).FirstOrDefault();
 
-            if (tfestatus.Status == 1)
+            if (tfestatus==null || tfestatus.Status == 1)
             {
                 divTechoFinancieroError.Style.Add("display", "block");
                 divTechoFinancieroEstatus.Style.Add("display", "none");
@@ -85,7 +85,7 @@ namespace SIP.Formas.POA
                     if (GridViewPOADetalle.DataKeys[e.Row.RowIndex].Values["Id"] != null)
                     {
                         string url = string.Empty;
-                        url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + GridViewPOADetalle.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
+                        url = "AsignarFinanciamientoPOA.aspx?EnProyecto=true&poadetalleId=" + GridViewPOADetalle.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
                        
                         btnE.Attributes.Add("data-url-poa", url);
 

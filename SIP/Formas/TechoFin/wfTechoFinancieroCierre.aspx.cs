@@ -61,6 +61,8 @@ namespace SIP.Formas.TechoFin
             tfBit.Movimiento = 1;
             tfBit.Tipo = EnumTipoMovimientoTechoFinanciero.CargaInicial;
             tfBit.Fecha = DateTime.Now;
+            tfBit.Oficio = "";
+            tfBit.Observaciones = "Carga Inicial del Techo Financiero Ejercicio" + ejercicio.ToString();
             uow.TechoFinancieroBitacoraBL.Insert(tfBit);
 
 

@@ -1,8 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="wfTechoFinancieroTransferencias.aspx.cs" Inherits="SIP.Formas.TechoFin.wfTechoFinancieroTransferencias" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style type="text/css">
-        .form-control {}
-    </style>
+    
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $('.campoNumerico').autoNumeric('init');
+
+
+
+        });
+
+</script>
+
+
+
+
 </asp:Content>
 
 
@@ -118,9 +133,9 @@
 
                 <div class="col-md-2" >
                     <label>Importe</label>
-                    <input type="text" class="input-sm required" id="txtImporte" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
+                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
-                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe debe ser un valor númerico" ValidationGroup="validateX" MaximumValue="999999999999" MinimumValue="0" Type="Double">*</asp:RangeValidator>
+                        
                 </div>
             
                 <div class="col-md-2">              

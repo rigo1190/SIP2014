@@ -1,18 +1,34 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="wfTechoFinancieroUnidadPresupuestal.aspx.cs" Inherits="SIP.Formas.TechoFin.wfTechoFinancieroUnidadPresupuestal" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-<div id="divEjercicioCerrado" class="panel panel-success" runat="server">
-        <div class="panel-heading">
-            <h3 class="panel-title">El Techo Financiero esta cerrado a su captura</h3>
-        </div>
-    </div>
+ 
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $('.campoNumerico').autoNumeric('init');
+
+
+
+        });
+
+    </script>
+
+    
+    
+    
 </asp:Content>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     
-
+    <div id="divEjercicioCerrado" class="panel panel-success" runat="server">
+        <div class="panel-heading">
+            <h3 class="panel-title">El Techo Financiero esta cerrado a su captura</h3>
+        </div>
+    </div>
 
 
 
@@ -60,9 +76,8 @@
         </div>
         <div class="col-md-4">
             <label>Importe</label><br />
-            <input type="text" class="input-sm required" id="txtImporte" runat="server" style="text-align: left; width:300px;  align-items:flex-start" />
+            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left; width:300px;  align-items:flex-start" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
-            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe debe ser un valor númerico" ValidationGroup="validateX" MaximumValue="999999999999" MinimumValue="0" Type="Double">*</asp:RangeValidator>
 
 
         </div>

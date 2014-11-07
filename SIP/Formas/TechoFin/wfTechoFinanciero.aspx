@@ -122,8 +122,8 @@
         <div class="col-md-2" >
                 <label>Importe</label>
                 <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteEdicion" runat="server" style="text-align: left; align-items:flex-start" />                
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtImporteEdicion" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateY">*</asp:RequiredFieldValidator>
-                    <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="txtImporteEdicion" ErrorMessage="El campo Importe debe ser un valor númerico" ValidationGroup="validateY" MaximumValue="999999999999" MinimumValue="0" Type="Double">*</asp:RangeValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtImporteEdicion" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateY">*</asp:RequiredFieldValidator>
+                    
         </div>
 
 
@@ -164,7 +164,7 @@
                 <label>Importe</label>
                 <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left; align-items:flex-start" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
-                    <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe debe ser un valor númerico" ValidationGroup="validateX" MaximumValue="999999999999" MinimumValue="0" Type="Double">*</asp:RangeValidator>
+                    
             </div>
 
             

@@ -186,12 +186,12 @@
 
                 <div class="col-md-2" >
                     <label>Oficio</label>
-                    <input type="text" class="input-sm required" id="txtOficio" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
+                    <input type="text" class="input-sm required form-control" id="txtOficio" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
                 </div>
             
               <div class="col-md-10" >
-                    <label>Observaciones</label>
-                    <input type="text" class="input-sm required" id="txtObservaciones" runat="server" style="text-align: left; width:800px;  align-items:flex-start" />
+                    <label>Observaciones</label><br />
+                    <input type="text" class="input-sm required form-control" id="txtObservaciones" runat="server" style="text-align: left; align-items:flex-start; width: 757px;" />
                 </div>
             
 

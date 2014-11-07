@@ -620,6 +620,7 @@
     <Compile Include="NavegadorPrincipal.Master.designer.cs">
       <DependentUpon>NavegadorPrincipal.Master</DependentUpon>
     </Compile>
+    <Compile Include="NotasFunciones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

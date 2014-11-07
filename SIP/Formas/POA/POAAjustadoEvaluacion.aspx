@@ -29,6 +29,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
+        <div class="page-header"">
+            <h3>Evaluación de POA Ajustado</h3>
+        </div>
         <div id="divEncabezado" runat="server">
             <div class="row">
                 <div class="panel panel-success">

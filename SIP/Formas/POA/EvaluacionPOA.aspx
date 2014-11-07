@@ -442,6 +442,7 @@
                                             <input id="btnCancelar" disabled="disabled" class="btn btn-default"  runat="server" type="button" onclick="fnc_InhabilitarCampos();" value="Cancelar" />
                                         </div>
                                     </div>
+                                    <p>&nbsp;</p>
                                     <div class="row top-buffer">
                                          <div class="alert alert-danger" runat="server" id="divMsgError" style="display:none">
                                             <asp:Label ID="lblMsgError" EnableViewState="false" runat="server" Text="" CssClass="font-weight:bold"></asp:Label>

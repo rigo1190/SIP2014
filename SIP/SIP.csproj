@@ -247,6 +247,7 @@
     <Content Include="Formas\POA\WebServicePOA.asmx" />
     <Content Include="Formas\TechoFin\wfTechoFinanciero.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx" />
+    <Content Include="Formas\TechoFin\wfTechoFinancieroConsultaXup.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroTransferencias.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroUnidadPresupuestal.aspx" />
     <Content Include="Formas\TEST.aspx" />
@@ -544,6 +545,13 @@
     </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx.designer.cs">
       <DependentUpon>wfTechoFinancieroCierre.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroConsultaXup.aspx.cs">
+      <DependentUpon>wfTechoFinancieroConsultaXup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroConsultaXup.aspx.designer.cs">
+      <DependentUpon>wfTechoFinancieroConsultaXup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinancieroTransferencias.aspx.cs">
       <DependentUpon>wfTechoFinancieroTransferencias.aspx</DependentUpon>

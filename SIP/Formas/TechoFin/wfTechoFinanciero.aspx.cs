@@ -72,7 +72,7 @@ namespace SIP.Formas.TechoFin
             uow = new UnitOfWork();
             var lista = from tf in uow.TechoFinancieroBusinessLogic.Get()
                         where tf.EjercicioId == idEjercicio
-                        select new { tf.Id, tf.Ejercicio, tf.EjercicioId, tf.Financiamiento, tf.FinanciamientoId, tf.Importe, ImporteAsignado = tf.detalleUnidadesPresupuestales.Sum(p => p.Importe), ImportePendiente = tf.Importe - tf.detalleUnidadesPresupuestales.Sum(p => p.Importe) };
+                        select new { tf.Id, tf.Ejercicio, tf.EjercicioId, tf.Financiamiento, tf.FinanciamientoId, tf.Importe, ImporteAsignadoUp = tf.detalleUnidadesPresupuestales.Sum(p => p.Importe), ImporteAsignadoObras = tf.getImporteAsignadoObras()};
 
 
             //this.grid.DataSource = uow.TechoFinancieroBusinessLogic.Get(p=> p.EjercicioId == idEjercicio ,includeProperties:"Financiamiento").ToList();

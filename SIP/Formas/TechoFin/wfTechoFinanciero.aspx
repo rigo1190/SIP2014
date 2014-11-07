@@ -1,6 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="wfTechoFinanciero.aspx.cs" Inherits="SIP.Formas.TechoFin.wfTechoFinanciero" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('.campoNumerico').autoNumeric('init');
+
+
+
+    });
+
+</script>
 </asp:Content>
 
 
@@ -69,15 +82,15 @@
                     </asp:TemplateField>
 
 
-                    <asp:TemplateField HeaderText="Importe Asignado">
+                    <asp:TemplateField HeaderText="Asignado a U.P.">
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignado")).ToString("c") %>   
+                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignadoUP")).ToString("c") %>   
                         </ItemTemplate>                        
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="Importe Pendiente">
+                    <asp:TemplateField HeaderText="Asignado a Obras">
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImportePendiente")).ToString("c") %>   
+                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignadoObras")).ToString("c") %>   
                         </ItemTemplate>                        
                     </asp:TemplateField>
 
@@ -108,8 +121,8 @@
 
         <div class="col-md-2" >
                 <label>Importe</label>
-                <input type="text" class="input-sm required" id="txtImporteEdicion" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtImporteEdicion" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateY">*</asp:RequiredFieldValidator>
+                <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteEdicion" runat="server" style="text-align: left; align-items:flex-start" />                
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtImporteEdicion" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateY">*</asp:RequiredFieldValidator>
                     <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="txtImporteEdicion" ErrorMessage="El campo Importe debe ser un valor númerico" ValidationGroup="validateY" MaximumValue="999999999999" MinimumValue="0" Type="Double">*</asp:RangeValidator>
         </div>
 
@@ -149,7 +162,7 @@
 
             <div class="col-md-2" >
                 <label>Importe</label>
-                <input type="text" class="input-sm required" id="txtImporte" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
+                <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left; align-items:flex-start" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
                     <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe debe ser un valor númerico" ValidationGroup="validateX" MaximumValue="999999999999" MinimumValue="0" Type="Double">*</asp:RangeValidator>
             </div>

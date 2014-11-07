@@ -34,6 +34,11 @@ namespace DataAccessLayer.Models
             }
         }
 
+        public decimal getImporteAsignadoObras()
+        {
+            return (from dup in detalleUnidadesPresupuestales select dup).Sum(dup => dup.GetImporteAsignado());            
+        }
+
         public virtual ICollection<TechoFinancieroUnidadPresupuestal> detalleUnidadesPresupuestales { get; set; }
         public virtual ICollection<TechoFinancieroBitacoraMovimientos> detalleBitacoraMovimientos { get; set; }
 

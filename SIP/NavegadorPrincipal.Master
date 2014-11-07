@@ -80,6 +80,7 @@
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento</a></li>
                                   <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento en POA ajustado</a></li>
+				 <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoEvaluacion.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
                              </ul>
                           </li>
 

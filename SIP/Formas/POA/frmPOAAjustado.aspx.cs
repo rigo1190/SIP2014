@@ -36,12 +36,8 @@ namespace SIP.Formas.POA
                 Ejercicio ejercicio = uow.EjercicioBusinessLogic.GetByID(ejercicioId); 
 
                 lblTituloPOA.Text = String.Format("{0}<br />Proyecto de POA ajustado en el ejercicio {1}",up.Nombre,ejercicio.Año);
-                
-                InsertarTitulosNuevasColumnas(); //Se insertan nuevas columnas, realativas a la evaluacion de plantillas
 
                 BindGrid();
-
-                InsertarNuevasCeldas(columnsInicial); //Se insertan los botnes necesarios para ir a la EVALUACION de la obra
 
                 BindearDropDownList();
 
@@ -49,93 +45,6 @@ namespace SIP.Formas.POA
 
         }
 
-
-        /// <summary>
-        /// Metodo encargado de crear nuevos encabezados de columnas, realtivos a la evaluacion de plantillas por cada obra
-        /// Creado por Rigoberto TS
-        /// 20/10/2014
-        /// </summary>
-        private void InsertarTitulosNuevasColumnas()
-        {
-            List<Plantilla> list = GetPlantillas(); //Se obtienen las plantillas exitentes en el catalogo
-            
-            if (list.Count > 0)
-            {
-                foreach (Plantilla p in list)
-                {
-                    TemplateField colNew = new TemplateField(); //Se agrega la columna, una por cada plantilla existente
-                    colNew.HeaderText = p.Descripcion;
-                    GridViewObras.Columns.Add(colNew);
-                }
-                
-                
-            }
-        }
-
-        /// <summary>
-        /// Metodo encargado de agregar los botones necesarios por cada fila del grid, se construye la URL de la pagina de Evaluacion
-        /// Creado por Rigoberto TS
-        /// 20/10/2014
-        /// </summary>
-        /// <param name="columnsInicial">A partir de donde se empieza a agregar la celda a la fila</param>
-        private void InsertarNuevasCeldas(int columnsInicial)
-        {
-            List<Plantilla> list = GetPlantillas();
-
-            int inicio;
-
-            foreach (GridViewRow row in GridViewObras.Rows) //Se lee cada fila del GRID de OBraS
-            {
-                string id = GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString(); //Se obtiene el ID
-
-                if (list.Count > 0)
-                {
-                    inicio = columnsInicial;
-                    foreach (Plantilla p in list)
-                    {
-                        TableCell cell1 = new TableCell();
-                        string url = "EvaluacionPOA.aspx?ob=" + id + "&pd=0&o=";
-
-                        HtmlButton button = new HtmlButton();
-                        HtmlGenericControl spanButton = new HtmlGenericControl("span");
-                        
-                        //Se construye el BOTON
-                        button.ID = "btn" + p.Orden;
-                        button.Attributes.Add("class", "btn btn-default");
-                        button.Attributes.Add("data-tipo-operacion", "evaluar");
-                        button.Attributes.Add("runat", "server");
-                        url += p.Orden.ToString(); //SE AGREGA PARAMETRO DE ORDEN a la URL
-                        button.Attributes.Add("data-url-poa", url);
-
-                        spanButton.Attributes.Add("class", "glyphicon glyphicon-ok");
-                        button.Controls.Add(spanButton);
-
-                        cell1.Controls.Add(button);
-
-                        row.Cells.AddAt(inicio, cell1); //Se agrega la celda a la fila
-
-                        inicio++;
-                    }
-                    
-
-                }
-
-                row.Cells.RemoveAt(row.Cells.Count - 1);
-
-            }
-        }
-
-        /// <summary>
-        /// Metodo encargado de obtener las PLANTILLAS PADDRE del catalogo de plantillas
-        /// Creado por Rigoberto TS
-        /// 20/10/2014
-        /// </summary>
-        /// <returns></returns>
-        private List<Plantilla> GetPlantillas()
-        {
-            List<Plantilla> list = uow.PlantillaBusinessLogic.Get(e => e.DependeDeId == null).ToList();
-            return list;
-        }
 
         private void BindGrid()
         {
@@ -240,9 +149,6 @@ namespace SIP.Formas.POA
             ddlProgramaPresupuesto.SelectedIndex = -1;
             ddlGrupoBeneficiario.SelectedIndex = -1;
 
-            int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
-            InsertarNuevasCeldas(inicio);
-
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
@@ -261,8 +167,6 @@ namespace SIP.Formas.POA
             Obra obra = uow.ObraBusinessLogic.GetByID(currentId);
 
             BindControles(obra);
-            int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
-            InsertarNuevasCeldas(inicio);
 
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
@@ -291,9 +195,6 @@ namespace SIP.Formas.POA
                 divBtnNuevo.Style.Add("display", "block");
                 
                 BindGrid();
-
-                int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
-                InsertarNuevasCeldas(inicio);
             }
             else
             {
@@ -431,9 +332,6 @@ namespace SIP.Formas.POA
                 uow = new UnitOfWork(Session["IdUser"].ToString());
 
                 BindGrid();
-
-                int inicio = GridViewObras.Columns.Count - GetPlantillas().Count;
-                InsertarNuevasCeldas(inicio);
 
                 divEdicion.Style.Add("display", "none");
                 divBtnNuevo.Style.Add("display", "block");

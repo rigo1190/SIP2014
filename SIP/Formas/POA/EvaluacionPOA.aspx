@@ -181,7 +181,9 @@
         //Creado por Rigoberto TS
         //15/10/2014
         function fnc_AbrirArchivo(ruta, id) {
-            window.open(ruta + '?i=' + id, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,menubar=no,width=750,height=600,top=0');
+            var izq = (screen.width - 750) / 2
+            var sup = (screen.height - 600) / 2
+            window.open(ruta + '?i=' + id, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=750,height=500,top=' + sup + ',left=' + izq);
         }
 
 
@@ -248,14 +250,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
     <div class="container">
-       
-      
-        <div class="page-header"">
-            <h3>Evaluación de POA</h3>
+         <div class="page-header"">
+            
+                <h3>Evaluación de POA</h3>
+            
+                <asp:LinkButton ID="idLinkClose" runat="server" PostBackUrl="~/Formas/POA/POAAjustadoEvaluacion.aspx">Regresar a Listado de POA Ajustado</asp:LinkButton>
+            
         </div>
-
-
-           <div class="row">
+         <div class="row">
             <div class="container-fluid">
                 <div id="divMenu" runat="server">
                     <ul class="nav nav-tabs nav-justified panel-success">
@@ -265,8 +267,7 @@
                 </div>
             </div>
         </div>
-
-           <div id="divDatos" runat="server">
+         <div id="divDatos" runat="server">
             <div class="container-fluid">
                 <div class="row">
                     <div class="panel panel-success">
@@ -317,8 +318,7 @@
                 </div>
             </div>
         </div>
-
-           <div class="row">
+         <div class="row">
             <div id="divEvaluacion" style="display:none" runat="server">
                 <div class="container-fluid">
                     <div class="panel panel-success">
@@ -460,8 +460,7 @@
                 </div> 
             </div>
         </div>
-
-           <div runat="server" style="display:none">
+         <div runat="server" style="display:none">
             <input type="hidden" runat="server" id="_IDPlantilla" />
             <input type="hidden" runat="server" id="_IDPOADetalle" />
             <input type="hidden" runat="server" id="_IDPregunta" />
@@ -470,14 +469,7 @@
             <input type="hidden" runat="server" id="_PageIndex" />
           
        </div>
-
-
-       
-
-       
-
-   </div>
-    
+    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">

@@ -242,6 +242,7 @@
     <Content Include="Formas\POA\EvaluacionPOA.aspx" />
     <Content Include="Formas\POA\frmPOAAjustado.aspx" />
     <Content Include="Formas\POA\POA.aspx" />
+    <Content Include="Formas\POA\POAAjustadoEvaluacion.aspx" />
     <Content Include="Formas\POA\POAAjustadoFinanciamiento.aspx" />
     <Content Include="Formas\POA\POAFinanciamiento.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
@@ -513,6 +514,13 @@
     </Compile>
     <Compile Include="Formas\POA\POA.aspx.designer.cs">
       <DependentUpon>POA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\POAAjustadoEvaluacion.aspx.cs">
+      <DependentUpon>POAAjustadoEvaluacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\POA\POAAjustadoEvaluacion.aspx.designer.cs">
+      <DependentUpon>POAAjustadoEvaluacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\POA\POAAjustadoFinanciamiento.aspx.cs">
       <DependentUpon>POAAjustadoFinanciamiento.aspx</DependentUpon>

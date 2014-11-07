@@ -57,14 +57,14 @@
                         AutoGenerateColumns="false">
                         <Columns>
                             <asp:DynamicField DataField="Id" Visible="false"/>
-                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción"/>
-                            <asp:DynamicField DataField="Importe" HeaderText="Techo financiero" DataFormatString="{0:C}"/>                                                                    
-                            <asp:TemplateField HeaderText="Asignado">
+                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-CssClass="panel-footer"/>
+                            <asp:DynamicField DataField="Importe" HeaderText="Techo financiero"  HeaderStyle-CssClass="panel-footer" DataFormatString="{0:C}"/>                                                                    
+                            <asp:TemplateField HeaderText="Asignado" HeaderStyle-CssClass="panel-footer">
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteAsignado()) %>' runat="server" />
                               </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Disponible">
+                            <asp:TemplateField HeaderText="Disponible" HeaderStyle-CssClass="panel-footer">
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
                               </ItemTemplate>
@@ -83,9 +83,9 @@
                         AutoGenerateColumns="false">
                         <Columns>
                             <asp:DynamicField DataField="POADetalleId" Visible="false"/> 
-                            <asp:DynamicField DataField="Numero" HeaderText="Número"/>                          
-                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción"/>                                                                                              
-                            <asp:TemplateField HeaderText="Importe Asignado">
+                            <asp:DynamicField DataField="Numero" HeaderText="Número" HeaderStyle-CssClass="panel-footer"/>                          
+                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-CssClass="panel-footer"/>                                                                                              
+                            <asp:TemplateField HeaderText="Importe Asignado" HeaderStyle-CssClass="panel-footer">
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteAsignado()) %>' runat="server" />
                               </ItemTemplate>

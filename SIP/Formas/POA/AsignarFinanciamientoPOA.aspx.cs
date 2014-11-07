@@ -69,21 +69,32 @@ namespace SIP.Formas.POA
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            List<int> list_tfupIds=new List<int>();
-
-            Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalleId).FirstOrDefault();
-
-            if (obra != null) 
+            if (_Accion.Text.Equals("N"))
             {
-                foreach (var item in obra.DetalleFinanciamientos)
+
+                List<int> list_tfupIds = new List<int>();
+
+                Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalleId).FirstOrDefault();
+
+                if (obra != null)
                 {
-                    list_tfupIds.Add(item.TechoFinancieroUnidadPresupuestalId);
+                    foreach (var item in obra.DetalleFinanciamientos)
+                    {
+                        list_tfupIds.Add(item.TechoFinancieroUnidadPresupuestalId);
+                    }
                 }
+
+                ddlTechoFinancieroUnidadPresupuestal.DataSource = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.UnidadPresupuestalId == unidadpresupuestalId & tfup.TechoFinanciero.EjercicioId == ejercicioId & !list_tfupIds.Contains(tfup.Id));
+
             }
+            else 
+            {
 
+                ddlTechoFinancieroUnidadPresupuestal.DataSource = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.UnidadPresupuestalId == unidadpresupuestalId & tfup.TechoFinanciero.EjercicioId == ejercicioId);
+
+            }
            
-
-            ddlTechoFinancieroUnidadPresupuestal.DataSource = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.UnidadPresupuestalId == unidadpresupuestalId & tfup.TechoFinanciero.EjercicioId == ejercicioId & !list_tfupIds.Contains(tfup.Id));
+            //ddlTechoFinancieroUnidadPresupuestal.DataSource = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.UnidadPresupuestalId == unidadpresupuestalId & tfup.TechoFinanciero.EjercicioId == ejercicioId & !list_tfupIds.Contains(tfup.Id));
             ddlTechoFinancieroUnidadPresupuestal.DataValueField = "Id";
             ddlTechoFinancieroUnidadPresupuestal.DataTextField = "Descripcion";
             ddlTechoFinancieroUnidadPresupuestal.DataBind();
@@ -102,17 +113,20 @@ namespace SIP.Formas.POA
         {
             //Se limpian los controles
 
+            _Accion.Text = "N";
+
             ddlTechoFinancieroUnidadPresupuestal.SelectedIndex = -1;
             txtImporte.Text = String.Empty;                       
 
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
-            _Accion.Text = "N";
+            
         }
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
         {
+            _Accion.Text = "A";
 
             GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
             _ID.Text = GridViewObraFinanciamiento.DataKeys[row.RowIndex].Values["Id"].ToString();
@@ -121,12 +135,13 @@ namespace SIP.Formas.POA
 
             ObraFinanciamiento obrafinanciamiento = uow.ObraFinanciamientoBusinessLogic.GetByID(currentId);
 
+            BindearDropDownList();
             BindControles(obrafinanciamiento);
 
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
-            _Accion.Text = "A";
+           
         }
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)

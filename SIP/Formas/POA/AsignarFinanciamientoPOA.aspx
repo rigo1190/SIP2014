@@ -94,14 +94,14 @@
                         AutoGenerateColumns="false">
                         <Columns>
                             <asp:DynamicField DataField="Id" Visible="false"/>
-                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción"/>
-                            <asp:DynamicField DataField="Importe" HeaderText="Techo financiero" DataFormatString="{0:C}"/>                                                                    
-                            <asp:TemplateField HeaderText="Asignado">
+                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-CssClass="panel-footer"/>
+                            <asp:DynamicField DataField="Importe" HeaderText="Techo financiero" HeaderStyle-CssClass="panel-footer" DataFormatString="{0:C}"/>                                                                    
+                            <asp:TemplateField HeaderText="Asignado" HeaderStyle-CssClass="panel-footer">
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteAsignado()) %>' runat="server" />
                               </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Disponible">
+                            <asp:TemplateField HeaderText="Disponible" HeaderStyle-CssClass="panel-footer">
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
                               </ItemTemplate>
@@ -117,7 +117,7 @@
 
 
 
-        <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
+        <div class="panel-footer alert alert-danger strong" id="divMsg" style="display:none" runat="server">
            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
         </div>
 
@@ -155,10 +155,10 @@
               <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
               <hr />
               <div id="divlinkPOAFinanciamiento" style="display:none" runat="server">
-                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> regresar</a>
+                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> regresar al Anteproyecto de POA</a>
               </div>
               <div id="divlinkPOAAjustadoFinanciamiento" style="display:none" runat="server">
-                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> regresar</a>
+                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> regresar al proyecto de POA ajustado</a>
               </div>              
               
         </div>

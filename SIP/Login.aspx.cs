@@ -18,6 +18,7 @@ namespace SIP
         public string clave = "3ncript4d4"; // Clave de cifrado.
         private int ejercicioActivoId;
         
+
         protected void Page_Load(object sender, EventArgs e)
         {            
             uow = new UnitOfWork();
@@ -44,9 +45,9 @@ namespace SIP
                         Session["Login"] = user.Login;
                         Session["IdUser"] = user.Id.ToString();
 
-                        UsuarioRol usuarioRol=user.DetalleRoles.FirstOrDefault();
+                        //UsuarioRol usuarioRol=user.DetalleRoles.FirstOrDefault();
 
-                        switch (usuarioRol.RolId) 
+                        switch (user.RolId) 
                         {
                             case 1: //Desarrollador
 
@@ -68,6 +69,11 @@ namespace SIP
                                 Session["UnidadPresupuestalId"] = usuarioUp.UnidadPresupuestalId;
                                 Session["EjercicioId"] = ejercicioActivoId;     
                                 Response.Redirect("~/Formas/POA/POA.aspx");
+                                break;
+
+                            case 5: //Analista
+
+                                Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
                                 break;
 
                             default:

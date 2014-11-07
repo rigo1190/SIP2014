@@ -492,7 +492,8 @@ namespace DataAccessLayer.Migrations
          );
 
           context.TechoFinancieroStatus.AddOrUpdate(
-            new TechoFinancieroStatus { Id = 1, EjercicioId = 7, Status=1 }          
+            new TechoFinancieroStatus { Id = 1, EjercicioId = 6, Status=2 } ,
+            new TechoFinancieroStatus { Id = 2, EjercicioId = 7, Status = 1 }   
           );
                       
 

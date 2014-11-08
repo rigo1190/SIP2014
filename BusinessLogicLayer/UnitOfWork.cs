@@ -21,6 +21,7 @@ namespace BusinessLogicLayer
         private IBusinessLogic<UsuarioUnidadPresupuestal> usuarioUnidadPresupuestalBusinessLogic;
         private IBusinessLogic<Ejercicio> ejercicioBusinessLogic;
         private IBusinessLogic<Municipio> municipioBusinessLogic;
+        private IBusinessLogic<Localidad> localidadBusinessLogic;
         private IBusinessLogic<Fondo> fondoBusinessLogic;
         private IBusinessLogic<ModalidadFinanciamiento> modalidadFinanciamientoBusinessLogic;
         private IBusinessLogic<Año> añoBusinessLogic;
@@ -171,6 +172,19 @@ namespace BusinessLogicLayer
                 }
 
                 return municipioBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<Localidad> LocalidadBusinessLogic
+        {
+            get
+            {
+                if (this.localidadBusinessLogic == null)
+                {
+                    this.localidadBusinessLogic = new GenericBusinessLogic<Localidad>(contexto);
+                }
+
+                return localidadBusinessLogic;
             }
         }
 

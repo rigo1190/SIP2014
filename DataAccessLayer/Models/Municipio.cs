@@ -10,6 +10,11 @@ namespace DataAccessLayer.Models
 {
     public class Municipio:Generica
     {
+        public Municipio() 
+        {
+            this.DetalleLocalidades = new HashSet<Localidad>();
+        }
+
         [Index(IsUnique = true)]
         [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string Clave { get; set; }
@@ -18,7 +23,8 @@ namespace DataAccessLayer.Models
         public string Nombre { get; set; }
 
         [Index(IsUnique = true)]
-        public int Orden { get; set; }       
+        public int Orden { get; set; }
+        public virtual ICollection<Localidad> DetalleLocalidades { get; set; }
 
     }
 }

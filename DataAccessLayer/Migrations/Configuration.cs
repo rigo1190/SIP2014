@@ -27,7 +27,7 @@ namespace DataAccessLayer.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
+                       
            
             context.Roles.AddOrUpdate(
             
@@ -50,15 +50,7 @@ namespace DataAccessLayer.Migrations
                new Usuario { Id = 7, Login = "analista", Password = "analista", Nombre = "Analista en SEFIPLAN", Activo = true, RolId = 5 }               
             );
 
-            //context.UsuarioRoles.AddOrUpdate(
-
-            //    new UsuarioRol { Id = 1, UsuarioId = 1, RolId = 1 },
-            //    new UsuarioRol { Id = 2, UsuarioId = 2, RolId = 2 },
-            //    new UsuarioRol { Id = 3, UsuarioId = 3, RolId = 3 },
-            //    new UsuarioRol { Id = 4, UsuarioId = 4, RolId = 4 },
-            //    new UsuarioRol { Id = 5, UsuarioId = 5, RolId = 4 },
-            //    new UsuarioRol { Id = 6, UsuarioId = 6, RolId = 4 }
-            //);
+           
 
             context.OpcionesSistema.AddOrUpdate(
             
@@ -85,16 +77,9 @@ namespace DataAccessLayer.Migrations
             );            
             
 
-            context.Ejercicios.AddOrUpdate(
-
-               new Ejercicio { Id = 1, Año = 2009, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
-               new Ejercicio { Id = 2, Año = 2010, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
-               new Ejercicio { Id = 3, Año = 2011, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
-               new Ejercicio { Id = 4, Año = 2012, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
-               new Ejercicio { Id = 5, Año = 2013, FactorIva = 1.5M, Estatus = enumEstatusEjercicio.Cerrado },
-               new Ejercicio { Id = 6, Año = 2014, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Activo  },
-               new Ejercicio { Id = 7, Año = 2015, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Nuevo   }
-               
+            context.Ejercicios.AddOrUpdate(              
+               new Ejercicio { Id = 1, Año = 2014, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Activo  },
+               new Ejercicio { Id = 2, Año = 2015, FactorIva = 1.6M, Estatus = enumEstatusEjercicio.Nuevo   }               
             );
 
             context.UnidadesPresupuestales.AddOrUpdate(
@@ -121,13 +106,25 @@ namespace DataAccessLayer.Migrations
             uinverbio.DetalleUnidadesPresupuestales.Add(new UsuarioUnidadPresupuestal { UnidadPresupuestalId = 5 });
 
 
-
-
             context.Municipios.AddOrUpdate(              
               new Municipio {Id=1,Clave="M001",Nombre="Acajete",Orden=1 },
               new Municipio {Id=2,Clave="M002",Nombre="Acatlán",Orden=2 },
               new Municipio {Id=3,Clave="M003",Nombre="Acayucan",Orden=3 },
               new Municipio {Id=4,Clave="M004",Nombre="Actopan",Orden=4 }              
+            );
+
+            context.Localidades.AddOrUpdate(
+                new Localidad { Id = 1, Nombre = "Primer localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 1 },
+                new Localidad { Id = 2, Nombre = "Segunda localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 1 },
+                new Localidad { Id = 3, Nombre = "Tercera localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 3, MunicipioId = 1 },
+                new Localidad { Id = 4, Nombre = "Primer localidad de Acatlán", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 2 },
+                new Localidad { Id = 5, Nombre = "Segunda localidad de Acatlán", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 2 },
+                new Localidad { Id = 6, Nombre = "Primer localidad de Acayucan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 3 },
+                new Localidad { Id = 7, Nombre = "Primer localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 4 },
+                new Localidad { Id = 8, Nombre = "Segunda localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 4 },
+                new Localidad { Id = 9, Nombre = "Tercera localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 3, MunicipioId = 4 },
+                new Localidad { Id = 10, Nombre = "Cuarta localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 4, MunicipioId = 4 }
+
             );
 
             context.TiposLocalidad.AddOrUpdate(
@@ -175,18 +172,7 @@ namespace DataAccessLayer.Migrations
               new Año { Id = 8 ,Anio = 2015 }
              
           );
-
-           //var list = from año in context.Años.Local
-           //           from mf in context.ModalidadesFinanciamiento.Local
-           //           from f in context.Fondos.Local
-           //           select new { año, mf, f };
-
-           //foreach (var item in list)
-           //{
-           //    context.Financiamientos.Local.Add(new Financiamiento { Año = item.año, ModalidadFinanciamiento = item.mf, Fondo = item.f });
-           //}
-
-
+          
            context.Financiamientos.AddOrUpdate(
              new Financiamiento { Id = 1,  AñoId = 6, FondoId = 1, ModalidadFinanciamientoId = 1 }, 
              new Financiamiento { Id = 2,  AñoId = 6, FondoId = 1, ModalidadFinanciamientoId = 2 },   
@@ -492,123 +478,10 @@ namespace DataAccessLayer.Migrations
          );
 
           context.TechoFinancieroStatus.AddOrUpdate(
-            new TechoFinancieroStatus { Id = 1, EjercicioId = 6, Status=2 } ,
-            new TechoFinancieroStatus { Id = 2, EjercicioId = 7, Status = 1 }   
-          );
-                      
-
-         // context.TechoFinanciero.AddOrUpdate(
-         //   new TechoFinanciero { Id = 1, EjercicioId = 7, FinanciamientoId = 2, Importe = 10000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } ,
-         //   new TechoFinanciero { Id = 2, EjercicioId = 7, FinanciamientoId = 9, Importe = 12000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 } 
-         // );
-
-         //context.TechoFinancieroUnidadPresupuestal.AddOrUpdate(
-         //  new TechoFinancieroUnidadPresupuestal { Id = 1, TechoFinancieroId = 1, UnidadPresupuestalId = 1, Importe = 3000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-         //  new TechoFinancieroUnidadPresupuestal { Id = 2, TechoFinancieroId = 2, UnidadPresupuestalId = 1, Importe = 4500, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-         //  new TechoFinancieroUnidadPresupuestal { Id = 3, TechoFinancieroId = 1, UnidadPresupuestalId = 2, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-         //  new TechoFinancieroUnidadPresupuestal { Id = 4, TechoFinancieroId = 1, UnidadPresupuestalId = 3, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-         //  new TechoFinancieroUnidadPresupuestal { Id = 5, TechoFinancieroId = 1, UnidadPresupuestalId = 4, Importe = 2000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 },
-         //  new TechoFinancieroUnidadPresupuestal { Id = 6, TechoFinancieroId = 1, UnidadPresupuestalId = 5, Importe = 1000, tmpImporteAsignado = 0, tmpImporteEjecutado = 0 }
-         //); 
-
-         // POA poa2013 = new POA { Id = 1, UnidadPresupuestalId = 1, EjercicioId = 5 };  
-         // POA poa2014 = new POA { Id = 2, UnidadPresupuestalId = 1, EjercicioId = 7 };
-
-         // POADetalle poadetalle2013_001 = new POADetalle();
-         // poadetalle2013_001.Consecutivo = 1;
-         // poadetalle2013_001.Numero = "102S110012013001";
-         // poadetalle2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-         // poadetalle2013_001.MunicipioId = 1;
-         // poadetalle2013_001.Localidad = "Alguna localidad en Acajete";
-         // poadetalle2013_001.TipoLocalidadId = 1;
-         // poadetalle2013_001.SituacionObraId = 1;
-         // poadetalle2013_001.ModalidadObra = enumModalidadObra.Contrato;          
-         // poadetalle2013_001.ImporteTotal = 3000;
-         // poadetalle2013_001.ImporteLiberadoEjerciciosAnteriores = 0;
-         // poadetalle2013_001.ImportePresupuesto = 4000;
-         // poadetalle2013_001.AperturaProgramaticaId = 22;
-         // poadetalle2013_001.AperturaProgramaticaMetaId = 1;
-         // poadetalle2013_001.NumeroBeneficiarios = 25;
-         // poadetalle2013_001.CantidadUnidades = 17;
-         // poadetalle2013_001.Empleos = 10;
-         // poadetalle2013_001.Jornales = 15;
-         // poadetalle2013_001.FuncionalidadId = 16;
-         // poadetalle2013_001.EjeId = 5;
-         // poadetalle2013_001.PlanSectorialId = 1;
-         // poadetalle2013_001.ModalidadId = 5;
-         // poadetalle2013_001.ProgramaId = 1;
-         // poadetalle2013_001.GrupoBeneficiarioId = 2;
-         // poadetalle2013_001.CriterioPriorizacionId = 1;
-         // poadetalle2013_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012013001";
-
-         // poa2013.Detalles.Add(poadetalle2013_001);
-
-
-         // Obra obra2013_001 = new Obra();
-         // obra2013_001.Consecutivo = 1;
-         // obra2013_001.Numero = "102S110012013001";
-         // obra2013_001.Descripcion = "Demolicion manual de cimentación de concreto armado con varilla de acero. Incluye: retiro de material a zona de acopio a 1ra estación de 20m.";
-         // obra2013_001.MunicipioId = 1;
-         // obra2013_001.Localidad = "Alguna localidad en Acajete";
-         // obra2013_001.TipoLocalidadId = 1;
-         // obra2013_001.SituacionObraId = 1;
-         // obra2013_001.ModalidadObra = enumModalidadObra.Contrato;
-         // obra2013_001.FechaInicio = new DateTime(2013, 01, 30);
-         // obra2013_001.FechaTermino = new DateTime(2013, 09, 16);        
-         // obra2013_001.ImporteTotal = 12348700;
-         // obra2013_001.ImporteLiberadoEjerciciosAnteriores = 10200000;
-         // obra2013_001.ImportePresupuesto = 15000000;
-         // obra2013_001.AperturaProgramaticaId = 22;
-         // obra2013_001.AperturaProgramaticaMetaId = 1;
-         // obra2013_001.NumeroBeneficiarios = 25;
-         // obra2013_001.CantidadUnidades = 18;
-         // obra2013_001.Empleos = 10;
-         // obra2013_001.Jornales = 15;
-         // obra2013_001.FuncionalidadId = 16;
-         // obra2013_001.EjeId = 5;
-         // obra2013_001.PlanSectorialId = 1;
-         // obra2013_001.ModalidadId = 5;
-         // obra2013_001.ProgramaId = 1;
-         // obra2013_001.GrupoBeneficiarioId = 2;
-         // obra2013_001.CriterioPriorizacionId = 1;
-         // obra2013_001.Observaciones = "Estas son las observaciones de la obra cuyo número es 102S110012013001";
-
-         // obra2013_001.POA = poa2013;
-         // obra2013_001.POADetalle = poadetalle2013_001;
-
-         // context.Obras.Add(obra2013_001); 
-              
-
-         // POADetalle poadetalle2014_001 = new POADetalle();
-         // poadetalle2014_001.Consecutivo = 1;
-         // poadetalle2014_001.Numero = "102S110012014001";
-         // poadetalle2014_001.Descripcion = "CONSTRUCCION DEL CAMINO JALACINGO-OCAMPO-COLIHUI (3A. ETAPA) DEL KM. 2+300 AL KM. 4+800.";
-         // poadetalle2014_001.MunicipioId = 1;
-         // poadetalle2014_001.Localidad = "Alguna localidad en Acajete";
-         // poadetalle2014_001.TipoLocalidadId = 1;
-         // poadetalle2014_001.SituacionObraId = 1;
-         // poadetalle2014_001.ModalidadObra = enumModalidadObra.Contrato;         
-         // poadetalle2014_001.ImporteTotal = 3000;
-         // poadetalle2014_001.ImporteLiberadoEjerciciosAnteriores = 0;
-         // poadetalle2014_001.ImportePresupuesto = 4000;
-         // poadetalle2014_001.AperturaProgramaticaId = 22;
-         // poadetalle2014_001.AperturaProgramaticaMetaId = 1;
-         // poadetalle2014_001.NumeroBeneficiarios = 25;
-         // poadetalle2014_001.CantidadUnidades = 17;
-         // poadetalle2014_001.Empleos = 10;
-         // poadetalle2014_001.Jornales = 15;
-         // poadetalle2014_001.FuncionalidadId = 16;
-         // poadetalle2014_001.EjeId = 5;
-         // poadetalle2014_001.PlanSectorialId = 1;
-         // poadetalle2014_001.ModalidadId = 5;
-         // poadetalle2014_001.ProgramaId = 1;
-         // poadetalle2014_001.GrupoBeneficiarioId = 2;
-         // poadetalle2014_001.CriterioPriorizacionId = 1;
-         // poadetalle2014_001.Observaciones = "Observaciones del proyecto de obra cuyo número es 102S110012014001";
-
-         // poa2014.Detalles.Add(poadetalle2014_001);
-
-         // context.POA.Add(poa2014);
+            new TechoFinancieroStatus { Id = 1, EjercicioId = 1, Status = 2 } ,
+            new TechoFinancieroStatus { Id = 2, EjercicioId = 2, Status = 1 }   
+          );                      
+                    
 
           context.SaveChanges();
 

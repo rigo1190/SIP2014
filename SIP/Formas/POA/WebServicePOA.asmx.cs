@@ -257,6 +257,44 @@ namespace SIP.Formas.POA
 
         }
 
+        [WebMethod(EnableSession = true)]
+        public CascadingDropDownNameValue[] GetMunicipios(string knownCategoryValues, string category)
+        {
+            if (uow == null) uow = new UnitOfWork();          
+
+            List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
+
+            var municipios = uow.MunicipioBusinessLogic.Get(orderBy: ap => ap.OrderBy(r => r.Orden));
+
+            foreach (var item in municipios)
+            {
+                list.Add(new CascadingDropDownNameValue { name = item.Nombre, value = item.Id.ToString() });
+            }
+
+            return list.ToArray();
+
+        }
+
+        [WebMethod(EnableSession = true)]
+        public CascadingDropDownNameValue[] GetLocalidades(string knownCategoryValues, string category)
+        {
+            if (uow == null) uow = new UnitOfWork();         
+
+            List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
+
+            int municipioId = Utilerias.StrToInt(CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues)["municipioId"]);
+
+            var localidades = uow.LocalidadBusinessLogic.Get(l => l.MunicipioId==municipioId, orderBy: ap => ap.OrderBy(r => r.Orden));
+
+            foreach (var item in localidades)
+            {
+                list.Add(new CascadingDropDownNameValue { name = item.Nombre, value = item.Id.ToString() });
+            }
+
+            return list.ToArray();
+
+        }
+
 
 
 

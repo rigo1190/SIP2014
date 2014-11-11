@@ -30,6 +30,6 @@ namespace DataAccessLayer.Models
 
     public enum EnumTipoMovimientoTechoFinanciero
     {
-        CargaInicial = 0, Transferencia = 1
+        CargaInicial = 0, Transferencia = 1, NuevoFondo = 2
     }
 }

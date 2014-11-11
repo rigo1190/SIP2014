@@ -1,4 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NavegadorPrincipal.master.cs" Inherits="SIP.NavegadorPrincipal" %>
+﻿
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NavegadorPrincipal.master.cs" Inherits="SIP.NavegadorPrincipal" %>
 
 <!DOCTYPE html>
 
@@ -24,6 +25,7 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>   
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
 
 </head>
 <body>
@@ -67,10 +69,10 @@
                              <ul class="dropdown-menu">
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinanciero.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Techo Financiero</a></li>                                  
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroTransferencias.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Transferencias</a></li>
-                                 <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroTransferencias.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Cargar Nuevo Financiamiento</a></li>                                  
+                                 <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroNuevoFondo.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Cargar Nuevo Financiamiento</a></li>                                  
                                  <li>-.-</li>
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroConsultaXup.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Consultar Saldos X Unidad Presupuestal</a></li>                                  
-                                  <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinanciero.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Consultar Bitacora de Movimientos</a></li>                         
+                                  <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroBitacora.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Consultar Bitacora de Movimientos</a></li>                         
                              </ul>
                           </li>
 

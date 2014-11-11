@@ -83,6 +83,8 @@ namespace SIP.Formas.TechoFin
 
             if (ddlUP.Items.Count == 0) { btnAdd.Enabled = false; } else { btnAdd.Enabled = true; }
 
+
+
         }
 
 

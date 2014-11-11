@@ -20,13 +20,26 @@ namespace SIP.Formas.TechoFin
 
             divMsgFail.Style.Add("display","none");
             divMsgSuccess.Style.Add("display", "none");
-            
+
+            int idEjercicio = 0;
 
             if (!IsPostBack)
             {
                 BindCombos();
                 divTransferencia.Style.Add("display", "none");
                 divNuevo.Style.Add("display", "none");
+
+
+                idEjercicio = int.Parse(Session["EjercicioId"].ToString());
+                List<TechoFinancieroStatus> lista = uow.TechoFinancieroStatusBusinessLogic.Get(p => p.EjercicioId == idEjercicio && p.Status == 2).ToList();
+
+
+                if (lista.Count == 0)
+                {
+                    divDatos.Style.Add("display", "none");
+                }
+
+
             }
 
 

@@ -23,12 +23,15 @@
                  
                  switch (strOperacion) {
 
-                        case "EDITAR":                           
+                       case "EDITAR":                           
                            return true;
                            break;
                        case "BORRAR":
                            return confirm("¿Está seguro de eliminar el registro?");
                            break
+                       case "DETALLE":
+                          return true;
+                          break;
                        default:
                            break;
                    }
@@ -36,6 +39,23 @@
                    return false;
 
              });
+
+
+             $('[data-toggle="tabdetalle"]').click(function (e) {
+                 var $this = $(this),
+                     loadurl = $this.attr('href'),
+                     targ = $this.attr('data-target');
+
+                 $.get(loadurl, function (data) {
+                     $(targ).html(data);
+                 });
+
+                 $this.tab('show');
+                 return false;
+             });
+
+
+
              
 
 
@@ -59,9 +79,9 @@
                 return false;
             }
 
-             var localidad = $("#<%=txtLocalidad.ClientID%>").val();
-             if (localidad == null || localidad.length == 0 || localidad == undefined) {
-                 alert("El campo Localidad no puede estar vacio");
+             var localidad = $("#<%= ddlLocalidad.ClientID %>").val();
+             if (localidad == null || localidad.length == 0 || localidad == undefined || localidad == 0) {
+                 alert("Debe indicar la localidad");
                  return false;
              }
 
@@ -117,19 +137,7 @@
              if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
                  alert("El campo Importe total no puede estar vacio");
                  return false;
-             }
-
-             var importeLiberado = $("#<%= txtCostoLiberadoEjerciciosAnteriores.ClientID %>").val();
-             if (importeLiberado == null || importeLiberado.length == 0 || importeLiberado == undefined) {
-                 alert("El campo <Costo liberado en ejercicios anteriores> no puede estar vacio");
-                 return false;
-             }
-
-             var importePresupuesto = $("#<%= txtPresupuestoEjercicio.ClientID %>").val();
-             if (importePresupuesto == null || importePresupuesto.length == 0 || importePresupuesto == undefined) {
-                 alert("El campo <Presupuesto del ejercicio> no puede estar vacio");
-                 return false;
-             }
+             }          
 
              var subfuncion = $("#<%= ddlSubFuncion.ClientID %>").val();
              if (subfuncion == null || subfuncion.length == 0 || subfuncion == undefined || subfuncion == 0) {
@@ -207,11 +215,9 @@
             <Columns>
 
                        <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
-                            <ItemTemplate>
-                                                    
+                            <ItemTemplate>                               
                                 <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" data-tipo-operacion="editar"/>
                                 <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" data-tipo-operacion="borrar"/>
-
                             </ItemTemplate>                         
                         </asp:TemplateField>     
                                          
@@ -235,9 +241,8 @@
 
         <div id="divBtnNuevo" runat="server" style="display:block">
               <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
-         </div>
-
-      
+        </div>
+              
     
         <div id="divEdicion" runat="server" class="panel-footer" style="display:none">
             
@@ -272,20 +277,31 @@
                             <textarea id="txtDescripcion" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" autofocus></textarea>
                         </div>
                       </div>
-
+                   
                      <div class="form-group">
                            <label for="Municipio">Municipio</label>
                          <div>
                              <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
+                             <ajaxToolkit:CascadingDropDown ID="cddlMunicipio" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetMunicipios" 
+                                 TargetControlID="ddlMunicipio" Category="municipioId"
+                                 PromptText="Seleccione el Municipio..." LoadingText="Loading..."/>                           
+                            
                         </div>
                       </div>
 
-                      <div class="form-group">
+                     <div class="form-group">
                            <label for="Localidad">Localidad</label>
                          <div>
-                            <input type="text" class="input-sm required form-control" id="txtLocalidad" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" />
+                             <asp:DropDownList ID="ddlLocalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
+                             <ajaxToolkit:CascadingDropDown ID="cddlLocalidad" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetLocalidades" 
+                                 TargetControlID="ddlLocalidad" ParentControlID="ddlMunicipio" Category="localidadId"
+                                 PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
+                                                     
                         </div>
                       </div>
+
 
                      <div class="form-group">
                            <label for="TipoLocalidad">Tipo de localidad</label>
@@ -407,24 +423,6 @@
                             <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
                         </div>
                       </div>
-
-                      <div class="form-group">
-                           <label for="txtCostoLiberadoEjerciciosAnteriores">Costo liberado en ejercicios anteriores</label>
-                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCostoLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" />
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="txtPresupuestoEjercicio">Presupuesto del ejercicio</label>
-                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtPresupuestoEjercicio" runat="server" style="text-align: left; align-items:flex-start" />
-                        </div>
-                      </div>
-
-
 
                      <div class="form-group">
                            <label for="Observaciones">Observaciones</label>
@@ -605,6 +603,8 @@
                      
 
        </div><!--divEdicion-->
+
+
 
     </div><!--div class="container"-->
                       

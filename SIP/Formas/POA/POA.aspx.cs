@@ -31,28 +31,13 @@ namespace SIP.Formas.POA
                 lblTituloPOA.Text = String.Format("{0} <br /> Anteproyecto de POA para el ejercicio {1}",up.Nombre,uow.EjercicioBusinessLogic.GetByID(ejercicioId).Año);
                 BindGrid();
                 BindearDropDownList();
-
-                //InsertarInformacionEvaluaciones();
-
+               
             }
             
         }
        
         private void BindGrid()
-        {
-            //TemplateField tf = new TemplateField();
-            //tf.HeaderStyle.CssClass = "panel-footer";
-            //tf.HeaderText = "Evaluaciones";
-            //tf.ItemStyle.CssClass = "col-md-5";
-            //tf.ItemStyle.HorizontalAlign = HorizontalAlign.Center;
-            //tf.ItemStyle.VerticalAlign = VerticalAlign.Middle;
-            //GridViewObras.Columns.Add(tf);
-
-            //tf = new TemplateField();
-            //tf.HeaderStyle.CssClass = "panel-footer";
-            //tf.HeaderText = "Financiamiento";
-            //tf.ItemStyle.CssClass = "col-md-1";
-            //GridViewObras.Columns.Add(tf);
+        {            
 
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
@@ -63,14 +48,7 @@ namespace SIP.Formas.POA
         }
 
         private void BindearDropDownList()
-        {
-
-            ddlMunicipio.DataSource = uow.MunicipioBusinessLogic.Get().ToList();
-            ddlMunicipio.DataValueField = "Id";
-            ddlMunicipio.DataTextField = "Nombre";
-            ddlMunicipio.DataBind();
-
-            ddlMunicipio.Items.Insert(0, new ListItem("Seleccione...", "0"));
+        {           
 
             ddlTipoLocalidad.DataSource = uow.TipoLocalidadBusinessLogic.Get().ToList();
             ddlTipoLocalidad.DataValueField = "Id";
@@ -101,14 +79,7 @@ namespace SIP.Formas.POA
             ddlPlanSectorial.DataTextField = "Descripcion";
             ddlPlanSectorial.DataBind();
 
-            ddlPlanSectorial.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
-            //ddlClasificacionProgramaticaCONAC.DataSource = uow.ModalidadBusinessLogic.Get(m => m.ParentId == null).ToList();
-            //ddlClasificacionProgramaticaCONAC.DataValueField = "Id";
-            //ddlClasificacionProgramaticaCONAC.DataTextField = "Descripcion";
-            //ddlClasificacionProgramaticaCONAC.DataBind();
-
-            //ddlClasificacionProgramaticaCONAC.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            ddlPlanSectorial.Items.Insert(0, new ListItem("Seleccione...", "0"));           
 
             ddlProgramaPresupuesto.DataSource = uow.ProgramaBusinessLogic.Get();
             ddlProgramaPresupuesto.DataValueField = "Id";
@@ -131,7 +102,8 @@ namespace SIP.Formas.POA
 
             txtNumero.Value = poadetalle.Numero;
             txtDescripcion.Value = poadetalle.Descripcion;
-            ddlMunicipio.SelectedValue = poadetalle.MunicipioId.ToString();
+            cddlMunicipio.SelectedValue = poadetalle.MunicipioId.ToString();
+            cddlLocalidad.SelectedValue = poadetalle.LocalidadId.ToString();
             ddlTipoLocalidad.SelectedValue = poadetalle.TipoLocalidadId.ToString();
             ddlCriterioPriorizacion.SelectedValue = poadetalle.CriterioPriorizacionId.ToString();
 
@@ -140,16 +112,14 @@ namespace SIP.Formas.POA
             cddlSubsubprograma.SelectedValue = poadetalle.AperturaProgramaticaId.ToString();
             cddlMeta.SelectedValue = poadetalle.AperturaProgramaticaMetaId.ToString();
                                  
-            txtLocalidad.Value = poadetalle.Localidad;            
+                    
             txtNumeroBeneficiarios.Value = poadetalle.NumeroBeneficiarios.ToString();
             txtCantidadUnidades.Value = poadetalle.CantidadUnidades.ToString();
             txtEmpleos.Value = poadetalle.Empleos.ToString();
             txtJornales.Value = poadetalle.Jornales.ToString();
             ddlSituacionObra.SelectedValue = poadetalle.SituacionObraId.ToString();
             ddlModalidad.SelectedValue = ((int)poadetalle.ModalidadObra).ToString();
-            txtImporteTotal.Value = poadetalle.ImporteTotal.ToString();
-            txtCostoLiberadoEjerciciosAnteriores.Value = poadetalle.ImporteLiberadoEjerciciosAnteriores.ToString();
-            txtPresupuestoEjercicio.Value = poadetalle.ImportePresupuesto.ToString();
+            txtImporteTotal.Value = poadetalle.ImporteTotal.ToString();                    
             txtObservaciones.Value = poadetalle.Observaciones;
            
             cddlFuncionalidadNivel1.SelectedValue = poadetalle.Funcionalidad.Parent.ParentId.ToString();
@@ -175,9 +145,9 @@ namespace SIP.Formas.POA
 
             txtNumero.Value = String.Empty;
             txtDescripcion.Value = String.Empty;
-            ddlMunicipio.SelectedIndex = -1;
+            cddlMunicipio.SelectedValue = String.Empty;
             ddlCriterioPriorizacion.SelectedIndex = -1;
-            txtLocalidad.Value = String.Empty;
+            cddlLocalidad.SelectedValue = String.Empty;
             ddlTipoLocalidad.SelectedIndex = -1;          
          
             cddlPrograma.SelectedValue = String.Empty;
@@ -191,9 +161,8 @@ namespace SIP.Formas.POA
             txtJornales.Value = String.Empty;
             ddlSituacionObra.SelectedIndex = -1;
             ddlModalidad.SelectedIndex = -1;
-            txtImporteTotal.Value = String.Empty;
-            txtCostoLiberadoEjerciciosAnteriores.Value = String.Empty;
-            txtPresupuestoEjercicio.Value = String.Empty;
+            txtImporteTotal.Value = String.Empty;          
+           
 
             txtObservaciones.Value = String.Empty;                      
 
@@ -231,7 +200,19 @@ namespace SIP.Formas.POA
 
             BindControles(poadetalle);
 
-            divEdicion.Style.Add("display", "block");
+            Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalle.Id).FirstOrDefault();
+
+            if (obra == null)
+            {
+                HabilitarDesHabilitarControles(true);
+            }
+            else 
+            {
+                HabilitarDesHabilitarControles(false);
+            }
+
+
+            divEdicion.Style.Add("display", "block");           
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             _Accion.Text = "A";
@@ -306,7 +287,7 @@ namespace SIP.Formas.POA
             poadetalle.Numero = txtNumero.Value;
             poadetalle.Descripcion = txtDescripcion.Value;
             poadetalle.MunicipioId = Utilerias.StrToInt(ddlMunicipio.SelectedValue);
-            poadetalle.Localidad = txtLocalidad.Value;
+            poadetalle.LocalidadId = Utilerias.StrToInt(ddlLocalidad.SelectedValue);
             poadetalle.TipoLocalidadId = Utilerias.StrToInt(ddlTipoLocalidad.SelectedValue);
             poadetalle.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);            
             poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
@@ -326,9 +307,7 @@ namespace SIP.Formas.POA
 
             poadetalle.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
             poadetalle.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
-            poadetalle.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());   
-            poadetalle.ImporteLiberadoEjerciciosAnteriores = Convert.ToDecimal(txtCostoLiberadoEjerciciosAnteriores.Value.ToString());
-            poadetalle.ImportePresupuesto = Convert.ToDecimal(txtPresupuestoEjercicio.Value.ToString());            
+            poadetalle.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());
             poadetalle.Observaciones = txtObservaciones.InnerText;
             poadetalle.Extemporanea = false;
 
@@ -407,68 +386,88 @@ namespace SIP.Formas.POA
             }
         }
 
-        private void InsertarInformacionEvaluaciones()         
+        private void HabilitarDesHabilitarControles(bool habilitar)
         {
-            string url = string.Empty;
 
-            List<Plantilla> list = uow.PlantillaBusinessLogic.Get(e => e.DependeDeId == null).ToList();
-
-                                  
-            foreach (GridViewRow row in GridViewObras.Rows) 
+            if (habilitar)
             {
-                string id = GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString(); 
+                txtDescripcion.Disabled = false;
+                ddlMunicipio.Enabled = true;
+                ddlLocalidad.Enabled = true;
+                ddlTipoLocalidad.Enabled = true;
+                ddlCriterioPriorizacion.Enabled = true;
 
-                if (list.Count > 0)
-                {
-                    TableCell cell1 = new TableCell();
+                ddlPrograma.Enabled = true;
+                ddlSubprograma.Enabled = true;
+                ddlSubsubprograma.Enabled = true;
+                ddlMeta.Enabled = true;
+                txtNumeroBeneficiarios.Disabled = false;
+                txtCantidadUnidades.Disabled = false;
+                txtEmpleos.Disabled = false;
+                txtJornales.Disabled = false;
 
-                    foreach (Plantilla p in list)
-                    {
-                        
-                        url = "EvaluacionPOA.aspx?p=" + id + "&o=";
+                ddlSituacionObra.Enabled = true;
+                ddlModalidad.Enabled = true;
+                txtImporteTotal.Disabled = false;
+                txtObservaciones.Disabled = false;
 
-                        HtmlButton button = new HtmlButton();
-                        HtmlGenericControl spanButton = new HtmlGenericControl("span");
+                ddlFinalidad.Enabled = true;
+                ddlFuncion.Enabled = true;
+                ddlSubFuncion.Enabled = true;
 
-                        //Se construye el BOTON
-                        button.ID = "btn" + p.Orden;
-                        button.Attributes.Add("class", "btn btn-default");
-                        button.Attributes.Add("data-tipo-operacion", "evaluar");
-                        button.Attributes.Add("runat", "server");
-                        url += p.Orden.ToString(); //SE AGREGA PARAMETRO DE ORDEN a la URL
-                        button.Attributes.Add("data-url-poa", url);
+                ddlEjeAgrupador.Enabled = true;
+                ddlEjeElemento.Enabled = true;
 
-                        spanButton.Attributes.Add("class", "glyphicon glyphicon-ok");
-                        button.Controls.Add(spanButton);
+                ddlPlanSectorial.Enabled = true;
+                ddlModalidadAgrupador.Enabled = true;
+                ddlModalidadElemento.Enabled = true;
 
-                        cell1.Controls.Add(button);                        
-                    }
+                ddlProgramaPresupuesto.Enabled = true;
+                ddlGrupoBeneficiario.Enabled = true;
 
-                    row.Cells.AddAt(3, cell1);
+                btnGuardar.Enabled = true;
+            }
+            else 
+            {
+                txtDescripcion.Disabled = true;
+                ddlMunicipio.Enabled = false;
+                ddlLocalidad.Enabled = false;
+                ddlTipoLocalidad.Enabled = false;
+                ddlCriterioPriorizacion.Enabled = false;
 
-                }
+                ddlPrograma.Enabled = false;
+                ddlSubprograma.Enabled = false;
+                ddlSubsubprograma.Enabled = false;
+                ddlMeta.Enabled = false;
+                txtNumeroBeneficiarios.Disabled = true;
+                txtCantidadUnidades.Disabled = true;
+                txtEmpleos.Disabled = true;
+                txtJornales.Disabled = true;
 
-                row.Cells.RemoveAt(row.Cells.Count - 1);
-      
+                ddlSituacionObra.Enabled = false;
+                ddlModalidad.Enabled = false;
+                txtImporteTotal.Disabled = true;
+                txtObservaciones.Disabled = true;
 
-                TableCell celdafinanciamiento = new TableCell();
-                LinkButton btnfinanciamiento = new LinkButton();
-                btnfinanciamiento.Attributes.Add("class", "btn btn-default glyphicon glyphicon-usd");
-                btnfinanciamiento.Attributes.Add("data-tipo-operacion", "asignarfinanciamiento");                
-                //btnfinanciamiento.Attributes.Add("runat", "server");
-                url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString();
-                btnfinanciamiento.Attributes.Add("data-url-poa", url);               
+                ddlFinalidad.Enabled = false;
+                ddlFuncion.Enabled = false;
+                ddlSubFuncion.Enabled = false;
 
-                celdafinanciamiento.Controls.Add(btnfinanciamiento);
+                ddlEjeAgrupador.Enabled = false;
+                ddlEjeElemento.Enabled = false;
 
-                row.Cells.AddAt(4, celdafinanciamiento);
-                
-                row.Cells.RemoveAt(row.Cells.Count - 1);
-            }                       
+                ddlPlanSectorial.Enabled = false;
+                ddlModalidadAgrupador.Enabled = false;
+                ddlModalidadElemento.Enabled = false;
 
+                ddlProgramaPresupuesto.Enabled = false;
+                ddlGrupoBeneficiario.Enabled = false;
 
+                btnGuardar.Enabled = false;
+            }
+           
         }
-                              
+
     }      
     
 

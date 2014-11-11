@@ -21,7 +21,7 @@ namespace DataAccessLayer.Models
         public string Numero { get; set; }
         public string Descripcion { get; set; }
         public int MunicipioId { get; set; }       
-        public string Localidad { get; set; }
+        public int LocalidadId { get; set; }
         public int TipoLocalidadId { get; set; }
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaTermino { get; set; }  
@@ -36,10 +36,8 @@ namespace DataAccessLayer.Models
         public int Empleos { get; set; }
         public int Jornales { get; set; }
         public int SituacionObraId { get; set; }       
-        public enumModalidadObra ModalidadObra { get; set; }
-        public decimal ImporteTotal { get; set; }
-        public decimal ImporteLiberadoEjerciciosAnteriores { get; set; }
-        public decimal ImportePresupuesto { get; set; }
+        public enumModalidadObra ModalidadObra { get; set; }        
+        public decimal ImporteLiberadoEjerciciosAnteriores { get; set; }     
         public int FuncionalidadId { get; set; }
         public int EjeId { get; set; }
         public int PlanSectorialId { get; set; }
@@ -51,6 +49,7 @@ namespace DataAccessLayer.Models
         public virtual POA POA { get; set; }
         public virtual POADetalle POADetalle { get; set; }
         public virtual Municipio Municipio { get; set; }
+        public virtual Localidad Localidad { get; set; }
         public virtual TipoLocalidad TipoLocalidad { get; set; }
         public virtual AperturaProgramatica AperturaProgramatica { get; set; }
         public virtual AperturaProgramaticaMeta AperturaProgramaticaMeta { get; set; }
@@ -64,16 +63,26 @@ namespace DataAccessLayer.Models
         public virtual CriterioPriorizacion CriterioPriorizacion { get; set; }
         public virtual ICollection<ObraFinanciamiento> DetalleFinanciamientos { get; set; }
 
+        public decimal GetImporteLiberadoEjerciciosAnteriores()
+        {
+            return 0;
+        }
         public decimal GetImporteAsignado()
         {
             return (from of in DetalleFinanciamientos select of).Sum(of => of.Importe);
         }
+        public decimal GetCostoTotal()
+        {
+            return GetImporteLiberadoEjerciciosAnteriores() + GetImporteAsignado();
+        }
+       
 
     }
 
     public enum enumModalidadObra 
     {
         Contrato=1,
+        [Display(Name="Administración directa")]
         AdministracionDirecta=2
     }
 }

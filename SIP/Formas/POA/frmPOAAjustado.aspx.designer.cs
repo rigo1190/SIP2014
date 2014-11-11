@@ -103,13 +103,31 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.WebControls.DropDownList ddlMunicipio;
         
         /// <summary>
-        /// Control txtLocalidad.
+        /// Control cddlMunicipio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtLocalidad;
+        protected global::AjaxControlToolkit.CascadingDropDown cddlMunicipio;
+        
+        /// <summary>
+        /// Control ddlLocalidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLocalidad;
+        
+        /// <summary>
+        /// Control cddlLocalidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CascadingDropDown cddlLocalidad;
         
         /// <summary>
         /// Control ddlTipoLocalidad.

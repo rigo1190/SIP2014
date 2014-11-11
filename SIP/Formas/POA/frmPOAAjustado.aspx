@@ -64,7 +64,7 @@
                 return false;
             }
 
-            var localidad = $("#<%=txtLocalidad.ClientID%>").val();
+            var localidad = $("#<%= ddlLocalidad.ClientID %>").val();
              if (localidad == null || localidad.length == 0 || localidad == undefined) {
                  alert("El campo Localidad no puede estar vacio");
                  return false;
@@ -173,6 +173,18 @@
              }
 
 
+             var fechaInicio = $("#<%= txtFechaInicio.ClientID %>").val();
+             var fechaTermino = $("#<%= txtFechaTermino.ClientID %>").val();
+             if (IsDate(fechaInicio) & IsDate(fechaTermino))
+             {                
+                 if (fechaTermino <= fechaInicio) {
+                     alert("La fecha de término debe ser posterior a la fecha de inicio");
+                     return false;
+                 }
+             }
+             
+
+
              return true;
 
          }
@@ -190,6 +202,12 @@
 
          function fnc_IrDesdeGrid(url) {
              $(location).attr('href', url);
+         }
+
+         function IsDate(dateString)
+         {
+             date = new Date(dateString);
+             return date instanceof Date && !isNaN(date.valueOf());
          }
 
 
@@ -218,23 +236,17 @@
                             </ItemTemplate>                         
                         </asp:TemplateField>     
                                          
-                       <asp:TemplateField HeaderText="Numero" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
+                       <asp:TemplateField HeaderText="Número" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
                             <ItemTemplate>
                                 <asp:Label ID="LabelNumero" runat="server" Text='<%# Bind("Numero") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
 
-                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-8" HeaderStyle-CssClass="panel-footer">                            
+                       <asp:TemplateField HeaderText="Descripción" ItemStyle-CssClass="col-md-8" HeaderStyle-CssClass="panel-footer">                            
                             <ItemTemplate>
                                 <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                             </ItemTemplate>
-                        </asp:TemplateField>
-                      <%--  <asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
-                            <ItemTemplate>
-                                <button type="button" id="btnFinanciamiento" data-tipo-operacion="asignarfinanciamiento" runat="server" class="btn btn-default"> <span class="glyphicon glyphicon-usd"></span></button> 
-                            </ItemTemplate>                          
-                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="50px" />                                            
-                        </asp:TemplateField>--%>
+                        </asp:TemplateField>                     
                 
             </Columns>
                     
@@ -269,20 +281,44 @@
                  <div class="col-md-4">
 
                       <div class="form-group">
-                           <label for="Numero">Numero</label>
+                           <label for="Numero">Número</label>
                          <div>
                             <input type="text" class="input-sm required form-control" id="txtNumero" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled"/>                           
                         </div>
                       </div>
 
                      <div class="form-group">
-                           <label for="Descripcion">Descripcion</label>
+                           <label for="Descripcion">Descripción</label>
                          <div>
                             <textarea id="txtDescripcion" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" autofocus></textarea>
                         </div>
                       </div>
 
                      <div class="form-group">
+                           <label for="Municipio">Municipio</label>
+                         <div>
+                             <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
+                             <ajaxToolkit:CascadingDropDown ID="cddlMunicipio" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetMunicipios" 
+                                 TargetControlID="ddlMunicipio" Category="municipioId"
+                                 PromptText="Seleccione el Municipio..." LoadingText="Loading..."/>                           
+                            
+                        </div>
+                      </div>
+
+                     <div class="form-group">
+                           <label for="Localidad">Localidad</label>
+                         <div>
+                             <asp:DropDownList ID="ddlLocalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
+                             <ajaxToolkit:CascadingDropDown ID="cddlLocalidad" runat="server" 
+                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetLocalidades" 
+                                 TargetControlID="ddlLocalidad" ParentControlID="ddlMunicipio" Category="localidadId"
+                                 PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
+                                                     
+                        </div>
+                      </div>
+
+                     <%--<div class="form-group">
                            <label for="Municipio">Municipio</label>
                          <div>
                              <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
@@ -294,7 +330,7 @@
                          <div>
                             <input type="text" class="input-sm required form-control" id="txtLocalidad" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" />
                         </div>
-                      </div>
+                      </div>--%>
 
                      <div class="form-group">
                            <label for="TipoLocalidad">Tipo de localidad</label>
@@ -427,7 +463,7 @@
                            <label for="txtImporteTotal">Costo total</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
                         </div>
                       </div>
 
@@ -435,7 +471,7 @@
                            <label for="txtCostoLiberadoEjerciciosAnteriores">Costo liberado en ejercicios anteriores</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCostoLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" />
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCostoLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
                         </div>
                       </div>
 
@@ -443,7 +479,7 @@
                            <label for="txtPresupuestoEjercicio">Presupuesto del ejercicio</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtPresupuestoEjercicio" runat="server" style="text-align: left; align-items:flex-start" />
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtPresupuestoEjercicio" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
                         </div>
                       </div>
 

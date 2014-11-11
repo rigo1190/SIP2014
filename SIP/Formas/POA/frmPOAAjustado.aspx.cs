@@ -61,7 +61,8 @@ namespace SIP.Formas.POA
 
             txtNumero.Value = obra.Numero;
             txtDescripcion.Value = obra.Descripcion;
-            ddlMunicipio.SelectedValue = obra.MunicipioId.ToString();
+            cddlMunicipio.SelectedValue = obra.MunicipioId.ToString();
+            cddlLocalidad.SelectedValue = obra.LocalidadId.ToString();
             ddlTipoLocalidad.SelectedValue = obra.TipoLocalidadId.ToString();
             ddlCriterioPriorizacion.SelectedValue = obra.CriterioPriorizacionId.ToString();
 
@@ -69,8 +70,7 @@ namespace SIP.Formas.POA
             cddlSubprograma.SelectedValue = obra.AperturaProgramatica.ParentId.ToString();
             cddlSubsubprograma.SelectedValue = obra.AperturaProgramaticaId.ToString();
             cddlMeta.SelectedValue = obra.AperturaProgramaticaMetaId.ToString();
-
-            txtLocalidad.Value = obra.Localidad;
+                       
 
             txtFechaInicio.Value =String.Format("{0:d}",obra.FechaInicio);
             txtFechaTermino.Value = String.Format("{0:d}", obra.FechaTermino);
@@ -81,9 +81,9 @@ namespace SIP.Formas.POA
             txtJornales.Value = obra.Jornales.ToString();
             ddlSituacionObra.SelectedValue = obra.SituacionObraId.ToString();
             ddlModalidad.SelectedValue = ((int)obra.ModalidadObra).ToString();
-            txtImporteTotal.Value = obra.ImporteTotal.ToString();
+            txtImporteTotal.Value = obra.GetCostoTotal().ToString();
             txtCostoLiberadoEjerciciosAnteriores.Value = obra.ImporteLiberadoEjerciciosAnteriores.ToString();
-            txtPresupuestoEjercicio.Value = obra.ImportePresupuesto.ToString();
+            txtPresupuestoEjercicio.Value = obra.GetImporteAsignado().ToString();
             txtObservaciones.Value = obra.Observaciones;
 
             cddlFuncionalidadNivel1.SelectedValue = obra.Funcionalidad.Parent.ParentId.ToString();
@@ -109,9 +109,9 @@ namespace SIP.Formas.POA
 
             txtNumero.Value = String.Empty;
             txtDescripcion.Value = String.Empty;
-            ddlMunicipio.SelectedIndex = -1;
+            cddlMunicipio.SelectedValue = String.Empty;
             ddlCriterioPriorizacion.SelectedIndex = -1;
-            txtLocalidad.Value = String.Empty;
+            cddlLocalidad.SelectedValue = String.Empty;
             ddlTipoLocalidad.SelectedIndex = -1;
 
             txtFechaInicio.Value = String.Empty;
@@ -246,7 +246,7 @@ namespace SIP.Formas.POA
             obra.Numero = txtNumero.Value;
             obra.Descripcion = txtDescripcion.Value;
             obra.MunicipioId = Utilerias.StrToInt(ddlMunicipio.SelectedValue);
-            obra.Localidad = txtLocalidad.Value;
+            obra.LocalidadId = Utilerias.StrToInt(ddlLocalidad.SelectedValue);
             obra.TipoLocalidadId = Utilerias.StrToInt(ddlTipoLocalidad.SelectedValue);
             obra.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);           
             obra.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
@@ -265,14 +265,23 @@ namespace SIP.Formas.POA
 
             
             obra.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
-            obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
-            obra.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());
-            obra.ImporteLiberadoEjerciciosAnteriores = Convert.ToDecimal(txtCostoLiberadoEjerciciosAnteriores.Value.ToString());
-            obra.ImportePresupuesto = Convert.ToDecimal(txtPresupuestoEjercicio.Value.ToString());
+            obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);           
+            obra.ImporteLiberadoEjerciciosAnteriores = Convert.ToDecimal(txtCostoLiberadoEjerciciosAnteriores.Value.ToString());          
             obra.Observaciones = txtObservaciones.InnerText;
 
-            obra.FechaInicio = Convert.ToDateTime(txtFechaInicio.Value);
-            obra.FechaTermino = Convert.ToDateTime(txtFechaTermino.Value);
+            obra.FechaInicio = null;
+            obra.FechaTermino = null;
+
+            if (txtFechaInicio.Value != String.Empty) 
+            {
+                obra.FechaInicio=Convert.ToDateTime(txtFechaInicio.Value);
+            }
+
+            if (txtFechaTermino.Value != String.Empty)
+            {
+                obra.FechaTermino = Convert.ToDateTime(txtFechaTermino.Value);
+            }
+            
 
             if (_Accion.Text.Equals("N"))
             {
@@ -302,10 +311,7 @@ namespace SIP.Formas.POA
 
 
                 poadetalle.SituacionObraId = obra.SituacionObraId;
-                poadetalle.ModalidadObra = obra.ModalidadObra;
-                poadetalle.ImporteTotal = obra.ImporteTotal;
-                poadetalle.ImporteLiberadoEjerciciosAnteriores = obra.ImporteLiberadoEjerciciosAnteriores;
-                poadetalle.ImportePresupuesto = obra.ImportePresupuesto;
+                poadetalle.ModalidadObra = obra.ModalidadObra;               
                 poadetalle.Observaciones = obra.Observaciones;
                 poadetalle.Extemporanea = true;
                 poadetalle.POA = poa;                

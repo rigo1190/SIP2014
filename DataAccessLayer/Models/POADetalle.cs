@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
@@ -18,7 +13,7 @@ namespace DataAccessLayer.Models
         public string Numero { get; set; }
         public string Descripcion { get; set; }
         public int MunicipioId { get; set; }
-        public string Localidad { get; set; }
+        public int LocalidadId { get; set; }
         public int TipoLocalidadId { get; set; }              
 
         [Index("IX_Consecutivo_POAId", 2)]
@@ -31,9 +26,7 @@ namespace DataAccessLayer.Models
         public int Jornales { get; set; }
         public int SituacionObraId { get; set; }
         public enumModalidadObra ModalidadObra { get; set; }
-        public decimal ImporteTotal { get; set; }
-        public decimal ImporteLiberadoEjerciciosAnteriores { get; set; }
-        public decimal ImportePresupuesto { get; set; }
+        public decimal ImporteTotal { get; set; }      
         public int FuncionalidadId { get; set; }
         public int EjeId { get; set; }
         public int PlanSectorialId { get; set; }
@@ -45,6 +38,7 @@ namespace DataAccessLayer.Models
         public bool Extemporanea { get; set; }
         public virtual POA POA { get; set; }
         public virtual Municipio Municipio { get; set; }
+        public virtual Localidad Localidad{ get; set; }
         public virtual TipoLocalidad TipoLocalidad { get; set; }
         public virtual AperturaProgramatica AperturaProgramatica { get; set; }
         public virtual AperturaProgramaticaMeta AperturaProgramaticaMeta { get; set; }

@@ -100,6 +100,8 @@
 
                         <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
        </asp:GridView>
+         <br />
+        <a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al proyecto de POA ajustado</strong></a>
 
     </div>
 

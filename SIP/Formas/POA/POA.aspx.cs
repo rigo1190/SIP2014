@@ -33,7 +33,7 @@ namespace SIP.Formas.POA
                 BindearDropDownList();
                
             }
-            
+                        
         }
        
         private void BindGrid()
@@ -119,6 +119,8 @@ namespace SIP.Formas.POA
             txtJornales.Value = poadetalle.Jornales.ToString();
             ddlSituacionObra.SelectedValue = poadetalle.SituacionObraId.ToString();
             ddlModalidad.SelectedValue = ((int)poadetalle.ModalidadObra).ToString();
+            txtNumeroAnterior.Value = poadetalle.NumeroAnterior;
+            txtImporteLiberadoEjerciciosAnteriores.Value= poadetalle.ImporteLiberadoEjerciciosAnteriores.ToString();
             txtImporteTotal.Value = poadetalle.ImporteTotal.ToString();                    
             txtObservaciones.Value = poadetalle.Observaciones;
            
@@ -181,6 +183,8 @@ namespace SIP.Formas.POA
             ddlProgramaPresupuesto.SelectedIndex = -1;
             ddlGrupoBeneficiario.SelectedIndex = -1;
 
+            HabilitarDesHabilitarControles(true);
+
             divEdicion.Style.Add("display", "block");
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
@@ -197,7 +201,7 @@ namespace SIP.Formas.POA
             currentId = Convert.ToInt32(GridViewObras.DataKeys[row.RowIndex].Values["Id"].ToString());
 
             POADetalle poadetalle = uow.POADetalleBusinessLogic.GetByID(currentId);
-
+            
             BindControles(poadetalle);
 
             Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalle.Id).FirstOrDefault();
@@ -216,6 +220,9 @@ namespace SIP.Formas.POA
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             _Accion.Text = "A";
+
+
+            AjaxControlToolkit.ToolkitScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "", "fnc_ocultarDivObraAnterior();", true);
         }
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)
@@ -308,6 +315,8 @@ namespace SIP.Formas.POA
             poadetalle.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
             poadetalle.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
             poadetalle.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());
+            poadetalle.NumeroAnterior = txtNumeroAnterior.Value;
+            poadetalle.ImporteLiberadoEjerciciosAnteriores = Utilerias.StrToDecimal(txtImporteLiberadoEjerciciosAnteriores.Value.ToString());
             poadetalle.Observaciones = txtObservaciones.InnerText;
             poadetalle.Extemporanea = false;
 
@@ -409,6 +418,8 @@ namespace SIP.Formas.POA
                 ddlSituacionObra.Enabled = true;
                 ddlModalidad.Enabled = true;
                 txtImporteTotal.Disabled = false;
+                txtImporteLiberadoEjerciciosAnteriores.Disabled = false;
+                txtNumeroAnterior.Disabled = false;
                 txtObservaciones.Disabled = false;
 
                 ddlFinalidad.Enabled = true;
@@ -447,6 +458,8 @@ namespace SIP.Formas.POA
                 ddlSituacionObra.Enabled = false;
                 ddlModalidad.Enabled = false;
                 txtImporteTotal.Disabled = true;
+                txtImporteLiberadoEjerciciosAnteriores.Disabled = true;
+                txtNumeroAnterior.Disabled = true;
                 txtObservaciones.Disabled = true;
 
                 ddlFinalidad.Enabled = false;
@@ -467,6 +480,8 @@ namespace SIP.Formas.POA
             }
            
         }
+
+        
 
     }      
     

@@ -265,13 +265,22 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.WebControls.DropDownList ddlSituacionObra;
         
         /// <summary>
-        /// Control ddlModalidad.
+        /// Control txtNumeroAnterior.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlModalidad;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtNumeroAnterior;
+        
+        /// <summary>
+        /// Control txtImporteLiberadoEjerciciosAnteriores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtImporteLiberadoEjerciciosAnteriores;
         
         /// <summary>
         /// Control txtImporteTotal.
@@ -281,6 +290,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtImporteTotal;
+        
+        /// <summary>
+        /// Control ddlModalidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlModalidad;
         
         /// <summary>
         /// Control txtObservaciones.

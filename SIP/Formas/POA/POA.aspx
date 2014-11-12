@@ -54,6 +54,26 @@
                  return false;
              });
 
+             $("#<%= ddlSituacionObra.ClientID   %>").change(function (e) {
+                                
+                 var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
+
+                 switch(valorseleccionado)
+                 {
+                     case "0":
+                         $("#divDatosObraAnterior").css("display", "none");
+                         break;
+                     case "1":
+                         $("#divDatosObraAnterior").css("display", "none");
+                         break;
+                     default:
+                         $("#divDatosObraAnterior").css("display", "block");
+                         break;
+                 }
+                
+
+             });
+
 
 
              
@@ -189,6 +209,24 @@
 
         function fnc_EjecutarMensaje(mensaje) {
             alert(mensaje);
+        }
+
+        function fnc_ocultarDivObraAnterior()
+        {           
+            var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
+
+            switch (valorseleccionado)
+            {
+                case "0":
+                    $("#divDatosObraAnterior").css("display", "none");
+                    break;
+                case "1":
+                    $("#divDatosObraAnterior").css("display", "none");
+                    break;
+                default:
+                    $("#divDatosObraAnterior").css("display", "block");
+                    break;
+            }
         }
 
         function fnc_IrDesdeGrid(url) {
@@ -409,18 +447,37 @@
                         </div>
                       </div>
 
-                      <div class="form-group">
-                           <label for="ModalidadObra">Modalidad de ejecución</label>
-                         <div>
-                              <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
+                      <div style="display:none" id="divDatosObraAnterior">
+
+                          <div class="form-group">
+                            <label for="Numero">Número anterior</label>
+                            <div>
+                                <input type="text" class="input-sm required form-control" id="txtNumeroAnterior" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" />                           
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                               <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
+                             <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" />
+                            </div>
+                          </div>
+
+                      </div><!--divDatosObraAnterior-->
+
+                     <div class="form-group">
+                           <label for="txtImporteTotal">Costo estimado</label>
+                         <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
                         </div>
                       </div>
 
                      <div class="form-group">
-                           <label for="txtImporteTotal">Costo total</label>
-                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
+                           <label for="ModalidadObra">Modalidad de ejecución</label>
+                         <div>
+                              <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
                       </div>
 

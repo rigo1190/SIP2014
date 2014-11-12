@@ -163,7 +163,9 @@ namespace SIP.Formas.POA
             txtJornales.Value = String.Empty;
             ddlSituacionObra.SelectedIndex = -1;
             ddlModalidad.SelectedIndex = -1;
-            txtImporteTotal.Value = String.Empty;          
+            txtImporteTotal.Value = String.Empty;
+            txtNumeroAnterior.Value = String.Empty;
+            txtImporteLiberadoEjerciciosAnteriores.Value = String.Empty;
            
 
             txtObservaciones.Value = String.Empty;                      
@@ -220,9 +222,8 @@ namespace SIP.Formas.POA
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             _Accion.Text = "A";
-
-
-            AjaxControlToolkit.ToolkitScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "", "fnc_ocultarDivObraAnterior();", true);
+           
+            ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_ocultarDivObraAnterior();", true);
         }
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)

@@ -62,9 +62,13 @@
                  {
                      case "0":
                          $("#divDatosObraAnterior").css("display", "none");
+                         $("#<%= txtNumeroAnterior.ClientID %>").val("");
+                         $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
                          break;
                      case "1":
                          $("#divDatosObraAnterior").css("display", "none");
+                         $("#<%= txtNumeroAnterior.ClientID %>").val("");
+                         $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
                          break;
                      default:
                          $("#divDatosObraAnterior").css("display", "block");
@@ -212,7 +216,8 @@
         }
 
         function fnc_ocultarDivObraAnterior()
-        {           
+        {
+            alert("llamando a metodo fnc_ocultarDivObraAnterior");
             var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
 
             switch (valorseleccionado)

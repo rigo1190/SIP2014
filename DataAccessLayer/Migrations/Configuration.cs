@@ -145,12 +145,41 @@ namespace DataAccessLayer.Migrations
            context.Fondos.AddOrUpdate(
              new Fondo { Id = 1, Clave = "F010", Abreviatura = "FORTAMUNDF", Nombre = "Fondo de Aportaciones para el Fortalecimiento de los Municipios y Demarcaciones Territoriales del Distrito Federal", Orden = 1 },
              new Fondo { Id = 2, Clave = "F020", Abreviatura = "FAIS", Nombre = "Fondo para la Infraestructura Social", Orden = 2 },
-             new Fondo { Id = 3, Clave = "F030", Abreviatura = "Otros", Nombre = "Otros fondos", Orden = 3 }
+             new Fondo { Id = 3, Clave = "F030", Abreviatura = "Otros", Nombre = "Otros fondos", Orden = 3 },
+
+             new Fondo { Id = 6, Clave = "F060", Abreviatura = "FAM", Nombre = "Fondo de Aportaciones Múltiples Educación Básica y Superior", Orden = 5 },
+             new Fondo { Id = 7, Clave = "F070", Abreviatura = "FAFEF", Nombre = "Fondo de Aportaciones para el Fortalecimiento de las Entidades Federativas", Orden = 6 },
+
+             new Fondo { Id = 8, Clave = "F080", Abreviatura = "FONREGION", Nombre = "Fondo Regional", Orden = 7 },
+             new Fondo { Id = 9, Clave = "F090", Abreviatura = "APAZU", Nombre = "Programa de Agua Potable, Alcantarillado y Saneamiento", Orden = 8 },
+             new Fondo { Id = 10, Clave = "F100", Abreviatura = "PROSSAPYS", Nombre = "Programa para la Sustentabilidad de los Servicios de Agua Potable y Saneamiento en Comunidades Rurales", Orden = 9 },
+             new Fondo { Id = 11, Clave = "F110", Abreviatura = "PRODEPI", Nombre = "Programa de Infraestructura Básica para la Atención de los Pueblos Indígenas", Orden = 10 },
+             new Fondo { Id = 12, Clave = "F120", Abreviatura = "FOISSA", Nombre = "Fortalecimiento de la Infraestructura de Servicios de Salud", Orden = 11 }
+
+
            );
 
            Fondo fais = context.Fondos.Local.FirstOrDefault(f => f.Clave == "F010");
            fais.DetalleSubFondos.Add(new Fondo { Id = 4, Clave = "F011", Abreviatura = "FISE", Nombre = "Fondo para la Infraestructura Social Estatal", Orden = 1 });
            fais.DetalleSubFondos.Add(new Fondo { Id = 5, Clave = "F012", Abreviatura = "FISM", Nombre = "Fondo para la Infraestructura Social Municipal ", Orden = 2 });
+
+
+           context.FondoLineamientos.AddOrUpdate(
+               new FondoLineamientos { Id=1, FondoId=4, TipoDeObrasYAcciones="Obras y acciones de infraestructura de ámbito regional o intermunicipal que combatan la pobreza extrema", CalendarioDeIngresos="Enero-Octubre", VigenciaDePago="Sin anualidad", NormatividadAplicable="Estatal", Contraparte="" },
+               new FondoLineamientos { Id=2, FondoId=6, TipoDeObrasYAcciones="Acciones de asistencia social", CalendarioDeIngresos="Enero-Diciembre", VigenciaDePago="Sin anualidad", NormatividadAplicable="Estatal", Contraparte="" },
+               new FondoLineamientos { Id=3, FondoId=7, TipoDeObrasYAcciones="Obras de infraestructura pública diversa y otros capítulos de gasto", CalendarioDeIngresos="Enero-Diciembre", VigenciaDePago="Sin anualidad", NormatividadAplicable="Estatal", Contraparte="" },
+
+               new FondoLineamientos { Id = 4, FondoId = 8, TipoDeObrasYAcciones = "Infraestructura pública regional (hospitales, infraestructura eductiva media-superior, caminos, sistemas agua potable integrales)", CalendarioDeIngresos = "Conforme las ejecutoras den cumplimiento a los requisitos establecidos por la S.H.C.P", VigenciaDePago = "Deben estar registrados y autorizados por la S.H.C.P antes del 31 de Diciembre", NormatividadAplicable = "Federal", Contraparte = "" },
+               new FondoLineamientos { Id=5, FondoId=9, TipoDeObrasYAcciones="Infraestructura en agua potable, alcantarillado y saneamiento en zonas urbanas", CalendarioDeIngresos="Inicia con la firma del convenio y posteriormente conforme al avance de las obras", VigenciaDePago="Al 31 de Diciembre", NormatividadAplicable="Federal", Contraparte="Requiere contraparte estatal" },
+               new FondoLineamientos { Id=6, FondoId=10, TipoDeObrasYAcciones="Obras y acciones de agua potable y saneamiento en comunidades rurales", CalendarioDeIngresos="Inicia con la firma del convenio y posteriormente conforme al avance de las obras", VigenciaDePago="Al 31 de Diciembre", NormatividadAplicable="Federal", Contraparte="Requiere contraparte estatal" },
+               new FondoLineamientos { Id=7, FondoId=11, TipoDeObrasYAcciones="Infraestructura carretera rural y de agua potable en zonas indigenas", CalendarioDeIngresos="Inicia con la firma del convenio y posteriormente conforme al avance de las obras", VigenciaDePago="Al 31 de Diciembre", NormatividadAplicable="Federal", Contraparte="Requiere contraparte estatal" },
+               new FondoLineamientos { Id=8, FondoId=12, TipoDeObrasYAcciones="Obras y acciones de infraestructura hospitalaria", CalendarioDeIngresos="Inicia con la firma del convenio y posteriormente conforme al avance de las obras", VigenciaDePago="Hasta el cumplimiento del objetivo", NormatividadAplicable="Federal", Contraparte="" }
+
+
+            );
+
+
+
 
            context.ModalidadesFinanciamiento.AddOrUpdate(
 

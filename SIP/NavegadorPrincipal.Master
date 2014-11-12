@@ -97,6 +97,7 @@
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catEjesPVD.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Ejes P.V.D.</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catFuncionalidad.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Estructura Funcional</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catFondos.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Fondos</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catFondosLineamientos.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Fondos Lineamientos</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/Municipios.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Municipios</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catPlanesSectoriales.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Planes Sectoriales</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/PlantillasPadre.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Plantillas</a></li>

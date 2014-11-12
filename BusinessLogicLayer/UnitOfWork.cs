@@ -23,6 +23,7 @@ namespace BusinessLogicLayer
         private IBusinessLogic<Municipio> municipioBusinessLogic;
         private IBusinessLogic<Localidad> localidadBusinessLogic;
         private IBusinessLogic<Fondo> fondoBusinessLogic;
+        private IBusinessLogic<FondoLineamientos> fondolineamientosBL;
         private IBusinessLogic<ModalidadFinanciamiento> modalidadFinanciamientoBusinessLogic;
         private IBusinessLogic<Año> añoBusinessLogic;
         private IBusinessLogic<Financiamiento> financiamientoBusinessLogic;
@@ -201,6 +202,19 @@ namespace BusinessLogicLayer
             }
         }
 
+
+        public IBusinessLogic<FondoLineamientos> FondoLineamientosBL
+        {
+            get
+            {
+                if (this.fondolineamientosBL == null)
+                {
+                    this.fondolineamientosBL = new GenericBusinessLogic<FondoLineamientos>(contexto);
+                }
+
+                return this.fondolineamientosBL;
+            }
+        }
         public IBusinessLogic<ModalidadFinanciamiento> ModalidadFinanciamientoBusinessLogic
         {
             get

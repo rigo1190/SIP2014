@@ -35,7 +35,7 @@ namespace SIP
          *                                    RADIOBUTTON ESTAN MARCADOS O NO EN JQUERY                                                                           Nombre metodo: fnc_DesmarcarChecks(), ubicado en codigo de CLIENTE. Ejemplo $(sender).is(':checked')
          * 
          * 
-         * 
+         * REY                                ACORDEON DINAMICO                                             Formas/TechoFin/wfTechoFinanciero                     En esta forma se encuentra el componente acordion de bootstrap cargado dinamicamente en el codebehind de la forma, lo cual permite agrupar por cada movimiento de la bitacora, y ocultar y mostrar el detalle que la integra.  
          * 
          * 
          * 

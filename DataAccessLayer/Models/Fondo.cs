@@ -13,6 +13,7 @@ namespace DataAccessLayer.Models
         public Fondo() 
         {
             this.DetalleSubFondos = new HashSet<Fondo>();
+            this.DetalleLineamientos = new HashSet<FondoLineamientos>();
         }
 
         [Index(IsUnique = true)]
@@ -32,6 +33,8 @@ namespace DataAccessLayer.Models
         public virtual Fondo Parent { get; set; }
 
         public virtual ICollection<Fondo> DetalleSubFondos { get; set; }
+
+        public virtual ICollection<FondoLineamientos> DetalleLineamientos { get; set; }
 
     }
 }

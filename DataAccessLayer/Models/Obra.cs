@@ -65,7 +65,7 @@ namespace DataAccessLayer.Models
 
         public decimal GetImporteLiberadoEjerciciosAnteriores()
         {
-            return 0;
+            return this.POADetalle.ImporteLiberadoEjerciciosAnteriores;
         }
         public decimal GetImporteAsignado()
         {

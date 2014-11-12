@@ -67,7 +67,7 @@ namespace SIP.Formas.POA
 
             foreach (var item in obras)
             {
-                colObrasId.Add(item.POADetalleId.Value);
+                colObrasId.Add(item.POADetalleId);
             }                     
            
             this.GridViewPOADetalle.DataSource = uow.POADetalleBusinessLogic.Get(pd => !colObrasId.Contains(pd.Id) & pd.Extemporanea == false & pd.POAId==poa.Id, orderBy: r => r.OrderBy(ro => ro.Numero)).ToList();

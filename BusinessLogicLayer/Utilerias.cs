@@ -77,6 +77,17 @@ namespace BusinessLogicLayer
            
         }
 
+        public static Decimal StrToDecimal(string valor)
+        {
+            decimal result;
+
+            Decimal.TryParse(valor, out result);              
+
+            return result;
+        }
+
+
+
         /// <summary>
         /// Metodo encargado de cargar los combos para catalogos sencillos
         /// Creado por Rigoberto TS

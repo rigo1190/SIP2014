@@ -38,6 +38,7 @@ namespace DataAccessLayer.Models
         public int CriterioPriorizacionId { get; set; }
         public string Observaciones { get; set; }
         public bool Extemporanea { get; set; }
+        public int? ObraAnteriorId { get; set; }
         public virtual POA POA { get; set; }
         public virtual Municipio Municipio { get; set; }
         public virtual Localidad Localidad{ get; set; }
@@ -52,5 +53,6 @@ namespace DataAccessLayer.Models
         public virtual Programa Programa { get; set; }
         public virtual GrupoBeneficiario GrupoBeneficiario { get; set; }
         public virtual CriterioPriorizacion CriterioPriorizacion { get; set; }
+        public virtual Obra ObraAnterior { get; set; }
     }
 }

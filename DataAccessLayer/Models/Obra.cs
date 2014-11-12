@@ -28,7 +28,7 @@ namespace DataAccessLayer.Models
 
         [Index("IX_Consecutivo_POAId", 2)]
         public int POAId { get; set; }
-        public int? POADetalleId { get; set; }            
+        public int POADetalleId { get; set; }            
         public int AperturaProgramaticaId { get; set; }
         public int AperturaProgramaticaMetaId { get; set; }
         public int NumeroBeneficiarios { get; set; }
@@ -45,7 +45,9 @@ namespace DataAccessLayer.Models
         public int ProgramaId { get; set; }
         public int GrupoBeneficiarioId { get; set; }
         public int CriterioPriorizacionId { get; set; }
-        public string Observaciones { get; set; }       
+        public string Observaciones { get; set; }
+        public int? ObraAnteriorId { get; set; }
+        public int? ObraOrigenId { get; set; }
         public virtual POA POA { get; set; }
         public virtual POADetalle POADetalle { get; set; }
         public virtual Municipio Municipio { get; set; }
@@ -61,8 +63,10 @@ namespace DataAccessLayer.Models
         public virtual Programa Programa { get; set; }
         public virtual GrupoBeneficiario GrupoBeneficiario { get; set; }
         public virtual CriterioPriorizacion CriterioPriorizacion { get; set; }
+        public virtual Obra ObraAnterior { get; set; }
+        public virtual Obra ObraOrigen { get; set; }
         public virtual ICollection<ObraFinanciamiento> DetalleFinanciamientos { get; set; }
-
+        public virtual ICollection<Obra> DetalleObrasDependientes { get; set; }
         public decimal GetImporteLiberadoEjerciciosAnteriores()
         {
             return this.POADetalle.ImporteLiberadoEjerciciosAnteriores;

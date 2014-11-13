@@ -82,7 +82,7 @@ namespace SIP.Formas.POA
             ddlSituacionObra.SelectedValue = obra.SituacionObraId.ToString();
             ddlModalidad.SelectedValue = ((int)obra.ModalidadObra).ToString();
             txtImporteTotal.Value = obra.GetCostoTotal().ToString();
-            txtCostoLiberadoEjerciciosAnteriores.Value = obra.ImporteLiberadoEjerciciosAnteriores.ToString();
+            txtCostoLiberadoEjerciciosAnteriores.Value = obra.GetImporteLiberadoEjerciciosAnteriores().ToString();
             txtPresupuestoEjercicio.Value = obra.GetImporteAsignado().ToString();
             txtObservaciones.Value = obra.Observaciones;
 
@@ -265,21 +265,20 @@ namespace SIP.Formas.POA
 
             
             obra.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
-            obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);           
-            obra.ImporteLiberadoEjerciciosAnteriores = Convert.ToDecimal(txtCostoLiberadoEjerciciosAnteriores.Value.ToString());          
+            obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);  
             obra.Observaciones = txtObservaciones.InnerText;
 
-            obra.FechaInicio = null;
-            obra.FechaTermino = null;
+            //obra.FechaInicio = null;
+            //obra.FechaTermino = null;
 
             if (txtFechaInicio.Value != String.Empty) 
             {
-                obra.FechaInicio=Convert.ToDateTime(txtFechaInicio.Value);
+                obra.FechaInicio=Utilerias.StrToDate(txtFechaInicio.Value);
             }
 
             if (txtFechaTermino.Value != String.Empty)
             {
-                obra.FechaTermino = Convert.ToDateTime(txtFechaTermino.Value);
+                obra.FechaTermino = Utilerias.StrToDate(txtFechaTermino.Value);
             }
             
 

@@ -224,6 +224,10 @@
        
         <div class="page-header"><h3><asp:Label ID="lblTituloPOA" runat="server" Text=""></asp:Label></h3></div>
 
+        <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
+          <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
+        </div>
+
         <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewObras_RowDataBound"   runat="server" AllowPaging="True">
             <Columns>
 
@@ -266,10 +270,7 @@
             </ul>
 
             <div class="tab-content">
-
-                <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
-                    <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
-                </div>
+                               
                 
                 <div class="tab-pane active" id="datosgenerales">
 
@@ -317,21 +318,7 @@
                                                      
                         </div>
                       </div>
-
-                     <%--<div class="form-group">
-                           <label for="Municipio">Municipio</label>
-                         <div>
-                             <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                           <label for="Localidad">Localidad</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control" id="txtLocalidad" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" />
-                        </div>
-                      </div>--%>
-
+                    
                      <div class="form-group">
                            <label for="TipoLocalidad">Tipo de localidad</label>
                          <div>
@@ -448,7 +435,7 @@
                       <div class="form-group">
                            <label for="SituacionObra">Situación</label>
                          <div>
-                              <asp:DropDownList ID="ddlSituacionObra" CssClass="form-control" runat="server"></asp:DropDownList>
+                              <asp:DropDownList ID="ddlSituacionObra" CssClass="form-control" runat="server" disabled="disabled"></asp:DropDownList>
                         </div>
                       </div>
 

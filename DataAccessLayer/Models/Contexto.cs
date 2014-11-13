@@ -45,6 +45,12 @@ namespace DataAccessLayer.Models
               .WithMany(d => d.DetalleObrasDependientes)
               .HasForeignKey(c => c.ObraOrigenId);
 
+            modelBuilder.Entity<ObraFinanciamiento>()
+              .HasRequired(u => u.Obra)
+              .WithMany(u => u.DetalleFinanciamientos)
+              .HasForeignKey(u => u.ObraId)
+              .WillCascadeOnDelete(true);
+
             modelBuilder.Entity<PlantillaDetalle>()
               .HasRequired(u => u.Plantilla)
               .WithMany(u => u.DetallePreguntas)

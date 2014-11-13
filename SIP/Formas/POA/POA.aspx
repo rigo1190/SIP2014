@@ -216,8 +216,7 @@
         }
 
         function fnc_ocultarDivObraAnterior()
-        {
-            alert("llamando a metodo fnc_ocultarDivObraAnterior");
+        {            
             var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
 
             switch (valorseleccionado)

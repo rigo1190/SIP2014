@@ -107,7 +107,7 @@ namespace DataAccessLayer.Models
         public virtual DbSet<TipoLocalidad> TiposLocalidad { get; set; }
         public virtual DbSet<SituacionObra> SituacionesObra { get; set; }
         public virtual DbSet<Fondo> Fondos { get; set; }
-
+        public virtual DbSet<TipoFondo> TipoFondo { get; set; }
         public virtual DbSet<FondoLineamientos> FondoLineamientos { get; set; }
         public virtual DbSet<ModalidadFinanciamiento> ModalidadesFinanciamiento { get; set; }
         public virtual DbSet<Financiamiento> Financiamientos { get; set; }

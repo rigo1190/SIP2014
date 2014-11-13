@@ -24,14 +24,15 @@ namespace DataAccessLayer.Models
         [StringLength(100, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string Abreviatura { get; set; }
         public string Nombre { get; set; }
+        public int TipoFondoId { get; set; }
 
         [Index("IX_Orden_ParentId", 1, IsUnique = true)]
         public int Orden { get; set; }
 
         [Index("IX_Orden_ParentId",2)]
         public int? ParentId { get; set; }
+        public virtual TipoFondo TipoFondo { get; set; }
         public virtual Fondo Parent { get; set; }
-
         public virtual ICollection<Fondo> DetalleSubFondos { get; set; }
 
         public virtual ICollection<FondoLineamientos> DetalleLineamientos { get; set; }

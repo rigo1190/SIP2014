@@ -141,27 +141,33 @@ namespace DataAccessLayer.Migrations
            
            );
 
+           context.TipoFondo.AddOrUpdate(
+                new TipoFondo { Id = 1, Clave = "TF01", Nombre = "Federal", Orden = 1 }, 
+                new TipoFondo { Id = 2, Clave = "TF02", Nombre = "Estatal", Orden = 2 },
+                new TipoFondo { Id = 3, Clave = "TF03", Nombre = "Otros", Orden = 3 }
+           );
+
 
            context.Fondos.AddOrUpdate(
-             new Fondo { Id = 1, Clave = "F010", Abreviatura = "FORTAMUNDF", Nombre = "Fondo de Aportaciones para el Fortalecimiento de los Municipios y Demarcaciones Territoriales del Distrito Federal", Orden = 1 },
-             new Fondo { Id = 2, Clave = "F020", Abreviatura = "FAIS", Nombre = "Fondo para la Infraestructura Social", Orden = 2 },
-             new Fondo { Id = 3, Clave = "F030", Abreviatura = "Otros", Nombre = "Otros fondos", Orden = 3 },
+             new Fondo { Id = 1, Clave = "F010", Abreviatura = "FORTAMUNDF", Nombre = "Fondo de Aportaciones para el Fortalecimiento de los Municipios y Demarcaciones Territoriales del Distrito Federal", Orden = 1,TipoFondoId=1 },
+             new Fondo { Id = 2, Clave = "F020", Abreviatura = "FAIS", Nombre = "Fondo para la Infraestructura Social", Orden = 2, TipoFondoId = 1 },
+             new Fondo { Id = 3, Clave = "F030", Abreviatura = "Otros", Nombre = "Otros fondos", Orden = 3, TipoFondoId = 3 },
 
-             new Fondo { Id = 6, Clave = "F060", Abreviatura = "FAM", Nombre = "Fondo de Aportaciones Múltiples Educación Básica y Superior", Orden = 5 },
-             new Fondo { Id = 7, Clave = "F070", Abreviatura = "FAFEF", Nombre = "Fondo de Aportaciones para el Fortalecimiento de las Entidades Federativas", Orden = 6 },
+             new Fondo { Id = 6, Clave = "F060", Abreviatura = "FAM", Nombre = "Fondo de Aportaciones Múltiples Educación Básica y Superior", Orden = 5, TipoFondoId = 1 },
+             new Fondo { Id = 7, Clave = "F070", Abreviatura = "FAFEF", Nombre = "Fondo de Aportaciones para el Fortalecimiento de las Entidades Federativas", Orden = 6, TipoFondoId = 1 },
 
-             new Fondo { Id = 8, Clave = "F080", Abreviatura = "FONREGION", Nombre = "Fondo Regional", Orden = 7 },
-             new Fondo { Id = 9, Clave = "F090", Abreviatura = "APAZU", Nombre = "Programa de Agua Potable, Alcantarillado y Saneamiento", Orden = 8 },
-             new Fondo { Id = 10, Clave = "F100", Abreviatura = "PROSSAPYS", Nombre = "Programa para la Sustentabilidad de los Servicios de Agua Potable y Saneamiento en Comunidades Rurales", Orden = 9 },
-             new Fondo { Id = 11, Clave = "F110", Abreviatura = "PRODEPI", Nombre = "Programa de Infraestructura Básica para la Atención de los Pueblos Indígenas", Orden = 10 },
-             new Fondo { Id = 12, Clave = "F120", Abreviatura = "FOISSA", Nombre = "Fortalecimiento de la Infraestructura de Servicios de Salud", Orden = 11 }
+             new Fondo { Id = 8, Clave = "F080", Abreviatura = "FONREGION", Nombre = "Fondo Regional", Orden = 7,TipoFondoId=1 },
+             new Fondo { Id = 9, Clave = "F090", Abreviatura = "APAZU", Nombre = "Programa de Agua Potable, Alcantarillado y Saneamiento", Orden = 8, TipoFondoId = 1 },
+             new Fondo { Id = 10, Clave = "F100", Abreviatura = "PROSSAPYS", Nombre = "Programa para la Sustentabilidad de los Servicios de Agua Potable y Saneamiento en Comunidades Rurales", Orden = 9, TipoFondoId = 1 },
+             new Fondo { Id = 11, Clave = "F110", Abreviatura = "PRODEPI", Nombre = "Programa de Infraestructura Básica para la Atención de los Pueblos Indígenas", Orden = 10, TipoFondoId = 1 },
+             new Fondo { Id = 12, Clave = "F120", Abreviatura = "FOISSA", Nombre = "Fortalecimiento de la Infraestructura de Servicios de Salud", Orden = 11, TipoFondoId = 1 }
 
 
            );
 
            Fondo fais = context.Fondos.Local.FirstOrDefault(f => f.Clave == "F010");
-           fais.DetalleSubFondos.Add(new Fondo { Id = 4, Clave = "F011", Abreviatura = "FISE", Nombre = "Fondo para la Infraestructura Social Estatal", Orden = 1 });
-           fais.DetalleSubFondos.Add(new Fondo { Id = 5, Clave = "F012", Abreviatura = "FISM", Nombre = "Fondo para la Infraestructura Social Municipal ", Orden = 2 });
+           fais.DetalleSubFondos.Add(new Fondo { Id = 4, Clave = "F011", Abreviatura = "FISE", Nombre = "Fondo para la Infraestructura Social Estatal", Orden = 1,TipoFondoId=1 });
+           fais.DetalleSubFondos.Add(new Fondo { Id = 5, Clave = "F012", Abreviatura = "FISM", Nombre = "Fondo para la Infraestructura Social Municipal ", Orden = 2,TipoFondoId=1 });
 
 
            context.FondoLineamientos.AddOrUpdate(
@@ -395,18 +401,32 @@ namespace DataAccessLayer.Migrations
 
 
           context.Plantilla.AddOrUpdate(
-            new Plantilla { Id = 1, Clave = "P001", Descripcion="Plantilla inicial",Orden=1 },
-            new Plantilla { Id = 2, Clave = "P002", Descripcion="Plan de Desarrollo Urbano",Orden=2 },
 
-            new Plantilla { Id = 3, Clave = "P003", Descripcion = "Normatividad Fondo-Programa", Orden = 3 },
-            new Plantilla { Id = 4, Clave = "P004", Descripcion = "Anteproyecto y Costo Estimado", Orden = 4 },
-            new Plantilla { Id = 5, Clave = "P005", Descripcion = "Proyecto Ejecutivo y PB", Orden = 5 },
-            new Plantilla { Id = 6, Clave = "P006", Descripcion = "Tipo de Adjudicación", Orden = 6 },
-            new Plantilla { Id = 7, Clave = "P007", Descripcion = "Presupuesto Autorizado Contrato", Orden = 7 },
-            new Plantilla { Id = 8, Clave = "P008", Descripcion = "Administración Directa", Orden = 8 }
-           
+            new Plantilla { Id = 1, Clave = "P01000000", Descripcion = "Plantilla inicial", Orden = 1 },
+            new Plantilla { Id = 2, Clave = "P02000000", Descripcion = "Planeación", Orden = 2 },
+            new Plantilla { Id = 3, Clave = "P03000000", Descripcion = "Ejecución", Orden = 3 },
 
+            new Plantilla { Id = 4, Clave = "P02010000", Descripcion = "Plan de Desarrollo Estatal Urbano", Orden = 1, DependeDeId = 2 },
+            new Plantilla { Id = 5, Clave = "P02020000", Descripcion = "Anteproyecto y normatividad", Orden = 2, DependeDeId = 2 },
+            new Plantilla { Id = 6, Clave = "P02030000", Descripcion = "Fondo y programa", Orden = 3, DependeDeId = 2 },
+            new Plantilla { Id = 7, Clave = "P02040000", Descripcion = "Proyecto Ejecutivo y Proyecto Base", Orden = 4, DependeDeId = 2 },
+            new Plantilla { Id = 8, Clave = "P02050000", Descripcion = "Tipo de Adjudicación", Orden = 5, DependeDeId = 2 },
+            new Plantilla { Id = 9, Clave = "P02060000", Descripcion = "Presupuesto Autorizado Contrato", Orden = 6, DependeDeId = 2 },
+            new Plantilla { Id = 10, Clave = "P02070000", Descripcion = "Administración Directa", Orden = 7, DependeDeId = 2 },
 
+            new Plantilla { Id = 11, Clave = "P03010000", Descripcion = "Control técnico financiero", Orden = 1, DependeDeId = 3 },
+            new Plantilla { Id = 12, Clave = "P03020000", Descripcion = "Bitácora electrónica - convencional", Orden = 2, DependeDeId = 3 },
+            new Plantilla { Id = 13, Clave = "P03030000", Descripcion = "Supervisión y estimaciones", Orden = 3, DependeDeId = 3 },
+            new Plantilla { Id = 14, Clave = "P03040000", Descripcion = "Convenios prefiniquitos", Orden = 4, DependeDeId = 3 },
+            new Plantilla { Id = 15, Clave = "P03050000", Descripcion = "Finiquito", Orden = 5, DependeDeId = 3 },
+            new Plantilla { Id = 16, Clave = "P03060000", Descripcion = "Acta entrega recepción", Orden = 6, DependeDeId = 3 },           
+            new Plantilla { Id = 17, Clave = "P03070000", Descripcion = "Documentación de gestión de recursos", Orden = 7, DependeDeId = 3 },
+
+            new Plantilla { Id = 19, Clave = "P02050100", Descripcion = "Adjudicación directa", Orden = 1, DependeDeId = 8 },
+            new Plantilla { Id = 20, Clave = "P02050200", Descripcion = "Licitación pública", Orden = 2, DependeDeId = 8 },
+
+            new Plantilla { Id = 21, Clave = "P02050201", Descripcion = "Adjudicación por excepción de ley", Orden = 1, DependeDeId = 19 },
+            new Plantilla { Id = 22, Clave = "P02050202", Descripcion = "Invitación a cuando menos tres personas", Orden = 2, DependeDeId = 19 }
 
           );
 
@@ -434,75 +454,155 @@ namespace DataAccessLayer.Migrations
              new PlantillaDetalle { Id = 20, PlantillaId = 1, Clave = "Q0020", Pregunta = "El Capítulo 6000 no incluye el financiamiento para construcción de viviendas", Orden = 20 },
              new PlantillaDetalle { Id = 21, PlantillaId = 1, Clave = "Q0021", Pregunta = "En cuanto sean asignadas las obras a los fondos correspondientes, checar la normatividad (revisar los gastos indirectos, estudios y proyectos, etc.7)", Orden = 21 },
 
-             //Plan de desarrollo urbano
+             //Plan de desarrollo estatal urbano
 
-             new PlantillaDetalle { Id = 22, PlantillaId = 2, Clave = "Q001", Pregunta = "¿Se cuenta con el Plan de Desarrollo Urbano?", Orden = 1 },
-             new PlantillaDetalle { Id = 23, PlantillaId = 2, Clave = "Q002", Pregunta = "Costo del Plan de Desarrollo", Orden = 2 },
-             new PlantillaDetalle { Id = 24, PlantillaId = 2, Clave = "Q003", Pregunta = "Factibilidad del proyecto por la Dependencia Normativa (según sea el caso)", Orden = 3 },
-             new PlantillaDetalle { Id = 25, PlantillaId = 2, Clave = "Q004", Pregunta = "Validación del Proyecto por la Dependencia Normativa (según sea el caso)", Orden = 4 },
-             new PlantillaDetalle { Id = 26, PlantillaId = 2, Clave = "Q005", Pregunta = "Estudio de Impacto Ambiental Validado", Orden = 5 },
-             new PlantillaDetalle { Id = 27, PlantillaId = 2, Clave = "Q006", Pregunta = "Permisos. Licencias y Afectaciones (según sea el caso)", Orden = 6 },
-             new PlantillaDetalle { Id = 28, PlantillaId = 2, Clave = "Q007", Pregunta = "Descripción de la planeacón integral del licitante para realizar los trabajos (Aplica para contratos de modalidad a precio unitario)", Orden = 7 },
-             new PlantillaDetalle { Id = 29, PlantillaId = 1, Clave = "Q008", Pregunta = "Términos de referencia (Aplica para contratos de modalidad a precio alzado)", Orden = 8 },
+             new PlantillaDetalle { Id = 22, PlantillaId = 4, Clave = "Q001", Pregunta = "Plan de Desarrollo  Municipal", Orden = 1 },
+             new PlantillaDetalle { Id = 23, PlantillaId = 4, Clave = "Q002", Pregunta = "Plan de Desarrollo  Estatal", Orden = 2 },
+             new PlantillaDetalle { Id = 24, PlantillaId = 4, Clave = "Q003", Pregunta = "Plan de Desarrollo Nacional", Orden = 3 },
+             new PlantillaDetalle { Id = 25, PlantillaId = 4, Clave = "Q004", Pregunta = "Plan de Desarrollo Urbano  Municipal", Orden = 4 },
+             new PlantillaDetalle { Id = 26, PlantillaId = 4, Clave = "Q005", Pregunta = "Plan de Desarrollo Urbano  Estatal", Orden = 5 },
+             new PlantillaDetalle { Id = 27, PlantillaId = 4, Clave = "Q006", Pregunta = "Plan de Desarrollo Urbano  Nacional", Orden = 6 },
+             new PlantillaDetalle { Id = 28, PlantillaId = 4, Clave = "Q007", Pregunta = "Costo del Plan de Desarrollo Urbano", Orden = 7 },
+             new PlantillaDetalle { Id = 29, PlantillaId = 4, Clave = "Q008", Pregunta = "Costo del Plan de Desarrollo", Orden = 8 },
 
-             //Normatividad Fondo-Programa
-             new PlantillaDetalle { Id = 30, PlantillaId = 3, Clave = "Q001", Pregunta = "Dictamen que dé corroboración del Fenómeno Natural Perturbador", Orden = 1 },
-             new PlantillaDetalle { Id = 31, PlantillaId = 3, Clave = "Q002", Pregunta = "Solicitud de Declaración de Desastre Natural", Orden = 2 },
-             new PlantillaDetalle { Id = 32, PlantillaId = 3, Clave = "Q003", Pregunta = "Publicación del Desastre Natural en el Diario Oficial de la Federación", Orden = 3 },
-             new PlantillaDetalle { Id = 33, PlantillaId = 3, Clave = "Q004", Pregunta = "Acta de Entrega de Resultados del Comité de Evaluación de Daños", Orden = 4 },
-             new PlantillaDetalle { Id = 34, PlantillaId = 3, Clave = "Q005", Pregunta = "Acta de Instalacón del Comité de Evaluación de Resultados", Orden = 5 },
-             new PlantillaDetalle { Id = 35, PlantillaId = 3, Clave = "Q006", Pregunta = "Solicitud de los Recursos con cargo al FONDEN", Orden = 6 },
-             new PlantillaDetalle { Id = 36, PlantillaId = 3, Clave = "Q007", Pregunta = "Acuerdo de la Comisión donde se recomienda a la Secretaría autorice recursos con cargo al FONDEN", Orden = 7 },
-             new PlantillaDetalle { Id = 37, PlantillaId = 3, Clave = "Q008", Pregunta = "Oficio de Disponibilidad Presupuestal de la Transferencia de Recursos", Orden = 8 },
-             new PlantillaDetalle { Id = 38, PlantillaId = 3, Clave = "Q009", Pregunta = "Solicitud de Excepción de impacto ambiental para OBRA FONDEN (Oficio de respuesta sobre la Exceptuación Técnica)", Orden = 9 },
-             new PlantillaDetalle { Id = 39, PlantillaId = 3, Clave = "Q0010", Pregunta = "Normatividad del Fondo o Programa (Lineamientos del Recurso)", Orden = 10 },
+             //Anteproyecto y normatividad
 
-
-             //Anteproyecto y Costo Estimado
-              new PlantillaDetalle { Id = 40, PlantillaId = 4, Clave = "Q001", Pregunta = "Anteproyecto de propuesta de inversión", Orden = 1 },
-             new PlantillaDetalle { Id = 41, PlantillaId = 4, Clave = "Q002", Pregunta = "Oficio de aprobación de Inversión", Orden = 2 },
-             new PlantillaDetalle { Id = 42, PlantillaId = 4, Clave = "Q003", Pregunta = "Cédula Técnica Programática-Presupuestal", Orden = 3 },
+             new PlantillaDetalle { Id = 30, PlantillaId = 5, Clave = "Q001", Pregunta = "Anteproyecto de propuesta de inversión", Orden = 1 },
+             new PlantillaDetalle { Id = 31, PlantillaId = 5, Clave = "Q002", Pregunta = "Presupuesto Estimado", Orden = 2 },
+             new PlantillaDetalle { Id = 32, PlantillaId = 5, Clave = "Q003", Pregunta = "Prefactibilidad del anteproyecto por la Dependencia Normativa", Orden = 3 },
+             new PlantillaDetalle { Id = 33, PlantillaId = 5, Clave = "Q004", Pregunta = "Estudio de Impacto Ambiental", Orden = 4 },
+             new PlantillaDetalle { Id = 34, PlantillaId = 5, Clave = "Q005", Pregunta = "Permisos. Licencias y Afectaciones (según sea el caso)", Orden = 5 },
+             new PlantillaDetalle { Id = 35, PlantillaId = 5, Clave = "Q006", Pregunta = "Acreditación de Propiedad", Orden = 6 },             
              
-             //Proyecto Ejecutivo y PB
-             new PlantillaDetalle { Id = 43, PlantillaId = 5, Clave = "Q001", Pregunta = "Proyecto Ejecutivo y/o Planos actualizados (según sea el caso)", Orden = 1 },
-             new PlantillaDetalle { Id = 44, PlantillaId = 5, Clave = "Q002", Pregunta = "Costos del proyecto acordes con Aranceles Colegiales", Orden = 2 },
-             new PlantillaDetalle { Id = 45, PlantillaId = 5, Clave = "Q003", Pregunta = "Acreditación de Propiedad", Orden = 3 },
-             new PlantillaDetalle { Id = 46, PlantillaId = 5, Clave = "Q004", Pregunta = "Catálogo de conceptos de la ejecutora (Aplica para contratos de modalidad a precio unitario)", Orden = 4 },
-             new PlantillaDetalle { Id = 47, PlantillaId = 5, Clave = "Q005", Pregunta = "Lista de Partidas (Aplica para contratos de modalidad a precio alzado)", Orden = 5 },
-             new PlantillaDetalle { Id = 48, PlantillaId = 5, Clave = "Q006", Pregunta = "Presupuesto base de la Ejecutora (Obras por contrato y administración directa)", Orden = 6 },
-             new PlantillaDetalle { Id = 49, PlantillaId = 5, Clave = "Q007", Pregunta = "Análisis de precios unitarios del presupuesto base (obras por contrato y administración directa)", Orden = 7 },
 
-             //Tipo de Adjudicación
-             new PlantillaDetalle { Id = 50, PlantillaId = 6, Clave = "Q001", Pregunta = "Evidencia de la calificación del presupuesto contratado", Orden = 1 },
-             new PlantillaDetalle { Id = 51, PlantillaId = 6, Clave = "Q002", Pregunta = "Escrito de fundamentación y motivación de las excepciones de ley firmado por el titular del área responsable de la ejecución de los trabajos", Orden = 2 },
-             new PlantillaDetalle { Id = 52, PlantillaId = 6, Clave = "Q003", Pregunta = "Oficio de invitación a cuando menos tres contratistas", Orden = 3 },
-             new PlantillaDetalle { Id = 53, PlantillaId = 6, Clave = "Q004", Pregunta = "Oficio de aceptación del contratista  a participar en la invitación", Orden = 4 },
-             new PlantillaDetalle { Id = 54, PlantillaId = 6, Clave = "Q005", Pregunta = "Bases del concurso", Orden = 5 },
-             new PlantillaDetalle { Id = 55, PlantillaId = 6, Clave = "Q006", Pregunta = "Acta de visita al sitio de la obra", Orden = 6 },
-             new PlantillaDetalle { Id = 56, PlantillaId = 6, Clave = "Q007", Pregunta = "Análisis de precios unitarios del presupuesto base (obras por contrato y administración directa)", Orden = 7 },
-             new PlantillaDetalle { Id = 57, PlantillaId = 6, Clave = "Q008", Pregunta = "Acta de Junta de Aclaraciones ", Orden = 8 },
-             new PlantillaDetalle { Id = 58, PlantillaId = 6, Clave = "Q009", Pregunta = "Invitación al Órgano de Control para el Acto de presentación y apertura de proposiciones en caso de Invitación a cuando menos tres personas", Orden = 9 },
-             new PlantillaDetalle { Id = 59, PlantillaId = 6, Clave = "Q0010", Pregunta = "Acta de presentación y apertura de propuestas (Técnica y Económica)", Orden = 10 },
-             new PlantillaDetalle { Id = 60, PlantillaId = 6, Clave = "Q0011", Pregunta = "Análisis de las propuestas (Cuadro comparativo)", Orden = 11 },
-             new PlantillaDetalle { Id = 61, PlantillaId = 6, Clave = "Q0012", Pregunta = "Si la situación de la obra o acción es en \"proceso\", ¿ se especifica el número de obra asignado en el ejercicio anterior y presenta la misma modalidad de ejecución?", Orden = 12 },
-             new PlantillaDetalle { Id = 62, PlantillaId = 6, Clave = "Q0013", Pregunta = "Dictámen Técnico", Orden = 13 },
-             new PlantillaDetalle { Id = 63, PlantillaId = 6, Clave = "Q0014", Pregunta = "Acta de Adjudicación o fallo", Orden = 14 },
-             new PlantillaDetalle { Id = 64, PlantillaId = 6, Clave = "Q0015", Pregunta = "Oficio de notificación del fallo", Orden = 15 },
-             new PlantillaDetalle { Id = 65, PlantillaId = 6, Clave = "Q0016", Pregunta = "Convocatoria pública", Orden = 16 },
+             //Fondo y programa
 
-             //Presupuesto Autorizado Contrato
-             new PlantillaDetalle { Id = 66, PlantillaId = 7, Clave = "Q001", Pregunta = "Presupuesto contratado", Orden = 1 },
-             new PlantillaDetalle { Id = 67, PlantillaId = 7, Clave = "Q002", Pregunta = "Análisis de precios unitarios del presupuesto contratado", Orden = 2 },
-             new PlantillaDetalle { Id = 68, PlantillaId = 7, Clave = "Q003", Pregunta = "Analisis de cálculo de gastos indirectos del presupuesto contratado", Orden = 3 },
+             new PlantillaDetalle { Id = 36, PlantillaId = 6, Clave = "Q001", Pregunta = "Propuesta de Fondo", Orden = 1 },            
+             
+             //Proyecto Ejecutivo y Proyecto Base
+
+             new PlantillaDetalle { Id = 37, PlantillaId = 7, Clave = "Q001", Pregunta = "Proyecto Ejecutivo y/o Planos de las distintas especialidades de la Obra (según el caso)", Orden = 1 },
+             new PlantillaDetalle { Id = 38, PlantillaId = 7, Clave = "Q002", Pregunta = "Costos del proyecto acordes con Aranceles del Colegio", Orden = 2 },
+             new PlantillaDetalle { Id = 39, PlantillaId = 7, Clave = "Q003", Pregunta = "Validación del Proyecto por la Dependencia Normativa (según sea el caso)", Orden = 3 },
+             new PlantillaDetalle { Id = 40, PlantillaId = 7, Clave = "Q004", Pregunta = "Catálogo de conceptos del proyecto ejecutivo (Aplica para contratos de modalidad a precio unitario)", Orden = 4 },
+             new PlantillaDetalle { Id = 41, PlantillaId = 7, Clave = "Q005", Pregunta = "Lista de Partidas (Aplica para contratos de modalidad a precio alzado)", Orden = 5 },
+             new PlantillaDetalle { Id = 42, PlantillaId = 7, Clave = "Q006", Pregunta = "Presupuesto base (Obras por contrato y administración directa)", Orden = 6 },
+             new PlantillaDetalle { Id = 43, PlantillaId = 7, Clave = "Q007", Pregunta = "Análisis de precios unitarios del presupuesto base (obras por contrato y administración directa)", Orden = 7 },
+             new PlantillaDetalle { Id = 43, PlantillaId = 7, Clave = "Q008", Pregunta = "Programa de ejecución de obra  (Obras por Contrato y Administración Directa).", Orden = 7 },
+             
+
+             //Tipo de Adjudicación - Adjudicación directa
+
+             new PlantillaDetalle { Id = 44, PlantillaId = 19, Clave = "Q001", Pregunta = "Evidencia de la calificación del presupuesto contratado", Orden = 1 },
+             new PlantillaDetalle { Id = 45, PlantillaId = 19, Clave = "Q002", Pregunta = "Acta de adjudicación", Orden = 2 },
+             new PlantillaDetalle { Id = 46, PlantillaId = 19, Clave = "Q003", Pregunta = "Descripcion de la planeacion integral del licitante para realizar los trabajos", Orden = 3 },
+
+             //Tipo de Adjudicación - Adjudicación directa - Adjudicacion por excepción de Ley
+
+             new PlantillaDetalle { Id = 47, PlantillaId = 21, Clave = "Q004", Pregunta = "Dictamen de excepción de Ley firmado por el títular del área responsable de la ejecución de los trabajos debidamente fundamentado y motivado", Orden = 4 },
+
+             //Tipo de Adjudicación - Adjudicación directa - Invitación a cuando menos tres personas
+
+             new PlantillaDetalle { Id = 48, PlantillaId = 22, Clave = "Q005", Pregunta = "Bases del concurso", Orden = 5 },
+             new PlantillaDetalle { Id = 49, PlantillaId = 22, Clave = "Q006", Pregunta = "Oficio de invitación a participar a cuando menos tres contratistas", Orden = 6 },
+             new PlantillaDetalle { Id = 50, PlantillaId = 22, Clave = "Q007", Pregunta = "Oficio de aceptación del contratista a participar a la invitación", Orden = 7 },
+             new PlantillaDetalle { Id = 51, PlantillaId = 22, Clave = "Q008", Pregunta = "Acta de visita al sitio de la obra", Orden = 8 },
+             new PlantillaDetalle { Id = 52, PlantillaId = 22, Clave = "Q009", Pregunta = "Acta de Junta de Aclaraciones", Orden = 9 },
+             new PlantillaDetalle { Id = 53, PlantillaId = 22, Clave = "Q0010", Pregunta = "Acta de presentación y apertura de propuestas (Técnica y Económica)", Orden = 10 },
+             new PlantillaDetalle { Id = 54, PlantillaId = 22, Clave = "Q0011", Pregunta = "Descripcion de la planeacion integral del licitante para realizar los trabajos", Orden = 11 },
+             new PlantillaDetalle { Id = 55, PlantillaId = 22, Clave = "Q0012", Pregunta = "Análisis de las propuestas (Cuadro comparativo)", Orden = 12 },
+             new PlantillaDetalle { Id = 56, PlantillaId = 22, Clave = "Q0013", Pregunta = "Dictámen Técnico", Orden = 13 },
+             new PlantillaDetalle { Id = 57, PlantillaId = 22, Clave = "Q0014", Pregunta = "Acta de Adjudicación o fallo", Orden = 14 },
+             new PlantillaDetalle { Id = 58, PlantillaId = 22, Clave = "Q0015", Pregunta = "Oficio de notificación del fallo", Orden = 15 },
+
+
+             //Tipo de Adjudicación - Licitación pública
+
+             new PlantillaDetalle { Id = 59, PlantillaId = 20, Clave = "Q001", Pregunta = "Bases del concurso", Orden = 1 },
+             new PlantillaDetalle { Id = 60, PlantillaId = 20, Clave = "Q002", Pregunta = "Convocatoria Pública", Orden = 2 },
+             new PlantillaDetalle { Id = 61, PlantillaId = 20, Clave = "Q003", Pregunta = "Acta de visita al sitio de la obra", Orden = 3 },
+             new PlantillaDetalle { Id = 62, PlantillaId = 20, Clave = "Q004", Pregunta = "Acta de Junta de Aclaraciones", Orden = 4 },
+             new PlantillaDetalle { Id = 63, PlantillaId = 20, Clave = "Q005", Pregunta = "Acta de presentación y apertura de propuestas (Técnica y Económica)", Orden = 5 },
+             new PlantillaDetalle { Id = 64, PlantillaId = 20, Clave = "Q006", Pregunta = "Descripcion de la planeacion integral del licitante para realizar los trabajos", Orden = 6 },
+             new PlantillaDetalle { Id = 65, PlantillaId = 20, Clave = "Q007", Pregunta = "Análisis de las propuestas (Cuadro comparativo)", Orden = 7 },
+             new PlantillaDetalle { Id = 66, PlantillaId = 20, Clave = "Q008", Pregunta = "Dictamen técnico", Orden = 8 },
+             new PlantillaDetalle { Id = 67, PlantillaId = 20, Clave = "Q009", Pregunta = "Acta de adjudicación o fallo", Orden = 9 },
+             new PlantillaDetalle { Id = 68, PlantillaId = 20, Clave = "Q010", Pregunta = "Oficio de Notificación del fallo", Orden = 10 },
+
+
+             //Presupuesto autorizado contrato
+             new PlantillaDetalle { Id = 69, PlantillaId = 9, Clave = "Q001", Pregunta = "Presupuesto autorizado", Orden = 1 },
+             new PlantillaDetalle { Id = 70, PlantillaId = 9, Clave = "Q002", Pregunta = "Contrato de Presupuesto Autorizado (según sea el caso)", Orden = 2 },
+             new PlantillaDetalle { Id = 71, PlantillaId = 9, Clave = "Q003", Pregunta = "Análisis de precios unitarios del presupuesto contratado", Orden = 3 },
+             new PlantillaDetalle { Id = 72, PlantillaId = 9, Clave = "Q004", Pregunta = "Analisis de cálculo de gastos indirectos del presupuesto contratado", Orden = 4 },
+             new PlantillaDetalle { Id = 73, PlantillaId = 9, Clave = "Q005", Pregunta = "Programacion de pago de acuerdo a avances en tiempo definido", Orden = 5 },
+             new PlantillaDetalle { Id = 74, PlantillaId = 9, Clave = "Q006", Pregunta = "Fianzas", Orden = 6 },
+             new PlantillaDetalle { Id = 75, PlantillaId = 9, Clave = "Q007", Pregunta = "Veracidad de las Fianzas", Orden = 7 },
+             new PlantillaDetalle { Id = 76, PlantillaId = 9, Clave = "Q008", Pregunta = "Especificaciones generales y partículares, normas, validados por la dependencia ejecutora", Orden = 8 },
+             new PlantillaDetalle { Id = 77, PlantillaId = 9, Clave = "Q009", Pregunta = "Importe de Sanción por incumplimiento al contrato y/o al programa de obra", Orden = 9 },
+             new PlantillaDetalle { Id = 78, PlantillaId = 9, Clave = "Q010", Pregunta = "Aviso de inicio del proceso de rescisión administrativa del contrato (según sea el caso)", Orden = 10 },
+             new PlantillaDetalle { Id = 79, PlantillaId = 9, Clave = "Q010", Pregunta = "Sanciones por incumplimiento o vicios ocultos", Orden = 11 },
+             
 
              //Administración Directa
-             new PlantillaDetalle { Id = 69, PlantillaId = 8, Clave = "Q001", Pregunta = "Acuerdo de ejecución autorizado (obra por administración directa)", Orden = 1 },
-             new PlantillaDetalle { Id = 70, PlantillaId = 8, Clave = "Q002", Pregunta = "Registros IMSS", Orden = 2 },
-             new PlantillaDetalle { Id = 71, PlantillaId = 8, Clave = "Q003", Pregunta = "Explosión de insumos de obra", Orden = 3 },
-             new PlantillaDetalle { Id = 72, PlantillaId = 8, Clave = "Q004", Pregunta = "Licitación de compra de materiales", Orden = 4 },
-             new PlantillaDetalle { Id = 73, PlantillaId = 8, Clave = "Q005", Pregunta = "Licitación de Arrendamiento de maquinaria", Orden = 5 },
-             new PlantillaDetalle { Id = 74, PlantillaId = 8, Clave = "Q006", Pregunta = "Listas de raya", Orden = 6 },
-             new PlantillaDetalle { Id = 75, PlantillaId = 8, Clave = "Q007", Pregunta = "Comprobación de gastos", Orden = 7 }
+             new PlantillaDetalle { Id = 80, PlantillaId = 10, Clave = "Q001", Pregunta = "Acuerdo de ejecución autorizado (obra por administración directa)", Orden = 1 },
+             new PlantillaDetalle { Id = 81, PlantillaId = 10, Clave = "Q002", Pregunta = "Registros IMSS", Orden = 2 },
+             new PlantillaDetalle { Id = 82, PlantillaId = 10, Clave = "Q003", Pregunta = "Explosión de insumos de obra", Orden = 3 },
+             new PlantillaDetalle { Id = 83, PlantillaId = 10, Clave = "Q004", Pregunta = "Licitación de compra de materiales", Orden = 4 },
+             new PlantillaDetalle { Id = 84, PlantillaId = 10, Clave = "Q005", Pregunta = "Licitación de Arrendamiento de maquinaria", Orden = 5 },
+             new PlantillaDetalle { Id = 85, PlantillaId = 10, Clave = "Q006", Pregunta = "Listas de raya", Orden = 6 },
+             new PlantillaDetalle { Id = 86, PlantillaId = 10, Clave = "Q007", Pregunta = "Comprobación de gastos", Orden = 7 },
+
+              //Control técnico financiero
+             new PlantillaDetalle { Id = 87, PlantillaId = 11, Clave = "Q001", Pregunta = "Oficio de inicio de los trabajos", Orden = 1 },
+             new PlantillaDetalle { Id = 88, PlantillaId = 11, Clave = "Q002", Pregunta = "Factura de Anticipo", Orden = 2 },
+             new PlantillaDetalle { Id = 89, PlantillaId = 11, Clave = "Q003", Pregunta = "Cuenta por Liquidar (CL)", Orden = 3 },
+             new PlantillaDetalle { Id = 90, PlantillaId = 11, Clave = "Q004", Pregunta = "Reporte de pago a proovedores y contratistas (transferencias electrónicas)", Orden = 4 },
+
+             //Bitácora electrónica - convencional
+             new PlantillaDetalle { Id = 91, PlantillaId = 12, Clave = "Q001", Pregunta = "Bitácora de Obra Electrónica o Convencional. (según sea el caso)", Orden = 1 },
+             new PlantillaDetalle { Id = 92, PlantillaId = 12, Clave = "Q002", Pregunta = "Oficio de Excepción de Bitacora Electrónica", Orden = 2 },
+
+             //Supervisión y estimaciones
+             new PlantillaDetalle { Id = 93, PlantillaId = 13, Clave = "Q001", Pregunta = "Estimaciones de Obra con soporte de la supervision de obra", Orden = 1 },
+             new PlantillaDetalle { Id = 94, PlantillaId = 13, Clave = "Q002", Pregunta = "Numero Generador, Reporte Fotografico, Pruebas de laboratorio, Etc", Orden = 2 },
+             new PlantillaDetalle { Id = 95, PlantillaId = 13, Clave = "Q002", Pregunta = "Dictamen Técnico de estimaciones (verifica previamente los conceptos ejecutados)", Orden = 3 },
+             new PlantillaDetalle { Id = 96, PlantillaId = 13, Clave = "Q002", Pregunta = "Amortizaciones", Orden = 4 },
+           
+              //Convenios prefiniquitos
+             new PlantillaDetalle { Id = 97, PlantillaId = 14, Clave = "Q001", Pregunta = "Convenios modificatorios a solicitud del contratista por medio de oficio y Bitácora Electrónica con 30 días de anticipación con fecha a la terminación contractual fundados y motivados.", Orden = 1 },
+             new PlantillaDetalle { Id = 98, PlantillaId = 14, Clave = "Q002", Pregunta = "Documentación justificatoria del convenio: (Dictámen)", Orden = 2 },
+             new PlantillaDetalle { Id = 99, PlantillaId = 14, Clave = "Q003", Pregunta = "Por tiempo de ejecución", Orden = 3 },
+             new PlantillaDetalle { Id = 100, PlantillaId = 14, Clave = "Q004", Pregunta = "Convenio por Precios Unitarios.\nConvenio por cambio de Especificaciones.\nConvenio por Volúmenes con los mismos Precios Unitarios y Especificaciones.\nPor cambio de Volúmenes, Precios Unitarios y Especificaciones.\nProyecto Ejecutivo.\nPor asuntos sociales.", Orden = 4 },
+             new PlantillaDetalle { Id = 101, PlantillaId = 14, Clave = "Q005", Pregunta = "Importe de Presupuesto de Convenios", Orden = 5 },
+             new PlantillaDetalle { Id = 102, PlantillaId = 14, Clave = "Q006", Pregunta = "Reprogramación en funcion de los convenios", Orden = 6 },
+             new PlantillaDetalle { Id = 103, PlantillaId = 14, Clave = "Q006", Pregunta = "Autorización de Precios Unitarios extraordinarios", Orden = 6 },
+             new PlantillaDetalle { Id = 104, PlantillaId = 14, Clave = "Q006", Pregunta = "Solicitud de terminación anticipada de la obra por la dependencia ejecutora, o por parte de la contratista o ambas. (según sea el caso)", Orden = 7 },
+             new PlantillaDetalle { Id = 105, PlantillaId = 14, Clave = "Q006", Pregunta = "Acta circunstanciada de terminación anticipada de obra (según sea el caso) con prefiniquito", Orden = 8 },
+
+              //Finiquito
+             new PlantillaDetalle { Id = 106, PlantillaId = 15, Clave = "Q001", Pregunta = "Finiquito de obra", Orden = 1 },
+             new PlantillaDetalle { Id = 107, PlantillaId = 15, Clave = "Q002", Pregunta = "Resumen de Reportes de Supervision", Orden = 2 },
+
+              //Acta entrega recepción
+             new PlantillaDetalle { Id = 108, PlantillaId = 16, Clave = "Q001", Pregunta = "Aviso de Terminación de la Obra, emitido por el Contratista", Orden = 1 },
+             new PlantillaDetalle { Id = 109, PlantillaId = 16, Clave = "Q002", Pregunta = "Acta de Entrega Recepción a la Dependencia Normativa", Orden = 2 },
+             new PlantillaDetalle { Id = 110, PlantillaId = 16, Clave = "Q002", Pregunta = "Acta de Entrega Recepcion de la dependencia al Usuario Final", Orden = 3 },
+             new PlantillaDetalle { Id = 111, PlantillaId = 16, Clave = "Q002", Pregunta = "Planos Definitivos y Manual operativo de la obra", Orden = 4 },
+
+             //Documentación de gestión de recursos
+             new PlantillaDetalle { Id = 112, PlantillaId = 17, Clave = "Q001", Pregunta = "Registro de POA", Orden = 1 },
+             new PlantillaDetalle { Id = 113, PlantillaId = 17, Clave = "Q002", Pregunta = "Registro de aprobacion y liberacion de recursos", Orden = 2 },
+             new PlantillaDetalle { Id = 114, PlantillaId = 17, Clave = "Q003", Pregunta = "Presupuesto Aprobado por el Congreso del Estado", Orden = 3 },
+             new PlantillaDetalle { Id = 115, PlantillaId = 17, Clave = "Q004", Pregunta = "Registro de POA ajustado", Orden = 4 },
+             new PlantillaDetalle { Id = 116, PlantillaId = 17, Clave = "Q005", Pregunta = "Acuerdos y Convenios o recibos con otras fuentes de financiamiento", Orden = 5 },
+             new PlantillaDetalle { Id = 117, PlantillaId = 17, Clave = "Q006", Pregunta = "Oficio de Asignacion Presupuestal", Orden = 6 },
+             new PlantillaDetalle { Id = 118, PlantillaId = 17, Clave = "Q007", Pregunta = "Oficio de Suficiencia Presupuestal", Orden = 7 },
+             new PlantillaDetalle { Id = 119, PlantillaId = 17, Clave = "Q008", Pregunta = "Cedula Tecnica Programatica ( PROG )", Orden = 8 },
+             new PlantillaDetalle { Id = 120, PlantillaId = 17, Clave = "Q009", Pregunta = "Solicitud de Modificacion de POA con Soporte", Orden = 9 },
+             new PlantillaDetalle { Id = 121, PlantillaId = 17, Clave = "Q010", Pregunta = "Tramitacion de Pagos Cuentas por Liquidar ( CL ) con Soporte", Orden = 10 },
+             new PlantillaDetalle { Id = 122, PlantillaId = 17, Clave = "Q011", Pregunta = "Informe Trimestrales de Avances Fisicos Financieros (AVAN)", Orden = 11 },
+             new PlantillaDetalle { Id = 123, PlantillaId = 17, Clave = "Q012", Pregunta = "Oficios todo relacionado con la gestion, planeacion y ejecucion de la obra", Orden = 12 }
 
          );
 

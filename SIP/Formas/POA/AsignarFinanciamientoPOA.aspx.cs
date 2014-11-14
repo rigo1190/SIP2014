@@ -213,8 +213,7 @@ namespace SIP.Formas.POA
                 obra.GrupoBeneficiarioId = poadetalle.GrupoBeneficiarioId;
 
                 obra.SituacionObraId = poadetalle.SituacionObraId;
-                obra.ModalidadObra = poadetalle.ModalidadObra;                
-                obra.ImporteLiberadoEjerciciosAnteriores = 0;                
+                obra.ModalidadObra = poadetalle.ModalidadObra;
                 obra.Observaciones = poadetalle.Observaciones;               
 
                 obra.POAId = poadetalle.POAId;

@@ -257,49 +257,190 @@ namespace DataAccessLayer.Migrations
                new AperturaProgramatica { Id = 7, Clave = "SH", Nombre = "Vivienda", Orden = 7, EjercicioId = 2, Nivel = 1 },
                new AperturaProgramatica { Id = 8, Clave = "UB", Nombre = "Caminos rurales", Orden = 8, EjercicioId = 2, Nivel = 1 },
                new AperturaProgramatica { Id = 9, Clave = "IR", Nombre = "Infraestructura productiva rural", Orden = 9, EjercicioId = 2, Nivel = 1 },
-               new AperturaProgramatica { Id = 10, Clave = "UM", Nombre = "Equipamiento urbano", Orden = 10, EjercicioId = 2, Nivel = 1 },
-               new AperturaProgramatica { Id = 11, Clave = "PE", Nombre = "Protección y preservación ecológica", Orden = 11, EjercicioId = 2, Nivel = 1 },
-               new AperturaProgramatica { Id = 12, Clave = "BE", Nombre = "Bienes muebles", Orden = 12, EjercicioId = 2, Nivel = 1 },
-               new AperturaProgramatica { Id = 13, Clave = "BI", Nombre = "Bienes inmuebles", Orden = 13, EjercicioId = 2, Nivel = 1 },
-               new AperturaProgramatica { Id = 14, Clave = "PM", Nombre = "Planeación municipal", Orden = 14, EjercicioId = 2, Nivel = 1 },
-               new AperturaProgramatica { Id = 15, Clave = "SB", Nombre = "Estímulos a la educación", Orden = 15, EjercicioId = 2, Nivel = 1 }
+               new AperturaProgramatica { Id = 10, Clave = "EP", Nombre = "Estudios", Orden = 10, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 11, Clave = "DI", Nombre = "Programa de desarrollo institucional municipal y de las demarcaciones territoriales del distrito federal", Orden = 11, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 12, Clave = "U9", Nombre = "Gastos indirectos", Orden = 12, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 13, Clave = "PP", Nombre = "Prevención presupuestaria", Orden = 13, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 14, Clave = "DP", Nombre = "Deuda pública", Orden = 14, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 15, Clave = "PA", Nombre = "Auditoría", Orden = 15, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 16, Clave = "SP", Nombre = "Seguridad pública municipal", Orden = 16, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 17, Clave = "FM", Nombre = "Fortalecimiento municipal", Orden = 17, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 18, Clave = "UM", Nombre = "Equipamiento urbano", Orden = 18, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 19, Clave = "PE", Nombre = "Protección y preservación ecológica", Orden = 19, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 20, Clave = "BM", Nombre = "Bienes muebles", Orden = 20, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 21, Clave = "BI", Nombre = "Bienes inmuebles", Orden = 21, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 22, Clave = "PM", Nombre = "Planeación municipal", Orden = 22, EjercicioId = 2, Nivel = 1 },
+               new AperturaProgramatica { Id = 23, Clave = "SB", Nombre = "Estímulos a la educación", Orden = 23, EjercicioId = 2, Nivel = 1 }
             );
 
            AperturaProgramatica sc = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SC");
 
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 16, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 17, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 2, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 18, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 2, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 19, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 20, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 2, Nivel = 2 });
-           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 21, Clave = "06", Nombre = "Sustitución", Orden = 6, EjercicioId = 2, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 2, Nivel = 2 });
+           sc.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "06", Nombre = "Sustitución", Orden = 6, EjercicioId = 2, Nivel = 2 });
 
-           AperturaProgramatica sc_rehabilitacion = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 16);
 
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 22, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 2, Nivel = 3,EsObraOAccion=enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 23, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           AperturaProgramatica sd = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SD");
+
+           sd.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           sd.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           sd.DetalleSubElementos.Add(new AperturaProgramatica { Id = 32, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           sd.DetalleSubElementos.Add(new AperturaProgramatica { Id = 33, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica se = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SE");
+
+           se.DetalleSubElementos.Add(new AperturaProgramatica { Id = 34, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           se.DetalleSubElementos.Add(new AperturaProgramatica { Id = 35, Clave = "02", Nombre = "Construcción", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           se.DetalleSubElementos.Add(new AperturaProgramatica { Id = 36, Clave = "03", Nombre = "Ampliación", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           se.DetalleSubElementos.Add(new AperturaProgramatica { Id = 37, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica sg = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SG");
+
+           sg.DetalleSubElementos.Add(new AperturaProgramatica { Id = 38, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           sg.DetalleSubElementos.Add(new AperturaProgramatica { Id = 39, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           sg.DetalleSubElementos.Add(new AperturaProgramatica { Id = 40, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           sg.DetalleSubElementos.Add(new AperturaProgramatica { Id = 41, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+           sg.DetalleSubElementos.Add(new AperturaProgramatica { Id = 42, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 2, Nivel = 2 });
+
+
+           AperturaProgramatica so = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SO");
+
+           so.DetalleSubElementos.Add(new AperturaProgramatica { Id = 43, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           so.DetalleSubElementos.Add(new AperturaProgramatica { Id = 44, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           so.DetalleSubElementos.Add(new AperturaProgramatica { Id = 45, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           so.DetalleSubElementos.Add(new AperturaProgramatica { Id = 46, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+           so.DetalleSubElementos.Add(new AperturaProgramatica { Id = 47, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 2, Nivel = 2 });
+
+
+           AperturaProgramatica sj = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SJ");
+
+           sj.DetalleSubElementos.Add(new AperturaProgramatica { Id = 48, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           sj.DetalleSubElementos.Add(new AperturaProgramatica { Id = 49, Clave = "02", Nombre = "Construcción", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           sj.DetalleSubElementos.Add(new AperturaProgramatica { Id = 50, Clave = "03", Nombre = "Equipamiento", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           sj.DetalleSubElementos.Add(new AperturaProgramatica { Id = 51, Clave = "04", Nombre = "Ampliación", Orden = 4, EjercicioId = 2, Nivel = 2 });
+           sj.DetalleSubElementos.Add(new AperturaProgramatica { Id = 52, Clave = "05", Nombre = "Mantenimiento", Orden = 5, EjercicioId = 2, Nivel = 2 });
+
+
+           AperturaProgramatica sh = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SH");
+
+           sh.DetalleSubElementos.Add(new AperturaProgramatica { Id = 53, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           sh.DetalleSubElementos.Add(new AperturaProgramatica { Id = 54, Clave = "02", Nombre = "Construcción", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           sh.DetalleSubElementos.Add(new AperturaProgramatica { Id = 55, Clave = "03", Nombre = "Equipamiento", Orden = 3, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica ub = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "UB");
+
+           ub.DetalleSubElementos.Add(new AperturaProgramatica { Id = 56, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           ub.DetalleSubElementos.Add(new AperturaProgramatica { Id = 57, Clave = "02", Nombre = "Construcción", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           ub.DetalleSubElementos.Add(new AperturaProgramatica { Id = 58, Clave = "03", Nombre = "Ampliación", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           ub.DetalleSubElementos.Add(new AperturaProgramatica { Id = 59, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+
+
+           AperturaProgramatica ir = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "IR");
+
+           ir.DetalleSubElementos.Add(new AperturaProgramatica { Id = 60, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           ir.DetalleSubElementos.Add(new AperturaProgramatica { Id = 61, Clave = "02", Nombre = "Ampliación", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           ir.DetalleSubElementos.Add(new AperturaProgramatica { Id = 62, Clave = "03", Nombre = "Construcción", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           ir.DetalleSubElementos.Add(new AperturaProgramatica { Id = 63, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+           ir.DetalleSubElementos.Add(new AperturaProgramatica { Id = 64, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica ep = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "EP");
+
+           ep.DetalleSubElementos.Add(new AperturaProgramatica { Id = 65, Clave = "01", Nombre = "Estudios", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica di = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "DI");
+
+           di.DetalleSubElementos.Add(new AperturaProgramatica { Id = 66, Clave = "01", Nombre = "Programa de desarrollo institucional municipal y de las demarcaciones territoriales del distrito federal", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica u9 = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "U9");
+
+           u9.DetalleSubElementos.Add(new AperturaProgramatica { Id = 67, Clave = "01", Nombre = "Realización de estudios asociados a los proyectos", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           u9.DetalleSubElementos.Add(new AperturaProgramatica { Id = 68, Clave = "02", Nombre = "Seguimiento de obra", Orden = 2, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica pp = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "PP");
+
+           pp.DetalleSubElementos.Add(new AperturaProgramatica { Id = 69, Clave = "01", Nombre = "Prevención presupuestaria", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica dp = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "DP");
+
+           dp.DetalleSubElementos.Add(new AperturaProgramatica { Id = 70, Clave = "01", Nombre = "Deuda pública", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica pa = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "PA");
+
+           pa.DetalleSubElementos.Add(new AperturaProgramatica { Id = 71, Clave = "01", Nombre = "Auditoría", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica sp = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SP");
+
+           sp.DetalleSubElementos.Add(new AperturaProgramatica { Id = 72, Clave = "01", Nombre = "Recursos humanos", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           sp.DetalleSubElementos.Add(new AperturaProgramatica { Id = 73, Clave = "02", Nombre = "Equipos y accesorios", Orden = 2, EjercicioId = 2, Nivel = 2 });
+
+
+           AperturaProgramatica fm = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "FM");
+
+           fm.DetalleSubElementos.Add(new AperturaProgramatica { Id = 74, Clave = "01", Nombre = "Capacitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           fm.DetalleSubElementos.Add(new AperturaProgramatica { Id = 75, Clave = "02", Nombre = "Pago de servicios municipales", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           fm.DetalleSubElementos.Add(new AperturaProgramatica { Id = 76, Clave = "03", Nombre = "Vehículos terrestres", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           fm.DetalleSubElementos.Add(new AperturaProgramatica { Id = 77, Clave = "04", Nombre = "Sistematización de procesos", Orden = 4, EjercicioId = 2, Nivel = 2 });
+           fm.DetalleSubElementos.Add(new AperturaProgramatica { Id = 78, Clave = "05", Nombre = "Protección civil municipal", Orden = 5, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica um = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "UM");
+
+           um.DetalleSubElementos.Add(new AperturaProgramatica { Id = 79, Clave = "01", Nombre = "Rehabilitación", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           um.DetalleSubElementos.Add(new AperturaProgramatica { Id = 80, Clave = "02", Nombre = "Construcción", Orden = 2, EjercicioId = 2, Nivel = 2 });
+           um.DetalleSubElementos.Add(new AperturaProgramatica { Id = 81, Clave = "03", Nombre = "Ampliación", Orden = 3, EjercicioId = 2, Nivel = 2 });
+           um.DetalleSubElementos.Add(new AperturaProgramatica { Id = 82, Clave = "04", Nombre = "Mantenimiento", Orden = 4, EjercicioId = 2, Nivel = 2 });
+           um.DetalleSubElementos.Add(new AperturaProgramatica { Id = 83, Clave = "05", Nombre = "Equipamiento", Orden = 5, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica pe = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "PE");
+
+           pe.DetalleSubElementos.Add(new AperturaProgramatica { Id = 84, Clave = "01", Nombre = "Manejo de residuos solidos", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           pe.DetalleSubElementos.Add(new AperturaProgramatica { Id = 85, Clave = "02", Nombre = "Reforestación", Orden = 2, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica be = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "BM");
+
+           be.DetalleSubElementos.Add(new AperturaProgramatica { Id = 86, Clave = "01", Nombre = "Adquisiciones", Orden = 1, EjercicioId = 2, Nivel = 2 });
+           be.DetalleSubElementos.Add(new AperturaProgramatica { Id = 87, Clave = "02", Nombre = "Otros", Orden = 2, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica bi = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "BI");
+
+           bi.DetalleSubElementos.Add(new AperturaProgramatica { Id = 88, Clave = "01", Nombre = "Adquisiciones", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica pm = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "PM");
+
+           pm.DetalleSubElementos.Add(new AperturaProgramatica { Id = 89, Clave = "01", Nombre = "Estudios", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           AperturaProgramatica sb = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Clave == "SB");
+
+           sb.DetalleSubElementos.Add(new AperturaProgramatica { Id = 90, Clave = "01", Nombre = "Becas y despensas", Orden = 1, EjercicioId = 2, Nivel = 2 });
+
+           //AperturaProgramatica sc_rehabilitacion = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 16);
+
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 22, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 2, Nivel = 3,EsObraOAccion=enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 23, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
                    
 
-          context.AperturaProgramaticaMetas.AddOrUpdate(
-              new AperturaProgramaticaMeta { Id = 1,AperturaProgramaticaId = 22, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 2, AperturaProgramaticaId = 23, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 3, AperturaProgramaticaId = 24, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 4, AperturaProgramaticaId = 25, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 5, AperturaProgramaticaId = 26, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 6, AperturaProgramaticaId = 27, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 7, AperturaProgramaticaId = 28, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 8, AperturaProgramaticaId = 29, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 9, AperturaProgramaticaId = 30, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
-              new AperturaProgramaticaMeta { Id = 10, AperturaProgramaticaId = 31, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
-          );
+          //context.AperturaProgramaticaMetas.AddOrUpdate(
+          //    new AperturaProgramaticaMeta { Id = 1,AperturaProgramaticaId = 22, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 2, AperturaProgramaticaId = 23, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 3, AperturaProgramaticaId = 24, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 4, AperturaProgramaticaId = 25, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 5, AperturaProgramaticaId = 26, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 6, AperturaProgramaticaId = 27, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 7, AperturaProgramaticaId = 28, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 8, AperturaProgramaticaId = 29, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 9, AperturaProgramaticaId = 30, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
+          //    new AperturaProgramaticaMeta { Id = 10, AperturaProgramaticaId = 31, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
+          //);
 
            context.Funcionalidad.AddOrUpdate(
             new Funcionalidad { Id = 1, Clave = "F001", Descripcion = "Gobierno", Orden = 1,Nivel=1 },

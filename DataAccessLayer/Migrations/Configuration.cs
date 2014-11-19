@@ -248,7 +248,7 @@ namespace DataAccessLayer.Migrations
            );
 
            context.AperturaProgramatica.AddOrUpdate(
-               new AperturaProgramatica { Id = 1, Clave = "SC", Nombre = "Agua y saneamiento (Agua potable)", Orden = 1, EjercicioId = 2,Nivel=1 },
+               new AperturaProgramatica { Id = 1, Clave = "SC", Nombre = "Agua y saneamiento (Agua potable)", Orden = 1, EjercicioId = 2, Nivel = 1 },
                new AperturaProgramatica { Id = 2, Clave = "SD", Nombre = "Agua y saneamiento (Drenaje)", Orden = 2, EjercicioId = 2, Nivel = 1 },
                new AperturaProgramatica { Id = 3, Clave = "SE", Nombre = "Urbanización municipal", Orden = 3, EjercicioId = 2, Nivel = 1 },
                new AperturaProgramatica { Id = 4, Clave = "SG", Nombre = "Electrificación", Orden = 4, EjercicioId = 2, Nivel = 1 },
@@ -415,32 +415,32 @@ namespace DataAccessLayer.Migrations
 
            sb.DetalleSubElementos.Add(new AperturaProgramatica { Id = 90, Clave = "01", Nombre = "Becas y despensas", Orden = 1, EjercicioId = 2, Nivel = 2 });
 
-           //AperturaProgramatica sc_rehabilitacion = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 16);
+           AperturaProgramatica sc_rehabilitacion = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 24);
 
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 22, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 2, Nivel = 3,EsObraOAccion=enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 23, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 24, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 25, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 26, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 27, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 28, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 29, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 30, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           //sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 31, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-                   
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 91, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 92, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 93, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 94, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 95, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 96, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 97, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 98, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 99, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 100, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
 
-          //context.AperturaProgramaticaMetas.AddOrUpdate(
-          //    new AperturaProgramaticaMeta { Id = 1,AperturaProgramaticaId = 22, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 2, AperturaProgramaticaId = 23, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 3, AperturaProgramaticaId = 24, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 4, AperturaProgramaticaId = 25, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 5, AperturaProgramaticaId = 26, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 6, AperturaProgramaticaId = 27, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 7, AperturaProgramaticaId = 28, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 8, AperturaProgramaticaId = 29, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 9, AperturaProgramaticaId = 30, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
-          //    new AperturaProgramaticaMeta { Id = 10, AperturaProgramaticaId = 31, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
-          //);
+
+           context.AperturaProgramaticaMetas.AddOrUpdate(
+               new AperturaProgramaticaMeta { Id = 1, AperturaProgramaticaId = 91, AperturaProgramaticaUnidadId = 1, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 2, AperturaProgramaticaId = 92, AperturaProgramaticaUnidadId = 2, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 3, AperturaProgramaticaId = 93, AperturaProgramaticaUnidadId = 3, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 4, AperturaProgramaticaId = 94, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 5, AperturaProgramaticaId = 95, AperturaProgramaticaUnidadId = 4, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 6, AperturaProgramaticaId = 96, AperturaProgramaticaUnidadId = 5, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 7, AperturaProgramaticaId = 97, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 8, AperturaProgramaticaId = 98, AperturaProgramaticaUnidadId = 6, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 9, AperturaProgramaticaId = 99, AperturaProgramaticaUnidadId = 7, AperturaProgramaticaBeneficiarioId = 1 },
+               new AperturaProgramaticaMeta { Id = 10, AperturaProgramaticaId = 100, AperturaProgramaticaUnidadId = 8, AperturaProgramaticaBeneficiarioId = 1 }
+           );
 
            context.Funcionalidad.AddOrUpdate(
             new Funcionalidad { Id = 1, Clave = "F001", Descripcion = "Gobierno", Orden = 1,Nivel=1 },

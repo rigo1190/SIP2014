@@ -357,8 +357,8 @@
              </div>
         </div>
         
-
         
+        <asp:LinkButton ID="idLinkRPT" runat="server" PostBackUrl="~/rpts/wfVerReporte.aspx?nombreRPT='CrystalReport1.rpt'">Ver Reporte</asp:LinkButton>
 
         <div class="row">
             <div id="divcaptura" runat="server" class="panel panel-success">

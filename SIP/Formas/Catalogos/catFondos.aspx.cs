@@ -456,6 +456,11 @@ namespace SIP.Formas.Catalogos
         }
 
         #endregion
+
+        protected void btnRPT_Click(object sender, EventArgs e)
+        {
+            
+        }
    
 
 

@@ -18,15 +18,13 @@ namespace SIP.rpts
         public string nombreReporte;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //int caller = Utilerias.StrToInt(Request.Params["c"].ToString());
+            int caller = Utilerias.StrToInt(Request.Params["c"].ToString());
             //string parametros = Request.Params["p"].ToString();
-            //string nomReporte = GetNombreReporte(caller);
+            string nomReporte = GetNombreReporte(caller);
+            
             ReportDocument rdc = new ReportDocument();
 
-            //nombreReporte = Request.QueryString["nombreRPT"].ToString();
-
-            rdc.FileName = "C:\\Users\\rey\\Source\\Repos\\SIP2014\\SIP\\rpts\\CrystalReport1.rpt";
-//Server.MapPath("~/rpts/" + nombreReporte);
+            rdc.FileName = Server.MapPath("~/rpts/" + nomReporte);
 
             //if (!parametros.Equals(string.Empty))
             //    CargarParametros(caller, parametros, ref rdc);
@@ -43,11 +41,8 @@ namespace SIP.rpts
 
             switch (caller)
             {
-                case 1: //ACUERDOS
-                    rdc.SetParameterValue("@ejercicio", primerArray[0]);
-                    rdc.SetParameterValue("@fideicomiso", primerArray[1]);
-                    rdc.SetParameterValue("@status", primerArray[2]);
-                    rdc.SetParameterValue("@sesion", primerArray[3]);
+                case 1: //REPORTE DE EVALUACION DE PLANEACION
+                    
                     break;
             }
         }
@@ -58,10 +53,10 @@ namespace SIP.rpts
         private void CargarReporte(ReportDocument rdc)
         {
             CrystalReportViewer1.ReportSource = rdc;
-            string user = "sa";
-            string pass = "ch3st3r";
-            string server = @"pilot\SQLEXPRESS";
-            string db = "SIP";
+            string user = System.Configuration.ConfigurationManager.AppSettings["user"];
+            string pass = System.Configuration.ConfigurationManager.AppSettings["pass"];
+            string server = @System.Configuration.ConfigurationManager.AppSettings["server"];
+            string db = System.Configuration.ConfigurationManager.AppSettings["db"];
 
 
             TableLogOnInfo Logon = new TableLogOnInfo();
@@ -102,7 +97,7 @@ namespace SIP.rpts
             switch (caller)
             {
                 case 1:
-                    nombreReporte = "rptAcuerdos.rpt";
+                    nombreReporte = "rptEvaluacionPOA.rpt";
                     break;
             }
 

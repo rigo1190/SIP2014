@@ -45,6 +45,10 @@
     <Reference Include="AjaxMin">
       <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -240,15 +244,20 @@
     <Content Include="Formas\frmSelectorEjercicio.aspx" />
     <Content Include="Formas\POA\AsignarFinanciamientoPOA.aspx" />
     <Content Include="Formas\POA\EvaluacionPOA.aspx" />
+    <Content Include="Formas\POA\EvaluacionPOA_.aspx" />
     <Content Include="Formas\POA\frmPOAAjustado.aspx" />
     <Content Include="Formas\POA\POA.aspx" />
+    <Content Include="Formas\POA\POAAjustado.aspx" />
     <Content Include="Formas\POA\POAAjustadoEvaluacion.aspx" />
     <Content Include="Formas\POA\POAAjustadoFinanciamiento.aspx" />
     <Content Include="Formas\POA\POAFinanciamiento.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
     <Content Include="Formas\TechoFin\wfTechoFinanciero.aspx" />
+    <Content Include="Formas\TechoFin\wfTechoFinancieroBitacora.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroConsultaXup.aspx" />
+    <Content Include="Formas\TechoFin\wfTechoFinancieroNuevoFondo.aspx" />
+    <Content Include="Formas\TechoFin\wfTechoFinancieroRPT.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroTransferencias.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroUnidadPresupuestal.aspx" />
     <Content Include="Formas\TEST.aspx" />
@@ -276,6 +285,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\WEB.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="rpts\wfVerReporte.aspx" />
     <Content Include="Scripts\autoNumeric\autoNumeric-1.9.25.js" />
     <Content Include="Scripts\autoNumeric\autoNumeric-1.9.25.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
@@ -501,6 +511,13 @@
     <Compile Include="Formas\POA\EvaluacionPOA.aspx.designer.cs">
       <DependentUpon>EvaluacionPOA.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\POA\EvaluacionPOA_.aspx.cs">
+      <DependentUpon>EvaluacionPOA_.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\POA\EvaluacionPOA_.aspx.designer.cs">
+      <DependentUpon>EvaluacionPOA_.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\POA\frmPOAAjustado.aspx.cs">
       <DependentUpon>frmPOAAjustado.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -514,6 +531,13 @@
     </Compile>
     <Compile Include="Formas\POA\POA.aspx.designer.cs">
       <DependentUpon>POA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\POAAjustado.aspx.cs">
+      <DependentUpon>POAAjustado.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\POA\POAAjustado.aspx.designer.cs">
+      <DependentUpon>POAAjustado.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\POA\POAAjustadoEvaluacion.aspx.cs">
       <DependentUpon>POAAjustadoEvaluacion.aspx</DependentUpon>
@@ -547,6 +571,13 @@
     <Compile Include="Formas\TechoFin\wfTechoFinanciero.aspx.designer.cs">
       <DependentUpon>wfTechoFinanciero.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroBitacora.aspx.cs">
+      <DependentUpon>wfTechoFinancieroBitacora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroBitacora.aspx.designer.cs">
+      <DependentUpon>wfTechoFinancieroBitacora.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx.cs">
       <DependentUpon>wfTechoFinancieroCierre.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -560,6 +591,20 @@
     </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinancieroConsultaXup.aspx.designer.cs">
       <DependentUpon>wfTechoFinancieroConsultaXup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroNuevoFondo.aspx.cs">
+      <DependentUpon>wfTechoFinancieroNuevoFondo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroNuevoFondo.aspx.designer.cs">
+      <DependentUpon>wfTechoFinancieroNuevoFondo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroRPT.aspx.cs">
+      <DependentUpon>wfTechoFinancieroRPT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfTechoFinancieroRPT.aspx.designer.cs">
+      <DependentUpon>wfTechoFinancieroRPT.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinancieroTransferencias.aspx.cs">
       <DependentUpon>wfTechoFinancieroTransferencias.aspx</DependentUpon>
@@ -622,6 +667,31 @@
     </Compile>
     <Compile Include="NotasFunciones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rpts\CrystalReport11.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptEvaluacionPOA1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptEvaluacionPOA.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptFondos1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptFondos.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\wfVerReporte.aspx.cs">
+      <DependentUpon>wfVerReporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rpts\wfVerReporte.aspx.designer.cs">
+      <DependentUpon>wfVerReporte.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -662,6 +732,23 @@
       <Project>{7e28a2c0-5327-4f22-b012-76d81b9061da}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="rpts\CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport11.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptEvaluacionPOA.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptEvaluacionPOA1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptFondos.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptFondos1.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

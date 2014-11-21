@@ -19,10 +19,19 @@ namespace DataAccessLayer.Models
         public string RutaArchivo { get; set; }
         public string TipoArchivo { get; set; }
         public string NombreArchivo { get; set; }
+        public enumPresento Presento { get; set; }
         public virtual POAPlantilla POAPlantilla { get; set; }
         public virtual PlantillaDetalle PlantillaDetalle { get; set; }
  
     }
+
+
+    public enum enumPresento
+    {
+        Si=1,
+        No=2
+    }
+
 
 
 }

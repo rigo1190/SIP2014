@@ -230,6 +230,7 @@
     <Content Include="Formas\Catalogos\catAperturaProgramaticaUnidades.aspx" />
     <Content Include="Formas\Catalogos\catEjesPVD.aspx" />
     <Content Include="Formas\Catalogos\catFondos.aspx" />
+    <Content Include="Formas\Catalogos\catFondosLineamientos.aspx" />
     <Content Include="Formas\Catalogos\catFuncionalidad.aspx" />
     <Content Include="Formas\Catalogos\catGrupoBeneficiarios.aspx" />
     <Content Include="Formas\Catalogos\catModalidad.aspx" />
@@ -412,6 +413,12 @@
     </Compile>
     <Compile Include="Formas\Catalogos\catFondos.aspx.designer.cs">
       <DependentUpon>catFondos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catFondosLineamientos.aspx.cs">
+      <DependentUpon>catFondosLineamientos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\catFondosLineamientos.aspx.designer.cs">
+      <DependentUpon>catFondosLineamientos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\catFuncionalidad.aspx.cs">
       <DependentUpon>catFuncionalidad.aspx</DependentUpon>

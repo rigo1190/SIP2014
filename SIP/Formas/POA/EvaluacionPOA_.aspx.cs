@@ -913,7 +913,8 @@ namespace SIP.Formas.POA
 
             BindGridIndividual(Utilerias.StrToInt(_NumGrid.Value), obj);
 
-
+            //fnc_AbrirCollapse()
+            ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_AbrirCollapse()", true);
         }
 
         #endregion

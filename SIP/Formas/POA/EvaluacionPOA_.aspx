@@ -3,6 +3,24 @@
 
     <script type="text/javascript">
 
+        function fnc_AbrirCollapse() {
+
+            var numeroCollapse=$("#<%= _numCollapse.ClientID %>").val();
+
+            $("#collapse" + numeroCollapse).addClass("panel-collapse collapse in");
+
+            switch (numeroCollapse) { //para el caso del acordeon de TIPO DE ADJUDICACION
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                    $("#collapse5").addClass("panel-collapse collapse in");
+                
+            }
+
+        }
+
+
         function fnc_AbrirReporte() {
 
             var izq = (screen.width - 750) / 2
@@ -19,8 +37,45 @@
         function fnc_Edicion(idPregunta,numGrid) {
             var cadenaValores;
             var nombreGrid;
+            var numeroCollapse;
 
             cadenaValores = fnc_ObtenerRadioChecks(numGrid);
+            
+            switch (numGrid) {
+                case 1:
+                    numeroCollapse = 1;
+                    break;
+                case 2:
+                    numeroCollapse = 2;
+                    break;
+                case 3:
+                    numeroCollapse = 3;
+                    break;
+                case 4:
+                    numeroCollapse = 4;
+                    break;
+                case 5:
+                    numeroCollapse = 6;
+                    break;
+                case 6:
+                    numeroCollapse = 7;
+                    break;
+                case 7:
+                    numeroCollapse = 8;
+                    break;
+                case 8:
+                    numeroCollapse = 9;
+                    break;
+                case 9:
+                    numeroCollapse = 10;
+                    break;
+                case 10:
+                    numeroCollapse = 11;
+                    break;
+
+            }
+
+            $("#<%= _numCollapse.ClientID %>").val(numeroCollapse);
 
             $("#<%= _CadValoresChecks.ClientID %>").val(cadenaValores);
             $("#<%= _IDPregunta.ClientID %>").val(idPregunta);
@@ -997,6 +1052,7 @@
             <input type="hidden" runat="server" id="_CadValoresChecks" />
             <input type="hidden" runat="server" id="_NumGrid" />
             <input type="hidden" runat="server" id="_URLVisor" />
+            <input type="hidden" runat="server" id="_numCollapse" />
           
     </div>
     <div class="modal fade" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">

@@ -400,6 +400,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden _URLVisor;
         
         /// <summary>
+        /// Control _numCollapse.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _numCollapse;
+        
+        /// <summary>
         /// Control txtPregunta.
         /// </summary>
         /// <remarks>

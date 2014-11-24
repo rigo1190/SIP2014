@@ -26,12 +26,25 @@
             var izq = (screen.width - 750) / 2
             var sup = (screen.height - 600) / 2
             var param = "";
-            //param = fnc_ArmarParamentros();
+            param = fnc_ArmarParamentros();
             url = $("#<%= _URLVisor.ClientID %>").val();
-            var argumentos = "?c=" + 1;
+            var argumentos = "?c=" + 1 + param;
             url += argumentos;
             window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=750,height=500,top=' + sup + ',left=' + izq);
         }
+
+
+        function fnc_ArmarParamentros() {
+            var p = "";
+
+            var IDPoaDetalle = $("#<%= _IDPOADetalle.ClientID %>").val();
+
+            p += "&p=" + IDPoaDetalle;
+            return p;
+
+        }
+
+
 
 
         function fnc_Edicion(idPregunta,numGrid) {

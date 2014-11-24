@@ -19,15 +19,15 @@ namespace SIP.rpts
         protected void Page_Load(object sender, EventArgs e)
         {
             int caller = Utilerias.StrToInt(Request.Params["c"].ToString());
-            //string parametros = Request.Params["p"].ToString();
+            string parametros = Request.Params["p"].ToString();
             string nomReporte = GetNombreReporte(caller);
             
             ReportDocument rdc = new ReportDocument();
 
             rdc.FileName = Server.MapPath("~/rpts/" + nomReporte);
 
-            //if (!parametros.Equals(string.Empty))
-            //    CargarParametros(caller, parametros, ref rdc);
+            if (!parametros.Equals(string.Empty))
+                CargarParametros(caller, parametros, ref rdc);
 
             CargarReporte(rdc);
 
@@ -42,7 +42,7 @@ namespace SIP.rpts
             switch (caller)
             {
                 case 1: //REPORTE DE EVALUACION DE PLANEACION
-                    
+                    rdc.SetParameterValue("POADetalleID", primerArray[0]);
                     break;
             }
         }

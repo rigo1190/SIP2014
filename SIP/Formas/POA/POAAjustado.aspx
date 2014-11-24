@@ -60,7 +60,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
-                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Evaluar POA" SortExpression="NOAplica">
                                     <ItemTemplate>
                                         <button type="button" runat="server" id="btnEvaluar"><span class="glyphicon glyphicon-ok"></span></button>
                                     </ItemTemplate>

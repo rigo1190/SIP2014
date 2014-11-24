@@ -27,6 +27,8 @@ namespace SIP.Formas.POA
                 _IDPOADetalle.Value = POADetalleID.ToString();
                 _URLVisor.Value = ResolveClientUrl("~/rpts/wfVerReporte.aspx");
 
+                BindControlesObra(idObra, POADetalleID);
+
                 CargarPreguntasPlantillas(POADetalleID);
 
                 BindGridsEvaluacion();
@@ -384,6 +386,7 @@ namespace SIP.Formas.POA
                 txtDescripcion.Value = obra.Descripcion;
                 txtMunicipio.Value = obra.Municipio.Nombre;
                 txtNumero.Value = obra.Numero;
+                txtLocalidad.Value = obra.Localidad.Nombre;
                 //txtObservacion.Value = obra.Observaciones;
                 _IDPOADetalle.Value = obra.POADetalleId.ToString(); //Se coloca el id de POADETALLE, por que sobre ese obj es donde se realizara la EVALUACION DE PLANTILLAS
 
@@ -392,16 +395,81 @@ namespace SIP.Formas.POA
             {  //Quiere decir que se esta abriendo desde ANTEPROYECTO DE POA
 
                 poaDetalle = uow.POADetalleBusinessLogic.GetByID(idPoaDetalle);
-
+                txtFecha.Value = DateTime.Now.ToShortDateString();
                 //Se bindean los datos directamente de POADETALLE
                 txtDescripcion.Value = poaDetalle.Descripcion;
                 txtMunicipio.Value = poaDetalle.Municipio.Nombre;
                 txtNumero.Value = poaDetalle.Numero;
+                txtLocalidad.Value = poaDetalle.Localidad.Nombre;
                 //txtObservacion.Value = poaDetalle.Observaciones;
                 _IDPOADetalle.Value = idPoaDetalle.ToString();
+
+                 ColocarEncabezadoObra(idPoaDetalle);
+
             }
 
         }
+
+
+
+        private void ColocarEncabezadoObra(int PoaDetalleID)
+        {
+            int idUnidad = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
+            UnidadPresupuestal up = uow.UnidadPresupuestalBusinessLogic.GetByID(idUnidad);
+
+            var objApertura = (from pd in uow.POADetalleBusinessLogic.Get(e => e.Id == PoaDetalleID)
+                               join ap3 in uow.AperturaProgramaticaBusinessLogic.Get()
+                               on pd.AperturaProgramaticaId equals ap3.Id
+                               join ap2 in uow.AperturaProgramaticaBusinessLogic.Get()
+                               on ap3.ParentId equals ap2.Id
+                               join ap1 in uow.AperturaProgramaticaBusinessLogic.Get()
+                               on ap2.ParentId equals ap1.Id
+                               select new { programa = ap1.Nombre, subprograma = ap2.Nombre });
+
+            Obra obra = uow.ObraBusinessLogic.Get(e => e.POADetalleId == PoaDetalleID).FirstOrDefault();
+
+            ObraFinanciamiento obraFinan = uow.ObraFinanciamientoBusinessLogic.Get(e => e.ObraId == obra.Id).FirstOrDefault();
+
+            TechoFinancieroUnidadPresupuestal tfu = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(e => e.Id == obraFinan.TechoFinancieroUnidadPresupuestalId).FirstOrDefault();
+
+            TechoFinanciero tf = uow.TechoFinancieroBusinessLogic.Get(e => e.Id == tfu.TechoFinancieroId).FirstOrDefault();
+
+            Financiamiento fin = uow.FinanciamientoBusinessLogic.Get(e => e.Id == tf.FinanciamientoId).FirstOrDefault();
+
+            ModalidadFinanciamiento mf = uow.ModalidadFinanciamientoBusinessLogic.Get(e => e.Id == fin.ModalidadFinanciamientoId).FirstOrDefault();
+
+            Fondo fondo = uow.FondoBusinessLogic.Get(e => e.Id == fin.FondoId).FirstOrDefault();
+
+            FondoLineamientos fl = uow.FondoLineamientosBL.Get(e => e.FondoId == fondo.Id).FirstOrDefault();
+
+            Año año=uow.AñoBusinessLogic.Get(e=>e.Id==fin.AñoId).FirstOrDefault();
+
+
+           
+            txtEntidad.Value = up.Nombre;
+
+            foreach (var item in objApertura)
+            {
+                txtPrograma.Value = item.programa;
+                txtSubprograma.Value = item.subprograma;
+            }
+
+            txtFondo.Value = fondo!=null && mf!=null && año!=null? fondo.Abreviatura + "-" + mf.Nombre + " (" + año.Anio + ")":string.Empty;
+            txtTecho.Value = tfu!=null? tfu.Importe.ToString("c"):string.Empty;
+            txtLineamiento.Value =fl!=null? fl.TipoDeObrasYAcciones:string.Empty;
+            txtNormatividad.Value = fl!=null?fl.NormatividadAplicable:string.Empty;
+            txtImporte.Value = obraFinan!=null?obraFinan.Importe.ToString("c"):string.Empty;
+
+
+
+
+        }
+
+
+
+
+
+
         private void RowDataBound(int id, int numGrid, GridViewRowEventArgs e)
         {
             HtmlInputCheckBox chkRequiere = (HtmlInputCheckBox)e.Row.FindControl("chkRequiere");
@@ -447,10 +515,10 @@ namespace SIP.Formas.POA
             if (obj.NombreArchivo != null)
                 if (!obj.NombreArchivo.Equals(string.Empty))
                     lblArchivo.Text = obj.NombreArchivo;
-                else
-                    lblArchivo.Text = "No existe archivo adjunto";
-            else
-                lblArchivo.Text = "No existe archivo adjunto";
+            //    else
+            //        lblArchivo.Text = "No existe archivo adjunto";
+            //else
+            //    lblArchivo.Text = "No existe archivo adjunto";
 
 
             if (imgBtnEdit != null)

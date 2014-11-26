@@ -54,5 +54,12 @@ namespace SIP.Formas.POA
             }
         }
 
+        protected void grid_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView grid = sender as GridView;
+            grid.PageIndex = e.NewPageIndex;
+            BindGrid();          
+        }
+
     }
 }

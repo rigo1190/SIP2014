@@ -41,7 +41,7 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <asp:GridView OnRowDataBound="grid_RowDataBound"  ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
+                        <asp:GridView OnRowDataBound="grid_RowDataBound"  ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True" OnPageIndexChanging="grid_PageIndexChanging">
                             <Columns>
                                 <asp:TemplateField HeaderText="Dependencia" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
                                     <ItemTemplate>

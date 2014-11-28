@@ -146,6 +146,7 @@ namespace DataAccessLayer.Models
 
         public virtual DbSet<TechoFinancieroTMPtransferencias> TechoFinancieroTMPtransferencias { get; set; }
 
+        public virtual DbSet<Firmas> Firmas { get; set; }
 
     }
 

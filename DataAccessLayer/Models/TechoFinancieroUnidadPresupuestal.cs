@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,16 @@ namespace DataAccessLayer.Models
         public decimal Importe { get; set; }
         public decimal tmpImporteAsignado { get; set; }
         public decimal tmpImporteEjecutado { get; set; }
+
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string NumOficioAsignacionPresupuestal { get; set; }
+        public DateTime FechaOficioAsignacionPresupuestal { get; set; }
+
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string NumOficioAlcance { get; set; }
+        public DateTime FechaOficioAlcance { get; set; }
+        public string ObservacionesAlcance { get; set; }
+
         public virtual TechoFinanciero TechoFinanciero { get; set; }
         public virtual UnidadPresupuestal UnidadPresupuestal { get; set; }
         public virtual ICollection<ObraFinanciamiento> DetalleObraFinanciamiento { get; set; }

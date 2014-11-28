@@ -29,6 +29,13 @@ namespace DataAccessLayer.Models
         [Index("IX_Orden_ParentId", 1, IsUnique = true)]
         public int Orden { get; set; }
 
+        [StringLength(100, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string Titular { get; set; }
+
+        [StringLength(100, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string Cargo { get; set; }
+
+
         [Index("IX_Orden_ParentId", 2)]
         public int? ParentId { get; set; }
         public virtual UnidadPresupuestal Parent { get; set; }

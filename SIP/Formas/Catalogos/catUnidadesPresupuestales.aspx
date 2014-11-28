@@ -111,6 +111,14 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
+                    <asp:TemplateField HeaderText="Titular" SortExpression="Titular">
+                        <EditItemTemplate>
+                            <asp:TextBox CssClass="input-sm" ID="txtTitular" runat="server" Text='<%# Bind("Titular") %>'></asp:TextBox>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="labelTitular" runat="server" Text='<%# Bind("Titular") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
 
                 </Columns>
                     
@@ -166,6 +174,26 @@
 
 
 
+                <div class="row top-buffer">
+                    <div class="col-md-2">
+                        <label for="Titular">Titular</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="input-sm required" id="txtTitular" runat="server" style="text-align: left; width:800px;  align-items:flex-start" />                        
+                    </div>
+                </div>
+
+
+
+            
+                <div class="row top-buffer">
+                    <div class="col-md-2">
+                        <label for="Cargo">Nombre del Cargo</label>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="input-sm required" id="txtCargo" runat="server" style="text-align: left; width:800px;  align-items:flex-start" />                        
+                    </div>
+                </div>
                                 
                     <div class="form-group">
                     <asp:Button  CssClass="btn btn-default" Text="Guardar" ID="btnCrear" runat="server" OnClick="btnCrear_Click" AutoPostBack="false" ValidationGroup="validateUP" />

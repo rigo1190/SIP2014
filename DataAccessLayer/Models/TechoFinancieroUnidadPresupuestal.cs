@@ -21,6 +21,7 @@ namespace DataAccessLayer.Models
         [Index("IX_TechoFinancieroId_UnidadPresupuestalId", 2)]
         public int UnidadPresupuestalId { get; set; }
         public decimal Importe { get; set; }
+        public decimal ImporteInicial { get; set; }
         public decimal tmpImporteAsignado { get; set; }
         public decimal tmpImporteEjecutado { get; set; }
 

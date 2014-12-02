@@ -52,9 +52,6 @@ namespace SIP.Formas.TechoFin
 
             ejercicio = int.Parse(Session["EjercicioId"].ToString());
 
-            
-
-
 
             TechoFinancieroBitacora tfBit = new TechoFinancieroBitacora();
             tfBit.EjercicioId = ejercicio;
@@ -78,6 +75,9 @@ namespace SIP.Formas.TechoFin
                 tfBitMov.Decremento = 0;
 
                 uow.TechoFinancieroBitacoraMovimientosBL.Insert(tfBitMov);
+
+                elemento.ImporteInicial = elemento.Importe;
+                uow.TechoFinancieroUnidadPresuestalBusinessLogic.Update(elemento);
 
             }
 

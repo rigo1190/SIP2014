@@ -145,6 +145,8 @@ namespace SIP.Formas.Catalogos
             up.Clave = txtClave.Value;
             up.Abreviatura = txtAbreviatura.Value;
             up.Nombre = txtNombre.Value;
+            up.Titular = txtTitular.Value;
+            up.Cargo = txtCargo.Value;
             
             if (_Accion.Text == "Nuevo")
             {
@@ -219,6 +221,8 @@ namespace SIP.Formas.Catalogos
                 txtClave.Value = string.Empty;
                 txtAbreviatura.Value = string.Empty;
                 txtNombre.Value = string.Empty;
+                txtTitular.Value = string.Empty;
+                txtCargo.Value = string.Empty;
                 
                 BindDataGrid();
 
@@ -259,6 +263,8 @@ namespace SIP.Formas.Catalogos
             txtClave.Value = UP.Clave;
             txtAbreviatura.Value = UP.Abreviatura;
             txtNombre.Value = UP.Nombre;
+            txtTitular.Value = UP.Titular;
+            txtCargo.Value = UP.Cargo;
            _idUP.Text = UP.Id.ToString();
         }
 

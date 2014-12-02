@@ -55,6 +55,7 @@
     <Compile Include="Models\AperturaProgramaticaUnidad.cs" />
     <Compile Include="Models\Año.cs" />
     <Compile Include="Models\CriterioPriorizacion.cs" />
+    <Compile Include="Models\Firmas.cs" />
     <Compile Include="Models\FondoLineamientos.cs" />
     <Compile Include="Models\GrupoBeneficiario.cs" />
     <Compile Include="Models\Eje.cs" />

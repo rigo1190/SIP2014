@@ -44,6 +44,11 @@ namespace SIP.rpts
                 case 1: //REPORTE DE EVALUACION DE PLANEACION
                     rdc.SetParameterValue("POADetalleID", primerArray[0]);
                     break;
+
+                case 2:
+                    rdc.SetParameterValue("up", primerArray[0]);
+                    rdc.SetParameterValue("ejercicio",primerArray[1]);
+                    break;
             }
         }
 
@@ -98,6 +103,9 @@ namespace SIP.rpts
             {
                 case 1:
                     nombreReporte = "rptEvaluacionPOA.rpt";
+                    break;
+                case 2:
+                    nombreReporte = "FuentesDeFinanciamientoDisponibles.rpt";
                     break;
             }
 

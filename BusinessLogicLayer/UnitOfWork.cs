@@ -60,7 +60,9 @@ namespace BusinessLogicLayer
         private IBusinessLogic<TechoFinancieroBitacora> techofinancierobitacoraBL;
         private IBusinessLogic<TechoFinancieroBitacoraMovimientos> techofinancierobitacoramovimientosBL;
         private IBusinessLogic<TechoFinancieroTMPtransferencias> techofinancierotmptransferenciasBL;
-       
+
+        private IBusinessLogic<Firmas> firmasBL;
+
         public UnitOfWork()
         {
             this.contexto = new Contexto();
@@ -665,6 +667,18 @@ namespace BusinessLogicLayer
             }
         }
 
+
+        public IBusinessLogic<Firmas> FirmasBL
+        {
+            get
+            {
+                if (this.firmasBL == null)
+                {
+                    this.firmasBL = new GenericBusinessLogic<Firmas>(contexto);
+                }
+                return this.firmasBL;
+            }
+        }
 
 
 

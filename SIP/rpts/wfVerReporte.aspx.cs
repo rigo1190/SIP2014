@@ -49,6 +49,11 @@ namespace SIP.rpts
                     rdc.SetParameterValue("up", primerArray[0]);
                     rdc.SetParameterValue("ejercicio",primerArray[1]);
                     break;
+
+                case 3:
+                    rdc.SetParameterValue("techofinanciero", primerArray[0]);
+                    break;
+
             }
         }
 
@@ -106,6 +111,9 @@ namespace SIP.rpts
                     break;
                 case 2:
                     nombreReporte = "FuentesDeFinanciamientoDisponibles.rpt";
+                    break;
+                case 3:
+                    nombreReporte = "TechosFinancierosXup.rpt";
                     break;
             }
 

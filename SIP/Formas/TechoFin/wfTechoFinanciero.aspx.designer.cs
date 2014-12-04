@@ -202,6 +202,15 @@ namespace SIP.Formas.TechoFin {
         protected global::System.Web.UI.WebControls.TextBox _StatusEjercicio;
         
         /// <summary>
+        /// _URLVisor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _URLVisor;
+        
+        /// <summary>
         /// ValidationSummary1 control.
         /// </summary>
         /// <remarks>

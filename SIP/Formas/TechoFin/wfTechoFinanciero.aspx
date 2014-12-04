@@ -13,6 +13,20 @@
 
     });
 
+
+    function fnc_AbrirReporte(idTF) {
+
+        var izq = (screen.width - 750) / 2
+        var sup = (screen.height - 600) / 2
+        var param = idTF;
+
+        url = $("#<%= _URLVisor.ClientID %>").val();
+        var argumentos = "?c=" + 3 + "&p=" + param;
+        url += argumentos;
+        window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=750,height=500,top=' + sup + ',left=' + izq);
+    }
+
+
 </script>
 </asp:Content>
 
@@ -36,12 +50,12 @@
 
 
 
-    <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+    <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" OnRowDataBound="grid_RowDataBound">
                 <Columns>
                         <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
                             
-                            <asp:ImageButton ID="imgSubdetalle" ToolTip="Editar" runat="server" ImageUrl="~/img/Sub.png" OnClick="imgSubdetalle_Click" />                        
+                            <asp:ImageButton ID="imgSubdetalle" ToolTip="Asignar" runat="server" ImageUrl="~/img/Sub.png" OnClick="imgSubdetalle_Click" />                        
                             <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" />
                             <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick ="imgBtnEliminar_Click"/>
                             
@@ -95,6 +109,16 @@
                     </asp:TemplateField>
 
 
+                        <asp:TemplateField HeaderText="Ver">
+                        <ItemTemplate>
+                            
+                            <asp:ImageButton ID="imgVerRPT" ToolTip="VerReporte" runat="server" ImageUrl="~/img/Sub.png" OnClick="imgVerRPT_Click" />                        
+                            
+                            
+                        </ItemTemplate>
+                        <HeaderStyle BackColor="#EEEEEE" />
+                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                    </asp:TemplateField>                                  
 
                       
 
@@ -182,6 +206,8 @@
             <div style="display:none" runat="server">
                 <asp:TextBox ID="_ElId" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
                 <asp:TextBox ID="_StatusEjercicio" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
+
+                <input type="hidden" runat="server" id="_URLVisor" />
             </div>
     
         </div>

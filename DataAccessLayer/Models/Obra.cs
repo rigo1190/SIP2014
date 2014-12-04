@@ -30,7 +30,8 @@ namespace DataAccessLayer.Models
         public int POAId { get; set; }
         public int POADetalleId { get; set; }            
         public int AperturaProgramaticaId { get; set; }
-        public int AperturaProgramaticaMetaId { get; set; }
+        public int? AperturaProgramaticaMetaId { get; set; }
+        public int AperturaProgramaticaUnidadId { get; set; }
         public int NumeroBeneficiarios { get; set; }
         public int CantidadUnidades { get; set; }
         public int Empleos { get; set; }
@@ -54,6 +55,7 @@ namespace DataAccessLayer.Models
         public virtual TipoLocalidad TipoLocalidad { get; set; }
         public virtual AperturaProgramatica AperturaProgramatica { get; set; }
         public virtual AperturaProgramaticaMeta AperturaProgramaticaMeta { get; set; }
+        public virtual AperturaProgramaticaUnidad AperturaProgramaticaUnidad { get; set; }
         public virtual SituacionObra SituacionObra { get; set; }
         public virtual Funcionalidad Funcionalidad { get; set; }
         public virtual Eje Eje { get; set; }

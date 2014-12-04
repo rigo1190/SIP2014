@@ -112,6 +112,7 @@ namespace DataAccessLayer.Models
         public virtual DbSet<ModalidadFinanciamiento> ModalidadesFinanciamiento { get; set; }
         public virtual DbSet<Financiamiento> Financiamientos { get; set; }
         public virtual DbSet<AperturaProgramatica> AperturaProgramatica { get; set; }
+        public virtual DbSet<AperturaProgramaticaTipo> AperturaProgramaticaTipo { get; set; }
         public virtual DbSet<AperturaProgramaticaMeta> AperturaProgramaticaMetas { get; set; }
         public virtual DbSet<AperturaProgramaticaUnidad> AperturaProgramaticaUnidades { get; set; }
         public virtual DbSet<AperturaProgramaticaBeneficiario> AperturaProgramaticaBeneficiarios { get; set; }

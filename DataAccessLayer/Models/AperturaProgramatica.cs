@@ -20,9 +20,7 @@ namespace DataAccessLayer.Models
         [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string Clave { get; set; }
         public string Nombre { get; set; }
-
-        [Range(1, 2, ErrorMessage = "El campo {0} solo puede tener valores entre {1} y {2}")]
-        public enumObraAccion? EsObraOAccion { get; set; }
+        public int AperturaProgramaticaTipoId { get; set; }
 
         [Index("IX_Orden_ParentId", 1, IsUnique = true)]
         public int Orden { get; set; }
@@ -31,8 +29,9 @@ namespace DataAccessLayer.Models
         public int? ParentId { get; set; }        
         public int EjercicioId { get; set; }
         public int? Nivel { get; set; }
-        public virtual Ejercicio Ejercicio { get; set; }
+        public virtual Ejercicio Ejercicio { get; set; }        
         public virtual AperturaProgramatica Parent { get; set; }
+        public virtual AperturaProgramaticaTipo AperturaProgramaticaTipo { get; set; }
         public virtual ICollection<AperturaProgramaticaMeta> DetalleMetas { get; set; }
         public virtual ICollection<AperturaProgramatica> DetalleSubElementos { get; set; }
     }

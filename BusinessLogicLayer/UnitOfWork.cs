@@ -36,6 +36,7 @@ namespace BusinessLogicLayer
         private IBusinessLogic<Plantilla> plantillaBusinessLogic;
         private IBusinessLogic<PlantillaDetalle> plantillaDetalleBusinessLogic;
         private IBusinessLogic<AperturaProgramatica> aperturaProgramaticaBusinessLogic;
+        private IBusinessLogic<AperturaProgramaticaTipo> aperturaProgramaticaTipoBusinessLogic;
         private IBusinessLogic<AperturaProgramaticaMeta> aperturaProgramaticaMetaBusinessLogic;
         private IBusinessLogic<AperturaProgramaticaBeneficiario> aperturaProgramaticaBeneficiarioBusinessLogic;
         private IBusinessLogic<AperturaProgramaticaUnidad> aperturaProgramaticaUnidadBusinessLogic;
@@ -371,6 +372,19 @@ namespace BusinessLogicLayer
                 }
 
                 return aperturaProgramaticaBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<AperturaProgramaticaTipo> AperturaProgramaticaTipoBusinessLogic
+        {
+            get
+            {
+                if (this.aperturaProgramaticaTipoBusinessLogic == null)
+                {
+                    this.aperturaProgramaticaTipoBusinessLogic = new GenericBusinessLogic<AperturaProgramaticaTipo>(contexto);
+                }
+
+                return aperturaProgramaticaTipoBusinessLogic;
             }
         }
 

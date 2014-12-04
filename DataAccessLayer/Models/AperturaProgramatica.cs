@@ -20,7 +20,7 @@ namespace DataAccessLayer.Models
         [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string Clave { get; set; }
         public string Nombre { get; set; }
-        public int AperturaProgramaticaTipoId { get; set; }
+        public int? AperturaProgramaticaTipoId { get; set; }
 
         [Index("IX_Orden_ParentId", 1, IsUnique = true)]
         public int Orden { get; set; }

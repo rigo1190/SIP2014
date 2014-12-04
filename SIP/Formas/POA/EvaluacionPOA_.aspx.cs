@@ -426,26 +426,6 @@ namespace SIP.Formas.POA
                                on ap2.ParentId equals ap1.Id
                                select new { programa = ap1.Nombre, subprograma = ap2.Nombre });
 
-            Obra obra = uow.ObraBusinessLogic.Get(e => e.POADetalleId == PoaDetalleID).FirstOrDefault();
-
-            ObraFinanciamiento obraFinan = uow.ObraFinanciamientoBusinessLogic.Get(e => e.ObraId == obra.Id).FirstOrDefault();
-
-            TechoFinancieroUnidadPresupuestal tfu = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(e => e.Id == obraFinan.TechoFinancieroUnidadPresupuestalId).FirstOrDefault();
-
-            TechoFinanciero tf = uow.TechoFinancieroBusinessLogic.Get(e => e.Id == tfu.TechoFinancieroId).FirstOrDefault();
-
-            Financiamiento fin = uow.FinanciamientoBusinessLogic.Get(e => e.Id == tf.FinanciamientoId).FirstOrDefault();
-
-            ModalidadFinanciamiento mf = uow.ModalidadFinanciamientoBusinessLogic.Get(e => e.Id == fin.ModalidadFinanciamientoId).FirstOrDefault();
-
-            Fondo fondo = uow.FondoBusinessLogic.Get(e => e.Id == fin.FondoId).FirstOrDefault();
-
-            FondoLineamientos fl = uow.FondoLineamientosBL.Get(e => e.FondoId == fondo.Id).FirstOrDefault();
-
-            Año año=uow.AñoBusinessLogic.Get(e=>e.Id==fin.AñoId).FirstOrDefault();
-
-
-           
             txtEntidad.Value = up.Nombre;
 
             foreach (var item in objApertura)
@@ -454,12 +434,43 @@ namespace SIP.Formas.POA
                 txtSubprograma.Value = item.subprograma;
             }
 
-            txtFondo.Value = fondo!=null && mf!=null && año!=null? fondo.Abreviatura + "-" + mf.Nombre + " (" + año.Anio + ")":string.Empty;
-            txtTecho.Value = tfu!=null? tfu.Importe.ToString("c"):string.Empty;
-            txtLineamiento.Value =fl!=null? fl.TipoDeObrasYAcciones:string.Empty;
-            txtNormatividad.Value = fl!=null?fl.NormatividadAplicable:string.Empty;
-            txtImporte.Value = obraFinan!=null?obraFinan.Importe.ToString("c"):string.Empty;
 
+            Obra obra = uow.ObraBusinessLogic.Get(e => e.POADetalleId == PoaDetalleID).FirstOrDefault();
+            POADetalle poaDetalle = uow.POADetalleBusinessLogic.Get(e => e.Id == PoaDetalleID).FirstOrDefault();
+
+            if (obra != null)
+            {
+                ObraFinanciamiento obraFinan = uow.ObraFinanciamientoBusinessLogic.Get(e => e.ObraId == obra.Id).FirstOrDefault();
+
+                TechoFinancieroUnidadPresupuestal tfu = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(e => e.Id == obraFinan.TechoFinancieroUnidadPresupuestalId).FirstOrDefault();
+
+                TechoFinanciero tf = uow.TechoFinancieroBusinessLogic.Get(e => e.Id == tfu.TechoFinancieroId).FirstOrDefault();
+
+                Financiamiento fin = uow.FinanciamientoBusinessLogic.Get(e => e.Id == tf.FinanciamientoId).FirstOrDefault();
+
+                ModalidadFinanciamiento mf = uow.ModalidadFinanciamientoBusinessLogic.Get(e => e.Id == fin.ModalidadFinanciamientoId).FirstOrDefault();
+
+                Fondo fondo = uow.FondoBusinessLogic.Get(e => e.Id == fin.FondoId).FirstOrDefault();
+
+                FondoLineamientos fl = uow.FondoLineamientosBL.Get(e => e.FondoId == fondo.Id).FirstOrDefault();
+
+                Año año = uow.AñoBusinessLogic.Get(e => e.Id == fin.AñoId).FirstOrDefault();
+
+                txtFondo.Value = fondo != null && mf != null && año != null ? fondo.Abreviatura + "-" + mf.Nombre + " (" + año.Anio + ")" : string.Empty;
+                txtTecho.Value = tfu != null ? tfu.Importe.ToString("c") : string.Empty;
+                txtLineamiento.Value = fl != null ? fl.TipoDeObrasYAcciones : string.Empty;
+                txtNormatividad.Value = fl != null ? fl.NormatividadAplicable : string.Empty;
+                txtImporte.Value = obraFinan != null ? obraFinan.Importe.ToString("c") : string.Empty;
+
+            }
+
+            
+
+
+           
+            
+
+            
 
 
 

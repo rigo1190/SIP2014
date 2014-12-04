@@ -15,7 +15,7 @@ namespace DataAccessLayer.Migrations
 
         protected override void Seed(DataAccessLayer.Models.Contexto context)
         {
-            return;
+            
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
@@ -228,6 +228,14 @@ namespace DataAccessLayer.Migrations
              new Financiamiento { Id = 16, AñoId = 7, FondoId = 5, ModalidadFinanciamientoId = 4 }  
            );
 
+           context.AperturaProgramaticaTipo.AddOrUpdate(
+              new AperturaProgramaticaTipo { Id = 1, Clave = "APT001", Nombre = "OBRA", Orden = 1,EsObra=true },
+              new AperturaProgramaticaTipo { Id = 2, Clave = "APT002", Nombre = "ACCIONES DE APOYO A LA SUPERVISION", Orden = 2,EsObra=false },
+              new AperturaProgramaticaTipo { Id = 3, Clave = "APT003", Nombre = "ACCIONES DE INFRAESTRUCTURA", Orden = 3,EsObra=false },
+              new AperturaProgramaticaTipo { Id = 4, Clave = "APT004", Nombre = "ESTUDIOS Y PROYECTOS", Orden = 4,EsObra=false } 
+          );
+
+
            context.AperturaProgramaticaUnidades.AddOrUpdate(
                new AperturaProgramaticaUnidad { Id = 1, Clave = "APU001", Nombre = "Planta", Orden = 1 },
                new AperturaProgramaticaUnidad { Id = 2, Clave = "APU002", Nombre = "Pozo", Orden = 2 },
@@ -418,16 +426,16 @@ namespace DataAccessLayer.Migrations
 
            AperturaProgramatica sc_rehabilitacion = context.AperturaProgramatica.Local.FirstOrDefault(ap => ap.Id == 24);
 
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 91, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 92, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 93, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 94, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 95, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 96, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 97, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 98, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 99, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
-           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 100, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 2, Nivel = 3, EsObraOAccion = enumObraAccion.Obra });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 91, Clave = "a", Nombre = "Planta potabilizadora", Orden = 1, EjercicioId = 2, Nivel = 3,AperturaProgramaticaTipoId=1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 92, Clave = "b", Nombre = "Pozo profundo de agua potable", Orden = 2, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 93, Clave = "c", Nombre = "Deposito o tanque de agua potable", Orden = 3, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 94, Clave = "d", Nombre = "Linea de conducción", Orden = 4, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 95, Clave = "e", Nombre = "Red de agua potable", Orden = 5, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 96, Clave = "f", Nombre = "Sistema integral de agua potable", Orden = 6, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 97, Clave = "g", Nombre = "Carcamo", Orden = 7, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 98, Clave = "h", Nombre = "Norias", Orden = 8, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 99, Clave = "i", Nombre = "Pozo artesiano", Orden = 9, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
+           sc_rehabilitacion.DetalleSubElementos.Add(new AperturaProgramatica { Id = 100, Clave = "j", Nombre = "Olla de captación de agua pluvial", Orden = 10, EjercicioId = 2, Nivel = 3, AperturaProgramaticaTipoId = 1 });
 
 
            context.AperturaProgramaticaMetas.AddOrUpdate(

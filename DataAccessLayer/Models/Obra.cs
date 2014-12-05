@@ -45,6 +45,7 @@ namespace DataAccessLayer.Models
         public int ProgramaId { get; set; }
         public int GrupoBeneficiarioId { get; set; }
         public int CriterioPriorizacionId { get; set; }
+        public string Convenio { get; set; }
         public string Observaciones { get; set; }
         public int? ObraAnteriorId { get; set; }
         public int? ObraOrigenId { get; set; }

@@ -154,6 +154,7 @@ namespace SIP.Formas.TechoFin
                     obj.TechoFinancieroId = idTechoFinanciero;
                     obj.UnidadPresupuestalId = idUnidadPresupuestal;
                     obj.Importe = decimal.Parse(txtImporte.Value);
+                    obj.ImporteInicial = decimal.Parse(txtImporte.Value);
                     uow.TechoFinancieroUnidadPresuestalBusinessLogic.Insert(obj);
                 }
                     
@@ -176,6 +177,7 @@ namespace SIP.Formas.TechoFin
                 {
                     obj = uow.TechoFinancieroUnidadPresuestalBusinessLogic.GetByID(auxId);
                     obj.Importe = decimal.Parse(txtImporte.Value);
+                    obj.ImporteInicial = decimal.Parse(txtImporte.Value);
                     uow.TechoFinancieroUnidadPresuestalBusinessLogic.Update(obj);
                 }
                 
@@ -185,18 +187,22 @@ namespace SIP.Formas.TechoFin
             divMsgSuccess.Style.Add("display", "none");
             divMsgFail.Style.Add("display", "none");
 
+
             if (uow.Errors.Count == 0)
-            {
                 uow.SaveChanges();
-                //divMsgFail.Style.Add("display", "none");
-                //divMsgSuccess.Style.Add("display", "block");
-                //lblMensajeSuccess.Text = "El registro se ha agregado correctamente";
-            }
-            else
-            {
-                
+
+
+            if (uow.Errors.Count != 0)
+            {                
                 divMsgFail.Style.Add("display", "block");
-                lblMensajeFail.Text = "Este importe no puede registrarse porque sobregiraria el techo financiero de este Fondo";
+
+                string mensaje;
+
+                mensaje = string.Empty;
+                foreach (string cad in uow.Errors)
+                    mensaje = mensaje + cad + "<br>";
+
+                lblMensajeFail.Text = mensaje;                 
             }
                 
 

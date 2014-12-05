@@ -81,8 +81,10 @@ namespace SIP.Formas.TechoFin
 
             int id = int.Parse(_idUP.Text);
 
-            TechoFinancieroUnidadPresupuestal tfup = uow.TechoFinancieroUnidadPresuestalBusinessLogic.GetByID(id);
-            
+            //TechoFinancieroUnidadPresupuestal tfup = uow.TechoFinancieroUnidadPresuestalBusinessLogic.GetByID(id);
+
+            TechoFinancieroUnidadPresupuestal tfup = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(p=>p.UnidadPresupuestalId == id).First();
+
             txtOficioA.Value = tfup.NumOficioAsignacionPresupuestal;
             txtOficioB.Value = tfup.NumOficioAlcance;
             txtObservaciones.Value = tfup.ObservacionesAlcance;
@@ -95,8 +97,7 @@ namespace SIP.Formas.TechoFin
         {
             int id = int.Parse(_idUP.Text);
             
-
-
+            
             List<TechoFinancieroUnidadPresupuestal> lista = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(p=>p.UnidadPresupuestalId == id).ToList();
 
             foreach (TechoFinancieroUnidadPresupuestal item in lista)
@@ -104,7 +105,8 @@ namespace SIP.Formas.TechoFin
                 item.NumOficioAsignacionPresupuestal = txtOficioA.Value;
                 item.NumOficioAlcance = txtOficioB.Value;
                 item.ObservacionesAlcance = txtObservaciones.Value;
-
+                item.FechaOficioAsignacionPresupuestal = DateTime.Parse(dtpFechaA.Value);
+                item.FechaOficioAlcance = DateTime.Parse(dtpFechaB.Value);
                 uow.TechoFinancieroUnidadPresuestalBusinessLogic.Update(item);
             }
             
@@ -142,21 +144,7 @@ namespace SIP.Formas.TechoFin
             
         }
 
-        //protected void imgSubdetalle_Click(object sender, ImageClickEventArgs e)
-        //{
-
-        //    GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-        //    _idUP.Text = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
-
-        //    int idUP = int.Parse(_idUP.Text);
-        //    int idEjercicio = int.Parse(Session["EjercicioId"].ToString());
-
-            
-
-
-        //    Response.Redirect("~/rpts/wfVerReporte.aspx?c=2&p=" + idUP + "-" + idEjercicio);
-
-        //}
+      
 
     }
 }

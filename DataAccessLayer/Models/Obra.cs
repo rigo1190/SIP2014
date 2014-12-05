@@ -90,6 +90,6 @@ namespace DataAccessLayer.Models
         [Display(Name="Administración directa")]
         AdministracionDirecta=2,
         [Display(Name ="Forma mixta")]
-        AdministracionDirecta = 3
+        Mixta = 3
     }
 }

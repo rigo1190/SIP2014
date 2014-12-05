@@ -38,12 +38,12 @@ namespace DataAccessLayer.Models
         public int Jornales { get; set; }
         public int SituacionObraId { get; set; }       
         public enumModalidadObra? ModalidadObra { get; set; }       
-        public int FuncionalidadId { get; set; }
-        public int EjeId { get; set; }
-        public int PlanSectorialId { get; set; }
-        public int ModalidadId { get; set; }
-        public int ProgramaId { get; set; }
-        public int GrupoBeneficiarioId { get; set; }
+        public int? FuncionalidadId { get; set; }
+        public int? EjeId { get; set; }
+        public int? PlanSectorialId { get; set; }
+        public int? ModalidadId { get; set; }
+        public int? ProgramaId { get; set; }
+        public int? GrupoBeneficiarioId { get; set; }
         public int CriterioPriorizacionId { get; set; }
         public string Convenio { get; set; }
         public string Observaciones { get; set; }

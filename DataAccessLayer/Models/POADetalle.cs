@@ -30,13 +30,13 @@ namespace DataAccessLayer.Models
         public string NumeroAnterior { get; set; }
         public decimal ImporteTotal { get; set; }
         public decimal ImporteLiberadoEjerciciosAnteriores { get; set; }      
-        public int FuncionalidadId { get; set; }
-        public int EjeId { get; set; }
-        public int PlanSectorialId { get; set; }
-        public int ModalidadId { get; set; }
-        public int ProgramaId { get; set; }
-        public int GrupoBeneficiarioId { get; set; }
-        public int CriterioPriorizacionId { get; set; }
+        public int? FuncionalidadId { get; set; }
+        public int? EjeId { get; set; }
+        public int? PlanSectorialId { get; set; }
+        public int? ModalidadId { get; set; }
+        public int? ProgramaId { get; set; }
+        public int? GrupoBeneficiarioId { get; set; }
+        public int? CriterioPriorizacionId { get; set; }
         public string Convenio { get; set; }
         public string Observaciones { get; set; }
         public bool Extemporanea { get; set; }

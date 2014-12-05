@@ -37,7 +37,7 @@ namespace DataAccessLayer.Models
         public int Empleos { get; set; }
         public int Jornales { get; set; }
         public int SituacionObraId { get; set; }       
-        public enumModalidadObra ModalidadObra { get; set; }       
+        public enumModalidadObra? ModalidadObra { get; set; }       
         public int FuncionalidadId { get; set; }
         public int EjeId { get; set; }
         public int PlanSectorialId { get; set; }
@@ -88,6 +88,8 @@ namespace DataAccessLayer.Models
     {
         Contrato=1,
         [Display(Name="Administración directa")]
-        AdministracionDirecta=2
+        AdministracionDirecta=2,
+        [Display(Name ="Forma mixta")]
+        AdministracionDirecta = 3
     }
 }

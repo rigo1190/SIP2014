@@ -20,5 +20,9 @@ namespace DataAccessLayer.Models
         [Index(IsUnique = true)]
         public int Orden { get; set; }
         public bool EsObra { get; set; }
+
+        [Index(IsUnique = true)]
+        [StringLength(10, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string Identificador { get; set; }
     }
 }

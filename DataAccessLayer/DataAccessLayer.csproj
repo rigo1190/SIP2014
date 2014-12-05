@@ -52,6 +52,7 @@
     <Compile Include="Models\AperturaProgramatica.cs" />
     <Compile Include="Models\AperturaProgramaticaBeneficiario.cs" />
     <Compile Include="Models\AperturaProgramaticaMeta.cs" />
+    <Compile Include="Models\AperturaProgramaticaTipo.cs" />
     <Compile Include="Models\AperturaProgramaticaUnidad.cs" />
     <Compile Include="Models\Año.cs" />
     <Compile Include="Models\CriterioPriorizacion.cs" />

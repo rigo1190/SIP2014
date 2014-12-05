@@ -10,14 +10,14 @@
 
     function fnc_AbrirReporte(idUnidad, idEjercicio) {
 
-        var izq = (screen.width - 750) / 2
+        var izq = (screen.width - 1000) / 2
         var sup = (screen.height - 600) / 2
         var param = idUnidad + "-" + idEjercicio;
         
         url = $("#<%= _URLVisor.ClientID %>").val();
             var argumentos = "?c=" + 2 + "&p="+ param;
             url += argumentos;
-            window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=750,height=500,top=' + sup + ',left=' + izq);
+            window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=1000,height=500,top=' + sup + ',left=' + izq);
     }
 
 
@@ -97,32 +97,54 @@
                     </div>
                 </div>
 
+                <label> Oficio de Asignación Presupuestal</label>
                 <div class="row top-buffer">
                     <div class="col-md-3">
-                        <label for="oficioA">Oficio: Asignación Presupuestal</label>
+                        <label for="oficioA">Número</label>
                     </div>
                     <div class="col-md-8">
                         <input type="text" class="input-sm required" id="txtOficioA" runat="server" style="text-align: left;  align-items:flex-start" />
                     </div>
                 </div>
 
+                 <div class="row top-buffer">
+                    <div class="col-md-3">
+                        <label for="fechaOficioA">Fecha</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="required form-control date-picker" id="dtpFechaA" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
+                    </div>  
+                </div>
+            <br />
+                <label> Oficio de Alcance</label>
 
                 <div class="row top-buffer">
                     <div class="col-md-3">
-                        <label for="oficioB">Oficio: Alcance</label>
+                        <label for="oficioB">Número</label>
                     </div>
                     <div class="col-md-8">
                         <input type="text" class="input-sm required" id="txtOficioB" runat="server" style="text-align: left;  align-items:flex-start" />
                     </div>
                 </div>
 
+                
 
+            <div class="row top-buffer">
+                    <div class="col-md-3">
+                        <label for="fechaOficioA">Fecha </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="required form-control date-picker" id="dtpFechaB" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
+                    </div>  
+                </div>
+
+            <br />
                 <div class="row top-buffer">
                     <div class="col-md-3">
                         <label for="Obs">Observaciones</label>
                     </div>
                     <div class="col-md-8">
-                        <textarea id="txtObservaciones" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="5" ></textarea>
+                        <textarea id="txtObservaciones" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" ></textarea>
                     </div>
                 </div>
 

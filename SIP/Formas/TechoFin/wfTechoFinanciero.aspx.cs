@@ -27,6 +27,8 @@ namespace SIP.Formas.TechoFin
                 BindGrid();
                 BindCombos();
 
+                _URLVisor.Value = ResolveClientUrl("~/rpts/wfVerReporte.aspx");
+
                 ModoLista();
 
                 verificarStatusDelEjercicio();
@@ -380,6 +382,26 @@ namespace SIP.Formas.TechoFin
 
             Response.Redirect("wfTechoFinancieroUnidadPresupuestal.aspx?id=" + id);
         }
+        
+
+        protected void imgVerRPT_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void grid_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+                int idTF = Utilerias.StrToInt(grid.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+
+                ImageButton imgBut = (ImageButton)e.Row.FindControl("imgVerRPT");
+                if (imgBut != null)
+                    imgBut.Attributes["onclick"] = "fnc_AbrirReporte(" + idTF + ");return false;";
+            }
+        }
+
         #endregion
 
 

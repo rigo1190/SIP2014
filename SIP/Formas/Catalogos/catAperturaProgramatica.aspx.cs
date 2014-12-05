@@ -86,7 +86,7 @@ namespace SIP.Formas.Catalogos
             obj.Clave = txtClave.Text;
             obj.Nombre = txtNombre.Text;
 
-            obj.EsObraOAccion = enumObraAccion.Obra;
+            //obj.EsObraOAccion = enumObraAccion.Obra;
 
             lista = uow.AperturaProgramaticaBusinessLogic.Get(p => p.ParentId == null).ToList();
 

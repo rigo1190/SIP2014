@@ -20,7 +20,7 @@ namespace DataAccessLayer.Models
         public int POAId { get; set; }
         public int AperturaProgramaticaId { get; set; }
         public int? AperturaProgramaticaMetaId { get; set; }
-        public int AperturaProgramaticaUnidadId { get; set; }
+        public int? AperturaProgramaticaUnidadId { get; set; }
         public int NumeroBeneficiarios { get; set; }
         public int CantidadUnidades { get; set; }
         public int Empleos { get; set; }

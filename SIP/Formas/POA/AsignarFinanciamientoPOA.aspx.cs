@@ -61,6 +61,9 @@ namespace SIP.Formas.POA
             this.GridViewObraFinanciamiento.DataSource = uow.ObraFinanciamientoBusinessLogic.Get(of => of.TechoFinancieroUnidadPresupuestal.UnidadPresupuestalId == unidadpresupuestalId & of.TechoFinancieroUnidadPresupuestal.TechoFinanciero.EjercicioId == ejercicioId & of.Obra.POADetalleId==poadetalleId, includeProperties: "TechoFinancieroUnidadPresupuestal").ToList();
             this.GridViewObraFinanciamiento.DataBind();
 
+            //Este gridview usa un enlace de Modelo, por esto No requiere 
+            //asignar nuevamente su propiedad Datasource
+            //vease método GridViewTechoFinanciero_GetData
             this.GridViewTechoFinanciero.DataBind();
         }
 
@@ -195,8 +198,7 @@ namespace SIP.Formas.POA
                 obra.Numero = poadetalle.Numero;
                 obra.Descripcion = poadetalle.Descripcion;
                 obra.MunicipioId = poadetalle.MunicipioId;
-                obra.Localidad = poadetalle.Localidad;
-                obra.TipoLocalidadId = poadetalle.TipoLocalidadId;
+                obra.Localidad = poadetalle.Localidad;                
                 obra.CriterioPriorizacionId = poadetalle.CriterioPriorizacionId;            
                 obra.AperturaProgramaticaId = poadetalle.AperturaProgramaticaId;
                 obra.AperturaProgramaticaMetaId = poadetalle.AperturaProgramaticaMetaId;

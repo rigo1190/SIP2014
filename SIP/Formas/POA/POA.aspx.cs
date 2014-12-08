@@ -280,20 +280,22 @@ namespace SIP.Formas.POA
             {                
 
                 divEdicion.Style.Add("display", "none");
-                divBtnNuevo.Style.Add("display", "block");
-                //BindGrid();
+                divBtnNuevo.Style.Add("display", "block");               
                
             }
             else 
             {
 
+                divEdicion.Style.Add("display", "none");
+                divBtnNuevo.Style.Add("display", "block");
                 divMsg.Style.Add("display", "block");
 
                 msg = string.Empty;
                 foreach (string cad in uow.Errors)
                     msg += cad;
 
-                lblMensajes.Text = msg;                
+                lblMensajes.Text = msg;
+                
             }
 
             
@@ -451,6 +453,7 @@ namespace SIP.Formas.POA
                 ddlSubprograma.Enabled = true;
                 ddlSubsubprograma.Enabled = true;
                 ddlMeta.Enabled = true;
+                ddlUnidadMedida.Enabled = true;
                 txtNumeroBeneficiarios.Disabled = false;
                 txtCantidadUnidades.Disabled = false;
                 txtEmpleos.Disabled = false;
@@ -492,6 +495,7 @@ namespace SIP.Formas.POA
                 ddlSubprograma.Enabled = false;
                 ddlSubsubprograma.Enabled = false;
                 ddlMeta.Enabled = false;
+                ddlUnidadMedida.Enabled = false;
                 txtNumeroBeneficiarios.Disabled = true;
                 txtCantidadUnidades.Disabled = true;
                 txtEmpleos.Disabled = true;

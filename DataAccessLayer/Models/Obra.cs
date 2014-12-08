@@ -21,8 +21,7 @@ namespace DataAccessLayer.Models
         public string Numero { get; set; }
         public string Descripcion { get; set; }
         public int MunicipioId { get; set; }       
-        public int LocalidadId { get; set; }
-        public int TipoLocalidadId { get; set; }
+        public int LocalidadId { get; set; }        
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaTermino { get; set; }  
 
@@ -52,8 +51,7 @@ namespace DataAccessLayer.Models
         public virtual POA POA { get; set; }
         public virtual POADetalle POADetalle { get; set; }
         public virtual Municipio Municipio { get; set; }
-        public virtual Localidad Localidad { get; set; }
-        public virtual TipoLocalidad TipoLocalidad { get; set; }
+        public virtual Localidad Localidad { get; set; }       
         public virtual AperturaProgramatica AperturaProgramatica { get; set; }
         public virtual AperturaProgramaticaMeta AperturaProgramaticaMeta { get; set; }
         public virtual AperturaProgramaticaUnidad AperturaProgramaticaUnidad { get; set; }

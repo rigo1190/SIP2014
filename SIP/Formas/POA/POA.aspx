@@ -79,6 +79,27 @@
              });
 
 
+             $("#<%= ddlCriterioPriorizacion.ClientID   %>").change(function (e) {
+
+                 var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
+
+                 switch (valorseleccionado)
+                 {
+                     case "2":
+
+                         $("#divDatosConvenio").css("display", "block");                         
+                         break;
+
+                     default:
+
+                         $("#divDatosConvenio").css("display", "none");                                             
+                         break;
+                 }
+
+
+             });
+
+
 
              
 
@@ -109,23 +130,17 @@
                  return false;
              }
 
-             var tipolocalidad = $("#<%=ddlTipoLocalidad.ClientID%>").val();
+             <%--var tipolocalidad = $("#<%=ddlTipoLocalidad.ClientID%>").val();
              if (tipolocalidad == null || tipolocalidad.length == 0 || tipolocalidad == undefined || tipolocalidad == 0) {
                  alert("Debe indicar el tipo de localidad");
                  return false;
-             }
+             }--%>
 
              var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
                  alert("Debe indicar el tipo de la apertura programatica");
                  return false;
-             }
-
-             var meta = $("#<%= ddlMeta.ClientID %>").val();
-             if (meta == null || meta.length == 0 || meta == undefined || meta == 0) {
-                 alert("Debe indicar la unidad y beneficiario de la meta");
-                 return false;
-             }
+             }             
 
              var numeroBeneficiarios = $("#<%=txtNumeroBeneficiarios.ClientID%>").val();
              if (numeroBeneficiarios == null || numeroBeneficiarios.length == 0 || numeroBeneficiarios == undefined) {
@@ -169,7 +184,7 @@
                  return false;
              }
 
-             var eje = $("#<%= ddlEjeElemento.ClientID %>").val();
+             var eje = $("#<%= ddlEje.ClientID %>").val();
              if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
                  alert("Debe indicar el <Eje del Plan de Desarrollo Veracruzano>");
                  return false;
@@ -218,7 +233,7 @@
         function fnc_ocultarDivObraAnterior()
         {            
             var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
-
+           
             switch (valorseleccionado)
             {
                 case "0":
@@ -231,6 +246,24 @@
                     $("#divDatosObraAnterior").css("display", "block");
                     break;
             }
+        }
+
+        function fnc_ocultarDivDatosConvenio()
+        {
+             var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();                        
+
+             switch (valorseleccionado)
+             {
+                 case "2":
+
+                     $("#divDatosConvenio").css("display", "block");
+                     break;
+
+                 default:
+                    
+                     $("#divDatosConvenio").css("display", "none");
+                     break;
+             }
         }
 
         function fnc_IrDesdeGrid(url) {
@@ -253,7 +286,12 @@
            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
         </div>
 
-        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewObras_RowDataBound" runat="server" AllowPaging="True" OnPageIndexChanging="GridViewObras_PageIndexChanging">
+        <asp:GridView ID="GridViewObras" runat="server"
+            ItemType="DataAccessLayer.Models.POADetalle" DataKeyNames="Id"
+            SelectMethod="GridViewObras_GetData" 
+            ShowHeaderWhenEmpty="true" CssClass="table" AutoGenerateColumns="False" 
+            OnRowDataBound="GridViewObras_RowDataBound"  AllowPaging="True" 
+            OnPageIndexChanging="GridViewObras_PageIndexChanging">
             <Columns>
 
                        <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
@@ -261,19 +299,15 @@
                                 <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" data-tipo-operacion="editar"/>
                                 <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" data-tipo-operacion="borrar"/>
                             </ItemTemplate>                         
-                        </asp:TemplateField>     
-                                         
-                       <asp:TemplateField HeaderText="Numero" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
-                            <ItemTemplate>
-                                <asp:Label ID="LabelNumero" runat="server" Text='<%# Bind("Numero") %>'></asp:Label>
-                            </ItemTemplate>
                         </asp:TemplateField>
 
-                       <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-10" HeaderStyle-CssClass="panel-footer">                            
-                            <ItemTemplate>
-                                <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>                       
+                       <asp:DynamicField DataField="Numero" HeaderText="Número" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer"/>
+                       <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-CssClass="panel-footer"/> 
+                       <asp:TemplateField HeaderText="Tipo" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
+                           <ItemTemplate>
+                                <asp:Label Text='<%# Item.AperturaProgramatica.AperturaProgramaticaTipo.Nombre %>' runat="server" />
+                           </ItemTemplate>
+                       </asp:TemplateField>                       
                        
             </Columns>
                     
@@ -307,14 +341,14 @@
                  <div class="col-md-4">
 
                       <div class="form-group">
-                           <label for="Numero">Numero</label>
+                           <label for="Numero">Número</label>
                          <div>
                             <input type="text" class="input-sm required form-control" id="txtNumero" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled"/>                           
                         </div>
                       </div>
 
                      <div class="form-group">
-                           <label for="Descripcion">Descripcion</label>
+                           <label for="Descripcion">Descripción</label>
                          <div>
                             <textarea id="txtDescripcion" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" autofocus></textarea>
                         </div>
@@ -345,19 +379,31 @@
                       </div>
 
 
-                     <div class="form-group">
+                   <%--  <div class="form-group">
                            <label for="TipoLocalidad">Tipo de localidad</label>
                          <div>
                              <asp:DropDownList ID="ddlTipoLocalidad" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
-                      </div>
+                      </div>--%>
 
                      <div class="form-group">
                            <label for="ddlCriterioPriorizacion">Criterio de priorización</label>
                          <div>
                              <asp:DropDownList ID="ddlCriterioPriorizacion" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
-                      </div>
+                     </div>
+
+                     <div style="display:none" id="divDatosConvenio">
+
+                            <div class="form-group">
+                                <label for="NombreConvenio">Nombre del convenio</label>
+                                <div>
+                                    <textarea id="txtNombreConvenio" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="2" ></textarea>
+                                </div>
+                            </div>    
+
+                      </div><!--divDatosConvenio-->
+
                      
                  </div>
 
@@ -399,7 +445,7 @@
                         </div>
                       </div>
 
-                       <div class="form-group">
+                       <div class="form-group" style="display:none">
                            <label for="Metas">Metas</label>
                          <div>
                              <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
@@ -411,31 +457,38 @@
                         </div>
                       </div>
 
+                     <div class="form-group">
+                           <label for="UnidadMedida">Unidad de medida</label>
+                         <div>
+                              <asp:DropDownList ID="ddlUnidadMedida" CssClass="form-control" runat="server"></asp:DropDownList>
+                        </div>
+                      </div>
+
                       <div class="form-group">
                            <label for="NumeroBeneficiarios">Número de beneficiarios</label>
                          <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
                         </div>
                       </div>
 
                        <div class="form-group">
                            <label for="CantidadUnidades">Cantidad de unidades</label>
                          <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
                         </div>
                       </div>
 
                      <div class="form-group">
                            <label for="Empleos">Empleos</label>
                          <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
                         </div>
                       </div>
 
                      <div class="form-group">
                            <label for="Jornales">Jornales</label>
                          <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
+                            <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
                         </div>
                       </div>
 
@@ -550,7 +603,7 @@
 
                             </div><!--Funcionalidad panel panel-default-->
 
-                            <div class="panel panel-default">
+                            <%--<div class="panel panel-default">
                               <div class="panel-heading">
                                 <h3 class="panel-title">Eje del PVD</h3>
                               </div>
@@ -580,22 +633,27 @@
                                                                                                     
                               </div>
 
-                            </div><!--Eje panel panel-default-->                                                       
+                            </div><!--Eje panel panel-default--> --%>
+                            
+                            <div class="form-group">
+                                 <label for="Eje">Eje</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlEje" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                 <label for="PlanSectorial">Plan Sectorial</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlPlanSectorial" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                            </div>                                                      
                                                         
                                                             
                         </div><!--col-md-4-->
                          
                         <div class="col-md-4">
-
-                               <div class="form-group">
-                                   <label for="PlanSectorial">Plan Sectorial</label>
-                                 <div>
-                                     <asp:DropDownList ID="ddlPlanSectorial" CssClass="form-control" runat="server"></asp:DropDownList>
-                                </div>
-                              </div>
-                            
-                            
-                            
+                                                        
                               <div class="panel panel-default">
                               <div class="panel-heading">
                                 <h3 class="panel-title">Clasificación Programática CONAC</h3>

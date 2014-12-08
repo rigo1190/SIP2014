@@ -32,7 +32,7 @@ namespace SIP.Formas
         private void BindearDropDownList()
         {
             
-            ddlUnidadPresupuestal.DataSource = uow.UnidadPresupuestalBusinessLogic.Get().OrderBy(up=>up.Orden);
+            ddlUnidadPresupuestal.DataSource = uow.UnidadPresupuestalBusinessLogic.Get().OrderBy(up=>up.Nombre);
             ddlUnidadPresupuestal.DataValueField = "Id";
             ddlUnidadPresupuestal.DataTextField = "Nombre";
             ddlUnidadPresupuestal.DataBind();

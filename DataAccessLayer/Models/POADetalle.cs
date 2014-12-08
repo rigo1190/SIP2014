@@ -13,8 +13,7 @@ namespace DataAccessLayer.Models
         public string Numero { get; set; }
         public string Descripcion { get; set; }
         public int MunicipioId { get; set; }
-        public int LocalidadId { get; set; }
-        public int TipoLocalidadId { get; set; }              
+        public int LocalidadId { get; set; }             
 
         [Index("IX_Consecutivo_POAId", 2)]
         public int POAId { get; set; }
@@ -43,8 +42,7 @@ namespace DataAccessLayer.Models
         public int? ObraAnteriorId { get; set; }
         public virtual POA POA { get; set; }
         public virtual Municipio Municipio { get; set; }
-        public virtual Localidad Localidad{ get; set; }
-        public virtual TipoLocalidad TipoLocalidad { get; set; }
+        public virtual Localidad Localidad{ get; set; }       
         public virtual AperturaProgramatica AperturaProgramatica { get; set; }
         public virtual AperturaProgramaticaMeta AperturaProgramaticaMeta { get; set; }
         public virtual AperturaProgramaticaUnidad AperturaProgramaticaUnidad { get; set; }

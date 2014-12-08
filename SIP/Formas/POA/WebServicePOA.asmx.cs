@@ -39,7 +39,7 @@ namespace SIP.Formas.POA
 
             List<CascadingDropDownNameValue> list = new List<CascadingDropDownNameValue>();
 
-            var programas = uow.AperturaProgramaticaBusinessLogic.Get(ap=>ap.ParentId==null & ap.EjercicioId==ejercicioId,orderBy:ap=>ap.OrderBy(r=>r.Orden));
+            var programas = uow.AperturaProgramaticaBusinessLogic.Get(ap=>ap.ParentId==null,orderBy:ap=>ap.OrderBy(r=>r.Orden));
 
             foreach (var item in programas)
             {
@@ -64,7 +64,7 @@ namespace SIP.Formas.POA
 
             int programaId =Utilerias.StrToInt(CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues)["programaId"]);
 
-            var subprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId & ap.EjercicioId==ejercicioId, orderBy: ap => ap.OrderBy(r => r.Orden));
+            var subprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == programaId, orderBy: ap => ap.OrderBy(r => r.Orden));
 
             foreach (var item in subprogramas)
             {
@@ -89,7 +89,7 @@ namespace SIP.Formas.POA
 
             int subprogramaId = Utilerias.StrToInt(CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues)["subprogramaId"]);
 
-            var subsubprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId & ap.EjercicioId==ejercicioId, orderBy: ap => ap.OrderBy(r => r.Orden));
+            var subsubprogramas = uow.AperturaProgramaticaBusinessLogic.Get(ap => ap.ParentId == subprogramaId, orderBy: ap => ap.OrderBy(r => r.Orden));
 
             foreach (var item in subsubprogramas)
             {

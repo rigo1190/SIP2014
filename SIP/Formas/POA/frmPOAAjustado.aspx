@@ -68,13 +68,7 @@
              if (localidad == null || localidad.length == 0 || localidad == undefined) {
                  alert("El campo Localidad no puede estar vacio");
                  return false;
-             }
-
-             var tipolocalidad = $("#<%=ddlTipoLocalidad.ClientID%>").val();
-             if (tipolocalidad == null || tipolocalidad.length == 0 || tipolocalidad == undefined || tipolocalidad == 0) {
-                 alert("Debe indicar el tipo de localidad");
-                 return false;
-             }
+             }           
 
              var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
@@ -317,14 +311,8 @@
                                  PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
                                                      
                         </div>
-                      </div>
-                    
-                     <div class="form-group">
-                           <label for="TipoLocalidad">Tipo de localidad</label>
-                         <div>
-                             <asp:DropDownList ID="ddlTipoLocalidad" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
+                      </div>                    
+                     
 
                      <div class="form-group">
                            <label for="ddlCriterioPriorizacion">Criterio de priorización</label>

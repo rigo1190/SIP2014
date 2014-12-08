@@ -130,15 +130,6 @@ namespace SIP.Formas.POA {
         protected global::AjaxControlToolkit.CascadingDropDown cddlLocalidad;
         
         /// <summary>
-        /// Control ddlTipoLocalidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipoLocalidad;
-        
-        /// <summary>
         /// Control ddlCriterioPriorizacion.
         /// </summary>
         /// <remarks>

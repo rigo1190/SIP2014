@@ -62,8 +62,7 @@ namespace SIP.Formas.POA
             txtNumero.Value = obra.Numero;
             txtDescripcion.Value = obra.Descripcion;
             cddlMunicipio.SelectedValue = obra.MunicipioId.ToString();
-            cddlLocalidad.SelectedValue = obra.LocalidadId.ToString();
-            ddlTipoLocalidad.SelectedValue = obra.TipoLocalidadId.ToString();
+            cddlLocalidad.SelectedValue = obra.LocalidadId.ToString();            
             ddlCriterioPriorizacion.SelectedValue = obra.CriterioPriorizacionId.ToString();
 
             cddlPrograma.SelectedValue = obra.AperturaProgramatica.Parent.ParentId.ToString();
@@ -111,8 +110,7 @@ namespace SIP.Formas.POA
             txtDescripcion.Value = String.Empty;
             cddlMunicipio.SelectedValue = String.Empty;
             ddlCriterioPriorizacion.SelectedIndex = -1;
-            cddlLocalidad.SelectedValue = String.Empty;
-            ddlTipoLocalidad.SelectedIndex = -1;
+            cddlLocalidad.SelectedValue = String.Empty;            
 
             txtFechaInicio.Value = String.Empty;
             txtFechaTermino.Value = String.Empty;
@@ -246,8 +244,7 @@ namespace SIP.Formas.POA
             obra.Numero = txtNumero.Value;
             obra.Descripcion = txtDescripcion.Value;
             obra.MunicipioId = Utilerias.StrToInt(ddlMunicipio.SelectedValue);
-            obra.LocalidadId = Utilerias.StrToInt(ddlLocalidad.SelectedValue);
-            obra.TipoLocalidadId = Utilerias.StrToInt(ddlTipoLocalidad.SelectedValue);
+            obra.LocalidadId = Utilerias.StrToInt(ddlLocalidad.SelectedValue);            
             obra.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);           
             obra.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             obra.AperturaProgramaticaMetaId = Utilerias.StrToInt(ddlMeta.SelectedValue);
@@ -291,8 +288,7 @@ namespace SIP.Formas.POA
                 poadetalle.Numero = obra.Numero;
                 poadetalle.Descripcion = obra.Descripcion;
                 poadetalle.MunicipioId = obra.MunicipioId;
-                poadetalle.Localidad = obra.Localidad;
-                poadetalle.TipoLocalidadId = obra.TipoLocalidadId;
+                poadetalle.Localidad = obra.Localidad;                
                 poadetalle.CriterioPriorizacionId = obra.CriterioPriorizacionId;
                 poadetalle.AperturaProgramaticaId = obra.AperturaProgramaticaId;
                 poadetalle.AperturaProgramaticaMetaId = obra.AperturaProgramaticaMetaId;
@@ -366,13 +362,7 @@ namespace SIP.Formas.POA
             ddlMunicipio.DataBind();
 
             ddlMunicipio.Items.Insert(0, new ListItem("Seleccione...", "0"));
-
-            ddlTipoLocalidad.DataSource = uow.TipoLocalidadBusinessLogic.Get().ToList();
-            ddlTipoLocalidad.DataValueField = "Id";
-            ddlTipoLocalidad.DataTextField = "Nombre";
-            ddlTipoLocalidad.DataBind();
-
-            ddlTipoLocalidad.Items.Insert(0, new ListItem("Seleccione...", "0"));
+            
 
             ddlCriterioPriorizacion.DataSource = uow.CriterioPriorizacionBusinessLogic.Get().OrderBy(cp => cp.Orden);
             ddlCriterioPriorizacion.DataValueField = "Id";

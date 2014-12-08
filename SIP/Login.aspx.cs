@@ -34,7 +34,7 @@ namespace SIP
             string strlogin = hiddenLogin.Value;
             string strContrasena = hiddenContrasena.Value;
 
-            var user = uow.UsuarioBusinessLogic.Get(u => u.Login == strlogin && u.Password == strContrasena).FirstOrDefault();
+            var user = uow.UsuarioBusinessLogic.Get(u => u.Login==strlogin && u.Password==strContrasena).FirstOrDefault(u => u.Login == strlogin && u.Password == strContrasena);
 
             if (user!=null)
             {                                               

@@ -39,49 +39,40 @@ namespace SIP
             if (user!=null)
             {                                               
                         
-                        Session.Timeout = 60;
-                        Session["IsAuthenticated"] = true;
-                        Session["NombreUsuario"] = user.Nombre;
-                        Session["Login"] = user.Login;
-                        Session["IdUser"] = user.Id.ToString();
+                Session.Timeout = 60;
+                Session["IsAuthenticated"] = true;
+                Session["NombreUsuario"] = user.Nombre;
+                Session["Login"] = user.Login;
+                Session["IdUser"] = user.Id.ToString();
+                        
+                //EL USUARIO VA A SER UNO DE ESTOS DOS GRANDES TIPOS: SEFIPLAN O DEPENDENCIA
 
-                        //UsuarioRol usuarioRol=user.DetalleRoles.FirstOrDefault();
+                if (user.Rol.EsSefiplan) //USUARIO DE SEFIPLAN
+                {
+                    switch (user.RolId) //SEGUN SEA SU ROL DENTRO DE SEFIPLAN
+                    {
+                        case 1: //Desarrollador
 
-                        switch (user.RolId) 
-                        {
-                            case 1: //Desarrollador
+                            break;
 
-                                break;
+                        case 2: //Ejecutivo
 
-                            case 2: //Ejecutivo
+                            break;
 
-                                break;
+                        case 3: //Administrador
 
-                            case 3: //Administrador
+                            Response.Redirect("~/Formas/Catalogos/Inicio.aspx");
+                            break;
 
-                                Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
-                                break;
-
-                            case 4: //Capturista
-
-                                UsuarioUnidadPresupuestal usuarioUp = user.DetalleUnidadesPresupuestales.FirstOrDefault();
-                               
-                                Session["UnidadPresupuestalId"] = usuarioUp.UnidadPresupuestalId;
-                                Session["EjercicioId"] = ejercicioActivoId;     
-                                Response.Redirect("~/Formas/POA/POA.aspx");
-                                break;
-
-                            case 5: //Analista
-
-                                Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
-                                break;
-
-                            default:
-
-                                break;
-
-                        }
-
+                        case 5: //Analista
+                            Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
+                            break;
+                    }
+                }
+                else if (user.Rol.EsDependencia) //USUARIO DE DEPENDENCIA
+                {
+                    Response.Redirect("~/Formas/SelectorEjercicioDependencia.aspx");
+                }
                       
             }
 

@@ -238,6 +238,7 @@
     <Content Include="Formas\Catalogos\catProgramas.aspx" />
     <Content Include="Formas\Catalogos\catUnidadesPresupuestales.aspx" />
     <Content Include="Formas\Catalogos\Ejercicios.aspx" />
+    <Content Include="Formas\Catalogos\Inicio.aspx" />
     <Content Include="Formas\Catalogos\Municipios.aspx" />
     <Content Include="Formas\Catalogos\PlantillaPreguntas.aspx" />
     <Content Include="Formas\Catalogos\Plantillas.aspx" />
@@ -253,6 +254,7 @@
     <Content Include="Formas\POA\POAAjustadoFinanciamiento.aspx" />
     <Content Include="Formas\POA\POAFinanciamiento.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
+    <Content Include="Formas\SelectorEjercicioDependencia.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinanciero.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroBitacora.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx" />
@@ -284,6 +286,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="NavegadorDependencia.Master" />
     <None Include="Properties\PublishProfiles\WEB.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="rpts\wfVerReporte.aspx" />
@@ -469,6 +472,12 @@
     <Compile Include="Formas\Catalogos\Ejercicios.aspx.designer.cs">
       <DependentUpon>Ejercicios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\Catalogos\Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\Catalogos\Municipios.aspx.cs">
       <DependentUpon>Municipios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -571,6 +580,12 @@
       <DependentUpon>WebServicePOA.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Formas\SelectorEjercicioDependencia.aspx.cs">
+      <DependentUpon>SelectorEjercicioDependencia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\SelectorEjercicioDependencia.aspx.designer.cs">
+      <DependentUpon>SelectorEjercicioDependencia.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinanciero.aspx.cs">
       <DependentUpon>wfTechoFinanciero.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -664,6 +679,12 @@
     </Compile>
     <Compile Include="NavegadorCatalogos.Master.designer.cs">
       <DependentUpon>NavegadorCatalogos.Master</DependentUpon>
+    </Compile>
+    <Compile Include="NavegadorDependencia.Master.cs">
+      <DependentUpon>NavegadorDependencia.Master</DependentUpon>
+    </Compile>
+    <Compile Include="NavegadorDependencia.Master.designer.cs">
+      <DependentUpon>NavegadorDependencia.Master</DependentUpon>
     </Compile>
     <Compile Include="NavegadorPrincipal.Master.cs">
       <DependentUpon>NavegadorPrincipal.Master</DependentUpon>

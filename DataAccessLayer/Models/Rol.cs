@@ -21,6 +21,8 @@ namespace DataAccessLayer.Models
 
         [StringLength(100, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string Nombre { get; set; }
+        public bool EsSefiplan { get; set; }
+        public bool EsDependencia { get; set; }
 
         [Index("IX_Orden_ParentId", 1, IsUnique = true)]
         public int Orden { get; set; }

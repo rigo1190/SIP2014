@@ -32,11 +32,11 @@ namespace DataAccessLayer.Migrations
            
             context.Roles.AddOrUpdate(
             
-                new Rol { Id = 1 , Clave="R001", Nombre="Desarrollador", Orden=1},
-                new Rol { Id = 2 , Clave="R002", Nombre="Ejecutivo", Orden = 2 },
-                new Rol { Id = 3 , Clave="R003", Nombre="Administrador", Orden=3},
-                new Rol { Id = 4 , Clave="R004", Nombre="Capturista", Orden=4},
-                new Rol { Id = 5,  Clave="R005", Nombre="Analista", Orden = 5 }   
+                new Rol { Id = 1 , Clave="R001", Nombre="Desarrollador", Orden=1, EsSefiplan=true,EsDependencia=false},
+                new Rol { Id = 2, Clave = "R002", Nombre = "Ejecutivo", Orden = 2, EsSefiplan = true, EsDependencia = false },
+                new Rol { Id = 3, Clave = "R003", Nombre = "Administrador", Orden = 3, EsSefiplan = true, EsDependencia = false },
+                new Rol { Id = 4, Clave = "R004", Nombre = "Capturista", Orden = 4, EsSefiplan = false, EsDependencia = true },
+                new Rol { Id = 5, Clave = "R005", Nombre = "Analista", Orden = 5, EsSefiplan = true, EsDependencia = false }   
             );
                         
 

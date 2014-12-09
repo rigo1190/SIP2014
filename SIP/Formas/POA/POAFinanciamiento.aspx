@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="POAFinanciamiento.aspx.cs" Inherits="SIP.Formas.POA.POAFinanciamiento" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorDependencia.Master" AutoEventWireup="true" CodeBehind="POAFinanciamiento.aspx.cs" Inherits="SIP.Formas.POA.POAFinanciamiento" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <script type="text/javascript">

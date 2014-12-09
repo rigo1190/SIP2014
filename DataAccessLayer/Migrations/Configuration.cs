@@ -115,16 +115,16 @@ namespace DataAccessLayer.Migrations
             );
 
             context.Localidades.AddOrUpdate(
-                new Localidad { Id = 1, Nombre = "Primer localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 1 },
-                new Localidad { Id = 2, Nombre = "Segunda localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 1 },
-                new Localidad { Id = 3, Nombre = "Tercera localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 3, MunicipioId = 1 },
-                new Localidad { Id = 4, Nombre = "Primer localidad de Acatlán", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 2 },
-                new Localidad { Id = 5, Nombre = "Segunda localidad de Acatlán", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 2 },
-                new Localidad { Id = 6, Nombre = "Primer localidad de Acayucan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 3 },
-                new Localidad { Id = 7, Nombre = "Primer localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 4 },
-                new Localidad { Id = 8, Nombre = "Segunda localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 4 },
-                new Localidad { Id = 9, Nombre = "Tercera localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 3, MunicipioId = 4 },
-                new Localidad { Id = 10, Nombre = "Cuarta localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 4, MunicipioId = 4 }
+                new Localidad { Id = 1, Nombre = "Primer localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 1,TipoLocalidadId=1 },
+                new Localidad { Id = 2, Nombre = "Segunda localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 1, TipoLocalidadId = 1 },
+                new Localidad { Id = 3, Nombre = "Tercera localidad de Acajete", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 3, MunicipioId = 1, TipoLocalidadId = 1 },
+                new Localidad { Id = 4, Nombre = "Primer localidad de Acatlán", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 2, TipoLocalidadId = 1 },
+                new Localidad { Id = 5, Nombre = "Segunda localidad de Acatlán", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 2, TipoLocalidadId = 1 },
+                new Localidad { Id = 6, Nombre = "Primer localidad de Acayucan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 3, TipoLocalidadId = 1 },
+                new Localidad { Id = 7, Nombre = "Primer localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 1, MunicipioId = 4, TipoLocalidadId = 1 },
+                new Localidad { Id = 8, Nombre = "Segunda localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 2, MunicipioId = 4, TipoLocalidadId = 1 },
+                new Localidad { Id = 9, Nombre = "Tercera localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 3, MunicipioId = 4, TipoLocalidadId = 1 },
+                new Localidad { Id = 10, Nombre = "Cuarta localidad de Actopan", Latitud = 19.54M, Longitud = 96.9275M, PoblacionFemenina = 100, PoblacionMasculina = 100, PoblacionTotal = 200, Orden = 4, MunicipioId = 4, TipoLocalidadId = 1 }
 
             );
 
@@ -229,10 +229,10 @@ namespace DataAccessLayer.Migrations
            );
 
            context.AperturaProgramaticaTipo.AddOrUpdate(
-              new AperturaProgramaticaTipo { Id = 1, Clave = "APT001", Nombre = "OBRA", Orden = 1,EsObra=true },
-              new AperturaProgramaticaTipo { Id = 2, Clave = "APT002", Nombre = "ACCIONES DE APOYO A LA SUPERVISION", Orden = 2,EsObra=false },
-              new AperturaProgramaticaTipo { Id = 3, Clave = "APT003", Nombre = "ACCIONES DE INFRAESTRUCTURA", Orden = 3,EsObra=false },
-              new AperturaProgramaticaTipo { Id = 4, Clave = "APT004", Nombre = "ESTUDIOS Y PROYECTOS", Orden = 4,EsObra=false } 
+              new AperturaProgramaticaTipo { Id = 1, Clave = "APT001", Nombre = "OBRA", Orden = 1,EsObra=true,Identificador="0" },
+              new AperturaProgramaticaTipo { Id = 2, Clave = "APT002", Nombre = "ACCIONES DE APOYO A LA SUPERVISION", Orden = 2,EsObra=false,Identificador="2" },
+              new AperturaProgramaticaTipo { Id = 3, Clave = "APT003", Nombre = "ACCIONES DE INFRAESTRUCTURA", Orden = 3,EsObra=false,Identificador="3" },
+              new AperturaProgramaticaTipo { Id = 4, Clave = "APT004", Nombre = "ESTUDIOS Y PROYECTOS", Orden = 4,EsObra=false,Identificador="1" } 
           );
 
 

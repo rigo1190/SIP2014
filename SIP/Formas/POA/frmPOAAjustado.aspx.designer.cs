@@ -139,6 +139,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.WebControls.DropDownList ddlCriterioPriorizacion;
         
         /// <summary>
+        /// Control txtNombreConvenio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtNombreConvenio;
+        
+        /// <summary>
         /// Control txtFechaInicio.
         /// </summary>
         /// <remarks>
@@ -227,6 +236,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::AjaxControlToolkit.CascadingDropDown cddlMeta;
+        
+        /// <summary>
+        /// Control ddlUnidadMedida.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUnidadMedida;
         
         /// <summary>
         /// Control txtNumeroBeneficiarios.
@@ -373,40 +391,13 @@ namespace SIP.Formas.POA {
         protected global::AjaxControlToolkit.CascadingDropDown cddlFuncionalidadNivel3;
         
         /// <summary>
-        /// Control ddlEjeAgrupador.
+        /// Control ddlEje.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEjeAgrupador;
-        
-        /// <summary>
-        /// Control cddlEjePVD1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown cddlEjePVD1;
-        
-        /// <summary>
-        /// Control ddlEjeElemento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEjeElemento;
-        
-        /// <summary>
-        /// Control cddlEjePVD2.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown cddlEjePVD2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEje;
         
         /// <summary>
         /// Control ddlPlanSectorial.
@@ -506,5 +497,14 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox _Accion;
+        
+        /// <summary>
+        /// Control hiddenSituacionObraId.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenSituacionObraId;
     }
 }

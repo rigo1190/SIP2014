@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorDependencia.Master" AutoEventWireup="true" CodeBehind="frmPOAAjustado.aspx.cs" Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorDependencia.Master" AutoEventWireup="true" CodeBehind="frmPOAAjustado.aspx.cs" 
+Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <script type="text/javascript">
@@ -41,7 +42,30 @@
 
                  return false;
 
-             });
+            });
+
+
+            $("#<%= ddlCriterioPriorizacion.ClientID   %>").change(function (e) {
+
+                var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
+
+                switch (valorseleccionado) {
+                    case "2":
+
+                        $("#divDatosConvenio").css("display", "block");
+                        break;
+
+                    default:
+
+                        $("#divDatosConvenio").css("display", "none");
+                        break;
+                }
+
+
+            });
+
+            $("#<%= hiddenSituacionObraId.ClientID %>").val($("#<%= ddlSituacionObra.ClientID   %> option:selected").val());
+
 
 
 
@@ -76,9 +100,15 @@
                  return false;
              }
 
-             var meta = $("#<%= ddlMeta.ClientID %>").val();
+             <%--var meta = $("#<%= ddlMeta.ClientID %>").val();
              if (meta == null || meta.length == 0 || meta == undefined || meta == 0) {
                  alert("Debe indicar la unidad y beneficiario de la meta");
+                 return false;
+             }--%>
+
+             var unidadmedida = $("#<%= ddlUnidadMedida.ClientID %>").val();
+             if (unidadmedida == null || unidadmedida.length == 0 || unidadmedida == undefined || unidadmedida == 0) {
+                 alert("Debe indicar la unidad de medida");
                  return false;
              }
 
@@ -136,14 +166,14 @@
                  return false;
              }
 
-             var eje = $("#<%= ddlEjeElemento.ClientID %>").val();
+            var eje = $("#<%= ddlEje.ClientID %>").val();
              if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
                  alert("Debe indicar el <Eje del Plan de Desarrollo Veracruzano>");
                  return false;
              }
 
-             var eje = $("#<%= ddlPlanSectorial.ClientID %>").val();
-             if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
+             var plansectorial = $("#<%= ddlPlanSectorial.ClientID %>").val();
+             if (plansectorial == null || plansectorial.length == 0 || plansectorial == undefined || plansectorial == 0) {
                  alert("Debe indicar el <Plan sectorial> correspondiente");
                  return false;
              }
@@ -189,6 +219,22 @@
              return false;
          }
 
+        function fnc_ocultarDivDatosConvenio() {
+            var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
+
+             switch (valorseleccionado) {
+                 case "2":
+
+                     $("#divDatosConvenio").css("display", "block");
+                     break;
+
+                 default:
+
+                     $("#divDatosConvenio").css("display", "none");
+                     break;
+             }
+         }
+
 
          function fnc_EjecutarMensaje(mensaje) {
              alert(mensaje);
@@ -222,7 +268,13 @@
           <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
         </div>
 
-        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObras" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewObras_RowDataBound"   runat="server" AllowPaging="True">
+        <asp:GridView 
+            ID="GridViewObras" runat="server"
+            ItemType="DataAccessLayer.Models.Obra" DataKeyNames="Id"
+            SelectMethod="GridViewObras_GetData"
+            ShowHeaderWhenEmpty="true" CssClass="table" AutoGenerateColumns="False" 
+            OnRowDataBound="GridViewObras_RowDataBound" AllowPaging="True"
+            OnPageIndexChanging="GridViewObras_PageIndexChanging">
             <Columns>
 
                        <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
@@ -234,17 +286,13 @@
                             </ItemTemplate>                         
                         </asp:TemplateField>     
                                          
-                       <asp:TemplateField HeaderText="Número" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
-                            <ItemTemplate>
-                                <asp:Label ID="LabelNumero" runat="server" Text='<%# Bind("Numero") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-
-                       <asp:TemplateField HeaderText="Descripción" ItemStyle-CssClass="col-md-8" HeaderStyle-CssClass="panel-footer">                            
-                            <ItemTemplate>
-                                <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>                     
+                       <asp:DynamicField DataField="Numero" HeaderText="Número" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer"/>
+                       <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-CssClass="panel-footer"/> 
+                       <asp:TemplateField HeaderText="Tipo" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
+                           <ItemTemplate>
+                                <asp:Label Text='<%# Item.AperturaProgramatica.AperturaProgramaticaTipo.Nombre %>' runat="server" />
+                           </ItemTemplate>
+                       </asp:TemplateField>                   
                 
             </Columns>
                     
@@ -311,15 +359,25 @@
                                  PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
                                                      
                         </div>
-                      </div>                    
+                      </div>                  
                      
-
                      <div class="form-group">
                            <label for="ddlCriterioPriorizacion">Criterio de priorización</label>
                          <div>
                              <asp:DropDownList ID="ddlCriterioPriorizacion" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
                       </div>
+
+                     <div style="display:block" id="divDatosConvenio">
+
+                            <div class="form-group">
+                                <label for="NombreConvenio">Nombre del convenio</label>
+                                <div>
+                                    <textarea id="txtNombreConvenio" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="2" ></textarea>
+                                </div>
+                            </div>    
+
+                      </div><!--divDatosConvenio-->
 
                       <div class="form-group">
                            <label for="FechaInicio">Fecha de inicio</label>
@@ -375,7 +433,7 @@
                         </div>
                       </div>
 
-                       <div class="form-group">
+                       <div class="form-group" style="display:none">
                            <label for="Metas">Metas</label>
                          <div>
                              <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
@@ -384,6 +442,13 @@
                                  TargetControlID="ddlMeta" ParentControlID="ddlSubsubprograma" Category="metaId"
                                  PromptText="Seleccione la meta..." LoadingText="Loading..."/>
                            
+                        </div>
+                      </div>
+
+                     <div class="form-group">
+                           <label for="UnidadMedida">Unidad de medida</label>
+                         <div>
+                              <asp:DropDownList ID="ddlUnidadMedida" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
                       </div>
 
@@ -525,7 +590,7 @@
 
                             </div><!--Funcionalidad panel panel-default-->
 
-                            <div class="panel panel-default">
+                            <%--<div class="panel panel-default">
                               <div class="panel-heading">
                                 <h3 class="panel-title">Eje del PVD</h3>
                               </div>
@@ -555,7 +620,14 @@
                                                                                                     
                               </div>
 
-                            </div><!--Eje panel panel-default-->                                                       
+                            </div><!--Eje panel panel-default-->     --%>  
+                            
+                            <div class="form-group">
+                                 <label for="Eje">Eje</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlEje" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                            </div>                                                
                                                         
                                                             
                         </div><!--col-md-4-->
@@ -635,7 +707,9 @@
              <div style="display:none" runat="server">
                 <asp:TextBox ID="_ID" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
                 <asp:TextBox ID="_Accion" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>                                                           
-             </div>                       
+             </div>
+            
+             <asp:HiddenField ID="hiddenSituacionObraId" runat="server" />                       
                      
 
        </div><!--divEdicion-->

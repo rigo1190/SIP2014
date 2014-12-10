@@ -21,22 +21,21 @@ namespace DataAccessLayer.Models
         
         public DateTime FechaDeEstimacion { get; set; }
 
-        public decimal Importe { get; set; }
 
-        public decimal AmortizacionAnticipo { get; set; }
-
-        public decimal Retencion2AlMillar { get; set; }
-
-        public decimal Retencion5AlMillar { get; set; }
-
-
-        public decimal Subtotal { get; set; }
+        public decimal ImporteEstimado { get; set; }
         public decimal IVA { get; set; }
         public decimal Total { get; set; }
 
+
+        
+
+        public decimal AmortizacionAnticipo { get; set; }
+
+        public decimal Retencion5AlMillar { get; set; }
+        public decimal Retencion2AlMillar { get; set; }
+        public decimal ImporteNetoACobrar { get; set; }
         public int Status { get; set; }
 
-        //datos del cheque con el que lo cobrarian
         public virtual ContratosDeObra ContratoDeObra { get; set; }
 
         public virtual ICollection<EstimacionesConceptos> detalleConceptos { get; set; }

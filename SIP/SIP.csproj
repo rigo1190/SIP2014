@@ -419,6 +419,7 @@
     </Compile>
     <Compile Include="Formas\Catalogos\catFondosLineamientos.aspx.cs">
       <DependentUpon>catFondosLineamientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\catFondosLineamientos.aspx.designer.cs">
       <DependentUpon>catFondosLineamientos.aspx</DependentUpon>
@@ -474,6 +475,7 @@
     </Compile>
     <Compile Include="Formas\Catalogos\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\Catalogos\Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
@@ -582,6 +584,7 @@
     </Compile>
     <Compile Include="Formas\SelectorEjercicioDependencia.aspx.cs">
       <DependentUpon>SelectorEjercicioDependencia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Formas\SelectorEjercicioDependencia.aspx.designer.cs">
       <DependentUpon>SelectorEjercicioDependencia.aspx</DependentUpon>
@@ -682,6 +685,7 @@
     </Compile>
     <Compile Include="NavegadorDependencia.Master.cs">
       <DependentUpon>NavegadorDependencia.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="NavegadorDependencia.Master.designer.cs">
       <DependentUpon>NavegadorDependencia.Master</DependentUpon>
@@ -695,22 +699,16 @@
     </Compile>
     <Compile Include="NotasFunciones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="rpts\CrystalReport11.cs">
+    <Compile Include="rpts\FuentesDeFinanciamientoDisponibles.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <DependentUpon>FuentesDeFinanciamientoDisponibles.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="rpts\rptEvaluacionPOA1.cs">
+    <Compile Include="rpts\TechosFinancierosXup.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>rptEvaluacionPOA.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="rpts\rptFondos1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>rptFondos.rpt</DependentUpon>
+      <DependentUpon>TechosFinancierosXup.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="rpts\wfVerReporte.aspx.cs">
@@ -766,6 +764,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport11.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="rpts\FuentesDeFinanciamientoDisponibles.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>FuentesDeFinanciamientoDisponibles.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="rpts\rptEvaluacionPOA.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptEvaluacionPOA1.cs</LastGenOutput>
@@ -773,6 +775,10 @@
     <EmbeddedResource Include="rpts\rptFondos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptFondos1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\TechosFinancierosXup.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TechosFinancierosXup.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

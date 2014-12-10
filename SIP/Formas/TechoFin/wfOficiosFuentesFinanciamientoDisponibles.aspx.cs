@@ -88,6 +88,8 @@ namespace SIP.Formas.TechoFin
             txtOficioA.Value = tfup.NumOficioAsignacionPresupuestal;
             txtOficioB.Value = tfup.NumOficioAlcance;
             txtObservaciones.Value = tfup.ObservacionesAlcance;
+            dtpFechaA.Value = tfup.FechaOficioAsignacionPresupuestal.ToString();
+            dtpFechaB.Value = tfup.FechaOficioAlcance.ToString();
 
             divEdicion.Style.Add("display", "block");
             divUPS.Style.Add("display", "none");

@@ -64,6 +64,12 @@ namespace BusinessLogicLayer
 
         private IBusinessLogic<Firmas> firmasBL;
 
+        private IBusinessLogic<ContratosDeObra> contratosdeobraBL;
+        private IBusinessLogic<ConceptosDeObra> conceptosdeobraBL;
+        private IBusinessLogic<PresupuestosContratados> presupuestosscontratadosBL;
+        private IBusinessLogic<Estimaciones> estimacionesBL;
+        private IBusinessLogic<EstimacionesConceptos> estimacionesconceptosBL;
+
         public UnitOfWork()
         {
             this.contexto = new Contexto();
@@ -694,6 +700,69 @@ namespace BusinessLogicLayer
             }
         }
 
+        public IBusinessLogic<ContratosDeObra> ContratosDeObraBL
+        {
+            get
+            {
+                if (this.contratosdeobraBL == null)
+                {
+                    this.contratosdeobraBL = new GenericBusinessLogic<ContratosDeObra>(contexto);
+                         
+                }
+                return this.contratosdeobraBL;
+            }
+        }
+
+
+
+        public IBusinessLogic<ConceptosDeObra> ConceptosDeObraBL
+        {
+            get
+            {
+                if (this.conceptosdeobraBL == null)
+                {
+                    this.conceptosdeobraBL = new GenericBusinessLogic<ConceptosDeObra>(contexto);
+                }
+                return this.conceptosdeobraBL;
+            }
+        }
+
+        public IBusinessLogic<PresupuestosContratados> PresupuestosContratadosBL
+        { 
+            get {
+                if (this.presupuestosscontratadosBL == null)
+                {
+                    this.presupuestosscontratadosBL = new GenericBusinessLogic<PresupuestosContratados>(contexto);
+                         
+                }
+                return this.presupuestosscontratadosBL;
+            } 
+        }
+
+
+        public IBusinessLogic<Estimaciones> EstimacionesBL
+        {
+            get
+            {
+                if (this.estimacionesBL == null)
+                {
+                    this.estimacionesBL = new GenericBusinessLogic<Estimaciones>(contexto);
+                }
+                return this.estimacionesBL;
+            }
+        }
+
+
+        public IBusinessLogic<EstimacionesConceptos> EstimacionesConceptosBL
+        {
+            get{
+                if (this.estimacionesconceptosBL == null)
+                {
+                    this.estimacionesconceptosBL = new GenericBusinessLogic<EstimacionesConceptos>(contexto);
+                }
+                return this.estimacionesconceptosBL;
+            }
+        }
 
 
      

@@ -36,7 +36,9 @@ namespace DataAccessLayer.Models
         public int Empleos { get; set; }
         public int Jornales { get; set; }
         public int SituacionObraId { get; set; }       
-        public enumModalidadObra? ModalidadObra { get; set; }       
+        public enumModalidadObra? ModalidadObra { get; set; }
+        public string NumeroAnterior { get; set; }
+        public decimal ImporteLiberadoEjerciciosAnteriores { get; set; } 
         public int? FuncionalidadId { get; set; }
         public int? EjeId { get; set; }
         public int? PlanSectorialId { get; set; }

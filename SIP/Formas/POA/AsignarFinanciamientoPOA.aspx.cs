@@ -199,13 +199,19 @@ namespace SIP.Formas.POA
                 obra.Descripcion = poadetalle.Descripcion;
                 obra.MunicipioId = poadetalle.MunicipioId;
                 obra.Localidad = poadetalle.Localidad;                
-                obra.CriterioPriorizacionId = poadetalle.CriterioPriorizacionId;            
+                obra.CriterioPriorizacionId = poadetalle.CriterioPriorizacionId;
+                obra.Convenio = poadetalle.Convenio;
                 obra.AperturaProgramaticaId = poadetalle.AperturaProgramaticaId;
                 obra.AperturaProgramaticaMetaId = poadetalle.AperturaProgramaticaMetaId;
+                obra.AperturaProgramaticaUnidadId = poadetalle.AperturaProgramaticaUnidadId;
                 obra.NumeroBeneficiarios = poadetalle.NumeroBeneficiarios;
                 obra.CantidadUnidades = poadetalle.CantidadUnidades;
                 obra.Empleos = poadetalle.Empleos;
                 obra.Jornales = poadetalle.Jornales;
+
+                obra.SituacionObraId = poadetalle.SituacionObraId;
+                obra.NumeroAnterior = poadetalle.NumeroAnterior;
+                obra.ImporteLiberadoEjerciciosAnteriores = poadetalle.ImporteLiberadoEjerciciosAnteriores;
 
                 obra.FuncionalidadId = poadetalle.FuncionalidadId;
                 obra.EjeId = poadetalle.EjeId;
@@ -214,7 +220,7 @@ namespace SIP.Formas.POA
                 obra.ProgramaId = poadetalle.ProgramaId;
                 obra.GrupoBeneficiarioId = poadetalle.GrupoBeneficiarioId;
 
-                obra.SituacionObraId = poadetalle.SituacionObraId;
+                
                 obra.ModalidadObra = poadetalle.ModalidadObra;
                 obra.Observaciones = poadetalle.Observaciones;               
 

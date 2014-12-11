@@ -16,12 +16,7 @@ namespace SIP
         {
             uow = new UnitOfWork();
 
-            Ejercicio ejercicio = uow.EjercicioBusinessLogic.GetByID(Utilerias.StrToInt(Session["EjercicioId"].ToString()));
-            UnidadPresupuestal up = uow.UnidadPresupuestalBusinessLogic.GetByID(Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString()));
-
             lblUsuario.Text = Session["NombreUsuario"].ToString();
-            lblEjercicio.Text = ejercicio.Año.ToString();
-            lblDependencia.Text = up.Abreviatura;
 
             MostrarOpciones();
         }
@@ -34,6 +29,16 @@ namespace SIP
             Usuario user = uow.UsuarioBusinessLogic.GetByID(idUser);
             
             //SEGUN EL ROL, SE MOSTRARAN OPCIONES
+
+            if (user.RolId != 3)
+            {
+                UnidadPresupuestal up = uow.UnidadPresupuestalBusinessLogic.GetByID(Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString()));
+                Ejercicio objEjercicio = uow.EjercicioBusinessLogic.GetByID(Utilerias.StrToInt(Session["EjercicioId"].ToString())); 
+                lblEjercicio.Text = objEjercicio!=null ? objEjercicio.Año.ToString():string.Empty;
+                lblDependencia.Text = up.Abreviatura;
+            }
+
+
 
             switch (user.RolId)
             {

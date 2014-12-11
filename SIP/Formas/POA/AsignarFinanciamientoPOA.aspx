@@ -85,7 +85,7 @@
         </div>
 
          <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:block" runat="server">
-            <div class="panel-heading"><strong>Techo financiero de la unidad presupuestal</strong></div>
+            <div class="panel-heading"><strong>Financiamientos de la unidad presupuestal</strong></div>
             <div class="panel-body">
 
                       <asp:GridView ID="GridViewTechoFinanciero" runat="server" CssClass="table"
@@ -152,7 +152,7 @@
         </asp:GridView>
 
         <div id="divBtnNuevo" runat="server" style="display:block">
-              <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
+              <asp:Button ID="btnNuevo" runat="server" Text="Agregar nuevo financiamiento" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
               <hr />
               <div id="divlinkPOAFinanciamiento" style="display:none" runat="server">
                   <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar a la asignación de financiamiento para el Anteproyecto de POA</strong></a>

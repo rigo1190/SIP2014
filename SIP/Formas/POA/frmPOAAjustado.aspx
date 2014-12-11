@@ -149,7 +149,7 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                  return false;
              }
 
-             var importeLiberado = $("#<%= txtCostoLiberadoEjerciciosAnteriores.ClientID %>").val();
+             var importeLiberado = $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val();
              if (importeLiberado == null || importeLiberado.length == 0 || importeLiberado == undefined) {
                  alert("El campo <Costo liberado en ejercicios anteriores> no puede estar vacio");
                  return false;
@@ -234,7 +234,23 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                      $("#divDatosConvenio").css("display", "none");
                      break;
              }
-         }
+        }
+
+        function fnc_ocultarDivObraAnterior() {
+            var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
+
+            switch (valorseleccionado) {
+                case "0":
+                    $("#divDatosObraAnterior").css("display", "none");
+                    break;
+                case "1":
+                    $("#divDatosObraAnterior").css("display", "none");
+                    break;
+                default:
+                    $("#divDatosObraAnterior").css("display", "block");
+                    break;
+            }
+        }
 
 
          function fnc_EjecutarMensaje(mensaje) {
@@ -493,12 +509,7 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                         </div>
                       </div>
 
-                      <div class="form-group">
-                           <label for="ModalidadObra">Modalidad de ejecución</label>
-                         <div>
-                              <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
+                     
 
                      <div class="form-group">
                            <label for="txtImporteTotal">Costo total</label>
@@ -508,19 +519,38 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                         </div>
                       </div>
 
-                      <div class="form-group">
-                           <label for="txtCostoLiberadoEjerciciosAnteriores">Costo liberado en ejercicios anteriores</label>
-                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCostoLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
-                        </div>
-                      </div>
+                     <div style="display:none" id="divDatosObraAnterior">
+
+                          <div class="form-group">
+                            <label for="Numero">Número anterior</label>
+                            <div>
+                                <input type="text" class="input-sm required form-control" id="txtNumeroAnterior" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled" />                           
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                               <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
+                             <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled"/>
+                            </div>
+                          </div>
+
+                      </div><!--divDatosObraAnterior-->
+
 
                      <div class="form-group">
                            <label for="txtPresupuestoEjercicio">Presupuesto del ejercicio</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" class="input-sm required form-control campoNumerico" id="txtPresupuestoEjercicio" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
+                        </div>
+                      </div>
+
+                     <div class="form-group">
+                           <label for="ModalidadObra">Modalidad de ejecución</label>
+                         <div>
+                              <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
                       </div>
 

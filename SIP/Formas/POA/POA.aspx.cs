@@ -21,6 +21,10 @@ namespace SIP.Formas.POA
             uow = new UnitOfWork(Session["IdUser"].ToString());
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
+
+            DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
+
+            lblResumen.Text = String.Format("Total de obras : {0}", poa.Detalles.Count);
                
             if (!IsPostBack)
             {  
@@ -340,6 +344,7 @@ namespace SIP.Formas.POA
 
             poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             poadetalle.AperturaProgramaticaMetaId = null;
+            poadetalle.AperturaProgramaticaUnidadId = Utilerias.StrToInt(ddlUnidadMedida.SelectedValue);
             poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString());
             poadetalle.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString());
             poadetalle.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString());

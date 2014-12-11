@@ -27,6 +27,11 @@ namespace SIP.Formas.POA
             TechoFinancieroStatus tfestatus = uow.TechoFinancieroStatusBusinessLogic.Get(tfe => tfe.EjercicioId == ejercicioId).FirstOrDefault();
             TechoFinancieroUnidadPresupuestal tfunidadpresupuestal = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup=>tfup.TechoFinanciero.EjercicioId==ejercicioId && tfup.UnidadPresupuestalId==unidadpresupuestalId).FirstOrDefault();
 
+            DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
+
+            lblResumen.Text = String.Format("Total de obras : {0} Total de obras con financiamiento: {1} ", poa.GetTotalObrasAnteProyecto(),poa.GetTotalObrasProyecto());
+
+
             if (tfunidadpresupuestal != null) 
             {
                 totalTechofinanciero = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.TechoFinanciero.EjercicioId == ejercicioId && tfup.UnidadPresupuestalId == unidadpresupuestalId).Sum(r=>r.GetImporteDisponible());

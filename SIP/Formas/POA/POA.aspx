@@ -286,6 +286,10 @@
            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
         </div>
 
+        <div class="panel-footer alert alert-success" id="divResumen" style="display:block">
+            <strong><asp:Label ID="lblResumen" runat="server" Text=""></asp:Label></strong>
+        </div>
+
         <asp:GridView ID="GridViewObras" runat="server"
             ItemType="DataAccessLayer.Models.POADetalle" DataKeyNames="Id"
             SelectMethod="GridViewObras_GetData" 

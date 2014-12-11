@@ -95,7 +95,8 @@ namespace SIP.Formas.POA
             }
                         
             txtImporteTotal.Value = obra.GetCostoTotal().ToString();
-            txtCostoLiberadoEjerciciosAnteriores.Value = obra.GetImporteLiberadoEjerciciosAnteriores().ToString();
+            txtNumeroAnterior.Value = obra.NumeroAnterior;
+            txtImporteLiberadoEjerciciosAnteriores.Value = obra.GetImporteLiberadoEjerciciosAnteriores().ToString();
             txtPresupuestoEjercicio.Value = obra.GetImporteAsignado().ToString();
             txtObservaciones.Value = obra.Observaciones;
 
@@ -106,11 +107,10 @@ namespace SIP.Formas.POA
                 cddlFuncionalidadNivel3.SelectedValue = obra.FuncionalidadId.ToString();
             }
 
-            //if (obra.EjeId != null) 
-            //{
-            //    cddlEjePVD1.SelectedValue = obra.Eje.ParentId.ToString();
-            //    cddlEjePVD2.SelectedValue = obra.EjeId.ToString();
-            //}
+            if (obra.EjeId != null)
+            {
+                ddlEje.SelectedValue = obra.EjeId.ToString();
+            }
 
             if (obra.ModalidadId != null) 
             {
@@ -164,7 +164,7 @@ namespace SIP.Formas.POA
             ddlSituacionObra.SelectedIndex = -1;
             ddlModalidad.SelectedIndex = -1;
             txtImporteTotal.Value = String.Empty;
-            txtCostoLiberadoEjerciciosAnteriores.Value = String.Empty;
+            txtImporteLiberadoEjerciciosAnteriores.Value = String.Empty;
             txtPresupuestoEjercicio.Value = String.Empty;
 
             txtObservaciones.Value = String.Empty;
@@ -207,6 +207,10 @@ namespace SIP.Formas.POA
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             _Accion.Text = "A";
+
+            ClientScript.RegisterStartupScript(this.GetType(), "script01", "fnc_ocultarDivDatosConvenio();", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "script02", "fnc_ocultarDivObraAnterior();", true);
+
         }
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)

@@ -45,13 +45,17 @@
     <div class="container">
 
         <div class="page-header"><h3><asp:Label ID="lblTitulo" runat="server" Text=""></asp:Label></h3></div>
+
+        <br />
+
+        <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al anteproyecto de POA</strong></a>
       
         <div class="alert alert-danger" id="divTechoFinancieroError" style="display:none" runat="server">
             <p><strong><asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label></strong></p>
         </div>
-
+        
         <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:none" runat="server">
-            <div class="panel-heading"><strong>Techo financiero de la unidad presupuestal</strong></div>
+            <div class="panel-heading"><strong>Financiamientos de la unidad presupuestal</strong></div>
             <div class="panel-body">
 
                       <asp:GridView ID="GridViewTechoFinanciero" runat="server" CssClass="table"
@@ -79,6 +83,9 @@
             <div class="panel-footer"></div>
         </div>
 
+        <div class="panel-footer alert alert-success" id="divResumen" style="display:block">
+            <strong><asp:Label ID="lblResumen" runat="server" Text=""></asp:Label></strong>
+        </div>
 
         <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewPOADetalle" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewPOADetalle_RowDataBound" runat="server" AllowPaging="True">
             <Columns>                                   
@@ -104,8 +111,8 @@
             <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
                     
         </asp:GridView>
-        <br />
-        <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al anteproyecto de POA</strong></a>
+        
+        
 
     </div>
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="PlantillaPreguntas.aspx.cs" Inherits="SIP.Formas.Catalogos.PlantillaPreguntas" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="PlantillaPreguntas.aspx.cs" Inherits="SIP.Formas.Catalogos.PlantillaPreguntas" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
 

@@ -25,8 +25,8 @@ namespace SIP.Formas
         protected void btnSeleccionar_Click(object sender, EventArgs e)
         {
             Session["UnidadPresupuestalId"] = ddlUnidadPresupuestal.SelectedValue;
-            Session["EjercicioId"] = ddlEjercicios.SelectedValue;     
-            Response.Redirect("~/Formas/POA/POA.aspx");
+            Session["EjercicioId"] = ddlEjercicios.SelectedValue;
+            Response.Redirect("~/Formas/Catalogos/Inicio.aspx");
         }
 
         private void BindearDropDownList()

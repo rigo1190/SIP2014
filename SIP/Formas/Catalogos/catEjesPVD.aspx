@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catEjesPVD.aspx.cs" Inherits="SIP.Formas.Catalogos.catEjesPVD" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="catEjesPVD.aspx.cs" Inherits="SIP.Formas.Catalogos.catEjesPVD" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

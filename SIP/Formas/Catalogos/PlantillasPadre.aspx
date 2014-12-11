@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="PlantillasPadre.aspx.cs" Inherits="SIP.Formas.Catalogos.PlantillasPadre" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="PlantillasPadre.aspx.cs" Inherits="SIP.Formas.Catalogos.PlantillasPadre" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <script type="text/javascript">
          var id = 0;

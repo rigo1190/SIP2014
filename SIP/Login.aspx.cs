@@ -52,7 +52,7 @@ namespace SIP
                     switch (user.RolId) //SEGUN SEA SU ROL DENTRO DE SEFIPLAN
                     {
                         case 1: //Desarrollador
-
+                            Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
                             break;
 
                         case 2: //Ejecutivo
@@ -60,7 +60,6 @@ namespace SIP
                             break;
 
                         case 3: //Administrador
-
                             Response.Redirect("~/Formas/Catalogos/Inicio.aspx");
                             break;
 

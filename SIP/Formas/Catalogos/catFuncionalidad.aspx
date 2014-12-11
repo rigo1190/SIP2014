@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catFuncionalidad.aspx.cs" Inherits="SIP.Formas.Catalogos.catFuncionalidad" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="catFuncionalidad.aspx.cs" Inherits="SIP.Formas.Catalogos.catFuncionalidad" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
   <script type="text/javascript">

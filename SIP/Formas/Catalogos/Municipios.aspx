@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="Municipios.aspx.cs" Inherits="SIP.Formas.Catalogos.Municipios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="Municipios.aspx.cs" Inherits="SIP.Formas.Catalogos.Municipios" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 

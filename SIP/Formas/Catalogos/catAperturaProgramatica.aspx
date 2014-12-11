@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catAperturaProgramatica.aspx.cs" Inherits="SIP.Formas.Catalogos.catAperturaProgramatica" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="catAperturaProgramatica.aspx.cs" Inherits="SIP.Formas.Catalogos.catAperturaProgramatica" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 

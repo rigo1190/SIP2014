@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorCatalogos.Master" AutoEventWireup="true" CodeBehind="catGrupoBeneficiarios.aspx.cs" Inherits="SIP.Formas.Catalogos.catGrupoBeneficiarios" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="catGrupoBeneficiarios.aspx.cs" Inherits="SIP.Formas.Catalogos.catGrupoBeneficiarios" %>
 
 
 

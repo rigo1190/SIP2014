@@ -255,6 +255,7 @@
     <Content Include="Formas\POA\POAFinanciamiento.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
     <Content Include="Formas\SelectorEjercicioDependencia.aspx" />
+    <Content Include="Formas\TechoFin\wfOficiosFuentesFinanciamientoDisponibles.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinanciero.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroBitacora.aspx" />
     <Content Include="Formas\TechoFin\wfTechoFinancieroCierre.aspx" />
@@ -589,6 +590,13 @@
     <Compile Include="Formas\SelectorEjercicioDependencia.aspx.designer.cs">
       <DependentUpon>SelectorEjercicioDependencia.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\TechoFin\wfOficiosFuentesFinanciamientoDisponibles.aspx.cs">
+      <DependentUpon>wfOficiosFuentesFinanciamientoDisponibles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\TechoFin\wfOficiosFuentesFinanciamientoDisponibles.aspx.designer.cs">
+      <DependentUpon>wfOficiosFuentesFinanciamientoDisponibles.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\TechoFin\wfTechoFinanciero.aspx.cs">
       <DependentUpon>wfTechoFinanciero.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -703,6 +711,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FuentesDeFinanciamientoDisponibles.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptEvaluacionPOA1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptEvaluacionPOA.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="rpts\TechosFinancierosXup.cs">

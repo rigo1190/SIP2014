@@ -60,12 +60,12 @@
                              
                           <li><a href="<%=ResolveClientUrl("~/Formas/frmSelectorEjercicio.aspx") %>"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
     
-                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Administración<b class="caret"></b></a>
+                         <%-- <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Administración<b class="caret"></b></a>
                              <ul class="dropdown-menu"></ul>
-                          </li>
+                          </li>--%>
 
 
-                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Techos Financieros<b class="caret"></b></a>
+                          <li visible="false" runat="server" id="mnTechosFinancieros" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Techos Financieros<b class="caret"></b></a>
                              <ul class="dropdown-menu">
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinanciero.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Techo Financiero</a></li>                                  
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfOficiosFuentesFinanciamientoDisponibles.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Oficios de Fuentes de Financiamiento Disponibles</a></li>                                  
@@ -77,17 +77,26 @@
                              </ul>
                           </li>
 
-                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span> POA<b class="caret"></b></a>
+                          <li visible="false"  runat="server" id="mnPOA" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span> POA<b class="caret"></b></a>
                              <ul class="dropdown-menu">
                                   <li><a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Anteproyecto de POA</a></li>
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento</a></li>
                                   <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento en POA ajustado</a></li>
-				 <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
+				  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
                              </ul>
                           </li>
 
-                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-book"></span> Catálogos<b class="caret"></b></a>
+                          <li visible="false"  runat="server" id="mnPOAAnalista" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span>Revisión POA<b class="caret"></b></a>
+                             <ul class="dropdown-menu">
+                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Anteproyecto de POA</a></li>
+                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>
+				                <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
+                             </ul>
+                          </li>
+
+
+                         <li visible="false"  runat="server" id="mnCatalogos" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-book"></span> Catálogos<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catAperturaProgramatica.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Apertura Programática</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catAperturaProgramaticaBeneficiario.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Apertura Programática::Beneficiario</a></li>
@@ -112,6 +121,8 @@
         
             
                      <ul class="nav navbar-nav navbar-right">
+                           <asp:Label ID="lblEjercicio" class="navbar-brand" runat="server" Text=""></asp:Label> 
+                            <asp:Label ID="lblDependencia" class="navbar-brand" runat="server" Text=""></asp:Label> 
                            <asp:Label ID="lblUsuario" class="navbar-brand" runat="server" Text=""></asp:Label> 
                            <li>
                            <asp:LinkButton ID="btnLogout" runat="server" CssClass="glyphicon glyphicon-off" style="border-style: none; background-color:transparent;font-size:1em;"  OnClick="btnLogout_Click"> <i aria-hidden="true"></i>

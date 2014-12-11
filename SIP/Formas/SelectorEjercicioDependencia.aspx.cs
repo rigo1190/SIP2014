@@ -72,7 +72,7 @@ namespace SIP.Formas
                 Session["UnidadPresupuestalId"] = ddlUnidadPresupuestal.SelectedValue;
             
             Session["EjercicioId"] = ddlEjercicios.SelectedValue;
-            Response.Redirect("~/Formas/POA/POA.aspx");
+            Response.Redirect("~/Formas/Catalogos/Inicio.aspx");
         }
 
 

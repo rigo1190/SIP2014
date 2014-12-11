@@ -47,9 +47,8 @@
         <div class="page-header"><h3><asp:Label ID="lblTitulo" runat="server" Text=""></asp:Label></h3></div>
 
         <br />
-
         <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al anteproyecto de POA</strong></a>
-      
+        <br />
         <div class="alert alert-danger" id="divTechoFinancieroError" style="display:none" runat="server">
             <p><strong><asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label></strong></p>
         </div>
@@ -110,12 +109,8 @@
                     
             <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
                     
-        </asp:GridView>
-        
-        
+        </asp:GridView>     
 
     </div>
-
-      
 
 </asp:Content>

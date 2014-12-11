@@ -47,7 +47,7 @@
         <div class="page-header"><h3><asp:Label ID="lblTitulo" runat="server" Text=""></asp:Label></h3></div>
       
         <div class="alert alert-danger" id="divTechoFinancieroError" style="display:none" runat="server">
-            <p><strong>Aún no se ha cerrado la apertura de Techos financieros para este ejercicio.</strong></p>
+            <p><strong><asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label></strong></p>
         </div>
 
         <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:none" runat="server">

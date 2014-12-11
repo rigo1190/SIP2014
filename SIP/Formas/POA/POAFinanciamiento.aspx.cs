@@ -16,6 +16,7 @@ namespace SIP.Formas.POA
         private int unidadpresupuestalId;
         private int ejercicioId;
         private bool techofinancierocerrado;
+        private decimal totalTechofinanciero;
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork(Session["IdUser"].ToString());
@@ -24,11 +25,31 @@ namespace SIP.Formas.POA
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
             TechoFinancieroStatus tfestatus = uow.TechoFinancieroStatusBusinessLogic.Get(tfe => tfe.EjercicioId == ejercicioId).FirstOrDefault();
+            TechoFinancieroUnidadPresupuestal tfunidadpresupuestal = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup=>tfup.TechoFinanciero.EjercicioId==ejercicioId && tfup.UnidadPresupuestalId==unidadpresupuestalId).FirstOrDefault();
+
+            if (tfunidadpresupuestal != null) 
+            {
+                totalTechofinanciero = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tfup => tfup.TechoFinanciero.EjercicioId == ejercicioId && tfup.UnidadPresupuestalId == unidadpresupuestalId).Sum(r=>r.GetImporteDisponible());
+            }
 
             if (tfestatus==null || tfestatus.Status == 1)
             {
+                lblMensajeError.Text = "Aún no se ha cerrado la apertura de Techos financieros para este ejercicio.";
                 divTechoFinancieroError.Style.Add("display", "block");
                 divTechoFinancieroEstatus.Style.Add("display", "none");
+                techofinancierocerrado = false;
+            }
+            else if (tfunidadpresupuestal == null)
+            {
+                lblMensajeError.Text = "Esta unidad presupuestal NO cuenta con techo financiero para este ejercicio";
+                divTechoFinancieroError.Style.Add("display", "block");
+                divTechoFinancieroEstatus.Style.Add("display", "none");
+                techofinancierocerrado = false;
+            }
+            else if (totalTechofinanciero == 0) 
+            {
+                divTechoFinancieroError.Style.Add("display", "none");
+                divTechoFinancieroEstatus.Style.Add("display", "block");
                 techofinancierocerrado = false;
             }
             else

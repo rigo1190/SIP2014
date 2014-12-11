@@ -26,7 +26,7 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" submitdisabledcontrols="true">
     
         <header>
             <div id="encabezado" class="header"></div>
@@ -63,6 +63,8 @@
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento</a></li>
                                   <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento en POA ajustado</a></li>
+                                 <li class="divider"></li>
+                                 <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinanciero.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Techo Financiero</a></li>                                  
                              </ul>
                           </li>
                                                  

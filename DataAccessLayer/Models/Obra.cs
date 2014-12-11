@@ -71,7 +71,16 @@ namespace DataAccessLayer.Models
         public virtual ICollection<Obra> DetalleObrasDependientes { get; set; }
         public decimal GetImporteLiberadoEjerciciosAnteriores()
         {
-            return this.POADetalle.ImporteLiberadoEjerciciosAnteriores;
+            if (this.POADetalle.Extemporanea)
+            {
+                return this.ImporteLiberadoEjerciciosAnteriores;
+            }
+            else 
+            {
+                return this.POADetalle.ImporteLiberadoEjerciciosAnteriores;
+            }
+
+            return 0;
         }
         public decimal GetImporteAsignado()
         {

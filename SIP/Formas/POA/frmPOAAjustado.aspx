@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorDependencia.Master" AutoEventWireup="true" CodeBehind="frmPOAAjustado.aspx.cs" 
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="frmPOAAjustado.aspx.cs" 
+
 Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 

@@ -22,6 +22,16 @@ namespace DataAccessLayer.Models
         public virtual Ejercicio Ejercicio { get; set; }
         public virtual UnidadPresupuestal UnidadPresupuestal { get; set; }
         public virtual ICollection<POADetalle> Detalles { get; set; }
+        public virtual ICollection<Obra> DetalleObras { get; set; }
+
+        public int GetTotalObrasAnteProyecto()
+        {
+            return Detalles.Count;
+        }
+        public int GetTotalObrasProyecto()
+        {
+            return DetalleObras.Count;
+        }
        
     }
 }

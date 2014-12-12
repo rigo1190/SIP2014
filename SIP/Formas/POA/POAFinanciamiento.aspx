@@ -48,7 +48,7 @@
        
         <div class="row">
             <div class="col-md-8"></div>
-            <div class="col-md-4">
+            <div class="col-md-4 text-right">
                 <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al anteproyecto de POA</strong></a>
             </div>
         </div>        

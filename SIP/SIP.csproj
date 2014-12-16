@@ -49,6 +49,11 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v13.2.Core, Version=13.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v13.2, Version=13.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.v13.2, Version=13.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
@@ -243,6 +248,8 @@
     <Content Include="Formas\Catalogos\PlantillaPreguntas.aspx" />
     <Content Include="Formas\Catalogos\Plantillas.aspx" />
     <Content Include="Formas\Catalogos\PlantillasPadre.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfListaDeObras.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfSeguimiento.aspx" />
     <Content Include="Formas\frmSelectorEjercicio.aspx" />
     <Content Include="Formas\POA\AsignarFinanciamientoPOA.aspx" />
     <Content Include="Formas\POA\EvaluacionPOA.aspx" />
@@ -509,6 +516,20 @@
     <Compile Include="Formas\Catalogos\PlantillasPadre.aspx.designer.cs">
       <DependentUpon>PlantillasPadre.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfListaDeObras.aspx.cs">
+      <DependentUpon>wfListaDeObras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfListaDeObras.aspx.designer.cs">
+      <DependentUpon>wfListaDeObras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfSeguimiento.aspx.cs">
+      <DependentUpon>wfSeguimiento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfSeguimiento.aspx.designer.cs">
+      <DependentUpon>wfSeguimiento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\frmSelectorEjercicio.aspx.cs">
       <DependentUpon>frmSelectorEjercicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -768,6 +789,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="rpts\CrystalReport1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport11.cs</LastGenOutput>

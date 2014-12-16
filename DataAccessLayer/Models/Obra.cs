@@ -50,6 +50,12 @@ namespace DataAccessLayer.Models
         public string Observaciones { get; set; }
         public int? ObraAnteriorId { get; set; }
         public int? ObraOrigenId { get; set; }
+
+
+        public int StatusControlFinanciero { get; set; }
+        
+        
+        
         public virtual POA POA { get; set; }
         public virtual POADetalle POADetalle { get; set; }
         public virtual Municipio Municipio { get; set; }
@@ -69,6 +75,10 @@ namespace DataAccessLayer.Models
         public virtual Obra ObraOrigen { get; set; }
         public virtual ICollection<ObraFinanciamiento> DetalleFinanciamientos { get; set; }
         public virtual ICollection<Obra> DetalleObrasDependientes { get; set; }
+
+
+
+
         public decimal GetImporteLiberadoEjerciciosAnteriores()
         {
             if (this.POADetalle.Extemporanea)

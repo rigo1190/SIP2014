@@ -88,6 +88,11 @@
 
         <div class="panel-footer alert alert-success" id="divResumen" style="display:block">
             <strong><asp:Label ID="lblResumen" runat="server" Text=""></asp:Label></strong>
+            <div class="row">
+                <div class="col-md-4"><strong><%= totalobrasanteproyecto %></strong></div>
+                <div class="col-md-4"><strong><%= totalobrasproyecto %></strong></div>
+                <div class="col-md-4"></div>
+            </div>
         </div>
 
         <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewPOADetalle" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewPOADetalle_RowDataBound" runat="server" AllowPaging="True">

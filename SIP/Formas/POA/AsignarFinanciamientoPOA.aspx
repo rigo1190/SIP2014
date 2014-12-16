@@ -36,6 +36,13 @@
             });
 
 
+            $('#modallineamientosfondos').on('shown.bs.modal', function (e)
+            {                
+                alert("Se dispara el evento shown.bs.modal");
+                var strOperacion = $(this).data("fondo-id").toUpperCase();
+                alert("Estos son los datos: " + strOperacion);
+            })
+           
 
         }); //$(document).ready
 
@@ -64,7 +71,19 @@
              $("#<%= divEdicion.ClientID %>").css("display", "none");
              $("#<%= divMsg.ClientID %>").css("display", "none");
              return false;
-         }
+        }
+
+        function fnc_MostrarLineamientos(sender,valor)
+        {
+            alert("Ingresamos al método fnc_MostrarLineamientos, con parametro= " + valor);
+            //var strOperacion = this.data("fondo-id").toUpperCase();
+            //var id = sender.get_element().id;
+            //var strOperacion = $get(id).data("tipo-operacion").toUpperCase();
+            //alert("Ingresamos al método fnc_MostrarLineamientos, con parametro= " + strOperacion);
+            PageMethod.
+            $('#modallineamientosfondos').modal('show');
+            return true;
+        }
 
                 
 
@@ -77,6 +96,13 @@
 
     <div class="container">
 
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4 text-right">
+                <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al anteproyecto de POA</strong></a>
+            </div>
+        </div>        
+        <br />
         <div class="panel panel-default">
           <div class="panel-heading"><strong>Número de obra o acción: </strong><% Response.Write(obraNumero); %></div>
           <div class="panel-body">
@@ -85,12 +111,24 @@
         </div>
 
          <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:block" runat="server">
-            <div class="panel-heading"><strong>Financiamientos de la unidad presupuestal</strong></div>
+            <div class="panel-heading">
+
+                <div class="row">
+                    <div class="col-md-8"><strong>Financiamientos de la unidad presupuestal</strong></div>                   
+                    <%--<div class="col-md-4 text-right">
+                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modallineamientosfondos">
+                            Consultar lineamientos del fondo
+                        </button>                       
+                    </div>--%>
+                </div>                
+
+            </div>
             <div class="panel-body">
 
                       <asp:GridView ID="GridViewTechoFinanciero" runat="server" CssClass="table"
                         ItemType="DataAccessLayer.Models.TechoFinancieroUnidadPresupuestal" DataKeyNames="Id"
-                        SelectMethod="GridViewTechoFinanciero_GetData"
+                        SelectMethod="GridViewTechoFinanciero_GetData" 
+                        OnRowDataBound="GridViewTechoFinanciero_RowDataBound"
                         AutoGenerateColumns="false">
                         <Columns>
                             <asp:DynamicField DataField="Id" Visible="false"/>
@@ -105,7 +143,15 @@
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
                               </ItemTemplate>
-                            </asp:TemplateField>                               
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Lineamientos del fondoX" HeaderStyle-CssClass="panel-footer">
+                              <ItemTemplate>                               
+                                <%--<asp:Button  runat="server" ID="btnLineamientos" Text="Mostrar lineamientos" OnClick="btnLineamientos_Click" OnClientClick="fnc_MostrarLineamientos();"/>  --%> 
+                                  <button type="button" class="btn btn-default btn-sm" id="btnlineamientos" onclick="fnc_MostrarLineamientos(this,'<%# Item.TechoFinanciero.Financiamiento.Fondo.Id %>');">
+                            Consultar lineamientos del fondo
+                        </button>                     
+                              </ItemTemplate>
+                            </asp:TemplateField>                                     
                         </Columns>
                       </asp:GridView>
 
@@ -166,19 +212,26 @@
         <div id="divEdicion" runat="server" class="panel-footer" style="display:none">
 
             
-           <div class="form-group">
-              <label for="ddlTechoFinancieroUnidadPresupuestal">Financiamiento</label>
-              <div>
-                <asp:DropDownList ID="ddlTechoFinancieroUnidadPresupuestal" CssClass="form-control" runat="server"></asp:DropDownList>
-              </div>
-          </div>
 
-           <div class="form-group">
-              <label for="txtImporte">Importe</label>
-              <div>
-                  <asp:TextBox ID="txtImporte" CssClass="form-control campoNumerico" runat="server"></asp:TextBox>
-              </div>
-           </div>
+               
+
+                    <div class="form-group">
+                      <label for="ddlTechoFinancieroUnidadPresupuestal">Financiamiento</label>
+                      <div>
+                        <asp:DropDownList ID="ddlTechoFinancieroUnidadPresupuestal" CssClass="form-control" runat="server"></asp:DropDownList>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="txtImporte">Importe</label>
+                      <div>
+                          <asp:TextBox ID="txtImporte" CssClass="form-control campoNumerico" runat="server"></asp:TextBox>
+                      </div>
+                    </div>
+
+                   
+
+                
 
 
            <div class="form-group header">
@@ -194,5 +247,49 @@
         </div>      
 
     </div><!--div class="container"-->
+
+
+     <div class="modal fade" id="modallineamientosfondos" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="width:800px">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Lineamientos de fondos</h4>
+              </div>
+              <div class="modal-body">
+
+                  <asp:GridView ID="GridViewFondoLineamientos" runat="server" CssClass="table"
+                        ItemType="DataAccessLayer.Models.FondoLineamientos" DataKeyNames="Id"
+                        SelectMethod="GridViewFondoLineamiento_GetData"
+                        AutoGenerateColumns="false">
+                        <Columns>
+                            <asp:DynamicField DataField="Id" Visible="false"/>
+                            <asp:TemplateField HeaderText="Siglas" HeaderStyle-CssClass="panel-footer">
+                              <ItemTemplate>
+                                <asp:Label Text='<%# Item.Fondo.Abreviatura %>' runat="server" />
+                              </ItemTemplate>
+                            </asp:TemplateField> 
+                            <asp:TemplateField HeaderText="Nombre" HeaderStyle-CssClass="panel-footer">
+                              <ItemTemplate>
+                                <asp:Label Text='<%# Item.Fondo.Nombre %>' runat="server" />
+                              </ItemTemplate>
+                            </asp:TemplateField> 
+                            <asp:DynamicField DataField="TipoDeObrasYAcciones" HeaderText="Tipos de obras y acciones" HeaderStyle-CssClass="panel-footer" />                                                                    
+                            <asp:DynamicField DataField="CalendarioDeIngresos" HeaderText="Calendario de ingresos" HeaderStyle-CssClass="panel-footer" />
+                            <asp:DynamicField DataField="VigenciaDePago" HeaderText="Vigencia de pago" HeaderStyle-CssClass="panel-footer" />
+                            <asp:DynamicField DataField="NormatividadAplicable" HeaderText="Normatividad aplicable" HeaderStyle-CssClass="panel-footer" />
+                           <asp:DynamicField DataField="Contraparte" HeaderText="Contraparte" HeaderStyle-CssClass="panel-footer" />                      
+                        </Columns>
+                      </asp:GridView>
+                
+              </div>
+              <%--<div class="modal-footer">
+                <asp:Button ID="btnDel" runat="server" CssClass="btn btn-default" Text="Aceptar"  />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              </div>     --%>   
+            </div>
+        </div>
+    </div>
+       
 
 </asp:Content>

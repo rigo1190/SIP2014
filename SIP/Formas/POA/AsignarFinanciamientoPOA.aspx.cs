@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace SIP.Formas.POA
@@ -347,6 +348,52 @@ namespace SIP.Formas.POA
 
             return source;
 
+        }
+        
+        public IQueryable<DataAccessLayer.Models.FondoLineamientos> GridViewFondoLineamiento_GetData()
+        {
+
+            return uow.FondoLineamientosBL.Get(orderBy:fondo=>fondo.OrderBy(f=>f.Fondo.Nombre));
+            
+        }
+     
+        protected void btnLineamientos_Click(object sender, EventArgs e)
+        {
+            //
+        }
+
+        protected void GridViewTechoFinanciero_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+            GridView gridView = sender as GridView;
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnlineamientos");
+                if (btnE != null)
+                {
+                    if (gridView.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                    {
+
+                        string fondoId = "fism";
+                        //url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
+                        //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
+                        btnE.Attributes.Add("data-fondo-id", fondoId);
+
+                        //int poadetalleId = Utilerias.StrToInt(GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+
+                        //Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalleId).FirstOrDefault();
+
+                        //if (obra != null)
+                        //{
+                        //    btnE.Attributes.Add("disabled", "disabled");
+                        //}
+
+                    }
+
+                }
+
+            }
         }
 
         

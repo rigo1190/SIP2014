@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -107,9 +109,19 @@ namespace BusinessLogicLayer
         }
 
         public static void BindDropDownToEnum(DropDownList dropDown, Type enumType)
-        {
+        { 
             string[] names = Enum.GetNames(enumType);
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                var type = enumType;
+                var memInfo = type.GetMember(names[i]);
+                var attributes = memInfo[0].GetCustomAttributes(typeof(DisplayAttribute),false);
+                if (attributes.Length > 0) { names[i] = ((DisplayAttribute)attributes[0]).Name; }                
+            }
+
             int[] values = (int[])Enum.GetValues(enumType);
+
             for (int i = 0; i < names.Length; i++)
             {
                 dropDown.Items.Add(

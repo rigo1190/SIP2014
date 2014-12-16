@@ -24,7 +24,7 @@
                     </asp:TemplateField>
 
 
-                    <asp:TemplateField HeaderText="Avance" SortExpression="Avance">
+                    <asp:TemplateField HeaderText="Avance" SortExpression="Avance de la obra">
                         <ItemTemplate>
                             
 

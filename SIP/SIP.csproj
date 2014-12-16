@@ -248,7 +248,7 @@
     <Content Include="Formas\Catalogos\PlantillaPreguntas.aspx" />
     <Content Include="Formas\Catalogos\Plantillas.aspx" />
     <Content Include="Formas\Catalogos\PlantillasPadre.aspx" />
-    <Content Include="Formas\ControlFinanciero\wfListaDeObras.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfListaObras.aspx" />
     <Content Include="Formas\ControlFinanciero\wfSeguimiento.aspx" />
     <Content Include="Formas\frmSelectorEjercicio.aspx" />
     <Content Include="Formas\POA\AsignarFinanciamientoPOA.aspx" />
@@ -516,12 +516,12 @@
     <Compile Include="Formas\Catalogos\PlantillasPadre.aspx.designer.cs">
       <DependentUpon>PlantillasPadre.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Formas\ControlFinanciero\wfListaDeObras.aspx.cs">
-      <DependentUpon>wfListaDeObras.aspx</DependentUpon>
+    <Compile Include="Formas\ControlFinanciero\wfListaObras.aspx.cs">
+      <DependentUpon>wfListaObras.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Formas\ControlFinanciero\wfListaDeObras.aspx.designer.cs">
-      <DependentUpon>wfListaDeObras.aspx</DependentUpon>
+    <Compile Include="Formas\ControlFinanciero\wfListaObras.aspx.designer.cs">
+      <DependentUpon>wfListaObras.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\ControlFinanciero\wfSeguimiento.aspx.cs">
       <DependentUpon>wfSeguimiento.aspx</DependentUpon>

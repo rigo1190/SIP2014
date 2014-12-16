@@ -9,11 +9,14 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 
+
 namespace SIP.Formas.ControlFinanciero
 {
-    public partial class wfListaDeObras : System.Web.UI.Page
+    public partial class wfListaObras : System.Web.UI.Page
     {
+
         private UnitOfWork uow;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork();
@@ -23,10 +26,6 @@ namespace SIP.Formas.ControlFinanciero
                 BindGrid();
             }
         }
-
-
-
-
 
         private void BindGrid()
         {
@@ -71,13 +70,11 @@ namespace SIP.Formas.ControlFinanciero
         {
             int idObra;
             GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            idObra = int.Parse( grid.DataKeys[row.RowIndex].Values["Id"].ToString());
+            idObra = int.Parse(grid.DataKeys[row.RowIndex].Values["Id"].ToString());
 
             Response.Redirect("wfSeguimiento.aspx?id=" + idObra);
 
 
         }
-
-
     }
 }

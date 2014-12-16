@@ -3,6 +3,7 @@ using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -17,6 +18,8 @@ namespace SIP.Formas.POA
         private int ejercicioId;
         private bool techofinancierocerrado;
         private decimal totalTechofinanciero;
+        protected string totalobrasanteproyecto;
+        protected string totalobrasproyecto;
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork(Session["IdUser"].ToString());
@@ -29,7 +32,12 @@ namespace SIP.Formas.POA
 
             DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
 
-            lblResumen.Text = String.Format("Total de obras : {0} Total de obras con financiamiento: {1} ", poa.GetTotalObrasAnteProyecto(),poa.GetTotalObrasProyecto());
+            totalobrasanteproyecto = String.Format("Total de obras en anteproyecto: {0} ", poa.GetTotalObrasAnteProyecto());
+            totalobrasproyecto = String.Format("Total de obras con financiamiento: {0} ", poa.GetTotalObrasProyecto());
+            //lblResumen.Text = String.Format("Total de obras : {0} Total de obras con financiamiento: {1} ", poa.GetTotalObrasAnteProyecto(),poa.GetTotalObrasProyecto());
+
+
+
 
 
             if (tfunidadpresupuestal != null) 

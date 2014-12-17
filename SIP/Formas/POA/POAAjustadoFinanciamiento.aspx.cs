@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -105,6 +106,61 @@ namespace SIP.Formas.POA
 
         }
 
+        protected void GridViewTechoFinanciero_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            GridView gridView = sender as GridView;
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                HtmlButton btn = (HtmlButton)e.Row.FindControl("btnlineamientos");
+
+                if (btn != null)
+                {
+                    if (gridView.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                    {
+                        TechoFinancieroUnidadPresupuestal tfup = (TechoFinancieroUnidadPresupuestal)e.Row.DataItem;
+
+                        String fondoId = String.Empty;
+                        fondoId = gridView.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
+                        btn.Attributes.Add("onclick", "fnc_MostrarLineamientos(this,'" + tfup.TechoFinanciero.Financiamiento.FondoId + "');");
+
+                    }
+
+                }
+
+            }
+        }
+
+        [WebMethod]
+        public static List<string> GetLineamientosFondo(int fondoId)
+        {
+            List<string> result = new List<string>();
+
+            try
+            {
+
+
+                UnitOfWork uow = new UnitOfWork();
+                FondoLineamientos fondolineamientos = uow.FondoLineamientosBL.Get(fl => fl.FondoId == fondoId).FirstOrDefault();
+
+                if (fondolineamientos == null) return result;
+
+                result.Add(fondolineamientos.Fondo.Abreviatura);
+                result.Add(fondolineamientos.Fondo.Nombre);
+                result.Add(fondolineamientos.TipoDeObrasYAcciones);
+                result.Add(fondolineamientos.CalendarioDeIngresos);
+                result.Add(fondolineamientos.VigenciaDePago);
+                result.Add(fondolineamientos.NormatividadAplicable);
+                result.Add(fondolineamientos.Contraparte);
+            }
+            catch (Exception ex)
+            {
+
+                System.Diagnostics.Debug.Print(ex.Message);
+            }
+
+            return result;
+        }
 
     }
 }

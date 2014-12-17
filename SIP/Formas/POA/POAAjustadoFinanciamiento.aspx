@@ -34,10 +34,44 @@
 
         }); //$(document).ready
 
+        function OnRequestComplete(result, userContext, methodName) {
+
+            $("#<%= txtFondoAbreviatura.ClientID %>").val(result[0]);
+            $("#<%= txtFondoNombre.ClientID %>").val(result[1]);
+            $("#<%= txtFondoTiposObrasAcciones.ClientID %>").val(result[2]);
+            $("#<%= txtFondoCalendarioDeIngresos.ClientID %>").val(result[3]);
+            $("#<%= txtFondoVigenciaDePago.ClientID %>").val(result[4]);
+            $("#<%= txtFondoNormatividadAplicable.ClientID %>").val(result[5]);
+            $("#<%= txtFondoContraparte.ClientID %>").val(result[6]);
+
+            $('#modallineamientosfondos').modal('show');
+
+        }
+
+        function OnRequestError(error, userContext, methodName) {
+
+            if (error != null) {
+
+                alert(error.get_message());
+
+            }
+
+        }
+
+        function fnc_MostrarLineamientos(sender, valor) {
+            //alert("El fondo tiene el id=" + valor);
+            PageMethods.GetLineamientosFondo(valor, OnRequestComplete, OnRequestError);
+        }
+
+
+
+
         </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server"></asp:ScriptManager>
 
     <div class="container">
 
@@ -62,7 +96,8 @@
                       <asp:GridView ID="GridViewTechoFinanciero" runat="server" CssClass="table"
                         ItemType="DataAccessLayer.Models.TechoFinancieroUnidadPresupuestal" DataKeyNames="Id"
                         SelectMethod="GridViewTechoFinanciero_GetData"
-                        AutoGenerateColumns="false">
+                        AutoGenerateColumns="false"
+                          OnRowDataBound="GridViewTechoFinanciero_RowDataBound">
                         <Columns>
                             <asp:DynamicField DataField="Id" Visible="false"/>
                             <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-CssClass="panel-footer"/>
@@ -76,7 +111,12 @@
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
                               </ItemTemplate>
-                            </asp:TemplateField>                               
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Lineamientos del fondo" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer text-center">
+                              <ItemTemplate>
+                                  <button type="button" class="btn btn-default btn-sm" id="btnlineamientos" runat="server">Mostrar lineamientos</button>                     
+                              </ItemTemplate>
+                            </asp:TemplateField>                                 
                         </Columns>
                       </asp:GridView>
 
@@ -111,7 +151,85 @@
 
         
 
+    </div><!-- container-->
+
+     <div class="modal fade" id="modallineamientosfondos" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header alert alert-success">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><strong>&times;</strong></button>
+                <h4 class="modal-title" id="myModalLabel">Lineamientos de fondos</h4>
+              </div>
+              <div class="modal-body">
+
+                      <div class="row">
+
+                          <div class="col-md-6">
+
+                              <div class="form-group">
+                                     <label for="Abreviatura">Abreviatura</label>
+                                     <div>
+                                        <input type="text" class="input-sm required form-control" id="txtFondoAbreviatura" runat="server" disabled="disabled"/>                           
+                                    </div>
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="Nombre">Nombre</label>
+                                 <div>
+                                    <textarea id="txtFondoNombre" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled" ></textarea>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                     <label for="TiposObrasYAcciones">Tipos de obras y acciones</label>
+                                     <div>
+                                        <textarea id="txtFondoTiposObrasAcciones" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled"></textarea>
+                                    </div>
+                               </div>
+
+                               <div class="form-group">
+                                     <label for="CalendarioDeIngresos">Calendario de ingresos</label>
+                                     <div>
+                                        <textarea id="txtFondoCalendarioDeIngresos" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled"></textarea>
+                                    </div>
+                               </div>
+
+
+                          </div>                       
+                          <div class="col-md-6">
+
+                                 <div class="form-group">
+                                     <label for="VigenciaDePago">Vigencia de pago</label>
+                                     <div>
+                                        <textarea id="txtFondoVigenciaDePago" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled" ></textarea>
+                                     </div>
+                                 </div>
+
+                               <div class="form-group">
+                                   <label for="NormatividadAplicable">Normatividad aplicable</label>
+                                    <div>
+                                       <input type="text" class="input-sm required form-control" id="txtFondoNormatividadAplicable" runat="server" disabled="disabled"/>                           
+                                    </div>
+                               </div>
+
+                               <div class="form-group">
+                                     <label for="Contraparte">Contraparte</label>
+                                     <div>
+                                        <textarea id="txtFondoContraparte" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled" ></textarea>
+                                     </div>
+                               </div>
+
+
+                          </div>
+
+                      </div><!-- row --> 
+
+              </div><!-- modal-body -->                 
+            </div>
+        </div>
     </div>
+
+
 
 
 

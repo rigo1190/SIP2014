@@ -130,12 +130,6 @@
                  return false;
              }
 
-             <%--var tipolocalidad = $("#<%=ddlTipoLocalidad.ClientID%>").val();
-             if (tipolocalidad == null || tipolocalidad.length == 0 || tipolocalidad == undefined || tipolocalidad == 0) {
-                 alert("Debe indicar el tipo de localidad");
-                 return false;
-             }--%>
-
              var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
                  alert("Debe indicar el tipo de la apertura programatica");

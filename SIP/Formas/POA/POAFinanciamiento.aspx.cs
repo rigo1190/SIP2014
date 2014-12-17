@@ -33,11 +33,7 @@ namespace SIP.Formas.POA
             DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
 
             totalobrasanteproyecto = String.Format("Total de obras en anteproyecto: {0} ", poa.GetTotalObrasAnteProyecto());
-            totalobrasproyecto = String.Format("Total de obras con financiamiento: {0} ", poa.GetTotalObrasProyecto());
-            //lblResumen.Text = String.Format("Total de obras : {0} Total de obras con financiamiento: {1} ", poa.GetTotalObrasAnteProyecto(),poa.GetTotalObrasProyecto());
-
-
-
+            totalobrasproyecto = String.Format("Total de obras con financiamiento: {0} ", poa.GetTotalObrasProyecto());           
 
 
             if (tfunidadpresupuestal != null) 
@@ -135,12 +131,7 @@ namespace SIP.Formas.POA
             }
         }
 
-        // El tipo devuelto puede ser modificado a IEnumerable, sin embargo, para ser compatible con paginación y ordenación 
-        // , se deben agregar los siguientes parametros:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
+     
         public IQueryable<DataAccessLayer.Models.TechoFinancieroUnidadPresupuestal> GridViewTechoFinanciero_GetData()
         {
 
@@ -154,13 +145,17 @@ namespace SIP.Formas.POA
 
             IQueryable<TechoFinancieroUnidadPresupuestal> source = uow.TechoFinancieroUnidadPresuestalBusinessLogic.Get(tf => colIdsTechoFinanciero.Contains(tf.TechoFinancieroId) & tf.UnidadPresupuestalId == unidadpresupuestalId);
             
-            return source;
-            
+            return source;            
         }
 
-        protected void GridViewTechoFinanciero_RowDataBound(object sender, GridViewRowEventArgs e)
+      
+        protected void GridViewPOADetalle_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            GridView grid = sender as GridView;
+            grid.PageIndex = e.NewPageIndex;
 
+            BindGrid();
+           
         }
 
     }

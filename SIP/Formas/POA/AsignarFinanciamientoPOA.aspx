@@ -34,14 +34,6 @@
                 return false;
 
             });
-
-
-            $('#modallineamientosfondos').on('shown.bs.modal', function (e)
-            {                
-                alert("Se dispara el evento shown.bs.modal");
-                var strOperacion = $(this).data("fondo-id").toUpperCase();
-                alert("Estos son los datos: " + strOperacion);
-            })
            
 
         }); //$(document).ready
@@ -73,19 +65,35 @@
              return false;
         }
 
-        function fnc_MostrarLineamientos(sender,valor)
-        {
-            alert("Ingresamos al método fnc_MostrarLineamientos, con parametro= " + valor);
-            //var strOperacion = this.data("fondo-id").toUpperCase();
-            //var id = sender.get_element().id;
-            //var strOperacion = $get(id).data("tipo-operacion").toUpperCase();
-            //alert("Ingresamos al método fnc_MostrarLineamientos, con parametro= " + strOperacion);
-            PageMethod.
+
+        function OnRequestComplete(result, userContext, methodName) {
+            
+            $("#<%= txtFondoAbreviatura.ClientID %>").val(result[0]);
+            $("#<%= txtFondoNombre.ClientID %>").val(result[1]);
+            $("#<%= txtFondoTiposObrasAcciones.ClientID %>").val(result[2]);
+            $("#<%= txtFondoCalendarioDeIngresos.ClientID %>").val(result[3]);
+            $("#<%= txtFondoVigenciaDePago.ClientID %>").val(result[4]);
+            $("#<%= txtFondoNormatividadAplicable.ClientID %>").val(result[5]);
+            $("#<%= txtFondoContraparte.ClientID %>").val(result[6]);
+
             $('#modallineamientosfondos').modal('show');
-            return true;
+
         }
 
-                
+        function OnRequestError(error, userContext, methodName) {
+
+            if (error != null) {
+
+                alert(error.get_message());
+
+            }
+
+        }
+
+        function fnc_MostrarLineamientos(sender,valor)
+        {            
+            PageMethods.GetLineamientosFondo(valor, OnRequestComplete, OnRequestError);
+        }
 
 
     </script>
@@ -94,15 +102,23 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server"></asp:ScriptManager>
+
     <div class="container">
 
         <div class="row">
-            <div class="col-md-8"></div>
-            <div class="col-md-4 text-right">
-                <a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al anteproyecto de POA</strong></a>
+            <div class="col-md-6"></div>
+            <div class="col-md-6 text-right">
+                <div id="divlinkPOAFinanciamiento" style="display:none" runat="server">
+                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar a la asignación de financiamiento para el Anteproyecto de POA</strong></a>
+                </div>
+                <div id="divlinkPOAAjustadoFinanciamiento" style="display:none" runat="server">
+                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar a la asignación de financiamiento para el proyecto de POA ajustado</strong></a>
+                </div>              
             </div>
-        </div>        
+        </div>                        
         <br />
+
         <div class="panel panel-default">
           <div class="panel-heading"><strong>Número de obra o acción: </strong><% Response.Write(obraNumero); %></div>
           <div class="panel-body">
@@ -114,12 +130,7 @@
             <div class="panel-heading">
 
                 <div class="row">
-                    <div class="col-md-8"><strong>Financiamientos de la unidad presupuestal</strong></div>                   
-                    <%--<div class="col-md-4 text-right">
-                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modallineamientosfondos">
-                            Consultar lineamientos del fondo
-                        </button>                       
-                    </div>--%>
+                    <div class="col-md-8"><strong>Financiamientos de la unidad presupuestal</strong></div> 
                 </div>                
 
             </div>
@@ -132,24 +143,21 @@
                         AutoGenerateColumns="false">
                         <Columns>
                             <asp:DynamicField DataField="Id" Visible="false"/>
-                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" HeaderStyle-CssClass="panel-footer"/>
-                            <asp:DynamicField DataField="Importe" HeaderText="Techo financiero" HeaderStyle-CssClass="panel-footer" DataFormatString="{0:C}"/>                                                                    
-                            <asp:TemplateField HeaderText="Asignado" HeaderStyle-CssClass="panel-footer">
+                            <asp:DynamicField DataField="Descripcion" HeaderText="Descripción" ItemStyle-CssClass="col-md-4" HeaderStyle-CssClass="panel-footer"/>
+                            <asp:DynamicField DataField="Importe" ItemStyle-CssClass="col-md-2" HeaderText="Techo financiero" HeaderStyle-CssClass="panel-footer" DataFormatString="{0:C}"/>                                                                    
+                            <asp:TemplateField HeaderText="Asignado" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteAsignado()) %>' runat="server" />
                               </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Disponible" HeaderStyle-CssClass="panel-footer">
+                            <asp:TemplateField HeaderText="Disponible" ItemStyle-CssClass="col-md-2" HeaderStyle-CssClass="panel-footer">
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
                               </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Lineamientos del fondoX" HeaderStyle-CssClass="panel-footer">
-                              <ItemTemplate>                               
-                                <%--<asp:Button  runat="server" ID="btnLineamientos" Text="Mostrar lineamientos" OnClick="btnLineamientos_Click" OnClientClick="fnc_MostrarLineamientos();"/>  --%> 
-                                  <button type="button" class="btn btn-default btn-sm" id="btnlineamientos" onclick="fnc_MostrarLineamientos(this,'<%# Item.TechoFinanciero.Financiamiento.Fondo.Id %>');">
-                            Consultar lineamientos del fondo
-                        </button>                     
+                            <asp:TemplateField HeaderText="Lineamientos del fondo" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer text-center">
+                              <ItemTemplate>
+                                  <button type="button" class="btn btn-default btn-sm" id="btnlineamientos" runat="server">Mostrar lineamientos</button>                     
                               </ItemTemplate>
                             </asp:TemplateField>                                     
                         </Columns>
@@ -199,13 +207,7 @@
 
         <div id="divBtnNuevo" runat="server" style="display:block">
               <asp:Button ID="btnNuevo" runat="server" Text="Agregar nuevo financiamiento" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
-              <hr />
-              <div id="divlinkPOAFinanciamiento" style="display:none" runat="server">
-                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar a la asignación de financiamiento para el Anteproyecto de POA</strong></a>
-              </div>
-              <div id="divlinkPOAAjustadoFinanciamiento" style="display:none" runat="server">
-                  <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar a la asignación de financiamiento para el proyecto de POA ajustado</strong></a>
-              </div>              
+              <hr />              
               
         </div>
 
@@ -251,45 +253,82 @@
 
      <div class="modal fade" id="modallineamientosfondos" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="width:800px">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <div class="modal-content">
+              <div class="modal-header alert alert-success">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><strong>&times;</strong></button>
                 <h4 class="modal-title" id="myModalLabel">Lineamientos de fondos</h4>
               </div>
               <div class="modal-body">
 
-                  <asp:GridView ID="GridViewFondoLineamientos" runat="server" CssClass="table"
-                        ItemType="DataAccessLayer.Models.FondoLineamientos" DataKeyNames="Id"
-                        SelectMethod="GridViewFondoLineamiento_GetData"
-                        AutoGenerateColumns="false">
-                        <Columns>
-                            <asp:DynamicField DataField="Id" Visible="false"/>
-                            <asp:TemplateField HeaderText="Siglas" HeaderStyle-CssClass="panel-footer">
-                              <ItemTemplate>
-                                <asp:Label Text='<%# Item.Fondo.Abreviatura %>' runat="server" />
-                              </ItemTemplate>
-                            </asp:TemplateField> 
-                            <asp:TemplateField HeaderText="Nombre" HeaderStyle-CssClass="panel-footer">
-                              <ItemTemplate>
-                                <asp:Label Text='<%# Item.Fondo.Nombre %>' runat="server" />
-                              </ItemTemplate>
-                            </asp:TemplateField> 
-                            <asp:DynamicField DataField="TipoDeObrasYAcciones" HeaderText="Tipos de obras y acciones" HeaderStyle-CssClass="panel-footer" />                                                                    
-                            <asp:DynamicField DataField="CalendarioDeIngresos" HeaderText="Calendario de ingresos" HeaderStyle-CssClass="panel-footer" />
-                            <asp:DynamicField DataField="VigenciaDePago" HeaderText="Vigencia de pago" HeaderStyle-CssClass="panel-footer" />
-                            <asp:DynamicField DataField="NormatividadAplicable" HeaderText="Normatividad aplicable" HeaderStyle-CssClass="panel-footer" />
-                           <asp:DynamicField DataField="Contraparte" HeaderText="Contraparte" HeaderStyle-CssClass="panel-footer" />                      
-                        </Columns>
-                      </asp:GridView>
-                
-              </div>
-              <%--<div class="modal-footer">
-                <asp:Button ID="btnDel" runat="server" CssClass="btn btn-default" Text="Aceptar"  />
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-              </div>     --%>   
+                      <div class="row">
+
+                          <div class="col-md-6">
+
+                              <div class="form-group">
+                                     <label for="Abreviatura">Abreviatura</label>
+                                     <div>
+                                        <input type="text" class="input-sm required form-control" id="txtFondoAbreviatura" runat="server" disabled="disabled"/>                           
+                                    </div>
+                              </div>
+
+                              <div class="form-group">
+                                 <label for="Nombre">Nombre</label>
+                                 <div>
+                                    <textarea id="txtFondoNombre" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled" ></textarea>
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                     <label for="TiposObrasYAcciones">Tipos de obras y acciones</label>
+                                     <div>
+                                        <textarea id="txtFondoTiposObrasAcciones" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled"></textarea>
+                                    </div>
+                               </div>
+
+                               <div class="form-group">
+                                     <label for="CalendarioDeIngresos">Calendario de ingresos</label>
+                                     <div>
+                                        <textarea id="txtFondoCalendarioDeIngresos" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled"></textarea>
+                                    </div>
+                               </div>
+
+
+                          </div>                       
+                          <div class="col-md-6">
+
+                                 <div class="form-group">
+                                     <label for="VigenciaDePago">Vigencia de pago</label>
+                                     <div>
+                                        <textarea id="txtFondoVigenciaDePago" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled" ></textarea>
+                                     </div>
+                                 </div>
+
+                               <div class="form-group">
+                                   <label for="NormatividadAplicable">Normatividad aplicable</label>
+                                    <div>
+                                       <input type="text" class="input-sm required form-control" id="txtFondoNormatividadAplicable" runat="server" disabled="disabled"/>                           
+                                    </div>
+                               </div>
+
+                               <div class="form-group">
+                                     <label for="Contraparte">Contraparte</label>
+                                     <div>
+                                        <textarea id="txtFondoContraparte" class="input-sm required form-control" runat="server"  rows="3" disabled="disabled" ></textarea>
+                                     </div>
+                               </div>
+
+
+                          </div>
+
+                      </div><!-- row --> 
+
+              </div><!-- modal-body -->                 
             </div>
         </div>
     </div>
+
+
+
        
 
 </asp:Content>

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -326,13 +327,7 @@ namespace SIP.Formas.POA
             }            
 
         }
-
-        // El tipo devuelto puede ser modificado a IEnumerable, sin embargo, para ser compatible con paginación y ordenación 
-        // , se deben agregar los siguientes parametros:
-        //     int maximumRows
-        //     int startRowIndex
-        //     out int totalRowCount
-        //     string sortByExpression
+       
         public IQueryable<DataAccessLayer.Models.TechoFinancieroUnidadPresupuestal> GridViewTechoFinanciero_GetData()
         {
 
@@ -348,15 +343,8 @@ namespace SIP.Formas.POA
 
             return source;
 
-        }
-        
-        public IQueryable<DataAccessLayer.Models.FondoLineamientos> GridViewFondoLineamiento_GetData()
-        {
-
-            return uow.FondoLineamientosBL.Get(orderBy:fondo=>fondo.OrderBy(f=>f.Fondo.Nombre));
-            
-        }
-     
+        }        
+           
         protected void btnLineamientos_Click(object sender, EventArgs e)
         {
             //
@@ -369,31 +357,44 @@ namespace SIP.Formas.POA
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                HtmlButton btnE = (HtmlButton)e.Row.FindControl("btnlineamientos");
-                if (btnE != null)
+                HtmlButton btn = (HtmlButton)e.Row.FindControl("btnlineamientos");
+
+                if (btn != null)
                 {
                     if (gridView.DataKeys[e.Row.RowIndex].Values["Id"] != null)
                     {
+                        TechoFinancieroUnidadPresupuestal tfup = (TechoFinancieroUnidadPresupuestal)e.Row.DataItem;
 
-                        string fondoId = "fism";
-                        //url = "AsignarFinanciamientoPOA.aspx?poadetalleId=" + GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
-                        //btnE.Attributes.Add("onclick", "fnc_IrDesdeGrid('" + url + "')");
-                        btnE.Attributes.Add("data-fondo-id", fondoId);
-
-                        //int poadetalleId = Utilerias.StrToInt(GridViewObras.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
-
-                        //Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalleId).FirstOrDefault();
-
-                        //if (obra != null)
-                        //{
-                        //    btnE.Attributes.Add("disabled", "disabled");
-                        //}
+                        String fondoId = String.Empty;
+                        fondoId = gridView.DataKeys[e.Row.RowIndex].Values["Id"].ToString();
+                        btn.Attributes.Add("onclick", "fnc_MostrarLineamientos(this,'" + tfup.TechoFinanciero.Financiamiento.FondoId + "');");                                            
 
                     }
 
                 }
 
             }
+        }
+
+        [WebMethod]
+        public static List<string> GetLineamientosFondo(int fondoId) 
+        {
+            List<string> result = new List<string>();
+
+            UnitOfWork uow = new UnitOfWork();
+            FondoLineamientos fondolineamientos = uow.FondoLineamientosBL.Get(fl=>fl.FondoId==fondoId).FirstOrDefault();
+
+            if (fondolineamientos == null) return result;
+
+            result.Add(fondolineamientos.Fondo.Abreviatura);
+            result.Add(fondolineamientos.Fondo.Nombre);
+            result.Add(fondolineamientos.TipoDeObrasYAcciones);
+            result.Add(fondolineamientos.CalendarioDeIngresos);
+            result.Add(fondolineamientos.VigenciaDePago);
+            result.Add(fondolineamientos.NormatividadAplicable);
+            result.Add(fondolineamientos.Contraparte);
+
+            return result;
         }
 
         

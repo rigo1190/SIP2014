@@ -33,7 +33,12 @@
 
 
 
-         }); //$(document).ready
+        }); //$(document).ready
+
+        function fnc_MostrarLineamientos(sender, valor) {
+            alert("El fondo tiene el id=" + valor);
+            //PageMethods.GetLineamientosFondo(valor, OnRequestComplete, OnRequestError);
+        }
 
 
 
@@ -78,6 +83,11 @@
                               <ItemTemplate>
                                 <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteDisponible()) %>' runat="server" />
                               </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Lineamientos del fondo" HeaderStyle-CssClass="panel-footer">
+                              <ItemTemplate>
+                                 <button class="btn btn-default btn-sm" id="btnlineamientos" runat="server" onclick="fnc_MostrarLineamientos(this,1);">Mostrar lineamientos</button>
+                              </ItemTemplate>
                             </asp:TemplateField>                               
                         </Columns>
                       </asp:GridView>
@@ -95,7 +105,10 @@
             </div>
         </div>
 
-        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewPOADetalle" DataKeyNames="Id" AutoGenerateColumns="False" OnRowDataBound="GridViewPOADetalle_RowDataBound" runat="server" AllowPaging="True">
+        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewPOADetalle" DataKeyNames="Id" AutoGenerateColumns="False"
+             OnRowDataBound="GridViewPOADetalle_RowDataBound" runat="server" 
+            AllowPaging="True"
+            OnPageIndexChanging="GridViewPOADetalle_PageIndexChanging">
             <Columns>                                   
                        <asp:TemplateField HeaderText="Número" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
                             <ItemTemplate>

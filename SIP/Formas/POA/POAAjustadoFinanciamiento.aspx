@@ -42,6 +42,14 @@
     <div class="container">
 
         <div class="page-header"><h3><asp:Label ID="lblTitulo" runat="server" Text=""></asp:Label></h3></div>
+
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4 text-right">
+                <a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al proyecto de POA ajustado</strong></a>
+            </div>
+        </div>        
+        <br />
       
         <div class="alert alert-danger" id="divTechoFinancieroError" style="display:none" runat="server">
             <p><strong>Aún no se ha cerrado la apertura de Techos financieros para este ejercicio.</strong></p>
@@ -100,8 +108,8 @@
 
                         <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
        </asp:GridView>
-         <br />
-        <a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar al proyecto de POA ajustado</strong></a>
+
+        
 
     </div>
 

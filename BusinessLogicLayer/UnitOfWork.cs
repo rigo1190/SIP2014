@@ -65,7 +65,6 @@ namespace BusinessLogicLayer
         private IBusinessLogic<Firmas> firmasBL;
 
         private IBusinessLogic<ContratosDeObra> contratosdeobraBL;
-        private IBusinessLogic<ConceptosDeObra> conceptosdeobraBL;
         private IBusinessLogic<PresupuestosContratados> presupuestosscontratadosBL;
         private IBusinessLogic<Estimaciones> estimacionesBL;
         private IBusinessLogic<EstimacionesConceptos> estimacionesconceptosBL;
@@ -715,17 +714,7 @@ namespace BusinessLogicLayer
 
 
 
-        public IBusinessLogic<ConceptosDeObra> ConceptosDeObraBL
-        {
-            get
-            {
-                if (this.conceptosdeobraBL == null)
-                {
-                    this.conceptosdeobraBL = new GenericBusinessLogic<ConceptosDeObra>(contexto);
-                }
-                return this.conceptosdeobraBL;
-            }
-        }
+        
 
         public IBusinessLogic<PresupuestosContratados> PresupuestosContratadosBL
         { 

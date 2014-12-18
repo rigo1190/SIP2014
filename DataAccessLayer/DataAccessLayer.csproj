@@ -55,7 +55,6 @@
     <Compile Include="Models\AperturaProgramaticaTipo.cs" />
     <Compile Include="Models\AperturaProgramaticaUnidad.cs" />
     <Compile Include="Models\Año.cs" />
-    <Compile Include="Models\ConceptosDeObra.cs" />
     <Compile Include="Models\ContratosDeObra.cs" />
     <Compile Include="Models\CriterioPriorizacion.cs" />
     <Compile Include="Models\Estimaciones.cs" />

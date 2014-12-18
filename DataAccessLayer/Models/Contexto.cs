@@ -151,7 +151,7 @@ namespace DataAccessLayer.Models
 
 
         public virtual DbSet<ContratosDeObra> DBScontratosDeObra { get; set; }
-        public virtual DbSet<ConceptosDeObra> DBSconceptosDeObra { get; set; }
+        
         public virtual DbSet<PresupuestosContratados> DBSpresupuestosContratados { get; set; }
 
         public virtual DbSet<Estimaciones> DBSestimaciones { get; set; }

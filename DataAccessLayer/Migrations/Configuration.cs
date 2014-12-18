@@ -28,7 +28,7 @@ namespace DataAccessLayer.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-                       
+            return;
            
             context.Roles.AddOrUpdate(
             

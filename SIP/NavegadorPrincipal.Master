@@ -78,8 +78,10 @@
                           </li>
 
 
+
                           <li visible="true" runat="server" id="Li1" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Control Financiero<b class="caret"></b></a>
                              <ul class="dropdown-menu">
+                                  <li><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfContratosDeObra.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Contratos</a></li>                                  
                                   <li><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfListaObras.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Lista de Obras</a></li>                                  
                                   <li>-.-</li>                                
                              </ul>

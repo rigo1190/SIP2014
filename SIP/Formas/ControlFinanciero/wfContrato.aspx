@@ -1,25 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="wfSeguimiento.aspx.cs" Inherits="SIP.Formas.ControlFinanciero.wfSeguimiento" %>
-
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="wfContrato.aspx.cs" Inherits="SIP.Formas.ControlFinanciero.wfContratoPresupuestoContratado" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-        $(document).ready(function () {
-
-
-            $('.campoNumerico').autoNumeric('init');
-
-
-
-        });
-
-
-
-    
+            $(document).ready(function () {
+                $('.campoNumerico').autoNumeric('init');
+            });
             
-
 </script>
+
 
 </asp:Content>
 
@@ -27,80 +16,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
-    <div id="accordion" class="panel-group">
-        
-        <%--Datos generales de la obra--%>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Datos Generales de la obra</a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body">
-                    
-
-
-
-                <div class="row"> 
-                <div id="divDatosGenerales" class="panel-footer">
-                    
-                <div class="row top-buffer">
-                    <div class="col-md-2">
-                        <label for="ObraNo">Número de Obra</label>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" class="input-sm required" id="txtNoObra" runat="server" style="text-align: left;  align-items:flex-start" />
-                    </div>
-                </div>
-
-
-            
-                <div class="row top-buffer">
-                    <div class="col-md-2">
-                        <label for="ObraNombre">Descripción de la Obra</label>
-                    </div>
-                    <div class="col-md-10">
-                        <textarea id="txtDescripcionObra" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" ></textarea>
-
-
-                    </div>
-                </div>
-
-            
-
-            </div>
-    </div>
-
-
-
-
-
-
-
-
-
-                </div>
-            </div>
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">Datos del Contrato</h3>
         </div>
-        
-        <%--Contrato--%>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Contrato</a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body">
-                    
-
-
-
-
-
-                <div class="row">
+    </div>
+<div class="row">
 
                     
                  <div class="col-md-4">
@@ -135,14 +56,14 @@
                      
 
                      
-                     <div class="form-group">
+         <%--            <div class="form-group">
                            <label for="txtImporteTotal">Importe Contratado</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
                             <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start"  />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtImporteTotal" ErrorMessage="El Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
                         </div>
-                      </div>
+                      </div>--%>
 
 
                      
@@ -223,127 +144,8 @@
                     </div>
                 </div>
 
-                 
-
             </div>            
 
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="validateX" ViewStateMode="Disabled" />
-
-
-
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-
-
-        <%--Conceptos de Obra--%>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Conceptos de Obra</a>
-                </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse">
-                <div class="panel-body"> 
-                    
-
-                    <div class="row">
-
-
-                        <div class="col-md-4">
-                            <label>Archivo</label>
-                            <asp:FileUpload ID="fileUpload" runat="server" />
-                        </div>
-
-
-                        <div>
-                            <input type="text" class="input-sm required form-control " id="txtcontenido" runat="server" style="text-align: left; align-items:flex-start" />                            
-                        </div>
-
-                        
-                        <div class="col-md-4">
-                            <asp:Button  CssClass="btn btn-default" Text="Cargar Datos" ID="btnCargarConceptosDeObra" runat="server" AutoPostBack="false" OnClick="btnCargarConceptosDeObra_Click" />
-                        </div>
-
-                    </div>
-
-
-
-
-
-
-
-                </div>
-            </div>
-        </div>
-
-        <%--Presupuesto Contratado--%>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">Presupuesto Contratado</a>
-                </h4>
-            </div>
-            <div id="collapseFour" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p>Aqui importaremos desde excel el presupuesto contratado</p>
-                </div>
-            </div>
-        </div>
-
-
-        <%--Anticipo--%>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">Anticipo</a>
-                </h4>
-            </div>
-            <div id="collapseFive" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p>Aqui se cargara los datos del anticipo</p>
-                </div>
-            </div>
-        </div>
-
-        <%--Estimaciones--%>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">Estimaciones</a>
-                </h4>
-            </div>
-            <div id="collapseSix" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p>Estimaciones</p>
-                </div>
-            </div>
-        </div>
-
-        
-        <%--Finiquito--%>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">Finiquito</a>
-                </h4>
-            </div>
-            <div id="collapseSeven" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <p>Finiquito</p>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-
 
 </asp:Content>

@@ -20,9 +20,9 @@ namespace DataAccessLayer.Models
 
     public enum enumEstatusEjercicio 
     {
-        Nuevo=0,
-        Activo=1,
-        Cerrado=2
+        Nuevo=1,
+        Activo=2,
+        Cerrado=3
     }
 
 }

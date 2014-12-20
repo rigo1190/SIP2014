@@ -308,12 +308,14 @@ namespace SIP.Formas.POA
             uow.SaveChanges();
 
             if (uow.Errors.Count == 0)
-            {
-                BindearDropDownList();
-                BindGrid();
+            {   
+            
                 divEdicion.Style.Add("display", "none");
                 divBtnNuevo.Style.Add("display", "block");
                 divMsg.Style.Add("display", "none");
+
+                BindearDropDownList();
+                BindGrid();
             }
             else 
             {
@@ -344,12 +346,7 @@ namespace SIP.Formas.POA
             return source;
 
         }        
-           
-        protected void btnLineamientos_Click(object sender, EventArgs e)
-        {
-            //
-        }
-
+                 
         protected void GridViewTechoFinanciero_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 

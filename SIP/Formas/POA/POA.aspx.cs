@@ -14,7 +14,8 @@ namespace SIP.Formas.POA
         private UnitOfWork uow;      
         private int currentId;        
         private int unidadpresupuestalId;
-        private int ejercicioId;        
+        private int ejercicioId;
+        DataAccessLayer.Models.POA poa;
         protected void Page_Load(object sender, EventArgs e)
         {
           
@@ -22,9 +23,9 @@ namespace SIP.Formas.POA
             unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
+            poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
 
-            lblResumen.Text = String.Format("Total de obras : {0}", poa.Detalles.Count);
+            //lblResumen.Text = String.Format("Total de obras : {0}", poa.Detalles.Count);
                
             if (!IsPostBack)
             {  
@@ -37,14 +38,7 @@ namespace SIP.Formas.POA
         }      
 
         private void BindearDropDownList()
-        {           
-
-            //ddlTipoLocalidad.DataSource = uow.TipoLocalidadBusinessLogic.Get().ToList();
-            //ddlTipoLocalidad.DataValueField = "Id";
-            //ddlTipoLocalidad.DataTextField = "Nombre";
-            //ddlTipoLocalidad.DataBind();
-
-            //ddlTipoLocalidad.Items.Insert(0, new ListItem("Seleccione...", "0"));
+        { 
 
             ddlUnidadMedida.DataSource = uow.AperturaProgramaticaUnidadBusinessLogic.Get().ToList();
             ddlUnidadMedida.DataValueField = "Id";
@@ -148,9 +142,7 @@ namespace SIP.Formas.POA
             }
 
             if (poadetalle.EjeId != null) 
-            {
-                //cddlEjePVD1.SelectedValue = poadetalle.Eje.ParentId.ToString();
-                //cddlEjePVD2.SelectedValue = poadetalle.EjeId.ToString();
+            {               
                 ddlEje.SelectedValue = poadetalle.EjeId.ToString();
             }
 
@@ -211,9 +203,7 @@ namespace SIP.Formas.POA
             cddlFuncionalidadNivel1.SelectedValue = String.Empty;
             cddlFuncionalidadNivel2.SelectedValue = String.Empty;
             cddlFuncionalidadNivel3.SelectedValue = String.Empty;
-
-            //cddlEjePVD1.SelectedValue = String.Empty;
-            //cddlEjePVD2.SelectedValue = String.Empty; 
+          
             ddlEje.SelectedIndex = -1;          
 
             ddlPlanSectorial.SelectedIndex = -1;
@@ -268,13 +258,28 @@ namespace SIP.Formas.POA
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)
         {
-            //Se busca l ID de la fila seleccionada
+            //Se busca el ID de la fila seleccionada
             GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
             string msg = "Se ha eliminado correctamente";
 
             currentId = Utilerias.StrToInt(GridViewObras.DataKeys[row.RowIndex].Value.ToString());
 
             POADetalle poadetalle = uow.POADetalleBusinessLogic.GetByID(currentId);
+
+            Obra obra = uow.ObraBusinessLogic.Get(o => o.POADetalleId == poadetalle.Id).FirstOrDefault();
+
+            if (obra != null)
+            {
+                divEdicion.Style.Add("display", "none");
+                divBtnNuevo.Style.Add("display", "block");
+                divMsg.Style.Add("display", "block");
+
+                lblMensajes.Text = String.Format("La obra {0} no puede eliminarse porque ya tiene asignado financiamientos.", poadetalle.Numero);
+
+                return;
+
+            }
+            
 
             
             uow.POADetalleBusinessLogic.Delete(poadetalle);
@@ -284,7 +289,10 @@ namespace SIP.Formas.POA
             {                
 
                 divEdicion.Style.Add("display", "none");
-                divBtnNuevo.Style.Add("display", "block");               
+                divBtnNuevo.Style.Add("display", "block");
+                divMsg.Style.Add("display", "none");
+
+                this.GridViewObras.DataBind();
                
             }
             else 
@@ -340,6 +348,22 @@ namespace SIP.Formas.POA
             poadetalle.LocalidadId = Utilerias.StrToInt(ddlLocalidad.SelectedValue);            
 
             poadetalle.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);
+
+            //Garantizar que se limpie correctamente el campo Nombre del Convenio
+
+            switch (poadetalle.CriterioPriorizacionId)
+            {
+                case 2:
+
+                    break;
+
+                default:
+
+                    txtNombreConvenio.Value = String.Empty;
+                    break;
+            }
+
+
             poadetalle.Convenio = txtNombreConvenio.Value;
 
             poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
@@ -350,13 +374,45 @@ namespace SIP.Formas.POA
             poadetalle.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString());
             poadetalle.Jornales = Utilerias.StrToInt(txtJornales.Value.ToString());
 
-            poadetalle.FuncionalidadId = Utilerias.StrToInt(ddlSubFuncion.SelectedValue);
-            //poadetalle.EjeId = Utilerias.StrToInt(ddlEjeElemento.SelectedValue);
-            poadetalle.EjeId = Utilerias.StrToInt(ddlEje.SelectedValue);
-            poadetalle.PlanSectorialId = Utilerias.StrToInt(ddlPlanSectorial.SelectedValue);
-            poadetalle.ModalidadId = Utilerias.StrToInt(ddlModalidadElemento.SelectedValue);
-            poadetalle.ProgramaId = Utilerias.StrToInt(ddlProgramaPresupuesto.SelectedValue);
-            poadetalle.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
+            //Los campos relativos al Plan Veracruzano de Desarrollo, son opcionales
+
+            poadetalle.FuncionalidadId = null;
+            poadetalle.EjeId = null;
+            poadetalle.PlanSectorialId = null;
+            poadetalle.ModalidadId = null;
+            poadetalle.ProgramaId = null;
+            poadetalle.GrupoBeneficiarioId = null;
+
+
+            if (ddlSubFuncion.SelectedIndex > 0) 
+            { 
+                poadetalle.FuncionalidadId = Utilerias.StrToInt(ddlSubFuncion.SelectedValue); 
+            }
+
+            if (ddlEje.SelectedIndex > 0) 
+            {
+                poadetalle.EjeId = Utilerias.StrToInt(ddlEje.SelectedValue);
+            }
+
+            if (ddlPlanSectorial.SelectedIndex > 0) 
+            {
+                poadetalle.PlanSectorialId = Utilerias.StrToInt(ddlPlanSectorial.SelectedValue);
+            }
+
+            if (ddlModalidadElemento.SelectedIndex > 0)
+            {
+                poadetalle.ModalidadId = Utilerias.StrToInt(ddlModalidadElemento.SelectedValue);
+            }
+
+            if (ddlProgramaPresupuesto.SelectedIndex > 0) 
+            {
+                poadetalle.ProgramaId = Utilerias.StrToInt(ddlProgramaPresupuesto.SelectedValue);
+            }
+
+            if (ddlGrupoBeneficiario.SelectedIndex > 0) 
+            {
+                poadetalle.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
+            }
 
 
             poadetalle.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
@@ -549,7 +605,9 @@ namespace SIP.Formas.POA
             IQueryable<POADetalle> list = null;          
 
             list = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea == false, orderBy: r => r.OrderBy(ro => ro.Consecutivo));
-            
+
+            lblResumen.Text = String.Format("Total de obras : {0}", poa.Detalles.Count);
+
             return list;
         }
 

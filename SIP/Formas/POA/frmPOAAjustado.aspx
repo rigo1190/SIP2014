@@ -1,274 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="frmPOAAjustado.aspx.cs" 
 
 Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-
-            $('.campoNumerico').autoNumeric('init');
-
-
-            $('*[data-tipo-operacion]').click(function () {
-
-                if ($("#<%= divEdicion.ClientID %>").is(':visible')) {
-                     return false;
-                 }
-
-
-
-                 var strOperacion = $(this).data("tipo-operacion").toUpperCase();
-
-                 switch (strOperacion) {
-
-                     case "EDITAR":
-                         return true;
-                         break;
-                     case "BORRAR":
-                         return confirm("¿Está seguro de eliminar el registro?");
-                         break;
-                     case "ASIGNARFINANCIAMIENTO":
-                         var url = $(this).data("url-financiamiento");
-                         $(location).attr('href', url);
-                         break;
-                     case "EVALUAR":
-                         var url = $(this).data("url-poa");
-                         $(location).attr('href', url);
-                         break;
-                     default:
-                         break;
-                 }
-
-                 return false;
-
-            });
-
-
-            $("#<%= ddlCriterioPriorizacion.ClientID   %>").change(function (e) {
-
-                var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
-
-                switch (valorseleccionado) {
-                    case "2":
-
-                        $("#divDatosConvenio").css("display", "block");
-                        break;
-
-                    default:
-
-                        $("#divDatosConvenio").css("display", "none");
-                        break;
-                }
-
-
-            });
-
-            $("#<%= hiddenSituacionObraId.ClientID %>").val($("#<%= ddlSituacionObra.ClientID   %> option:selected").val());
-
-
-
-
-         }); //$(document).ready
-
-
-
-         function fnc_Validar() {
-
-
-             var desc = $("#<%=txtDescripcion.ClientID%>").val();
-             if (desc == null || desc.length == 0 || desc == undefined) {
-                 alert("El campo descripción no puede estar vacio");
-                 return false;
-             }
-
-             var municipio = $("#<%=ddlMunicipio.ClientID%>").val();
-            if (municipio == null || municipio.length == 0 || municipio == undefined || municipio == 0) {
-                alert("El campo Municipio no puede estar vacio");
-                return false;
-            }
-
-            var localidad = $("#<%= ddlLocalidad.ClientID %>").val();
-             if (localidad == null || localidad.length == 0 || localidad == undefined) {
-                 alert("El campo Localidad no puede estar vacio");
-                 return false;
-             }           
-
-             var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
-             if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
-                 alert("Debe indicar el tipo de la apertura programatica");
-                 return false;
-             }
-
-             <%--var meta = $("#<%= ddlMeta.ClientID %>").val();
-             if (meta == null || meta.length == 0 || meta == undefined || meta == 0) {
-                 alert("Debe indicar la unidad y beneficiario de la meta");
-                 return false;
-             }--%>
-
-             var unidadmedida = $("#<%= ddlUnidadMedida.ClientID %>").val();
-             if (unidadmedida == null || unidadmedida.length == 0 || unidadmedida == undefined || unidadmedida == 0) {
-                 alert("Debe indicar la unidad de medida");
-                 return false;
-             }
-
-             var numeroBeneficiarios = $("#<%=txtNumeroBeneficiarios.ClientID%>").val();
-             if (numeroBeneficiarios == null || numeroBeneficiarios.length == 0 || numeroBeneficiarios == undefined) {
-                 alert("El campo Número de beneficiarios no puede estar vacio");
-                 return false;
-             }
-
-             var cantidadUnidades = $("#<%=txtCantidadUnidades.ClientID%>").val();
-             if (cantidadUnidades == null || cantidadUnidades.length == 0 || cantidadUnidades == undefined) {
-                 alert("El campo Cantidad de Unidades no puede estar vacio");
-                 return false;
-             }
-
-             var situacionObra = $("#<%=ddlSituacionObra.ClientID%>").val();
-             if (situacionObra == null || situacionObra.length == 0 || situacionObra == undefined || situacionObra == 0) {
-                 alert("Debe indicar la situación de la obra");
-                 return false;
-             }
-
-             var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
-             if (modalidad == null || modalidad.length == 0 || modalidad == undefined || modalidad == 0) {
-                 alert("Debe indicar la modalidad de ejecución de la obra");
-                 return false;
-             }
-
-             var importetotal = $("#<%=txtImporteTotal.ClientID%>").val();
-             if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
-                 alert("El campo Importe total no puede estar vacio");
-                 return false;
-             }
-
-             var importetotal = $("#<%= txtImporteTotal.ClientID%>").val();
-             if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
-                 alert("El campo Importe total no puede estar vacio");
-                 return false;
-             }
-
-             var importeLiberado = $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val();
-             if (importeLiberado == null || importeLiberado.length == 0 || importeLiberado == undefined) {
-                 alert("El campo <Costo liberado en ejercicios anteriores> no puede estar vacio");
-                 return false;
-             }
-
-             var importePresupuesto = $("#<%= txtPresupuestoEjercicio.ClientID %>").val();
-             if (importePresupuesto == null || importePresupuesto.length == 0 || importePresupuesto == undefined) {
-                 alert("El campo <Presupuesto del ejercicio> no puede estar vacio");
-                 return false;
-             }
-
-             var subfuncion = $("#<%= ddlSubFuncion.ClientID %>").val();
-             if (subfuncion == null || subfuncion.length == 0 || subfuncion == undefined || subfuncion == 0) {
-                 alert("Debe indicar la funcionalidad de la obra");
-                 return false;
-             }
-
-            var eje = $("#<%= ddlEje.ClientID %>").val();
-             if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
-                 alert("Debe indicar el <Eje del Plan de Desarrollo Veracruzano>");
-                 return false;
-             }
-
-             var plansectorial = $("#<%= ddlPlanSectorial.ClientID %>").val();
-             if (plansectorial == null || plansectorial.length == 0 || plansectorial == undefined || plansectorial == 0) {
-                 alert("Debe indicar el <Plan sectorial> correspondiente");
-                 return false;
-             }
-
-             var clasificacionCONAC = $("#<%= ddlModalidadElemento.ClientID %>").val();
-             if (clasificacionCONAC == null || clasificacionCONAC.length == 0 || clasificacionCONAC == undefined || clasificacionCONAC == 0) {
-                 alert("Debe indicar la <Clasificación programática del CONAC> correspondiente");
-                 return false;
-             }
-
-             var programaPresupuestal = $("#<%= ddlProgramaPresupuesto.ClientID %>").val();
-             if (programaPresupuestal == null || programaPresupuestal.length == 0 || programaPresupuestal == undefined || programaPresupuestal == 0) {
-                 alert("Debe indicar el <Programa presupuestal> correspondiente");
-                 return false;
-             }
-
-             var grupoBeneficiario = $("#<%= ddlGrupoBeneficiario.ClientID %>").val();
-             if (grupoBeneficiario == null || grupoBeneficiario.length == 0 || grupoBeneficiario == undefined || grupoBeneficiario == 0) {
-                 alert("Debe indicar el <Grupo de Beneficiarios> correspondiente");
-                 return false;
-             }
-
-
-             var fechaInicio = $("#<%= txtFechaInicio.ClientID %>").val();
-             var fechaTermino = $("#<%= txtFechaTermino.ClientID %>").val();
-             if (IsDate(fechaInicio) & IsDate(fechaTermino))
-             {                
-                 if (fechaTermino <= fechaInicio) {
-                     alert("La fecha de término debe ser posterior a la fecha de inicio");
-                     return false;
-                 }
-             }
-             
-
-
-             return true;
-
-         }
-
-         function fnc_OcultarDivs(sender) {
-             $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
-             $("#<%= divEdicion.ClientID %>").css("display", "none");
-             return false;
-         }
-
-        function fnc_ocultarDivDatosConvenio() {
-            var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
-
-             switch (valorseleccionado) {
-                 case "2":
-
-                     $("#divDatosConvenio").css("display", "block");
-                     break;
-
-                 default:
-
-                     $("#divDatosConvenio").css("display", "none");
-                     break;
-             }
-        }
-
-        function fnc_ocultarDivObraAnterior() {
-            var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
-
-            switch (valorseleccionado) {
-                case "0":
-                    $("#divDatosObraAnterior").css("display", "none");
-                    break;
-                case "1":
-                    $("#divDatosObraAnterior").css("display", "none");
-                    break;
-                default:
-                    $("#divDatosObraAnterior").css("display", "block");
-                    break;
-            }
-        }
-
-
-         function fnc_EjecutarMensaje(mensaje) {
-             alert(mensaje);
-         }
-
-         function fnc_IrDesdeGrid(url) {
-             $(location).attr('href', url);
-         }
-
-         function IsDate(dateString)
-         {
-             date = new Date(dateString);
-             return date instanceof Date && !isNaN(date.valueOf());
-         }
-
-
-    </script>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">   
 
 
 </asp:Content>
@@ -280,6 +13,14 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
     <div class="container">
        
         <div class="page-header"><h3><asp:Label ID="lblTituloPOA" runat="server" Text=""></asp:Label></h3></div>
+
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4 text-right">
+                <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-right"></span> <strong>Modificar financiamientos</strong></a>
+            </div>
+        </div>        
+        <br />
 
         <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
           <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
@@ -309,6 +50,11 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                            <ItemTemplate>
                                 <asp:Label Text='<%# Item.AperturaProgramatica.AperturaProgramaticaTipo.Nombre %>' runat="server" />
                            </ItemTemplate>
+                       </asp:TemplateField>
+                       <asp:TemplateField HeaderText="Importe Asignado" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
+                           <ItemTemplate>
+                              <asp:Label Text='<%# String.Format("{0:C2}",Item.GetImporteAsignado()) %>' runat="server" />
+                           </ItemTemplate>
                        </asp:TemplateField>                   
                 
             </Columns>
@@ -335,235 +81,234 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
                      <div class="row">
 
-                     <br />   
+                     <br /> 
 
-
-                 <div class="col-md-4">
-
-                      <div class="form-group">
-                           <label for="Numero">Número</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control" id="txtNumero" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled"/>                           
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="Descripcion">Descripción</label>
-                         <div>
-                            <textarea id="txtDescripcion" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" autofocus></textarea>
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="Municipio">Municipio</label>
-                         <div>
-                             <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlMunicipio" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetMunicipios" 
-                                 TargetControlID="ddlMunicipio" Category="municipioId"
-                                 PromptText="Seleccione el Municipio..." LoadingText="Loading..."/>                           
-                            
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="Localidad">Localidad</label>
-                         <div>
-                             <asp:DropDownList ID="ddlLocalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlLocalidad" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetLocalidades" 
-                                 TargetControlID="ddlLocalidad" ParentControlID="ddlMunicipio" Category="localidadId"
-                                 PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
-                                                     
-                        </div>
-                      </div>                  
-                     
-                     <div class="form-group">
-                           <label for="ddlCriterioPriorizacion">Criterio de priorización</label>
-                         <div>
-                             <asp:DropDownList ID="ddlCriterioPriorizacion" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
-
-                     <div style="display:block" id="divDatosConvenio">
-
-                            <div class="form-group">
-                                <label for="NombreConvenio">Nombre del convenio</label>
-                                <div>
-                                    <textarea id="txtNombreConvenio" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="2" ></textarea>
-                                </div>
-                            </div>    
-
-                      </div><!--divDatosConvenio-->
-
-                      <div class="form-group">
-                           <label for="FechaInicio">Fecha de inicio</label>
-                         <div>
-                            <input type="text" class="required form-control date-picker" id="txtFechaInicio" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                           <label for="FechaTermino">Fecha de Término</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control date-picker" id="txtFechaTermino" runat="server" data-date-format = "dd/mm/yyyy" autocomplete="off" />
-                        </div>
-                      </div>
-
-                 </div>
-
-                 <div class="col-md-4">
-
-                      <div class="form-group">
-                           <label for="Programa">Programa</label>
-                         <div>
-                             <asp:DropDownList ID="ddlPrograma" CssClass="form-control" runat="server"></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlPrograma" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetProgramas" 
-                                 TargetControlID="ddlPrograma" Category="programaId"
-                                 PromptText="Seleccione el programa..." LoadingText="Loading..."/>                           
-                            
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                           <label for="SubPrograma">SubPrograma</label>
-                         <div>
-                             <asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlSubprograma" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubProgramas" 
-                                 TargetControlID="ddlSubprograma" ParentControlID="ddlPrograma" Category="subprogramaId"
-                                 PromptText="Seleccione el subprograma..." LoadingText="Loading..."/>                 
-                                                     
-                        </div>
-                      </div>
-
-                       <div class="form-group">
-                           <label for="SubSubPrograma">SubSubPrograma</label>
-                         <div>
-                             <asp:DropDownList ID="ddlSubsubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlSubsubprograma" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubSubProgramas" 
-                                 TargetControlID="ddlSubsubprograma" ParentControlID="ddlSubprograma" Category="subsubprogramaId"
-                                 PromptText="Seleccione el subsubprograma..." LoadingText="Loading..."/>              
-                             
-                        </div>
-                      </div>
-
-                       <div class="form-group" style="display:none">
-                           <label for="Metas">Metas</label>
-                         <div>
-                             <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
-                              <ajaxToolkit:CascadingDropDown ID="cddlMeta" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetMetas" 
-                                 TargetControlID="ddlMeta" ParentControlID="ddlSubsubprograma" Category="metaId"
-                                 PromptText="Seleccione la meta..." LoadingText="Loading..."/>
-                           
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="UnidadMedida">Unidad de medida</label>
-                         <div>
-                              <asp:DropDownList ID="ddlUnidadMedida" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                           <label for="NumeroBeneficiarios">Número de beneficiarios</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
-                        </div>
-                      </div>
-
-                       <div class="form-group">
-                           <label for="CantidadUnidades">Cantidad de unidades</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="Empleos">Empleos</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="Jornales">Jornales</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"/>
-                        </div>
-                      </div>
-
-
-                  </div>
-
-                 <div class="col-md-4">
-
-                      <div class="form-group">
-                           <label for="SituacionObra">Situación</label>
-                         <div>
-                              <asp:DropDownList ID="ddlSituacionObra" CssClass="form-control" runat="server" disabled="disabled"></asp:DropDownList>
-                        </div>
-                      </div>
-
-                     
-
-                     <div class="form-group">
-                           <label for="txtImporteTotal">Costo total</label>
-                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
-                        </div>
-                      </div>
-
-                     <div style="display:none" id="divDatosObraAnterior">
+                     <div class="col-md-4">
 
                           <div class="form-group">
-                            <label for="Numero">Número anterior</label>
-                            <div>
-                                <input type="text" class="input-sm required form-control" id="txtNumeroAnterior" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled" />                           
+                               <label for="Numero">Número</label>
+                             <div>
+                                <input type="text" class="input-sm required form-control" id="txtNumero" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled"/>                           
+                            </div>
+                          </div>
+
+                         <div class="form-group">
+                               <label for="Descripcion">Descripción</label>
+                             <div>
+                                <textarea id="txtDescripcion" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" autofocus></textarea>
+                            </div>
+                          </div>
+
+                         <div class="form-group">
+                               <label for="Municipio">Municipio</label>
+                             <div>
+                                 <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
+                                 <ajaxToolkit:CascadingDropDown ID="cddlMunicipio" runat="server" 
+                                     ServicePath="WebServicePOA.asmx" ServiceMethod="GetMunicipios" 
+                                     TargetControlID="ddlMunicipio" Category="municipioId"
+                                     PromptText="Seleccione el Municipio..." LoadingText="Loading..."/>                           
+                            
+                            </div>
+                          </div>
+
+                         <div class="form-group">
+                               <label for="Localidad">Localidad</label>
+                             <div>
+                                 <asp:DropDownList ID="ddlLocalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                 <ajaxToolkit:CascadingDropDown ID="cddlLocalidad" runat="server" 
+                                     ServicePath="WebServicePOA.asmx" ServiceMethod="GetLocalidades" 
+                                     TargetControlID="ddlLocalidad" ParentControlID="ddlMunicipio" Category="localidadId"
+                                     PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
+                                                     
+                            </div>
+                          </div>                  
+                     
+                         <div class="form-group">
+                                   <label for="ddlCriterioPriorizacion">Criterio de priorización</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlCriterioPriorizacion" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                             </div>
+
+                             <div style="display:none" id="divDatosConvenio">
+
+                                    <div class="form-group">
+                                        <label for="NombreConvenio">Nombre del convenio</label>
+                                        <div>
+                                            <textarea id="txtNombreConvenio" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="2" ></textarea>
+                                        </div>
+                                    </div>    
+
+                              </div><!--divDatosConvenio-->
+
+                          <div class="form-group">
+                               <label for="FechaInicio">Fecha de inicio</label>
+                             <div>
+                                <input type="text" class="required form-control date-picker" id="txtFechaInicio" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
                             </div>
                           </div>
 
                           <div class="form-group">
-                               <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
+                               <label for="FechaTermino">Fecha de Término</label>
+                             <div>
+                                <input type="text" class="input-sm required form-control date-picker" id="txtFechaTermino" runat="server" data-date-format = "dd/mm/yyyy" autocomplete="off" />
+                            </div>
+                          </div>
+
+                     </div>
+
+                     <div class="col-md-4">
+
+                          <div class="form-group">
+                               <label for="Programa">Programa</label>
+                             <div>
+                                 <asp:DropDownList ID="ddlPrograma" CssClass="form-control" runat="server"></asp:DropDownList>
+                                 <ajaxToolkit:CascadingDropDown ID="cddlPrograma" runat="server" 
+                                     ServicePath="WebServicePOA.asmx" ServiceMethod="GetProgramas" 
+                                     TargetControlID="ddlPrograma" Category="programaId"
+                                     PromptText="Seleccione el programa..." LoadingText="Loading..."/>                           
+                            
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                               <label for="SubPrograma">SubPrograma</label>
+                             <div>
+                                 <asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                 <ajaxToolkit:CascadingDropDown ID="cddlSubprograma" runat="server" 
+                                     ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubProgramas" 
+                                     TargetControlID="ddlSubprograma" ParentControlID="ddlPrograma" Category="subprogramaId"
+                                     PromptText="Seleccione el subprograma..." LoadingText="Loading..."/>                 
+                                                     
+                            </div>
+                          </div>
+
+                           <div class="form-group">
+                               <label for="SubSubPrograma">SubSubPrograma</label>
+                             <div>
+                                 <asp:DropDownList ID="ddlSubsubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                 <ajaxToolkit:CascadingDropDown ID="cddlSubsubprograma" runat="server" 
+                                     ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubSubProgramas" 
+                                     TargetControlID="ddlSubsubprograma" ParentControlID="ddlSubprograma" Category="subsubprogramaId"
+                                     PromptText="Seleccione el subsubprograma..." LoadingText="Loading..."/>              
+                             
+                            </div>
+                          </div>
+
+                           <div class="form-group" style="display:none">
+                               <label for="Metas">Metas</label>
+                             <div>
+                                 <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
+                                  <ajaxToolkit:CascadingDropDown ID="cddlMeta" runat="server" 
+                                     ServicePath="WebServicePOA.asmx" ServiceMethod="GetMetas" 
+                                     TargetControlID="ddlMeta" ParentControlID="ddlSubsubprograma" Category="metaId"
+                                     PromptText="Seleccione la meta..." LoadingText="Loading..."/>
+                           
+                            </div>
+                          </div>
+
+                         <div class="form-group">
+                               <label for="UnidadMedida">Unidad de medida</label>
+                             <div>
+                                  <asp:DropDownList ID="ddlUnidadMedida" CssClass="form-control" runat="server"></asp:DropDownList>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                               <label for="NumeroBeneficiarios">Número de beneficiarios</label>
+                             <div>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
+                            </div>
+                          </div>
+
+                           <div class="form-group">
+                               <label for="CantidadUnidades">Cantidad de unidades</label>
+                             <div>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
+                            </div>
+                          </div>
+
+                         <div class="form-group">
+                               <label for="Empleos">Empleos</label>
+                             <div>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
+                            </div>
+                          </div>
+
+                         <div class="form-group">
+                               <label for="Jornales">Jornales</label>
+                             <div>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
+                            </div>
+                          </div>
+
+
+                      </div>
+
+                     <div class="col-md-4">
+
+                          <div class="form-group">
+                               <label for="SituacionObra">Situación</label>
+                             <div>
+                                  <asp:DropDownList ID="ddlSituacionObra" CssClass="form-control" runat="server" disabled="disabled"></asp:DropDownList>
+                            </div>
+                          </div>
+
+                     
+
+                         <div class="form-group">
+                               <label for="txtImporteTotal">Costo total</label>
                              <div class="input-group">
                                 <span class="input-group-addon">$</span>
-                                <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled"/>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
                             </div>
                           </div>
 
-                      </div><!--divDatosObraAnterior-->
+                         <div style="display:none" id="divDatosObraAnterior">
+
+                              <div class="form-group">
+                                <label for="Numero">Número anterior</label>
+                                <div>
+                                    <input type="text" class="input-sm required form-control" id="txtNumeroAnterior" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled" />                           
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                   <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
+                                 <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled"/>
+                                </div>
+                              </div>
+
+                          </div><!--divDatosObraAnterior-->
 
 
-                     <div class="form-group">
-                           <label for="txtPresupuestoEjercicio">Presupuesto del ejercicio</label>
-                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtPresupuestoEjercicio" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
-                        </div>
-                      </div>
+                         <div class="form-group">
+                               <label for="txtPresupuestoEjercicio">Presupuesto del ejercicio</label>
+                             <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtPresupuestoEjercicio" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" />
+                            </div>
+                          </div>
 
-                     <div class="form-group">
-                           <label for="ModalidadObra">Modalidad de ejecución</label>
-                         <div>
-                              <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
+                         <div class="form-group">
+                               <label for="ModalidadObra">Modalidad de ejecución</label>
+                             <div>
+                                  <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
+                            </div>
+                          </div>
 
 
 
-                     <div class="form-group">
-                           <label for="Observaciones">Observaciones</label>
-                         <div>
-                            <textarea id="txtObservaciones" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="4"></textarea>
-                        </div>
-                      </div>
+                         <div class="form-group">
+                               <label for="Observaciones">Observaciones</label>
+                             <div>
+                                <textarea id="txtObservaciones" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="4"></textarea>
+                            </div>
+                          </div>
 
-                 </div>
+                     </div>
                 
 
             </div>
@@ -746,6 +491,293 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
        </div><!--divEdicion-->
 
     </div><!--div class="container"-->
+
+
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function ()
+        {                      
+                       
+
+            try
+            {
+                $('.campoNumerico').autoNumeric('init');
+            }
+            catch (err)
+            {           
+                alert(err.message);
+            }
+
+
+            $('*[data-tipo-operacion]').click(function () {
+
+                if ($("#<%= divEdicion.ClientID %>").is(':visible')) {
+                    return false;
+                }
+
+
+
+                var strOperacion = $(this).data("tipo-operacion").toUpperCase();
+
+                switch (strOperacion) {
+
+                    case "EDITAR":
+                        return true;
+                        break;
+                    case "BORRAR":
+                        return confirm("¿Está seguro de eliminar el registro?");
+                        break;
+                    case "ASIGNARFINANCIAMIENTO":
+                        var url = $(this).data("url-financiamiento");
+                        $(location).attr('href', url);
+                        break;
+                    case "EVALUAR":
+                        var url = $(this).data("url-poa");
+                        $(location).attr('href', url);
+                        break;
+                    default:
+                        break;
+                }
+
+                return false;
+
+            });
+
+
+             $("#<%= ddlCriterioPriorizacion.ClientID %>").change(function (e) {
+
+
+                var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
+
+                 switch (valorseleccionado)
+                 {
+                    case "2":
+                        
+                        $("#divDatosConvenio").css("display", "block");
+                        break;
+
+                    default:
+
+                        $("#divDatosConvenio").css("display", "none");
+                        break;
+                }
+
+
+             });
+
+
+        }); //$(document).ready
+
+
+
+        function fnc_Validar()
+        {
+
+
+            var desc = $("#<%=txtDescripcion.ClientID%>").val();
+             if (desc == null || desc.length == 0 || desc == undefined) {
+                 alert("El campo descripción no puede estar vacio");
+                 return false;
+             }
+
+             var municipio = $("#<%=ddlMunicipio.ClientID%>").val();
+             if (municipio == null || municipio.length == 0 || municipio == undefined || municipio == 0) {
+                 alert("El campo Municipio no puede estar vacio");
+                 return false;
+             }
+
+             var localidad = $("#<%= ddlLocalidad.ClientID %>").val();
+            if (localidad == null || localidad.length == 0 || localidad == undefined || localidad == 0) {
+                alert("El campo Localidad no puede estar vacio");
+                return false;
+            }
+
+            var criteriopriorizacion = $("#<%= ddlCriterioPriorizacion.ClientID %>").val();
+             if (criteriopriorizacion == null || criteriopriorizacion.length == 0 || criteriopriorizacion == undefined || criteriopriorizacion == 0) {
+                 alert("Debe indicar el criterio de priorización");
+                 return false;
+             }
+
+             var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
+             if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
+                 alert("Debe indicar el tipo de la apertura programatica");
+                 return false;
+             }
+
+             var unidadmedida = $("#<%= ddlUnidadMedida.ClientID %>").val();
+             if (unidadmedida == null || unidadmedida.length == 0 || unidadmedida == undefined || unidadmedida == 0) {
+                 alert("Debe indicar la unidad de medida");
+                 return false;
+             }
+
+             var numeroBeneficiarios = $("#<%=txtNumeroBeneficiarios.ClientID%>").val();
+             if (numeroBeneficiarios == null || numeroBeneficiarios.length == 0 || numeroBeneficiarios == undefined) {
+                 alert("El campo Número de beneficiarios no puede estar vacio");
+                 return false;
+             }
+
+             var cantidadUnidades = $("#<%=txtCantidadUnidades.ClientID%>").val();
+             if (cantidadUnidades == null || cantidadUnidades.length == 0 || cantidadUnidades == undefined) {
+                 alert("El campo Cantidad de Unidades no puede estar vacio");
+                 return false;
+             }
+
+             var situacionObra = $("#<%=ddlSituacionObra.ClientID%>").val();
+             if (situacionObra == null || situacionObra.length == 0 || situacionObra == undefined || situacionObra == 0) {
+                 alert("Debe indicar la situación de la obra");
+                 return false;
+             }
+
+            <%-- var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
+             if (modalidad == null || modalidad.length == 0 || modalidad == undefined || modalidad == 0) {
+                 alert("Debe indicar la modalidad de ejecución de la obra");
+                 return false;
+             }--%>
+
+             var importetotal = $("#<%=txtImporteTotal.ClientID%>").val();
+             if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
+                 alert("El campo Importe total no puede estar vacio");
+                 return false;
+             }
+
+             var importetotal = $("#<%= txtImporteTotal.ClientID%>").val();
+             if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
+                 alert("El campo Importe total no puede estar vacio");
+                 return false;
+             }
+
+             var importeLiberado = $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val();
+             if (importeLiberado == null || importeLiberado.length == 0 || importeLiberado == undefined) {
+                 alert("El campo <Costo liberado en ejercicios anteriores> no puede estar vacio");
+                 return false;
+             }
+
+             var importePresupuesto = $("#<%= txtPresupuestoEjercicio.ClientID %>").val();
+             if (importePresupuesto == null || importePresupuesto.length == 0 || importePresupuesto == undefined) {
+                 alert("El campo <Presupuesto del ejercicio> no puede estar vacio");
+                 return false;
+             }
+
+             <%-- var subfuncion = $("#<%= ddlSubFuncion.ClientID %>").val();
+             if (subfuncion == null || subfuncion.length == 0 || subfuncion == undefined || subfuncion == 0) {
+                 alert("Debe indicar la funcionalidad de la obra");
+                 return false;
+             }--%>
+
+             <%-- var eje = $("#<%= ddlEje.ClientID %>").val();
+             if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
+                 alert("Debe indicar el <Eje del Plan de Desarrollo Veracruzano>");
+                 return false;
+             }--%>
+
+             <%--  var plansectorial = $("#<%= ddlPlanSectorial.ClientID %>").val();
+             if (plansectorial == null || plansectorial.length == 0 || plansectorial == undefined || plansectorial == 0) {
+                 alert("Debe indicar el <Plan sectorial> correspondiente");
+                 return false;
+             }--%>
+
+             <%-- var clasificacionCONAC = $("#<%= ddlModalidadElemento.ClientID %>").val();
+             if (clasificacionCONAC == null || clasificacionCONAC.length == 0 || clasificacionCONAC == undefined || clasificacionCONAC == 0) {
+                 alert("Debe indicar la <Clasificación programática del CONAC> correspondiente");
+                 return false;
+             }--%>
+
+             <%-- var programaPresupuestal = $("#<%= ddlProgramaPresupuesto.ClientID %>").val();
+             if (programaPresupuestal == null || programaPresupuestal.length == 0 || programaPresupuestal == undefined || programaPresupuestal == 0) {
+                 alert("Debe indicar el <Programa presupuestal> correspondiente");
+                 return false;
+             }--%>
+
+            <%-- var grupoBeneficiario = $("#<%= ddlGrupoBeneficiario.ClientID %>").val();
+             if (grupoBeneficiario == null || grupoBeneficiario.length == 0 || grupoBeneficiario == undefined || grupoBeneficiario == 0) {
+                 alert("Debe indicar el <Grupo de Beneficiarios> correspondiente");
+                 return false;
+             }--%>
+
+
+            var fechaInicio = $("#<%= txtFechaInicio.ClientID %>").val();
+            var fechaTermino = $("#<%= txtFechaTermino.ClientID %>").val();
+
+            if (IsDate(fechaInicio) & IsDate(fechaTermino))
+            {
+                if (fechaTermino <= fechaInicio)
+                {
+                     alert("La fecha de término debe ser posterior a la fecha de inicio");
+                     return false;
+                }
+             }
+
+             return true;
+
+         }
+
+        function fnc_OcultarDivs(sender)
+        {
+             $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
+             $("#<%= divEdicion.ClientID %>").css("display", "none");
+             return false;
+         }
+
+        function fnc_ocultarDivDatosConvenio()
+        {
+             var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
+
+            switch (valorseleccionado)
+            {
+                case "2":
+
+                    $("#divDatosConvenio").css("display", "block");
+                    break;
+
+                default:
+
+                    $("#divDatosConvenio").css("display", "none");
+                    break;
+            }
+        }
+
+        function fnc_ocultarDivObraAnterior()
+        {
+
+            var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
+
+            switch (valorseleccionado)
+            {
+                case "0":
+                    $("#divDatosObraAnterior").css("display", "none");
+                    break;
+                case "1":
+                    $("#divDatosObraAnterior").css("display", "none");
+                    break;
+                default:
+                    $("#divDatosObraAnterior").css("display", "block");
+                    break;
+            }
+        }
+
+
+        function fnc_EjecutarMensaje(mensaje) {
+            alert(mensaje);
+        }
+
+        function fnc_IrDesdeGrid(url) {
+            $(location).attr('href', url);
+        }
+
+        function IsDate(dateString) {
+            date = new Date(dateString);
+            return date instanceof Date && !isNaN(date.valueOf());
+        }
+
+        function fnc_RecuperarValoresEnCamposDeshabilitados()
+        {
+            $("#<%= hiddenSituacionObraId.ClientID %>").val($("#<%= ddlSituacionObra.ClientID   %> option:selected").val());
+        }
+
+
+    </script>
 
 
 

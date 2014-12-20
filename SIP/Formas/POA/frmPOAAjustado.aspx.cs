@@ -35,28 +35,22 @@ namespace SIP.Formas.POA
                 Ejercicio ejercicio = uow.EjercicioBusinessLogic.GetByID(ejercicioId); 
 
                 lblTituloPOA.Text = String.Format("{0}<br />Proyecto de POA ajustado en el ejercicio {1}",up.Nombre,ejercicio.Año);
-
-                //BindGrid();
-
+                
                 BindearDropDownList();
-
+              
             }
 
         }
 
 
-        //private void BindGrid()
-        //{
-
-        //    unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
-        //    ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
-
-        //    this.GridViewObras.DataSource = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId,orderBy:r=>r.OrderBy(ro=>ro.Numero)).ToList();
-        //    this.GridViewObras.DataBind();
-        //}
-
         public void BindControles(Obra obra)
         {
+            //restablecer previamente controles dropdownlist
+
+            cddlFuncionalidadNivel1.SelectedValue = String.Empty;
+            ddlEje.SelectedIndex = -1;
+
+
 
             txtNumero.Value = obra.Numero;
             txtDescripcion.Value = obra.Descripcion;
@@ -173,8 +167,6 @@ namespace SIP.Formas.POA
             cddlFuncionalidadNivel2.SelectedValue = String.Empty;
             cddlFuncionalidadNivel3.SelectedValue = String.Empty;
 
-            //cddlEjePVD1.SelectedValue = String.Empty;
-            //cddlEjePVD2.SelectedValue = String.Empty;
 
             ddlPlanSectorial.SelectedIndex = -1;
 
@@ -210,6 +202,7 @@ namespace SIP.Formas.POA
 
             ClientScript.RegisterStartupScript(this.GetType(), "script01", "fnc_ocultarDivDatosConvenio();", true);
             ClientScript.RegisterStartupScript(this.GetType(), "script02", "fnc_ocultarDivObraAnterior();", true);
+            ClientScript.RegisterStartupScript(this.GetType(), "script03", "fnc_RecuperarValoresEnCamposDeshabilitados();", true);
 
         }
 
@@ -289,6 +282,22 @@ namespace SIP.Formas.POA
             obra.MunicipioId = Utilerias.StrToInt(ddlMunicipio.SelectedValue);
             obra.LocalidadId = Utilerias.StrToInt(ddlLocalidad.SelectedValue);            
             obra.CriterioPriorizacionId = Utilerias.StrToInt(ddlCriterioPriorizacion.SelectedValue);
+
+            //Garantizar que se limpie correctamente el campo Nombre del Convenio
+
+            switch (obra.CriterioPriorizacionId)
+            {
+                case 2:
+
+                    break;
+
+                default:
+
+                    txtNombreConvenio.Value = String.Empty;
+                    break;
+            }
+
+
             obra.Convenio = txtNombreConvenio.Value;
             obra.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             obra.AperturaProgramaticaMetaId = null;
@@ -298,16 +307,49 @@ namespace SIP.Formas.POA
             obra.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString());
             obra.Jornales = Utilerias.StrToInt(txtJornales.Value.ToString());
 
-            obra.FuncionalidadId = Utilerias.StrToInt(ddlSubFuncion.SelectedValue);            
-            obra.EjeId = Utilerias.StrToInt(ddlEje.SelectedValue);
-            obra.PlanSectorialId = Utilerias.StrToInt(ddlPlanSectorial.SelectedValue);
-            obra.ModalidadId = Utilerias.StrToInt(ddlModalidadElemento.SelectedValue);
-            obra.ProgramaId = Utilerias.StrToInt(ddlProgramaPresupuesto.SelectedValue);
-            obra.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
+            obra.FuncionalidadId = null;
+            obra.EjeId = null;
+            obra.PlanSectorialId = null;
+            obra.ModalidadId = null;
+            obra.ProgramaId = null;
+            obra.GrupoBeneficiarioId = null;
+
+
+            if (ddlSubFuncion.SelectedIndex > 0) 
+            {
+                obra.FuncionalidadId = Utilerias.StrToInt(ddlSubFuncion.SelectedValue);
+            }
+
+            if (ddlEje.SelectedIndex > 0) 
+            {
+                obra.EjeId = Utilerias.StrToInt(ddlEje.SelectedValue);
+            }
+
+            if (ddlPlanSectorial.SelectedIndex > 0) 
+            {
+                obra.PlanSectorialId = Utilerias.StrToInt(ddlPlanSectorial.SelectedValue);
+            }
+
+            if (ddlModalidadElemento.SelectedIndex > 0) 
+            {
+                obra.ModalidadId = Utilerias.StrToInt(ddlModalidadElemento.SelectedValue);
+            }
+
+            if (ddlProgramaPresupuesto.SelectedIndex > 0) 
+            {
+                obra.ProgramaId = Utilerias.StrToInt(ddlProgramaPresupuesto.SelectedValue);
+            }
+
+            if (ddlGrupoBeneficiario.SelectedIndex > 0) 
+            {
+                obra.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
+            }
+            
+            
 
             
-            //Tomamos el valor de un campo oculto, esto fue necesario porque bloqueamos el campo <Situacion de la obra>
-            obra.SituacionObraId = Utilerias.StrToInt(hiddenSituacionObraId.Value);
+            //Tomamos el valor de un campo oculto, esto fue necesario porque deshabilitamos el campo <Situacion de la obra>
+            obra.SituacionObraId = Utilerias.StrToInt(hiddenSituacionObraId.Value);           
             obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);  
             obra.Observaciones = txtObservaciones.InnerText;
            

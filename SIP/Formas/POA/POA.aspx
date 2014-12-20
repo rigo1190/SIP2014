@@ -54,6 +54,7 @@
                  return false;
              });
 
+
              $("#<%= ddlSituacionObra.ClientID   %>").change(function (e) {
                                 
                  var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
@@ -98,9 +99,6 @@
 
 
              });
-
-
-
              
 
 
@@ -130,6 +128,12 @@
                  return false;
              }
 
+             var criteriopriorizacion = $("#<%= ddlCriterioPriorizacion.ClientID %>").val();
+             if (criteriopriorizacion == null || criteriopriorizacion.length == 0 || criteriopriorizacion == undefined) {
+                 alert("Debe indicar el criterio de priorización");
+                 return false;
+             }
+
              var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
                  alert("Debe indicar el tipo de la apertura programatica");
@@ -154,11 +158,11 @@
                  return false;
              }
 
-             var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
+            <%-- var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
              if (modalidad == null || modalidad.length == 0 || modalidad == undefined || modalidad == 0) {
                  alert("Debe indicar la modalidad de la obra");
                  return false;
-             }
+             }--%>
 
              var importetotal = $("#<%=txtImporteTotal.ClientID%>").val();
              if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
@@ -172,41 +176,41 @@
                  return false;
              }          
 
-             var subfuncion = $("#<%= ddlSubFuncion.ClientID %>").val();
+            <%-- var subfuncion = $("#<%= ddlSubFuncion.ClientID %>").val();
              if (subfuncion == null || subfuncion.length == 0 || subfuncion == undefined || subfuncion == 0) {
                  alert("Debe indicar la funcionalidad de la obra");
                  return false;
-             }
+             }--%>
 
-             var eje = $("#<%= ddlEje.ClientID %>").val();
+             <%--var eje = $("#<%= ddlEje.ClientID %>").val();
              if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
                  alert("Debe indicar el <Eje del Plan de Desarrollo Veracruzano>");
                  return false;
-             }
+             }--%>
 
-             var eje = $("#<%= ddlPlanSectorial.ClientID %>").val();
+            <%-- var eje = $("#<%= ddlPlanSectorial.ClientID %>").val();
              if (eje == null || eje.length == 0 || eje == undefined || eje == 0) {
                  alert("Debe indicar el <Plan sectorial> correspondiente");
                  return false;
-             }
+             }--%>
 
-             var clasificacionCONAC = $("#<%= ddlModalidadElemento.ClientID %>").val();
+            <%-- var clasificacionCONAC = $("#<%= ddlModalidadElemento.ClientID %>").val();
              if (clasificacionCONAC == null || clasificacionCONAC.length == 0 || clasificacionCONAC == undefined || clasificacionCONAC == 0) {
                  alert("Debe indicar la <Clasificación programática del CONAC> correspondiente");
                  return false;
-             }
+             }--%>
 
-             var programaPresupuestal = $("#<%= ddlProgramaPresupuesto.ClientID %>").val();
+            <%-- var programaPresupuestal = $("#<%= ddlProgramaPresupuesto.ClientID %>").val();
              if (programaPresupuestal == null || programaPresupuestal.length == 0 || programaPresupuestal == undefined || programaPresupuestal == 0) {
                  alert("Debe indicar el <Programa presupuestal> correspondiente");
                  return false;
-             }
+             }--%>
 
-             var grupoBeneficiario = $("#<%= ddlGrupoBeneficiario.ClientID %>").val();
+            <%-- var grupoBeneficiario = $("#<%= ddlGrupoBeneficiario.ClientID %>").val();
              if (grupoBeneficiario == null || grupoBeneficiario.length == 0 || grupoBeneficiario == undefined || grupoBeneficiario == 0) {
                  alert("Debe indicar el <Grupo de Beneficiarios> correspondiente");
                  return false;
-             }
+             }--%>
              
              
              return true;
@@ -260,7 +264,8 @@
              }
         }
 
-        function fnc_IrDesdeGrid(url) {
+        function fnc_IrDesdeGrid(url)
+        {
             $(location).attr('href', url);
         }
              
@@ -276,8 +281,17 @@
        
         <div class="page-header"><h3><asp:Label ID="lblTituloPOA" runat="server" Text=""></asp:Label></h3></div>
 
-        <div class="panel-footer alert alert-danger" id="divMsg" style="display:none" runat="server">
-           <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4 text-right">
+                <a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-right"></span> <strong>asignar financiamientos</strong></a>
+            </div>
+        </div>        
+        <br />
+
+        <div class="alert alert-danger" id="divMsg" style="display:none" runat="server">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong><asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label></strong>
         </div>
 
         <div class="panel-footer alert alert-success" id="divResumen" style="display:block">
@@ -326,227 +340,225 @@
             </ul>
 
             <div class="tab-content">
-
                 
                 
-                <div class="tab-pane active" id="datosgenerales">
+              <div class="tab-pane active" id="datosgenerales">
 
                      <div class="row">
 
-                     <br />   
+                        <br />   
 
+                         <div class="col-md-4">
 
-                 <div class="col-md-4">
-
-                      <div class="form-group">
-                           <label for="Numero">Número</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control" id="txtNumero" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled"/>                           
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="Descripcion">Descripción</label>
-                         <div>
-                            <textarea id="txtDescripcion" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" autofocus></textarea>
-                        </div>
-                      </div>
-                   
-                     <div class="form-group">
-                           <label for="Municipio">Municipio</label>
-                         <div>
-                             <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlMunicipio" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetMunicipios" 
-                                 TargetControlID="ddlMunicipio" Category="municipioId"
-                                 PromptText="Seleccione el Municipio..." LoadingText="Loading..."/>                           
-                            
-                        </div>
-                      </div>
-
-                     <div class="form-group">
-                           <label for="Localidad">Localidad</label>
-                         <div>
-                             <asp:DropDownList ID="ddlLocalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlLocalidad" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetLocalidades" 
-                                 TargetControlID="ddlLocalidad" ParentControlID="ddlMunicipio" Category="localidadId"
-                                 PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
-                                                     
-                        </div>
-                      </div>
-
-
-                   <%--  <div class="form-group">
-                           <label for="TipoLocalidad">Tipo de localidad</label>
-                         <div>
-                             <asp:DropDownList ID="ddlTipoLocalidad" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>--%>
-
-                     <div class="form-group">
-                           <label for="ddlCriterioPriorizacion">Criterio de priorización</label>
-                         <div>
-                             <asp:DropDownList ID="ddlCriterioPriorizacion" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                     </div>
-
-                     <div style="display:none" id="divDatosConvenio">
-
-                            <div class="form-group">
-                                <label for="NombreConvenio">Nombre del convenio</label>
-                                <div>
-                                    <textarea id="txtNombreConvenio" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="2" ></textarea>
+                              <div class="form-group">
+                                   <label for="Numero">Número</label>
+                                 <div>
+                                    <input type="text" class="input-sm required form-control" id="txtNumero" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" disabled="disabled"/>                           
                                 </div>
-                            </div>    
+                              </div>
 
-                      </div><!--divDatosConvenio-->
+                             <div class="form-group">
+                                   <label for="Descripcion">Descripción</label>
+                                 <div>
+                                    <textarea id="txtDescripcion" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="3" autofocus></textarea>
+                                </div>
+                              </div>
+                   
+                             <div class="form-group">
+                                   <label for="Municipio">Municipio</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlMunicipio" CssClass="form-control" runat="server"></asp:DropDownList>
+                                     <ajaxToolkit:CascadingDropDown ID="cddlMunicipio" runat="server" 
+                                         ServicePath="WebServicePOA.asmx" ServiceMethod="GetMunicipios" 
+                                         TargetControlID="ddlMunicipio" Category="municipioId"
+                                         PromptText="Seleccione el Municipio..." LoadingText="Loading..."/>                           
+                            
+                                </div>
+                              </div>
+
+                             <div class="form-group">
+                                   <label for="Localidad">Localidad</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlLocalidad" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                     <ajaxToolkit:CascadingDropDown ID="cddlLocalidad" runat="server" 
+                                         ServicePath="WebServicePOA.asmx" ServiceMethod="GetLocalidades" 
+                                         TargetControlID="ddlLocalidad" ParentControlID="ddlMunicipio" Category="localidadId"
+                                         PromptText="Seleccione la localidad..." LoadingText="Loading..."/>                 
+                                                     
+                                </div>
+                              </div>
+
+
+                           <%--  <div class="form-group">
+                                   <label for="TipoLocalidad">Tipo de localidad</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlTipoLocalidad" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                              </div>--%>
+
+                             <div class="form-group">
+                                   <label for="ddlCriterioPriorizacion">Criterio de priorización</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlCriterioPriorizacion" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                             </div>
+
+                             <div style="display:none" id="divDatosConvenio">
+
+                                    <div class="form-group">
+                                        <label for="NombreConvenio">Nombre del convenio</label>
+                                        <div>
+                                            <textarea id="txtNombreConvenio" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="2" ></textarea>
+                                        </div>
+                                    </div>    
+
+                              </div><!--divDatosConvenio-->
 
                      
-                 </div>
+                         </div><!--col-md-4-->
 
-                 <div class="col-md-4">
+                         <div class="col-md-4">
 
-                      <div class="form-group">
-                           <label for="Programa">Programa</label>
-                         <div>
-                             <asp:DropDownList ID="ddlPrograma" CssClass="form-control" runat="server"></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlPrograma" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetProgramas" 
-                                 TargetControlID="ddlPrograma" Category="programaId"
-                                 PromptText="Seleccione el programa..." LoadingText="Loading..."/>                           
+                              <div class="form-group">
+                                   <label for="Programa">Programa</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlPrograma" CssClass="form-control" runat="server"></asp:DropDownList>
+                                     <ajaxToolkit:CascadingDropDown ID="cddlPrograma" runat="server" 
+                                         ServicePath="WebServicePOA.asmx" ServiceMethod="GetProgramas" 
+                                         TargetControlID="ddlPrograma" Category="programaId"
+                                         PromptText="Seleccione el programa..." LoadingText="Loading..."/>                           
                             
-                        </div>
-                      </div>
+                                </div>
+                              </div>
 
-                      <div class="form-group">
-                           <label for="SubPrograma">SubPrograma</label>
-                         <div>
-                             <asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlSubprograma" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubProgramas" 
-                                 TargetControlID="ddlSubprograma" ParentControlID="ddlPrograma" Category="subprogramaId"
-                                 PromptText="Seleccione el subprograma..." LoadingText="Loading..."/>                 
+                              <div class="form-group">
+                                   <label for="SubPrograma">SubPrograma</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlSubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                     <ajaxToolkit:CascadingDropDown ID="cddlSubprograma" runat="server" 
+                                         ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubProgramas" 
+                                         TargetControlID="ddlSubprograma" ParentControlID="ddlPrograma" Category="subprogramaId"
+                                         PromptText="Seleccione el subprograma..." LoadingText="Loading..."/>                 
                                                      
-                        </div>
-                      </div>
+                                </div>
+                              </div>
 
-                       <div class="form-group">
-                           <label for="SubSubPrograma">SubSubPrograma</label>
-                         <div>
-                             <asp:DropDownList ID="ddlSubsubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
-                             <ajaxToolkit:CascadingDropDown ID="cddlSubsubprograma" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubSubProgramas" 
-                                 TargetControlID="ddlSubsubprograma" ParentControlID="ddlSubprograma" Category="subsubprogramaId"
-                                 PromptText="Seleccione el subsubprograma..." LoadingText="Loading..."/>              
+                               <div class="form-group">
+                                   <label for="SubSubPrograma">SubSubPrograma</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlSubsubprograma" CssClass="form-control" runat="server" ></asp:DropDownList>
+                                     <ajaxToolkit:CascadingDropDown ID="cddlSubsubprograma" runat="server" 
+                                         ServicePath="WebServicePOA.asmx" ServiceMethod="GetSubSubProgramas" 
+                                         TargetControlID="ddlSubsubprograma" ParentControlID="ddlSubprograma" Category="subsubprogramaId"
+                                         PromptText="Seleccione el subsubprograma..." LoadingText="Loading..."/>              
                              
-                        </div>
-                      </div>
+                                </div>
+                              </div>
 
-                       <div class="form-group" style="display:none">
-                           <label for="Metas">Metas</label>
-                         <div>
-                             <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
-                              <ajaxToolkit:CascadingDropDown ID="cddlMeta" runat="server" 
-                                 ServicePath="WebServicePOA.asmx" ServiceMethod="GetMetas" 
-                                 TargetControlID="ddlMeta" ParentControlID="ddlSubsubprograma" Category="metaId"
-                                 PromptText="Seleccione la meta..." LoadingText="Loading..."/>
+                               <div class="form-group" style="display:none">
+                                   <label for="Metas">Metas</label>
+                                 <div>
+                                     <asp:DropDownList ID="ddlMeta" CssClass="form-control" runat="server"></asp:DropDownList>
+                                      <ajaxToolkit:CascadingDropDown ID="cddlMeta" runat="server" 
+                                         ServicePath="WebServicePOA.asmx" ServiceMethod="GetMetas" 
+                                         TargetControlID="ddlMeta" ParentControlID="ddlSubsubprograma" Category="metaId"
+                                         PromptText="Seleccione la meta..." LoadingText="Loading..."/>
                            
-                        </div>
-                      </div>
+                                </div>
+                              </div>
 
-                     <div class="form-group">
-                           <label for="UnidadMedida">Unidad de medida</label>
-                         <div>
-                              <asp:DropDownList ID="ddlUnidadMedida" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
+                             <div class="form-group">
+                                   <label for="UnidadMedida">Unidad de medida</label>
+                                 <div>
+                                      <asp:DropDownList ID="ddlUnidadMedida" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                              </div>
 
-                      <div class="form-group">
-                           <label for="NumeroBeneficiarios">Número de beneficiarios</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
-                        </div>
-                      </div>
+                              <div class="form-group">
+                                   <label for="NumeroBeneficiarios">Número de beneficiarios</label>
+                                 <div>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
+                                </div>
+                              </div>
 
-                       <div class="form-group">
-                           <label for="CantidadUnidades">Cantidad de unidades</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
-                        </div>
-                      </div>
+                               <div class="form-group">
+                                   <label for="CantidadUnidades">Cantidad de unidades</label>
+                                 <div>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
+                                </div>
+                              </div>
 
-                     <div class="form-group">
-                           <label for="Empleos">Empleos</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
-                        </div>
-                      </div>
+                             <div class="form-group">
+                                   <label for="Empleos">Empleos</label>
+                                 <div>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
+                                </div>
+                              </div>
 
-                     <div class="form-group">
-                           <label for="Jornales">Jornales</label>
-                         <div>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
-                        </div>
-                      </div>
+                             <div class="form-group">
+                                   <label for="Jornales">Jornales</label>
+                                 <div>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
+                                </div>
+                              </div>
 
 
-                  </div>
+                          </div><!--col-md-4-->
 
-                 <div class="col-md-4">
+                         <div class="col-md-4">
 
-                      <div class="form-group">
-                           <label for="SituacionObra">Situación</label>
-                         <div>
-                              <asp:DropDownList ID="ddlSituacionObra" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
+                              <div class="form-group">
+                                   <label for="SituacionObra">Situación</label>
+                                 <div>
+                                      <asp:DropDownList ID="ddlSituacionObra" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                              </div>
 
-                      <div style="display:none" id="divDatosObraAnterior">
+                              <div style="display:none" id="divDatosObraAnterior">
 
-                          <div class="form-group">
-                            <label for="Numero">Número anterior</label>
-                            <div>
-                                <input type="text" class="input-sm required form-control" id="txtNumeroAnterior" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" />                           
-                            </div>
-                          </div>
+                                  <div class="form-group">
+                                    <label for="Numero">Número anterior</label>
+                                    <div>
+                                        <input type="text" class="input-sm required form-control" id="txtNumeroAnterior" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" />                           
+                                    </div>
+                                  </div>
 
-                          <div class="form-group">
-                               <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
-                             <div class="input-group">
-                                <span class="input-group-addon">$</span>
-                                <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" />
-                            </div>
-                          </div>
+                                  <div class="form-group">
+                                       <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
+                                     <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" />
+                                    </div>
+                                  </div>
 
-                      </div><!--divDatosObraAnterior-->
+                              </div><!--divDatosObraAnterior-->
 
-                     <div class="form-group">
-                           <label for="txtImporteTotal">Costo estimado</label>
-                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
-                        </div>
-                      </div>
+                             <div class="form-group">
+                                   <label for="txtImporteTotal">Costo estimado</label>
+                                 <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
+                                </div>
+                              </div>
 
-                     <div class="form-group">
-                           <label for="ModalidadObra">Modalidad de ejecución</label>
-                         <div>
-                              <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
-                        </div>
-                      </div>
+                             <div class="form-group">
+                                   <label for="ModalidadObra">Modalidad de ejecución</label>
+                                 <div>
+                                      <asp:DropDownList ID="ddlModalidad" CssClass="form-control" runat="server"></asp:DropDownList>
+                                </div>
+                              </div>
 
-                     <div class="form-group">
-                           <label for="Observaciones">Observaciones</label>
-                         <div>
-                            <textarea id="txtObservaciones" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="4"></textarea>
-                        </div>
-                      </div>
+                             <div class="form-group">
+                                   <label for="Observaciones">Observaciones</label>
+                                 <div>
+                                    <textarea id="txtObservaciones" class="input-sm required form-control" runat="server" style="text-align: left; align-items:flex-start" rows="4"></textarea>
+                                </div>
+                              </div>
 
-                 </div>
+                         </div><!--col-md-4-->
                 
 
-            </div>
+                    </div><!--row-->
 
                 </div><!--datosgenerales-->
 

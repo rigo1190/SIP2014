@@ -21,6 +21,8 @@ namespace SIP.Formas.Catalogos
                 divEdicion.Style.Add("display", "none");
                 BindGrid();
 
+                Utilerias.BindDropDownToEnum(ddlEstatus, typeof(enumEstatusEjercicio));
+
             }
         }
 
@@ -38,10 +40,9 @@ namespace SIP.Formas.Catalogos
 
         private void BindControles(Ejercicio obj)
         {
-            txtAnio.Value = obj.Año.ToString();
-            //chkActivo.Checked = obj.Activo;
+            txtAnio.Value = obj.Año.ToString();         
+            ddlEstatus.SelectedValue = ((int)obj.Estatus).ToString();
         }
-
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
@@ -49,7 +50,9 @@ namespace SIP.Formas.Catalogos
             divBtnNuevo.Style.Add("display", "none");
             divMsg.Style.Add("display", "none");
             Utilerias.LimpiarCampos(this);
-            chkActivo.Checked = false;
+            //chkActivo.Checked = false;
+            ddlEstatus.SelectedIndex = -1;
+
             _Accion.Text = "N"; //Se cambia el estado de la forma a crear un NUEVo registro
 
             List<Ejercicio> lista = uow.EjercicioBusinessLogic.Get().ToList();
@@ -77,7 +80,10 @@ namespace SIP.Formas.Catalogos
            }
 
             obj.Año = Utilerias.StrToInt(txtAnio.Value);
-            obj.Estatus = enumEstatusEjercicio.Nuevo;
+            //obj.Estatus = enumEstatusEjercicio.Nuevo;
+
+            obj.Estatus = (enumEstatusEjercicio)Convert.ToInt32(ddlEstatus.SelectedValue);
+
 
             //Se almacena el objeto
             if (_Accion.Text.Equals("N")) //Si el estado de la forma es crear un NUEVo registro
@@ -102,7 +108,7 @@ namespace SIP.Formas.Catalogos
             lblMensajes.ForeColor = System.Drawing.Color.Black;
             //Se limpian los controles
             txtAnio.Value = string.Empty;
-            chkActivo.Checked = false;
+            //chkActivo.Checked = false;
 
             BindGrid();  //Se bindean los datos 
             divEdicion.Style.Add("display", "none");

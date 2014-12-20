@@ -1,6 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="Ejercicios.aspx.cs" Inherits="SIP.Formas.Catalogos.Ejercicios" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <script type="text/javascript">
+
+
+        $(document).ready(function ()
+        {
+            $('.campoNumerico').autoNumeric('init');
+        });
 
         function fnc_OcultarDivs(sender) {
             $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
@@ -14,6 +21,7 @@
         }
 
     </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container">
@@ -44,9 +52,9 @@
                                             <asp:Label ID="Label1" runat="server" Text='<%# Bind("Año") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Activo" SortExpression="Orden">
+                                    <asp:TemplateField HeaderText="Estatus" SortExpression="Orden">
                                         <ItemTemplate>
-                                            <asp:Label ID="lblActivo" runat="server" Text='<%# Bind("Activo") %>'></asp:Label>
+                                            <asp:Label ID="lblActivo" runat="server" Text='<%# Bind("Estatus") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     
@@ -60,24 +68,64 @@
                         </div>
                          <div class="row"> 
                             <div id="divEdicion" runat="server" class="panel-footer">
-                                <div class="row top-buffer">
+
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                         <div class="form-group">
+                                         <label for="Anio">Año</label>
+                                         <div>
+                                            <input type="text" class="input-sm required form-control campoNumerico" id="txtAnio" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"  data-m-dec="0" data-a-sep="" />
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAnio" ErrorMessage="El campo AÑO no puede quedar en blanco." ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                                            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtAnio" ErrorMessage="El campo AÑO debe estar en un rango de 2015-N" MaximumValue="2030" MinimumValue="2015" Type="Integer" ValidationGroup="validateX">*</asp:RangeValidator>                         
+                                        </div>
+                                    </div>
+
+                                  <div class="form-group">
+                                     <label for="Estatus">Estatus</label>
+                                     <div>
+                                        <asp:DropDownList ID="ddlEstatus" CssClass="form-control" runat="server"></asp:DropDownList>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlEstatus" ErrorMessage="Especifique el estatus del ejercicio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                                         <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="ddlEstatus" ErrorMessage="Especifique el estatus del ejercicio" MaximumValue="3" MinimumValue="1" Type="Integer" ValidationGroup="validateX">*</asp:RangeValidator>                         
+                                    </div>
+                                  </div>
+
+
+
+
+                                    </div>
+                                    
+                                   
+
+                                </div><!-- row -->
+
+
+                                <%--<div class="row top-buffer">
                                     <div class="col-md-2">
                                         <label for="Año">Año</label>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control input-sm required numeric" id="txtAnio" runat="server" style="text-align: left; width:500px; align-items:flex-start" />
+                                        <input type="text" class="input-sm required form-control campoNumerico" id="txtAnio" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="9999"  data-m-dec="0" data-a-sep="" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAnio" ErrorMessage="El campo AÑO no puede quedar en blanco." ValidationGroup="validateX">*</asp:RequiredFieldValidator>
                                         <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtAnio" ErrorMessage="El campo AÑO debe estar en un rango de 2015-N" MaximumValue="2030" MinimumValue="2015" Type="Integer" ValidationGroup="validateX">*</asp:RangeValidator>
                                     </div>
-                                </div>
-                                <div class="row top-buffer">
+                                </div>--%>
+
+                                <%--<div class="row top-buffer">
                                      <div class="col-md-2">
-                                        <p class="text-right"><strong>Activo</strong></p>
+                                        <p class="text-right"><strong>Estatus</strong></p>
                                     </div>
                                     <div class="col-md-6">
                                         <asp:CheckBox ID="chkActivo" runat="server" Font-Bold="True"/>
+                                        <div>
+                                            <asp:DropDownList ID="ddlEstatus" CssClass="form-control" runat="server"></asp:DropDownList>
+                                        </div>
                                     </div>
-                                </div>
+                                </div>--%>
+
                                  <div class="form-group">
                                     <asp:Button  CssClass="btn btn-default" Text="Guardar" ID="btnCrear" runat="server" OnClick="btnCrear_Click" AutoPostBack="false" ValidationGroup="validateX" />
                                     <asp:Button  CssClass="btn btn-default" Text="Cancelar" ID="btnCancelar" runat="server" OnClientClick="return fnc_OcultarDivs()" AutoPostBack="false" />

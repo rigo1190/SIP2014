@@ -9,11 +9,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-using System.Data.OleDb;
-using System.Data;
 
-using System.IO;
-using ClosedXML.Excel;
+
+
 
 
 
@@ -150,77 +148,12 @@ namespace SIP.Formas.ControlFinanciero
 
 
 
-        public static DataTable selectExcel(string Arch, string Hoja)
-        {
-
-            OleDbConnection Conex = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Arch + ";Extended Properties=Excel 12.0;");
-
-            OleDbCommand CmdOle = new OleDbCommand();
-
-            CmdOle.Connection = Conex;
-            CmdOle.CommandType = CommandType.Text;
-            CmdOle.CommandText = "SELECT * FROM [" + Hoja + "$A6:DF100]";
-
-            OleDbDataAdapter AdaptadorOle = new OleDbDataAdapter(CmdOle.CommandText, Conex);
-
-            DataTable dt = new DataTable();
-
-            AdaptadorOle.Fill(dt);
-
-            return dt;
-        }
+        
 
         protected void btnCargarConceptosDeObra_Click(object sender, EventArgs e)
         {
             
-            //List<string> R = new List<string>();
-            string R;
-            
-            if (!fileUpload.PostedFile.FileName.Equals(string.Empty))//Se tiene que almacenar el archivo adjunto, si es que se cargo uno
-            {
-                if (fileUpload.FileBytes.Length > 10485296)//Validar el tamaño del archivo
-                {
-                                 return;
-                }
-
-
-
-                R = GuardarArchivo(fileUpload.PostedFile); //Se guarda el archivo
-
-
-
-                if (R != "error")
-                {
-
-
-                    var wb = new XLWorkbook(R);
-                    var ws = wb.Worksheet(1);
-                    var firstRowUsed = ws.FirstRowUsed();
-                    var lastRowUsed = ws.LastRowUsed();
-                    var rows = firstRowUsed.RowUsed();
-
-
-                    string cad = "";
-
-                    int nregistros = lastRowUsed.RowNumber() - firstRowUsed.RowNumber();
-
-                    nregistros++;
-
-                    while (nregistros > 0)
-                    {
-
-                        cad += rows.Cell("A").GetString();
-
-                        rows = rows.RowBelow();
-                        nregistros--;
-                    }
-
-                    txtcontenido.Value = cad;
-
-                }
-
-                
-            }
+        
 
 
 
@@ -233,50 +166,7 @@ namespace SIP.Formas.ControlFinanciero
 
 
 
-        private string GuardarArchivo(HttpPostedFile postedFile)
-        {
-
-            //string M = string.Empty;
-            //List<string> R = new List<string>();
-
-            string ruta = string.Empty;
-
-            
-            try
-            {
-
-                ruta = System.Configuration.ConfigurationManager.AppSettings["ArchivosControlFinanciero"]; //Se recupera nombre de la carpeta del archivo WEB.CONFIG
-
-                if (!ruta.EndsWith("/"))
-                    ruta += "/";
-
-                //ruta += idPregunta.ToString() + "/"; //Se asigna el ID de la Pregunta
-
-                if (ruta.StartsWith("~") || ruta.StartsWith("/"))   //Es una ruta relativa al sitio
-                    ruta = Server.MapPath(ruta);
-
-
-                if (!Directory.Exists(ruta))
-                    Directory.CreateDirectory(ruta); //Se crea la carpeta
-
-                ruta += postedFile.FileName;
-
-                postedFile.SaveAs(ruta); //Se guarda el archivo
-
-            }
-            catch (Exception ex)
-            {
-                //M = ex.Message;
-                ruta = "error";
-            }
-
-            //R.Add(M);
-            //R.Add(ruta);
-            //return R;
-
-            return ruta;
-
-        }
+        
 
 
 

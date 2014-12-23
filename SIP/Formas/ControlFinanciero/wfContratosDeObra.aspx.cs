@@ -63,14 +63,20 @@ namespace SIP.Formas.ControlFinanciero
                 {
                     ContratosDeObra contrato = uow.ContratosDeObraBL.Get(p => p.ObraId == idObra).First();
                     linkContrato.InnerText = contrato.NumeroDeContrato;
+
+                    if (obra.StatusControlFinanciero > 1)
+                        linkPresupuesto.InnerText = contrato.Total.ToString("C2");
+                    else
+                        linkPresupuesto.InnerText = "Pendiente";
                 }
                 else
                 {
                     linkContrato.InnerText = "Pendiente";
+                    linkPresupuesto.InnerText = "Pendiente";
                 }
 
 
-                linkPresupuesto.InnerText = "...";
+                
 
 
                 divContrato.Controls.Add(linkContrato);

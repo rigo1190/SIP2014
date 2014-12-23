@@ -181,6 +181,8 @@ namespace SIP.Formas.POA
             divMsg.Style.Add("display", "none");
             _Accion.Text = "N";
 
+            ClientScript.RegisterStartupScript(this.GetType(), "script04", "fnc_DeshabilitarSituacionObra(true);", true);
+
         }
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
@@ -302,10 +304,10 @@ namespace SIP.Formas.POA
             obra.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             obra.AperturaProgramaticaMetaId = null;
             obra.AperturaProgramaticaUnidadId = Utilerias.StrToInt(ddlUnidadMedida.SelectedValue);
-            obra.NumeroBeneficiarios = Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString());
-            obra.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString());
-            obra.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString());
-            obra.Jornales = Utilerias.StrToInt(txtJornales.Value.ToString());
+            obra.NumeroBeneficiarios = Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString().Replace(",",null));
+            obra.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString().Replace(",", null));
+            obra.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString().Replace(",", null));
+            obra.Jornales = Utilerias.StrToInt(txtJornales.Value.ToString().Replace(",", null));
 
             obra.FuncionalidadId = null;
             obra.EjeId = null;
@@ -345,11 +347,12 @@ namespace SIP.Formas.POA
                 obra.GrupoBeneficiarioId = Utilerias.StrToInt(ddlGrupoBeneficiario.SelectedValue);
             }
             
-            
 
-            
             //Tomamos el valor de un campo oculto, esto fue necesario porque deshabilitamos el campo <Situacion de la obra>
-            obra.SituacionObraId = Utilerias.StrToInt(hiddenSituacionObraId.Value);           
+            obra.SituacionObraId = Utilerias.StrToInt(hiddenSituacionObraId.Value);
+            obra.NumeroAnterior = txtNumeroAnterior.Value;
+            obra.ImporteLiberadoEjerciciosAnteriores = Utilerias.StrToDecimal(txtImporteLiberadoEjerciciosAnteriores.Value.ToString());
+           
             obra.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);  
             obra.Observaciones = txtObservaciones.InnerText;
            
@@ -373,7 +376,7 @@ namespace SIP.Formas.POA
                 poadetalle.Numero = obra.Numero;
                 poadetalle.Descripcion = obra.Descripcion;
                 poadetalle.MunicipioId = obra.MunicipioId;
-                poadetalle.Localidad = obra.Localidad;                
+                poadetalle.LocalidadId = obra.LocalidadId;                
                 poadetalle.CriterioPriorizacionId = obra.CriterioPriorizacionId;
                 poadetalle.Convenio = obra.Convenio;
                 poadetalle.AperturaProgramaticaId = obra.AperturaProgramaticaId;
@@ -393,6 +396,8 @@ namespace SIP.Formas.POA
 
 
                 poadetalle.SituacionObraId = obra.SituacionObraId;
+                poadetalle.NumeroAnterior = obra.NumeroAnterior;
+                poadetalle.ImporteLiberadoEjerciciosAnteriores = obra.ImporteLiberadoEjerciciosAnteriores;
                 poadetalle.ModalidadObra = obra.ModalidadObra;               
                 poadetalle.Observaciones = obra.Observaciones;
                 poadetalle.Extemporanea = true;

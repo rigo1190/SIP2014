@@ -64,7 +64,7 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
         </asp:GridView>
 
         <div id="divBtnNuevo" runat="server" style="display:block">
-              <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
+              <asp:Button ID="btnNuevo" runat="server" Text="Nuevo" CssClass="btn btn-default" OnClick="btnNuevo_Click" OnClientClick="fnc_RecuperarValoresEnCamposDeshabilitados();" AutoPostBack="false" />
          </div>
     
         <div id="divEdicion" runat="server" class="panel-footer" style="display:none">
@@ -277,7 +277,7 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                                    <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
                                  <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled"/>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" disabled="disabled" autocomplete="off" />
                                 </div>
                               </div>
 
@@ -568,6 +568,32 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
              });
 
 
+            $("#<%= ddlSituacionObra.ClientID   %>").change(function (e) {
+
+                var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
+
+                $("#<%= hiddenSituacionObraId.ClientID %>").val(valorseleccionado);
+
+                 switch (valorseleccionado) {
+                     case "0":
+                         $("#divDatosObraAnterior").css("display", "none");
+                         $("#<%= txtNumeroAnterior.ClientID %>").val("");
+                         $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
+                         break;
+                     case "1":
+                         $("#divDatosObraAnterior").css("display", "none");
+                         $("#<%= txtNumeroAnterior.ClientID %>").val("");
+                         $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
+                         break;
+                     default:
+                         $("#divDatosObraAnterior").css("display", "block");
+                         break;
+                 }
+
+
+             });
+
+
         }); //$(document).ready
 
 
@@ -600,6 +626,28 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                  return false;
              }
 
+             var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
+
+            switch (valorseleccionado)
+            {
+                 case "2":
+
+                     var nombreconvenio = $("#<%= txtNombreConvenio.ClientID %>").val();
+                     if (nombreconvenio == null || nombreconvenio.length == 0 || nombreconvenio == undefined) {
+                         alert("Debe indicar el nombre del convenio");
+                         return false;
+                     }
+
+                     break;
+
+                 default:
+
+                     break;
+             }
+
+
+
+
              var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
                  alert("Debe indicar el tipo de la apertura programatica");
@@ -630,23 +678,37 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                  return false;
              }
 
+             var situacionobraId = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
+
+             switch (situacionobraId) {
+                 case "2":
+                 case "3":
+
+                     var numeroobraanterior = $("#<%= txtNumeroAnterior.ClientID %>").val();
+                     if (numeroobraanterior == null || numeroobraanterior.length == 0 || numeroobraanterior == undefined) {
+                         alert("Debe indicar el número de obra anterior");
+                         return false;
+                     }
+
+                     break;
+
+                 default:
+
+                     break;
+             }
+
             <%-- var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
              if (modalidad == null || modalidad.length == 0 || modalidad == undefined || modalidad == 0) {
                  alert("Debe indicar la modalidad de ejecución de la obra");
                  return false;
              }--%>
 
-             var importetotal = $("#<%=txtImporteTotal.ClientID%>").val();
+           <%--  var importetotal = $("#<%=txtImporteTotal.ClientID%>").val();
              if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
                  alert("El campo Importe total no puede estar vacio");
                  return false;
-             }
-
-             var importetotal = $("#<%= txtImporteTotal.ClientID%>").val();
-             if (importetotal == null || importetotal.length == 0 || importetotal == undefined) {
-                 alert("El campo Importe total no puede estar vacio");
-                 return false;
-             }
+             }--%>
+      
 
              var importeLiberado = $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val();
              if (importeLiberado == null || importeLiberado.length == 0 || importeLiberado == undefined) {
@@ -654,11 +716,11 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                  return false;
              }
 
-             var importePresupuesto = $("#<%= txtPresupuestoEjercicio.ClientID %>").val();
+            <%-- var importePresupuesto = $("#<%= txtPresupuestoEjercicio.ClientID %>").val();
              if (importePresupuesto == null || importePresupuesto.length == 0 || importePresupuesto == undefined) {
                  alert("El campo <Presupuesto del ejercicio> no puede estar vacio");
                  return false;
-             }
+             }--%>
 
              <%-- var subfuncion = $("#<%= ddlSubFuncion.ClientID %>").val();
              if (subfuncion == null || subfuncion.length == 0 || subfuncion == undefined || subfuncion == 0) {
@@ -743,6 +805,8 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
             var valorseleccionado = $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
 
+            $("#<%= hiddenSituacionObraId.ClientID %>").val(valorseleccionado);
+
             switch (valorseleccionado)
             {
                 case "0":
@@ -773,7 +837,24 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
         function fnc_RecuperarValoresEnCamposDeshabilitados()
         {
+            alert("Ingresamos a funcion fnc_RecuperarValoresEnCamposDeshabilitados()");
             $("#<%= hiddenSituacionObraId.ClientID %>").val($("#<%= ddlSituacionObra.ClientID   %> option:selected").val());
+        }
+
+        function fnc_DeshabilitarSituacionObra(enable)
+        {
+            if (enable)
+            {
+                $("#<%= ddlSituacionObra.ClientID %>").prop("disabled", false);
+                $("#<%= txtNumeroAnterior.ClientID %>").prop("disabled", false); 
+                $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").prop("disabled", false); 
+            }
+            else
+            {
+                $("#<%= ddlSituacionObra.ClientID %>").prop("disabled", true);
+                $("#<%= txtNumeroAnterior.ClientID %>").prop("disabled", true);
+                $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").prop("disabled", true); 
+            }          
         }
 
 

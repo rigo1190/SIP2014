@@ -24,8 +24,7 @@ namespace SIP.Formas.POA
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
             poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
-
-            //lblResumen.Text = String.Format("Total de obras : {0}", poa.Detalles.Count);
+                       
                
             if (!IsPostBack)
             {  
@@ -369,10 +368,16 @@ namespace SIP.Formas.POA
             poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             poadetalle.AperturaProgramaticaMetaId = null;
             poadetalle.AperturaProgramaticaUnidadId = Utilerias.StrToInt(ddlUnidadMedida.SelectedValue);
-            poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString());
-            poadetalle.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString());
-            poadetalle.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString());
-            poadetalle.Jornales = Utilerias.StrToInt(txtJornales.Value.ToString());
+
+            if (txtNumeroBeneficiarios.Value.ToString() == "0") 
+            {
+                System.Diagnostics.Debug.Print("Error....");
+            }
+            
+            poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString().Replace(",",null));
+            poadetalle.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString().Replace(",", null));
+            poadetalle.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString().Replace(",", null));
+            poadetalle.Jornales = Utilerias.StrToInt(txtJornales.Value.ToString().Replace(",", null));
 
             //Los campos relativos al Plan Veracruzano de Desarrollo, son opcionales
 
@@ -417,7 +422,7 @@ namespace SIP.Formas.POA
 
             poadetalle.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
             poadetalle.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
-            poadetalle.ImporteTotal = Convert.ToDecimal(txtImporteTotal.Value.ToString());
+            poadetalle.ImporteTotal = Utilerias.StrToDecimal(txtImporteTotal.Value.ToString());
             poadetalle.NumeroAnterior = txtNumeroAnterior.Value;
             poadetalle.ImporteLiberadoEjerciciosAnteriores = Utilerias.StrToDecimal(txtImporteLiberadoEjerciciosAnteriores.Value.ToString());
             poadetalle.Observaciones = txtObservaciones.InnerText;

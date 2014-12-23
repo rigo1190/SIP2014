@@ -134,6 +134,28 @@
                  return false;
              }
 
+
+             var valorseleccionado = $("#<%= ddlCriterioPriorizacion.ClientID   %> option:selected").val();
+
+             switch (valorseleccionado)
+             {
+                 case "2":
+
+                     var nombreconvenio = $("#<%= txtNombreConvenio.ClientID %>").val();
+                     if (nombreconvenio == null || nombreconvenio.length == 0 || nombreconvenio == undefined)
+                     {
+                         alert("Debe indicar el nombre del convenio");
+                         return false;
+                     }
+
+                     break;
+
+                 default:
+                     
+                     break;
+             }
+
+
              var subsubprograma = $("#<%= ddlSubsubprograma.ClientID %>").val();
              if (subsubprograma == null || subsubprograma.length == 0 || subsubprograma == undefined || subsubprograma == 0) {
                  alert("Debe indicar el tipo de la apertura programatica");
@@ -157,6 +179,29 @@
                  alert("Debe indicar la situación de la obra");
                  return false;
              }
+
+
+             var situacionobraId= $("#<%= ddlSituacionObra.ClientID   %> option:selected").val();
+
+             switch (situacionobraId)
+             {
+                 case "2":
+                 case "3":
+
+                     var numeroobraanterior = $("#<%= txtNumeroAnterior.ClientID %>").val();
+                     if (numeroobraanterior == null || numeroobraanterior.length == 0 || numeroobraanterior == undefined) {
+                         alert("Debe indicar el número de obra anterior");
+                         return false;
+                     }
+
+                     break;
+
+                 default:
+
+                     break;
+             }
+
+
 
             <%-- var modalidad = $("#<%= ddlModalidad.ClientID %>").val();
              if (modalidad == null || modalidad.length == 0 || modalidad == undefined || modalidad == 0) {
@@ -217,7 +262,8 @@
 
         }
 
-         function fnc_OcultarDivs(sender) {
+         function fnc_OcultarDivs(sender)
+         {
              $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
              $("#<%= divEdicion.ClientID %>").css("display", "none");
               return false;

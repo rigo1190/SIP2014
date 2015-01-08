@@ -159,10 +159,12 @@ namespace SIP.Formas.Catalogos
                 lista = uow.FuncionalidadBusinessLogic.Get(p => p.Clave == obj.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
+
+                // En el catálogo de funcionalidades si es válido la existencia de descripciones repetidas
                 
-                lista = uow.FuncionalidadBusinessLogic.Get(p => p.Descripcion == obj.Descripcion).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
+                //lista = uow.FuncionalidadBusinessLogic.Get(p => p.Descripcion == obj.Descripcion).ToList();
+                //if (lista.Count > 0)
+                //    uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
                 
                 uow.FuncionalidadBusinessLogic.Insert(obj);
                 mensaje = "El registro se ha  almacenado correctamente";
@@ -180,10 +182,11 @@ namespace SIP.Formas.Catalogos
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
 
 
+                // En el catálogo de funcionalidades si es válido la existencia de descripciones repetidas
 
-                lista = uow.FuncionalidadBusinessLogic.Get(p => p.Id != xid && p.Descripcion == obj.Descripcion).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
+                //lista = uow.FuncionalidadBusinessLogic.Get(p => p.Id != xid && p.Descripcion == obj.Descripcion).ToList();
+                //if (lista.Count > 0)
+                //    uow.Errors.Add("La Descripción que capturo ya ha sido registrada anteriormente, verifique su información");
 
                 uow.FuncionalidadBusinessLogic.Update(obj);
                 mensaje = "Los cambios se registraron satisfactoriamente";

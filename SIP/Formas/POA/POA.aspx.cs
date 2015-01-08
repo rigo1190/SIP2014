@@ -368,11 +368,7 @@ namespace SIP.Formas.POA
             poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             poadetalle.AperturaProgramaticaMetaId = null;
             poadetalle.AperturaProgramaticaUnidadId = Utilerias.StrToInt(ddlUnidadMedida.SelectedValue);
-
-            if (txtNumeroBeneficiarios.Value.ToString() == "0") 
-            {
-                System.Diagnostics.Debug.Print("Error....");
-            }
+                       
             
             poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString().Replace(",",null));
             poadetalle.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString().Replace(",", null));
@@ -421,6 +417,24 @@ namespace SIP.Formas.POA
 
 
             poadetalle.SituacionObraId = Utilerias.StrToInt(ddlSituacionObra.SelectedValue);
+
+            //Garantizar que se limpien correctamente los campos Numero anterior e Importe Liberado
+
+            switch (poadetalle.SituacionObraId)
+            {
+                case 3:
+                case 4:
+
+                    break;
+
+                default:
+
+                    txtNumeroAnterior.Value = String.Empty;
+                    txtImporteLiberadoEjerciciosAnteriores.Value = "0";
+                    break;
+            }
+
+
             poadetalle.ModalidadObra = (enumModalidadObra)Convert.ToInt32(ddlModalidad.SelectedValue);
             poadetalle.ImporteTotal = Utilerias.StrToDecimal(txtImporteTotal.Value.ToString());
             poadetalle.NumeroAnterior = txtNumeroAnterior.Value;
@@ -611,7 +625,7 @@ namespace SIP.Formas.POA
 
             list = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea == false, orderBy: r => r.OrderBy(ro => ro.Consecutivo));
 
-            lblResumen.Text = String.Format("Total de obras : {0}", poa.Detalles.Count);
+            lblResumen.Text = String.Format("Total de obras : {0}", list.Count());
 
             return list;
         }

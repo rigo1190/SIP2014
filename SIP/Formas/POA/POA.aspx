@@ -61,7 +61,11 @@
 
                  switch(valorseleccionado)
                  {
-                     case "0":
+                     case "3":
+                     case "4":
+                         $("#divDatosObraAnterior").css("display", "block");
+                         break;
+                    <%-- case "0":
                          $("#divDatosObraAnterior").css("display", "none");
                          $("#<%= txtNumeroAnterior.ClientID %>").val("");
                          $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
@@ -70,9 +74,9 @@
                          $("#divDatosObraAnterior").css("display", "none");
                          $("#<%= txtNumeroAnterior.ClientID %>").val("");
                          $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
-                         break;
+                         break;--%>
                      default:
-                         $("#divDatosObraAnterior").css("display", "block");
+                         $("#divDatosObraAnterior").css("display", "none");                         
                          break;
                  }
                 
@@ -185,8 +189,8 @@
 
              switch (situacionobraId)
              {
-                 case "2":
                  case "3":
+                 case "4":
 
                      var numeroobraanterior = $("#<%= txtNumeroAnterior.ClientID %>").val();
                      if (numeroobraanterior == null || numeroobraanterior.length == 0 || numeroobraanterior == undefined) {
@@ -280,14 +284,12 @@
            
             switch (valorseleccionado)
             {
-                case "0":
-                    $("#divDatosObraAnterior").css("display", "none");
-                    break;
-                case "1":
-                    $("#divDatosObraAnterior").css("display", "none");
-                    break;
-                default:
+                case "3":
+                case "4":
                     $("#divDatosObraAnterior").css("display", "block");
+                    break;                
+                default:
+                    $("#divDatosObraAnterior").css("display", "none");
                     break;
             }
         }
@@ -573,7 +575,7 @@
                                        <label for="txtImporteLiberado">Costo liberado en ejercicios anteriores</label>
                                      <div class="input-group">
                                         <span class="input-group-addon">$</span>
-                                        <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" />
+                                        <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteLiberadoEjerciciosAnteriores" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off" />
                                     </div>
                                   </div>
 
@@ -583,7 +585,7 @@
                                    <label for="txtImporteTotal">Costo estimado</label>
                                  <div class="input-group">
                                     <span class="input-group-addon">$</span>
-                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" />
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off"/>
                                 </div>
                               </div>
 

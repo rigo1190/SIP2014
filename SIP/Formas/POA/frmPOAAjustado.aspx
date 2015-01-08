@@ -836,8 +836,7 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
         }
 
         function fnc_RecuperarValoresEnCamposDeshabilitados()
-        {
-            alert("Ingresamos a funcion fnc_RecuperarValoresEnCamposDeshabilitados()");
+        {           
             $("#<%= hiddenSituacionObraId.ClientID %>").val($("#<%= ddlSituacionObra.ClientID   %> option:selected").val());
         }
 

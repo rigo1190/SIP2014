@@ -21,7 +21,7 @@
         var param = idTF;
 
         url = $("#<%= _URLVisor.ClientID %>").val();
-        var argumentos = "?c=" + 3 + "&p=" + param;
+        var argumentos = "?c=" + 22 + "&p=" + param;
         url += argumentos;
         window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=750,height=500,top=' + sup + ',left=' + izq);
     }

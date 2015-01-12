@@ -59,6 +59,7 @@
     <Compile Include="Models\CriterioPriorizacion.cs" />
     <Compile Include="Models\Estimaciones.cs" />
     <Compile Include="Models\EstimacionesConceptos.cs" />
+    <Compile Include="Models\EstimacionesConceptosTMP.cs" />
     <Compile Include="Models\Firmas.cs" />
     <Compile Include="Models\FondoLineamientos.cs" />
     <Compile Include="Models\GrupoBeneficiario.cs" />

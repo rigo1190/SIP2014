@@ -7,270 +7,234 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SIP.Formas.Catalogos {
+namespace SIP.Formas.ControlFinanciero {
     
     
-    public partial class catFondos {
+    public partial class wfEstimacionesNew {
         
         /// <summary>
-        /// contenedor control.
+        /// divCargarArchivo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl contenedor;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCargarArchivo;
         
         /// <summary>
-        /// divArbol control.
+        /// fileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divArbol;
+        protected global::System.Web.UI.WebControls.FileUpload fileUpload;
         
         /// <summary>
-        /// treeMain control.
+        /// divBtncargarConceptos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView treeMain;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBtncargarConceptos;
         
         /// <summary>
-        /// addp control.
+        /// btnCargarConceptos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addp;
+        protected global::System.Web.UI.WebControls.Button btnCargarConceptos;
         
         /// <summary>
-        /// addsp control.
+        /// divBtnImprimir control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button addsp;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBtnImprimir;
         
         /// <summary>
-        /// edit control.
+        /// btnImprimir control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button edit;
+        protected global::System.Web.UI.WebControls.Button btnImprimir;
         
         /// <summary>
-        /// btnMenuGuardar control.
+        /// divTMP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMenuGuardar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTMP;
         
         /// <summary>
-        /// btnMenuCancelar control.
+        /// txtNumEstimacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMenuCancelar;
+        protected global::System.Web.UI.WebControls.TextBox txtNumEstimacion;
         
         /// <summary>
-        /// idLinkRPT control.
+        /// txtAmortizacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton idLinkRPT;
+        protected global::System.Web.UI.WebControls.TextBox txtAmortizacion;
         
         /// <summary>
-        /// divcaptura control.
+        /// txtImporteEstimado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divcaptura;
+        protected global::System.Web.UI.WebControls.TextBox txtImporteEstimado;
         
         /// <summary>
-        /// SpanModificar control.
+        /// txtRetencion5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SpanModificar;
+        protected global::System.Web.UI.WebControls.TextBox txtRetencion5;
         
         /// <summary>
-        /// SpanGrupo control.
+        /// txtIVA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SpanGrupo;
+        protected global::System.Web.UI.WebControls.TextBox txtIVA;
         
         /// <summary>
-        /// SpanFondo control.
+        /// txtRetencion2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SpanFondo;
+        protected global::System.Web.UI.WebControls.TextBox txtRetencion2;
         
         /// <summary>
-        /// txtClave control.
+        /// txtImporteTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtClave;
+        protected global::System.Web.UI.WebControls.TextBox txtImporteTotal;
         
         /// <summary>
-        /// txtAbreviatura control.
+        /// txtImporteApagar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAbreviatura;
+        protected global::System.Web.UI.WebControls.TextBox txtImporteApagar;
         
         /// <summary>
-        /// txtNombre control.
+        /// dtpFecha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText dtpFecha;
         
         /// <summary>
-        /// txtOrden control.
+        /// RequiredFieldValidator5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtOrden;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
-        /// divguardar control.
+        /// divBtnGuardarAnticipo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divguardar;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBtnGuardarAnticipo;
         
         /// <summary>
-        /// btnGuardar control.
+        /// btnGuardarEstimacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
+        protected global::System.Web.UI.WebControls.Button btnGuardarEstimacion;
         
         /// <summary>
-        /// btnCancelar control.
+        /// ValidationSummary1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancelar;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
         
         /// <summary>
-        /// divMsgSuccess control.
+        /// grid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsgSuccess;
+        protected global::System.Web.UI.WebControls.GridView grid;
         
         /// <summary>
-        /// lblMensajeSuccess control.
+        /// _R control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensajeSuccess;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _R;
         
         /// <summary>
-        /// divMsg control.
+        /// _URLVisor control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsg;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _URLVisor;
         
         /// <summary>
-        /// lblMensajes control.
+        /// _idObra control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensajes;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _idObra;
         
         /// <summary>
-        /// _Accion control.
+        /// _idUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _Accion;
-        
-        /// <summary>
-        /// _Tipo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _Tipo;
-        
-        /// <summary>
-        /// _ElId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _ElId;
-        
-        /// <summary>
-        /// _rutaNodoSeleccionado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _rutaNodoSeleccionado;
-        
-        /// <summary>
-        /// btnDel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDel;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _idUsuario;
     }
 }

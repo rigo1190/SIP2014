@@ -9,8 +9,13 @@ using System.Linq;
 namespace BusinessLogicLayer
 {
     public class UnitOfWork : IDisposable
-    {       
-        internal Contexto contexto;
+    {
+        private Contexto contexto;
+
+        public Contexto Contexto
+        {
+            get { return contexto; }            
+        }
         private int usuarioId;
         private List<String> errors = new List<String>();
         private IBusinessLogic<Usuario> usuarioBusinessLogic;
@@ -68,6 +73,7 @@ namespace BusinessLogicLayer
         private IBusinessLogic<PresupuestosContratados> presupuestosscontratadosBL;
         private IBusinessLogic<Estimaciones> estimacionesBL;
         private IBusinessLogic<EstimacionesConceptos> estimacionesconceptosBL;
+        private IBusinessLogic<EstimacionesConceptosTMP> estimacionesconceptostmpBL;
 
         public UnitOfWork()
         {
@@ -753,6 +759,17 @@ namespace BusinessLogicLayer
             }
         }
 
+        public IBusinessLogic<EstimacionesConceptosTMP> EstimacionesConceptosTMPBL
+        {
+            get
+            {
+                if (this.estimacionesconceptostmpBL == null)
+                {
+                    this.estimacionesconceptostmpBL = new GenericBusinessLogic<EstimacionesConceptosTMP>(contexto);
+                }
+                return this.estimacionesconceptostmpBL;
+            }
+        }
 
      
         public void SaveChanges()

@@ -36,6 +36,11 @@ namespace DataAccessLayer.Models
         public decimal ImporteNetoACobrar { get; set; }
         public int Status { get; set; }
 
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string FolioDePago { get; set; }
+        public string Observaciones { get; set; }
+
+
         public virtual ContratosDeObra ContratoDeObra { get; set; }
 
         public virtual ICollection<EstimacionesConceptos> detalleConceptos { get; set; }

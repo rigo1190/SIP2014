@@ -259,6 +259,8 @@ namespace SIP.Formas.Catalogos
             txtNombre.Value = UP.Nombre;
             _idMUN.Text = UP.Id.ToString();
         }
+
+   
        
 
        

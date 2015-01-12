@@ -26,7 +26,7 @@ namespace SIP.Formas.ControlFinanciero
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork();
-            idObra = int.Parse(Request.QueryString["id"].ToString());
+            idObra = int.Parse(Session["XidObra"].ToString());
 
             Obra obra = uow.ObraBusinessLogic.GetByID(idObra);
 
@@ -51,6 +51,7 @@ namespace SIP.Formas.ControlFinanciero
                     divGuardarPresupuesto.Style.Add("display", "none");
                     divTMP.Style.Add("display", "none");                    
                     divPresupuesto.Style.Add("display", "none");
+                    divMSGnoHayContrato.Style.Add("display", "none"); 
                 }
 
 
@@ -58,6 +59,7 @@ namespace SIP.Formas.ControlFinanciero
                 {
                     divCargarArchivo.Style.Add("display", "none");
                     divTMP.Style.Add("display", "none");
+                    divMSGnoHayContrato.Style.Add("display", "none");
 
                     cargarPresupuestoContratado();
                 }
@@ -222,7 +224,7 @@ namespace SIP.Formas.ControlFinanciero
         protected void btnGuardarPresupuestoContratado_Click(object sender, EventArgs e)
         {
 
-            idObra = int.Parse(Request.QueryString["id"].ToString());
+            idObra = int.Parse(Session["XidObra"].ToString());
 
             Obra obra = uow.ObraBusinessLogic.GetByID(idObra);
             ContratosDeObra contrato = uow.ContratosDeObraBL.Get(p=>p.ObraId == idObra).FirstOrDefault();
@@ -333,7 +335,7 @@ namespace SIP.Formas.ControlFinanciero
 
         private void cargarPresupuestoContratado()
         {
-            idObra = int.Parse(Request.QueryString["id"].ToString());
+            idObra = int.Parse(Session["XidObra"].ToString());
 
             List<PresupuestosContratados> listaPadres = uow.PresupuestosContratadosBL.Get(p=> p.ContratoDeObra.Obra.Id == idObra && p.Nivel == 1).ToList();
 

@@ -21,7 +21,8 @@ namespace SIP.Formas.ControlFinanciero
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork();
-            idObra = int.Parse(Request.QueryString["id"].ToString());
+            idObra = int.Parse(Session["XidObra"].ToString());
+            
             if (!IsPostBack)
             {
                 bindDatos();
@@ -30,6 +31,7 @@ namespace SIP.Formas.ControlFinanciero
 
         private void bindDatos()
         {
+            this.idObra = int.Parse(Session["XidObra"].ToString());
             Obra obra = uow.ObraBusinessLogic.GetByID(this.idObra);
 
             
@@ -63,10 +65,9 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void btnGuardarContrato_Click(object sender, EventArgs e)
         {
+            this.idObra = int.Parse(Session["XidObra"].ToString());
             List<ContratosDeObra> listaContrato = uow.ContratosDeObraBL.Get(p => p.ObraId == this.idObra).ToList();
-
-
-
+            
             ContratosDeObra contrato;
 
             if (listaContrato.Count == 0)
@@ -102,7 +103,7 @@ namespace SIP.Formas.ControlFinanciero
             }
             else
             {
-                contrato = uow.ContratosDeObraBL.GetByID(this.idObra);
+                contrato = uow.ContratosDeObraBL.Get(p => p.ObraId == this.idObra).FirstOrDefault();
 
                 contrato.NumeroDeContrato = txtNumContrato.Value;
                 contrato.RFCcontratista = txtRFC.Value;
@@ -114,8 +115,8 @@ namespace SIP.Formas.ControlFinanciero
                 contrato.FechaDeTermino = DateTime.Parse(dtpTermino.Value.ToString());
 
                 contrato.PorcentajeDeAnticipo = double.Parse(txtPorcentajeAnticipo.Value.ToString());
-                contrato.Descontar5AlMillar = bool.Parse(chk5almillar.Value.ToString());
-                contrato.Descontar2AlMillar = bool.Parse(chk2almillar.Value.ToString());
+                contrato.Descontar5AlMillar = bool.Parse(chk5almillar.Checked.ToString());
+                contrato.Descontar2AlMillar = bool.Parse(chk2almillar.Checked.ToString());
 
                 uow.ContratosDeObraBL.Update(contrato);
                 
@@ -126,7 +127,7 @@ namespace SIP.Formas.ControlFinanciero
 
             if (uow.Errors.Count == 0)
             {
-                Response.Redirect("wfPresupuestoContratado.aspx?id=" + this.idObra);
+                Response.Redirect("wfPresupuestoContratado.aspx");
             }
             
 

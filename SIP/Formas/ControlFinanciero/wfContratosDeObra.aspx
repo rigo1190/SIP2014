@@ -27,7 +27,7 @@
                         <ItemTemplate>                           
 
                         <div id = "DIVcontrato" runat="server">
-                        
+                            <asp:LinkButton ID="linkContrato" runat="server" PostBackUrl="#" OnClick ="linkContrato_Click">Pendiente</asp:LinkButton>  
                         </div>
                         </ItemTemplate>
                     </asp:TemplateField>    
@@ -37,18 +37,22 @@
                         <ItemTemplate>                           
 
                         <div id = "DIVPresupuestoContratado" runat="server">
-                        
+                        <asp:LinkButton ID="LinkPresupuesto" runat="server" PostBackUrl="#" OnClick ="LinkPresupuesto_Click">Pendiente</asp:LinkButton>  
                         </div>
                         </ItemTemplate>
                     </asp:TemplateField>    
                      
 
                      
-
+                     
 
                 </Columns>
                     
                 
                     
         </asp:GridView>
+
+     
+
 </asp:Content>
+

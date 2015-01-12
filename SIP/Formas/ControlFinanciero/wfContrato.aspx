@@ -18,9 +18,20 @@
 
     <div class="panel panel-success">
         <div class="panel-heading">
-            <h3 class="panel-title">Datos del Contrato</h3>
+
+            <div class="row">
+                <div class="col-md-4"><h3 class="panel-title">Datos del Contrato</h3></div>
+                <div class="col-md-6"> . </div>
+                <div class="col-md-2"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfContratosDeObra.aspx") %>" >Regresar</a></div>
+
+
+             </div>
+            
+
         </div>
     </div>
+
+
 <div class="row">
 
                     

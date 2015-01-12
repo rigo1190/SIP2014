@@ -7,6 +7,31 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
+    <div class="panel panel-success">
+        <div class="panel-heading">
+
+            <div class="row">
+                <div class="col-md-4"><h3 class="panel-title">Presupuesto Contratado...</h3></div>
+                <div class="col-md-6"> . </div>
+                <div class="col-md-2"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfContratosDeObra.aspx") %>">Regresar</a></div>
+         </div>
+            
+
+        </div>
+    </div>
+
+
+
+
+    <div class="panel panel-warning" runat="server" id="divMSGnoHayContrato">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-10"><h3 class="panel-title">Antes de registrar el presupuesto contratado es necesario registrar los datos del contrato </h3></div>
+            </div>
+        </div>
+    </div>
+
+
         <div id="divCargarArchivo" class="row" runat="server">
 
 
@@ -114,6 +139,7 @@
 
 
         </div>
+
 
 
 

@@ -45,15 +45,29 @@ namespace SIP.rpts
                     rdc.SetParameterValue("POADetalleID", primerArray[0]);
                     break;
 
-                case 2:
+                    //20's REPORTES DE TECHO FINANCIERO
+                case 21:
                     rdc.SetParameterValue("up", primerArray[0]);
                     rdc.SetParameterValue("ejercicio",primerArray[1]);
                     break;
 
-                case 3:
+
+                case 22:
                     rdc.SetParameterValue("techofinanciero", primerArray[0]);
                     break;
+                    
+                    //30'S REPORTES DE CONTROL FINANCIERO
+                case 31:
+                    rdc.SetParameterValue("obra", primerArray[0]);
+                    break;
 
+                case 32:
+                    rdc.SetParameterValue("obra", primerArray[0]);
+                    rdc.SetParameterValue("usuario", primerArray[1]);
+                    break;
+                case 33:
+                    rdc.SetParameterValue("contrato", primerArray[0]);                    
+                    break;
             }
         }
 
@@ -109,11 +123,24 @@ namespace SIP.rpts
                 case 1:
                     nombreReporte = "rptEvaluacionPOA.rpt";
                     break;
-                case 2:
+
+                //20's REPORTES DE TECHO FINANCIERO
+                case 21:
                     nombreReporte = "FuentesDeFinanciamientoDisponibles.rpt";
                     break;
-                case 3:
+                case 22:
                     nombreReporte = "TechosFinancierosXup.rpt";
+                    break;
+
+                //30'S REPORTES DE CONTROL FINANCIERO
+                case 31:
+                    nombreReporte = "rptControlFinancieroAnticiposOrdenDePago.rpt";
+                    break;
+                case 32:
+                    nombreReporte = "rptControlFinancieroConceptosDeLaEstimacion.rpt";
+                    break;
+                case 33:
+                    nombreReporte = "rptControlFinancieroCantidadesEstimadas.rpt";
                     break;
             }
 

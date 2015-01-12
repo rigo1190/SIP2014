@@ -256,8 +256,12 @@
     <Content Include="Formas\Catalogos\PlantillaPreguntas.aspx" />
     <Content Include="Formas\Catalogos\Plantillas.aspx" />
     <Content Include="Formas\Catalogos\PlantillasPadre.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfAnticipos.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfAvanceFisicoFinanciero.aspx" />
     <Content Include="Formas\ControlFinanciero\wfContrato.aspx" />
     <Content Include="Formas\ControlFinanciero\wfContratosDeObra.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfEstimaciones.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfEstimacionesNew.aspx" />
     <Content Include="Formas\ControlFinanciero\wfListaObras.aspx" />
     <Content Include="Formas\ControlFinanciero\wfPresupuestoContratado.aspx" />
     <Content Include="Formas\ControlFinanciero\wfSeguimiento.aspx" />
@@ -527,6 +531,20 @@
     <Compile Include="Formas\Catalogos\PlantillasPadre.aspx.designer.cs">
       <DependentUpon>PlantillasPadre.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfAnticipos.aspx.cs">
+      <DependentUpon>wfAnticipos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfAnticipos.aspx.designer.cs">
+      <DependentUpon>wfAnticipos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfAvanceFisicoFinanciero.aspx.cs">
+      <DependentUpon>wfAvanceFisicoFinanciero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfAvanceFisicoFinanciero.aspx.designer.cs">
+      <DependentUpon>wfAvanceFisicoFinanciero.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\ControlFinanciero\wfContrato.aspx.cs">
       <DependentUpon>wfContrato.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -540,6 +558,20 @@
     </Compile>
     <Compile Include="Formas\ControlFinanciero\wfContratosDeObra.aspx.designer.cs">
       <DependentUpon>wfContratosDeObra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfEstimaciones.aspx.cs">
+      <DependentUpon>wfEstimaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfEstimaciones.aspx.designer.cs">
+      <DependentUpon>wfEstimaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfEstimacionesNew.aspx.cs">
+      <DependentUpon>wfEstimacionesNew.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfEstimacionesNew.aspx.designer.cs">
+      <DependentUpon>wfEstimacionesNew.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\ControlFinanciero\wfListaObras.aspx.cs">
       <DependentUpon>wfListaObras.aspx</DependentUpon>

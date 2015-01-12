@@ -71,10 +71,11 @@
                 <Columns>
                         <asp:TemplateField HeaderText="Acciones">
                         <ItemTemplate>
-                                                    
+                                     
+                                           
                             <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click"/>
                             <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClientClick="return fnc_Confirmar()" OnClick="imgBtnEliminar_Click"/>
-                            
+                            <asp:LinkButton ID="linkTest" runat ="server"  />
                         </ItemTemplate>
                         <HeaderStyle BackColor="#EEEEEE" />
                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -159,6 +160,8 @@
                     <asp:TextBox ID="_Accion" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
                                     
                 </div>
+
+                  
 
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="validateX" ViewStateMode="Disabled" />
 

@@ -18,7 +18,7 @@ namespace DataAccessLayer.Models
 
         public double Cantidad { get; set; }
 
-        public double Subtotal { get; set; }
+        public decimal Subtotal { get; set; }
 
 
         public virtual Estimaciones Estimacion { get; set; }

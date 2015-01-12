@@ -13,6 +13,15 @@ namespace SIP.Formas.ControlFinanciero {
     public partial class wfPresupuestoContratado {
         
         /// <summary>
+        /// divMSGnoHayContrato control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMSGnoHayContrato;
+        
+        /// <summary>
         /// divCargarArchivo control.
         /// </summary>
         /// <remarks>

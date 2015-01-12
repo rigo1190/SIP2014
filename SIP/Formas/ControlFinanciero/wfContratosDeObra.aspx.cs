@@ -42,53 +42,46 @@ namespace SIP.Formas.ControlFinanciero
                 Obra obra = uow.ObraBusinessLogic.GetByID(idObra);
 
 
-
-                HtmlGenericControl divContrato = (HtmlGenericControl)e.Row.FindControl("DIVcontrato");
-
-                HtmlGenericControl divPresupuesto = (HtmlGenericControl)e.Row.FindControl("DIVPresupuestoContratado");
-
-
-
-                System.Web.UI.HtmlControls.HtmlGenericControl linkContrato = new System.Web.UI.HtmlControls.HtmlGenericControl("A");
-                System.Web.UI.HtmlControls.HtmlGenericControl linkPresupuesto = new System.Web.UI.HtmlControls.HtmlGenericControl("A");
-
-
-                 
-
-                linkContrato.Attributes.Add("href", "wfContrato.aspx?id=" + idObra);                
-                linkPresupuesto.Attributes.Add("href", "wfPresupuestoContratado.aspx?id=" + idObra);
-
+                LinkButton linkC = (LinkButton)e.Row.FindControl("linkContrato");
+                LinkButton linkP = (LinkButton)e.Row.FindControl("LinkPresupuesto");
+                
+                linkC.Text = "Pendiente";
+                linkP.Text = "Pendiente";
 
                 if (obra.StatusControlFinanciero > 0)
                 {
                     ContratosDeObra contrato = uow.ContratosDeObraBL.Get(p => p.ObraId == idObra).First();
-                    linkContrato.InnerText = contrato.NumeroDeContrato;
-
+                    linkC.Text = contrato.NumeroDeContrato;
+                    
                     if (obra.StatusControlFinanciero > 1)
-                        linkPresupuesto.InnerText = contrato.Total.ToString("C2");
-                    else
-                        linkPresupuesto.InnerText = "Pendiente";
-                }
-                else
-                {
-                    linkContrato.InnerText = "Pendiente";
-                    linkPresupuesto.InnerText = "Pendiente";
+                        linkP.Text = contrato.Total.ToString("C2");
                 }
 
-
-                
-
-
-                divContrato.Controls.Add(linkContrato);
-                divPresupuesto.Controls.Add(linkPresupuesto);
-
-
-
+              
 
 
             }
 
         }
+
+        protected void linkContrato_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).NamingContainer;
+            
+            Session["XidObra"] = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
+                        
+            Response.Redirect("wfContrato.aspx");
+        }
+
+        protected void LinkPresupuesto_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).NamingContainer;
+
+            Session["XidObra"] = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
+
+            Response.Redirect("wfPresupuestoContratado.aspx");
+        }
+
 
 
     }

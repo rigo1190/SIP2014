@@ -15,7 +15,7 @@
         var param = idUnidad + "-" + idEjercicio;
         
         url = $("#<%= _URLVisor.ClientID %>").val();
-            var argumentos = "?c=" + 2 + "&p="+ param;
+            var argumentos = "?c=" + 21 + "&p="+ param;
             url += argumentos;
             window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=1000,height=500,top=' + sup + ',left=' + izq);
     }

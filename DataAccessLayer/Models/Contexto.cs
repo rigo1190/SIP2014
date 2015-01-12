@@ -156,6 +156,8 @@ namespace DataAccessLayer.Models
 
         public virtual DbSet<Estimaciones> DBSestimaciones { get; set; }
         public virtual DbSet<EstimacionesConceptos> DBSestimacionesConceptos { get; set; }
+        public virtual DbSet<EstimacionesConceptosTMP> DBestimacionesConceptosTMP { get; set; }
+
 
     }
 

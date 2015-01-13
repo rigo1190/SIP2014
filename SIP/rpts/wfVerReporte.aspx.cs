@@ -68,6 +68,9 @@ namespace SIP.rpts
                 case 33:
                     rdc.SetParameterValue("contrato", primerArray[0]);                    
                     break;
+                case 34:
+                    rdc.SetParameterValue("contrato", primerArray[0]);                    
+                    break;
             }
         }
 
@@ -142,6 +145,10 @@ namespace SIP.rpts
                 case 33:
                     nombreReporte = "rptControlFinancieroCantidadesEstimadas.rpt";
                     break;
+                case 34:
+                    nombreReporte = "rptControlFinancieroConcentradoDeEstimaciones.rpt";
+                    break;
+
             }
 
 

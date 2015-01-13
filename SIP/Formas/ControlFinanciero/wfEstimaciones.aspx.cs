@@ -29,7 +29,7 @@ namespace SIP.Formas.ControlFinanciero
                 BindGrids();
 
                 _URLVisor.Value = ResolveClientUrl("~/rpts/wfVerReporte.aspx");               
-                _idContrato.Value = "0"; 
+                _idContrato.Value = "0";
 
                 if (obra.StatusControlFinanciero == 2)//no hay anticipo registrado
                 {

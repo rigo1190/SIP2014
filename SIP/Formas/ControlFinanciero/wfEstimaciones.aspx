@@ -17,15 +17,26 @@
                 var izq = (screen.width - 1000) / 2
                 var sup = (screen.height - 600) / 2
                 var param = $("#<%= _idContrato.ClientID %>").val();
+                var argumentos = "?c=" + 33 + "&p=" + param;
 
-            var argumentos = "?c=" + 33 + "&p=" + param;
+                url = $("#<%= _URLVisor.ClientID %>").val();
 
-            url = $("#<%= _URLVisor.ClientID %>").val();
+                url += argumentos;
+                window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=1000,height=500,top=' + sup + ',left=' + izq);
+            }
 
-            url += argumentos;
-            window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=1000,height=500,top=' + sup + ',left=' + izq);
-        }
+            function fnc_AbrirReporteConcentradoEstimaciones() {
 
+                var izq = (screen.width - 1000) / 2
+                var sup = (screen.height - 600) / 2
+                var param = $("#<%= _idContrato.ClientID %>").val();
+                var argumentos = "?c=" + 34 + "&p=" + param;
+
+                url = $("#<%= _URLVisor.ClientID %>").val();
+
+                url += argumentos;
+                window.open(url, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=1000,height=500,top=' + sup + ',left=' + izq);
+            }
 
 
 </script>
@@ -219,7 +230,7 @@
         
         <div style="display:none" runat="server">
             <input type="hidden" runat="server" id="_URLVisor" />                    
-            <input type="hidden" runat="server" id="_idContrato" />                    
+            <input type="hidden" runat="server" id="_idContrato" />                                         
         </div>
 
 
@@ -227,6 +238,7 @@
             <li><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfEstimacionesNew.aspx?idObra=") %>"> Agregar Estimación</a></li>                                  
             <li>-.-</li>        
             <li><asp:LinkButton ID="linkCantidadesEstimadas" runat="server" PostBackUrl="#" OnClientClick="fnc_AbrirReporteCantidadesEstimadas()">Ver reporte de cantidades estimadas</asp:LinkButton>  </li>
+            <li><asp:LinkButton ID="linkConcentradoDeEstimaciones" runat="server" PostBackUrl="#" OnClientClick="fnc_AbrirReporteConcentradoEstimaciones()">Ver reporte concentrado de estimaciones</asp:LinkButton>  </li>
             
         </ul>
 

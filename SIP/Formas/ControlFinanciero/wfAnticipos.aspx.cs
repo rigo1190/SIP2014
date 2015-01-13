@@ -26,6 +26,7 @@ namespace SIP.Formas.ControlFinanciero
                 bindDatos();
                 _URLVisor.Value = ResolveClientUrl("~/rpts/wfVerReporte.aspx");
                 _idObra.Value = idObra.ToString(); 
+
             }
         }
 

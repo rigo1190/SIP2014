@@ -85,7 +85,7 @@
 
 
                      <div class="form-group">
-                         <label for="RazonSocial">Razón Social contratista.</label>
+                         <label for="RazonSocial">Razón Social Contratista</label>
                          <div>
                             <input type="text" disabled="disabled" class="input-sm required form-control" id="txtRazonSocial" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off"/>                                                        
                          </div>
@@ -179,4 +179,4 @@
 
 
 
-</asp:Content>
+    </asp:Content>

@@ -798,6 +798,36 @@
       <DependentUpon>FuentesDeFinanciamientoDisponibles.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="rpts\rptControlFinancieroAnticiposOrdenDePago.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptControlFinancieroAnticiposOrdenDePago.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptControlFinancieroCantidadesEstimadas.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptControlFinancieroCantidadesEstimadas.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptControlFinancieroConcentradoDeEstimaciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptControlFinancieroConcentradoDeEstimaciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptControlFinancieroConcentradoDeEstimacionesSUBestimaciones.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptControlFinancieroConcentradoDeEstimacionesSUBestimaciones.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptControlFinancieroConceptosDeLaEstimacion.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptControlFinancieroConceptosDeLaEstimacion.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="rpts\TechosFinancierosXup.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -861,6 +891,26 @@
     <EmbeddedResource Include="rpts\FuentesDeFinanciamientoDisponibles.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>FuentesDeFinanciamientoDisponibles.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptControlFinancieroAnticiposOrdenDePago.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptControlFinancieroAnticiposOrdenDePago.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptControlFinancieroCantidadesEstimadas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptControlFinancieroCantidadesEstimadas.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptControlFinancieroConcentradoDeEstimaciones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptControlFinancieroConcentradoDeEstimaciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptControlFinancieroConcentradoDeEstimacionesSUBestimaciones.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptControlFinancieroConcentradoDeEstimacionesSUBestimaciones.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptControlFinancieroConceptosDeLaEstimacion.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptControlFinancieroConceptosDeLaEstimacion.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="rpts\rptEvaluacionPOA.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

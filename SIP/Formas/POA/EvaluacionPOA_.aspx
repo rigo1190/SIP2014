@@ -116,8 +116,11 @@
 
         function fnc_GuardarChecks(numGrid) {
             var cadenaValores;
+            var checkAprobado;
             cadenaValores = fnc_ObtenerRadioChecks(numGrid);
-            PageMethods.GuardarChecks(cadenaValores, fnc_ResponseGuardarChecks);
+            checkAprobado = fnc_GetCheckAprobado(numGrid);
+
+            PageMethods.GuardarChecks(cadenaValores,checkAprobado, fnc_ResponseGuardarChecks);
         }
 
 
@@ -245,6 +248,46 @@
 
             return nombre;
 
+        }
+
+        function fnc_GetCheckAprobado(numGrid) {
+
+            var checked=false;
+
+            switch (numGrid) {
+                case 1: //PLAN DE DESARROLLO VERCRUZANO
+                    checked=$("#<%= chkAprobadoPD.ClientID %>").is(':checked');
+                    break;
+                case 2: //ANTEPROYECTO
+                    checked = $("#<%= chkAprobadoAnteproyecto.ClientID %>").is(':checked');
+                    break;
+                case 3: //Fondo y programa
+                    checked = $("#<%= chkAprobadoFondoPrograma.ClientID %>").is(':checked');
+                    break;
+                case 4: //Proyecto Ejecutivo y Proyecto Base
+                    checked = $("#<%= chkAprobadoProyectoEjecutivo.ClientID %>").is(':checked');
+                    break;
+                case 5: //Adjudicacion Directa
+                    checked = $("#<%= chkAprobadoAdjuDirecta.ClientID %>").is(':checked');
+                    break;
+                case 6: //Adjudicacion por excepcion de ley
+                    checked = $("#<%= chkAprobadoExcepcion.ClientID %>").is(':checked');
+                    break;
+                case 7: //Invitacion a cuando menos tres personas
+                    checked = $("#<%= chkAprobadoInvitacion.ClientID %>").is(':checked');
+                    break;
+                case 8: //Licitacion Pública
+                    checked = $("#<%= chkAprobadoLicitacion.ClientID %>").is(':checked');
+                    break;
+                case 9: //Presupuesto Autorizado Contrato
+                    checked = $("#<%= chkAprobadoPresupuesto.ClientID %>").is(':checked');
+                    break;
+                case 10: //Administración Directa
+                    checked = $("#<%= chkAprobadoAdmin.ClientID %>").is(':checked');
+                    break;
+            }
+
+            return checked;
         }
 
 
@@ -450,6 +493,9 @@
 
                                         <div>
                                             <input value="Guardar" type="button" id="btnPlanDesarrollo" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(1);" />
+                                            
+                                            <label>&nbsp;Evaluación Aprobada</label>
+                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoPD" />
                                         </div>
 
                                     </div>
@@ -516,6 +562,8 @@
 
                                         <div>
                                             <input value="Guardar" type="button" id="btnAnteproyecto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(2);" />
+                                            <label>&nbsp;Evaluación Aprobada</label>
+                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoAnteproyecto" />
                                         </div>
 
                                     </div>
@@ -582,6 +630,8 @@
 
                                         <div>
                                             <input value="Guardar" type="button" id="btnFondoPrograma" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(3);" />
+                                            <label>&nbsp;Evaluación Aprobada</label>
+                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoFondoPrograma" />
                                         </div>
 
                                     </div>
@@ -647,6 +697,8 @@
 
                                         <div>
                                             <input value="Guardar" type="button" id="btnProyecto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(4);" />
+                                            <label>&nbsp;Evaluación Aprobada</label>
+                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoProyectoEjecutivo" />
                                         </div>
 
                                     </div>
@@ -720,6 +772,8 @@
                                                        </asp:GridView>
                                                        <div>
                                                             <input value="Guardar" type="button" id="btnTipoAdju" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(5);" />
+                                                            <label>&nbsp;Evaluación Aprobada</label>
+                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoAdjuDirecta" />
                                                        </div>
                                                 </div>
                                             </div>
@@ -782,6 +836,8 @@
                                                        </asp:GridView>
                                                        <div>
                                                             <input value="Guardar" type="button" id="btnExcepcion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(6);" />
+                                                            <label>&nbsp;Evaluación Aprobada</label>
+                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoExcepcion" />
                                                        </div>
                                                 </div>
                                             </div>
@@ -844,6 +900,8 @@
                                                        </asp:GridView>
                                                        <div>
                                                             <input value="Guardar" type="button" id="btnInvitacion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(7);" />
+                                                            <label>&nbsp;Evaluación Aprobada</label>
+                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoInvitacion" />
                                                        </div>
                                                 </div>
                                             </div>
@@ -906,6 +964,8 @@
                                                        </asp:GridView>
                                                        <div>
                                                             <input value="Guardar" type="button" id="btnLicitacion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(8);" />
+                                                            <label>&nbsp;Evaluación Aprobada</label>
+                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoLicitacion" />
                                                        </div>
                                                 </div>
                                             </div>
@@ -976,6 +1036,8 @@
 
                                         <div>
                                             <input value="Guardar" type="button" id="btnPresupuesto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(9);" />
+                                            <label>&nbsp;Evaluación Aprobada</label>
+                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoPresupuesto" />
                                         </div>
 
                                     </div>
@@ -1042,6 +1104,8 @@
 
                                         <div>
                                             <input value="Guardar" type="button" id="btnAdmin" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(10);" />
+                                            <label>&nbsp;Evaluación Aprobada</label>
+                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoAdmin" />
                                         </div>
 
                                     </div>

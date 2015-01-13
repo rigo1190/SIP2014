@@ -50,6 +50,7 @@ namespace SIP.Formas.POA
                     gridPlanDesarrollo.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                     gridPlanDesarrollo.DataBind();
                     break;
+
                 case 2: //Anteproyecto y normatividad
                     gridAnteproyecto.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                     gridAnteproyecto.DataBind();
@@ -114,21 +115,33 @@ namespace SIP.Formas.POA
                     case 1: //Plan de Desarrollo Estatal Urbano
                         gridPlanDesarrollo.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                         gridPlanDesarrollo.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoPD.Checked = poaPlantilla.Aprobado;
                         break;
 
                     case 2: //Anteproyecto y normatividad
                         gridAnteproyecto.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                         gridAnteproyecto.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoAnteproyecto.Checked = poaPlantilla.Aprobado;
                         break;
 
                     case 3: //Fondo y programa
                         gridFondoPrograma.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                         gridFondoPrograma.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoFondoPrograma.Checked = poaPlantilla.Aprobado;
                         break;
 
                     case 4: //Proyecto Ejecutivo y Proyecto Base
                         gridProyectoEjecutivo.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                         gridProyectoEjecutivo.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoProyectoEjecutivo.Checked = poaPlantilla.Aprobado;
                         break;
 
                     case 5: //TIpo de Adjudicacion
@@ -147,6 +160,9 @@ namespace SIP.Formas.POA
                                         gridAdjuDirecta.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                                         gridAdjuDirecta.DataBind();
 
+                                        //Se Bindea el check de APROBADO
+                                        chkAprobadoAdjuDirecta.Checked = poaPlantilla.Aprobado;
+
                                         if (pd.Detalles.Count > 0)
                                         {
                                             Plantilla temp = pd.Detalles.ElementAt(0);
@@ -156,6 +172,9 @@ namespace SIP.Formas.POA
                                             gridExcepcion.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                                             gridExcepcion.DataBind();
 
+                                            //Se Bindea el check de APROBADO
+                                            chkAprobadoExcepcion.Checked = poaPlantilla.Aprobado;
+
                                             poaPlantilla = null;
                                             temp = null;
                                             temp = pd.Detalles.ElementAt(1);
@@ -164,12 +183,19 @@ namespace SIP.Formas.POA
                                             poaPlantilla = uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.PlantillaId == temp.Id).FirstOrDefault();
                                             gridInvitacion.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                                             gridInvitacion.DataBind();
+
+                                            //Se Bindea el check de APROBADO
+                                            chkAprobadoInvitacion.Checked = poaPlantilla.Aprobado;
+ 
                                         }
 
                                         break;
                                     case 2: //Licitacion Pública
                                         gridLicitacion.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                                         gridLicitacion.DataBind();
+
+                                        //Se Bindea el check de APROBADO
+                                        chkAprobadoLicitacion.Checked = poaPlantilla.Aprobado;
                                         break;
                                 }
                             }
@@ -183,11 +209,18 @@ namespace SIP.Formas.POA
                     case 6: //Presupuesto Autorizado Contrato
                         gridPresupuesto.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                         gridPresupuesto.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoPresupuesto.Checked = poaPlantilla.Aprobado;
+                        
                         break;
 
                     case 7: //Administración Directa
                         gridAdmin.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                         gridAdmin.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoAdmin.Checked = poaPlantilla.Aprobado;
                         break;
                 }
 
@@ -463,23 +496,7 @@ namespace SIP.Formas.POA
                 txtImporte.Value = obraFinan != null ? obraFinan.Importe.ToString("c") : string.Empty;
 
             }
-
-            
-
-
-           
-            
-
-            
-
-
-
         }
-
-
-
-
-
 
         private void RowDataBound(int id, int numGrid, GridViewRowEventArgs e)
         {
@@ -544,19 +561,20 @@ namespace SIP.Formas.POA
         }
 
         [WebMethod]
-        public static List<string> GuardarChecks(string cadValores)
+        public static List<string> GuardarChecks(string cadValores, bool checkAprobado)
         {
             string M = string.Empty;
             List<string> R = new List<string>();
             string[] primerArray = cadValores.Split('|'); //Se separa la cadena en un arreglo quedando solamente el formato ID:RES:PRES
             UnitOfWork uow = new UnitOfWork();
+            POAPlantillaDetalle pregu=null;
 
             foreach (string pa in primerArray) //Se recorre el primer arreglo
             {
                 string[] segundoArrary = pa.Split(':'); //Se separa el primer resultado, ahora por el caracter de = 
 
                 int id = Utilerias.StrToInt(segundoArrary[0]); //la primera posicion del segundo array contiene el ID de la PREGUNTA
-                POAPlantillaDetalle pregu = uow.POAPlantillaDetalleBusinessLogic.GetByID(id);
+                pregu = uow.POAPlantillaDetalleBusinessLogic.GetByID(id);
 
                 if (pregu != null)
                 {
@@ -606,7 +624,31 @@ namespace SIP.Formas.POA
 
             }
 
+            //EL uULTIMO OBJETO DE POAPLANTILLADETALLE RECUPERADO, NOS DARA CUAL ES LA PLANTILLA PADRE (POAPLANTILLA)
+            //A LA CUAL SE ACTUALIZARA SU CAMPO DE "Aprobado", EL CUAL INDICA SI LA PLANTILLA DE EVALUACION FUE APROBADA POR EL ANALISTA DE SEFIPLAN
 
+            POAPlantilla plantilla = uow.POAPlantillaBusinessLogic.GetByID(pregu.POAPlantillaId);
+            plantilla.Aprobado = checkAprobado;
+
+            uow.POAPlantillaBusinessLogic.Update(plantilla);
+            uow.SaveChanges();
+
+            //Si hubo errores
+            if (uow.Errors.Count > 0)
+            {
+                M = string.Empty;
+                foreach (string cad in uow.Errors)
+                    M += cad;
+            }
+
+
+            //Si hubo errores
+            if (!M.Equals(string.Empty))
+            {
+                R.Add(string.Empty);
+                R.Add(M);
+                return R;
+            }
 
             M = "Se han guardado correctamente los cambios";
             R.Add(M);
@@ -989,12 +1031,86 @@ namespace SIP.Formas.POA
                 return;
             }
 
+            M = GuardarCheckAprobadoIndividual(Utilerias.StrToInt(_NumGrid.Value), obj);
+
+            if (!M.Equals(string.Empty))
+            {
+                return;
+            }
+
 
             BindGridIndividual(Utilerias.StrToInt(_NumGrid.Value), obj);
 
-            //fnc_AbrirCollapse()
+            
             ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_AbrirCollapse()", true);
         }
+
+        private string GuardarCheckAprobadoIndividual(int numGrid, POAPlantillaDetalle obj )
+        {
+            string M = string.Empty;
+            bool check = false;
+            POAPlantilla poaPlantilla = uow.POAPlantillaBusinessLogic.GetByID(obj.POAPlantillaId);
+
+            switch (numGrid)
+            {
+                case 1: //Plan de Desarrollo Estatal Urbano
+                    check = chkAprobadoPD.Checked;
+                    break;
+
+                case 2: //Anteproyecto y normatividad
+                    check = chkAprobadoAnteproyecto.Checked;
+                    break;
+
+                case 3: //Fondo y programa
+                    check = chkAprobadoFondoPrograma.Checked;
+                    break;
+
+                case 4: //Proyecto Ejecutivo y Proyecto Base
+                    check = chkAprobadoProyectoEjecutivo.Checked;
+                    break;
+
+                case 5: //Adjudicacion Directa
+                    check = chkAprobadoAdjuDirecta.Checked;
+                    break;
+
+                case 6: //Adjudicacion por excepcion de ley
+                    check = chkAprobadoExcepcion.Checked;
+                    break;
+
+                case 7: //Invitacion a cuando menos tres personas
+                    check = chkAprobadoInvitacion.Checked;
+                    break;
+
+                case 8: //Licitacion Pública
+                    check = chkAprobadoLicitacion.Checked;
+                    break;
+
+                case 9: //Presupuesto Autorizado Contrato
+                    check = chkAprobadoPresupuesto.Checked;
+                    break;
+
+                case 10: //Administración Directa
+                    check = chkAprobadoAdmin.Checked;
+                    break;
+            }
+
+            poaPlantilla.Aprobado = check;
+            uow.POAPlantillaBusinessLogic.Update(poaPlantilla);
+            uow.SaveChanges();
+
+            //Si hubo errores
+            if (uow.Errors.Count > 0)
+            {
+                M = string.Empty;
+                foreach (string cad in uow.Errors)
+                    M += cad;  
+            }
+
+
+            return M;
+        }
+
+
 
         #endregion
 

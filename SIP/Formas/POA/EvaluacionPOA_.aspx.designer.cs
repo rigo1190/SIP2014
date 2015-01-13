@@ -184,6 +184,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnPlanDesarrollo;
         
         /// <summary>
+        /// Control chkAprobadoPD.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoPD;
+        
+        /// <summary>
         /// Control gridAnteproyecto.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnAnteproyecto;
+        
+        /// <summary>
+        /// Control chkAprobadoAnteproyecto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoAnteproyecto;
         
         /// <summary>
         /// Control gridFondoPrograma.
@@ -220,6 +238,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnFondoPrograma;
         
         /// <summary>
+        /// Control chkAprobadoFondoPrograma.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoFondoPrograma;
+        
+        /// <summary>
         /// Control gridProyectoEjecutivo.
         /// </summary>
         /// <remarks>
@@ -236,6 +263,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnProyecto;
+        
+        /// <summary>
+        /// Control chkAprobadoProyectoEjecutivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoProyectoEjecutivo;
         
         /// <summary>
         /// Control gridAdjuDirecta.
@@ -256,6 +292,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnTipoAdju;
         
         /// <summary>
+        /// Control chkAprobadoAdjuDirecta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoAdjuDirecta;
+        
+        /// <summary>
         /// Control gridExcepcion.
         /// </summary>
         /// <remarks>
@@ -272,6 +317,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnExcepcion;
+        
+        /// <summary>
+        /// Control chkAprobadoExcepcion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoExcepcion;
         
         /// <summary>
         /// Control gridInvitacion.
@@ -292,6 +346,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnInvitacion;
         
         /// <summary>
+        /// Control chkAprobadoInvitacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoInvitacion;
+        
+        /// <summary>
         /// Control gridLicitacion.
         /// </summary>
         /// <remarks>
@@ -308,6 +371,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnLicitacion;
+        
+        /// <summary>
+        /// Control chkAprobadoLicitacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoLicitacion;
         
         /// <summary>
         /// Control gridPresupuesto.
@@ -328,6 +400,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnPresupuesto;
         
         /// <summary>
+        /// Control chkAprobadoPresupuesto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoPresupuesto;
+        
+        /// <summary>
         /// Control gridAdmin.
         /// </summary>
         /// <remarks>
@@ -344,6 +425,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputButton btnAdmin;
+        
+        /// <summary>
+        /// Control chkAprobadoAdmin.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox chkAprobadoAdmin;
         
         /// <summary>
         /// Control _IDPlantilla.

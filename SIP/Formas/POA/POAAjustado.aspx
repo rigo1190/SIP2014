@@ -54,12 +54,23 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
 
-                                <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-10" HeaderStyle-CssClass="panel-footer">                            
+                                <asp:TemplateField HeaderText="Descripcion" ItemStyle-CssClass="col-md-6" HeaderStyle-CssClass="panel-footer">                            
                                     <ItemTemplate>
                                         <asp:Label ID="labelDescripcion" runat="server" Text='<%# Bind("Descripcion") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
+                                <asp:TemplateField HeaderText="Porcentaje Plantillas Aprobadas (Planeación)" SortExpression="Avance Físico">
+                                    <ItemTemplate>                           
+                                        <div id = "divAvance" runat="server">
+                                        <span id="spanAvance" runat="server"></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div id="progreso" runat="server" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:0%;"><span class="sr-only">.s..</span></div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:TemplateField>    
+
                                 <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Evaluar POA" SortExpression="NOAplica">
                                     <ItemTemplate>
                                         <button type="button" runat="server" id="btnEvaluar"><span class="glyphicon glyphicon-ok"></span></button>

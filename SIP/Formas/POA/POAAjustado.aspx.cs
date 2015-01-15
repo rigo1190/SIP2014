@@ -21,7 +21,7 @@ namespace SIP.Formas.POA
             {
                 int unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
                 int ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
-                int columnsInicial = grid.Columns.Count;
+                //int columnsInicial = grid.Columns.Count;
 
                 UnidadPresupuestal up = uow.UnidadPresupuestalBusinessLogic.GetByID(unidadpresupuestalId);
 
@@ -51,6 +51,15 @@ namespace SIP.Formas.POA
                 button.Attributes.Add("data-tipo-operacion", "evaluar");
                 button.Attributes.Add("data-url-poa", url);
 
+
+                HtmlGenericControl spanAvance = (HtmlGenericControl)e.Row.FindControl("spanAvance");
+                HtmlGenericControl progreso = (HtmlGenericControl)e.Row.FindControl("progreso");
+
+                decimal avance = BuscarPorcentajesAvance(id);
+
+                progreso.Style.Add("width", avance.ToString() + "%");
+                spanAvance.InnerText = avance.ToString() + "%";
+
             }
         }
 
@@ -60,6 +69,29 @@ namespace SIP.Formas.POA
             grid.PageIndex = e.NewPageIndex;
             BindGrid();          
         }
+
+
+        public decimal BuscarPorcentajesAvance(int idPOADetalle)
+        {
+
+            decimal avance;
+            int porcentaje;
+
+            var listPOAPlantillasPlaneacion = (from poapl in uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == idPOADetalle && e.Detalles.Count > 0)
+                                               join pl in uow.PlantillaBusinessLogic.Get()
+                                               on poapl.PlantillaId equals pl.Id
+                                               select new { poaPlantillaID = poapl.Id, Aprobado = poapl.Aprobado, Padre = pl.Padre }).Where(e=>e.Padre.Orden==2);
+
+
+            decimal totalPlantillas = listPOAPlantillasPlaneacion.Count();
+            decimal totalEvaluadas = listPOAPlantillasPlaneacion.Where(e => e.Aprobado == true).Count();
+
+            avance = Math.Round((totalEvaluadas / (totalPlantillas)) * 100);
+            porcentaje = Utilerias.StrToInt(avance.ToString());
+
+            return avance;
+        }
+
 
     }
 }

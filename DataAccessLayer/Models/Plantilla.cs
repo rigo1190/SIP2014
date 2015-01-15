@@ -28,6 +28,28 @@ namespace DataAccessLayer.Models
         public int? DependeDeId { get; set; }      
         public virtual Plantilla DependeDe { get; set; }
         public virtual ICollection<Plantilla> Detalles { get; set; } 
-        public virtual ICollection<PlantillaDetalle> DetallePreguntas { get; set; }     
+        public virtual ICollection<PlantillaDetalle> DetallePreguntas { get; set; }
+     
+        [NotMapped]
+        public Plantilla Padre
+        {
+            get
+            {
+                Plantilla pl;
+
+                if (DependeDe == null)
+                {
+                    pl = this;
+                }
+                else
+                {
+                    pl = DependeDe.Padre;
+                }
+
+                return pl;
+            }
+        }
+
+
     }
 }

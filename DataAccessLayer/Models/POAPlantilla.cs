@@ -19,5 +19,15 @@ namespace DataAccessLayer.Models
         public Plantilla Plantilla { get; set; }
         public virtual ICollection<POAPlantillaDetalle> Detalles { get; set; }
 
+
+        [NotMapped]
+        public Plantilla Padre
+        {
+            get
+            {
+                return this.Plantilla.Padre;
+            }
+        }
+
     }
 }

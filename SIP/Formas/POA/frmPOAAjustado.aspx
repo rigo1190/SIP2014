@@ -214,19 +214,19 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                             </div>
                           </div>
 
-                          <div class="form-group">
-                               <label for="NumeroBeneficiarios">Número de beneficiarios</label>
-                             <div>
-                                <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
-                            </div>
-                          </div>
-
-                           <div class="form-group">
+                         <div class="form-group">
                                <label for="CantidadUnidades">Cantidad de unidades</label>
                              <div>
                                 <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
                             </div>
                           </div>
+
+                          <div class="form-group">
+                               <label for="NumeroBeneficiarios">Número de beneficiarios</label>
+                             <div>
+                                <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
+                            </div>
+                          </div>                                                   
 
                          <div class="form-group">
                                <label for="Empleos">Empleos</label>

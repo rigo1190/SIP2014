@@ -4,6 +4,8 @@
      <script type="text/javascript">
 
          $(document).ready(function () {
+
+             $("#<%= ddlSituacionObra.ClientID %>").prop("disabled", true);
                                  
                                                   
              $('.campoNumerico').autoNumeric('init');             
@@ -61,21 +63,14 @@
 
                  switch(valorseleccionado)
                  {
+                     case "2":
                      case "3":
-                     case "4":
+
                          $("#divDatosObraAnterior").css("display", "block");
                          break;
-                    <%-- case "0":
-                         $("#divDatosObraAnterior").css("display", "none");
-                         $("#<%= txtNumeroAnterior.ClientID %>").val("");
-                         $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
-                         break;
-                     case "1":
-                         $("#divDatosObraAnterior").css("display", "none");
-                         $("#<%= txtNumeroAnterior.ClientID %>").val("");
-                         $("#<%= txtImporteLiberadoEjerciciosAnteriores.ClientID %>").val("");
-                         break;--%>
+
                      default:
+
                          $("#divDatosObraAnterior").css("display", "none");                         
                          break;
                  }
@@ -189,8 +184,8 @@
 
              switch (situacionobraId)
              {
+                 case "2":
                  case "3":
-                 case "4":
 
                      var numeroobraanterior = $("#<%= txtNumeroAnterior.ClientID %>").val();
                      if (numeroobraanterior == null || numeroobraanterior.length == 0 || numeroobraanterior == undefined) {
@@ -284,8 +279,8 @@
            
             switch (valorseleccionado)
             {
+                case "2":
                 case "3":
-                case "4":
                     $("#divDatosObraAnterior").css("display", "block");
                     break;                
                 default:
@@ -522,6 +517,13 @@
                                 </div>
                               </div>
 
+                             <div class="form-group">
+                                   <label for="CantidadUnidades">Cantidad de unidades</label>
+                                 <div>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
+                                </div>
+                              </div>
+
                               <div class="form-group">
                                    <label for="NumeroBeneficiarios">Número de beneficiarios</label>
                                  <div>
@@ -529,12 +531,6 @@
                                 </div>
                               </div>
 
-                               <div class="form-group">
-                                   <label for="CantidadUnidades">Cantidad de unidades</label>
-                                 <div>
-                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
-                                </div>
-                              </div>
 
                              <div class="form-group">
                                    <label for="Empleos">Empleos</label>

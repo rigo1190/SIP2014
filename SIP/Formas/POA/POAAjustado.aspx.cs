@@ -86,8 +86,14 @@ namespace SIP.Formas.POA
             decimal totalPlantillas = listPOAPlantillasPlaneacion.Count();
             decimal totalEvaluadas = listPOAPlantillasPlaneacion.Where(e => e.Aprobado == true).Count();
 
-            avance = Math.Round((totalEvaluadas / (totalPlantillas)) * 100);
-            porcentaje = Utilerias.StrToInt(avance.ToString());
+
+            if (totalPlantillas > 0)
+            {
+                avance = Math.Round((totalEvaluadas / (totalPlantillas)) * 100);
+                porcentaje = Utilerias.StrToInt(avance.ToString());
+            }
+            else
+                avance = 0;
 
             return avance;
         }

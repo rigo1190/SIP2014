@@ -36,7 +36,13 @@ namespace SIP.Formas.POA
             int unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             int ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.grid.DataSource = uow.POADetalleBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId, orderBy: r => r.OrderBy(ro => ro.Numero)).ToList();
+          
+            var list = (from o in uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId)
+                        join pd in uow.POADetalleBusinessLogic.Get(e=>e.Extemporanea==false)
+                        on o.POADetalleId equals pd.Id
+                        select pd).ToList();
+
+            this.grid.DataSource = list;//uow.POADetalleBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId, orderBy: r => r.OrderBy(ro => ro.Numero)).ToList();
             this.grid.DataBind();
 
         }

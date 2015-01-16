@@ -62,17 +62,31 @@
                                 
                                 <asp:TemplateField HeaderText="Porcentaje Plantillas Aprobadas (Planeación)" SortExpression="Avance Físico">
                                     <ItemTemplate>                           
-                                        <div id = "divAvance" runat="server">
-                                        <span id="spanAvance" runat="server"></span>
+                                        <div id = "divAvanceP" runat="server">
+                                            <span id="spanAvanceP" runat="server"></span>
                                         </div>
                                         <div class="progress">
-                                            <div id="progreso" runat="server" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:0%;"><span class="sr-only">.s..</span></div>
+                                            <div id="progresoP" runat="server" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:0%;"><span class="sr-only">.s..</span></div>
                                         </div>
                                     </ItemTemplate>
-                                </asp:TemplateField>    
+                                </asp:TemplateField>
+                                
+                                <asp:TemplateField HeaderText="Porcentaje Plantillas Aprobadas (Ejecución)" SortExpression="Avance Físico">
+                                    <ItemTemplate>                           
+                                        <div id = "divAvanceE" runat="server">
+                                            <span id="spanAvanceE" runat="server"></span>
+                                        </div>
+                                        <div class="progress">
+                                            <div id="progresoE" runat="server" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width:0%;"><span class="sr-only">.s..</span></div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:TemplateField>      
 
                                 <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Evaluar POA" SortExpression="NOAplica">
                                     <ItemTemplate>
+                                         <div id = "div" runat="server">
+                                            <span id="span" runat="server">&nbsp;</span>
+                                        </div>
                                         <button type="button" runat="server" id="btnEvaluar"><span class="glyphicon glyphicon-ok"></span></button>
                                     </ItemTemplate>
                                     <ItemStyle HorizontalAlign="Center" />

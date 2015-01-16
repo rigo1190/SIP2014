@@ -36,7 +36,7 @@ namespace SIP.Formas.POA
             int unidadpresupuestalId = Utilerias.StrToInt(Session["UnidadPresupuestalId"].ToString());
             int ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
-            this.grid.DataSource = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId, orderBy: r => r.OrderBy(ro => ro.Numero)).ToList();
+            this.grid.DataSource = uow.POADetalleBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId, orderBy: r => r.OrderBy(ro => ro.Numero)).ToList();
             this.grid.DataBind();
 
         }
@@ -52,13 +52,22 @@ namespace SIP.Formas.POA
                 button.Attributes.Add("data-url-poa", url);
 
 
-                HtmlGenericControl spanAvance = (HtmlGenericControl)e.Row.FindControl("spanAvance");
-                HtmlGenericControl progreso = (HtmlGenericControl)e.Row.FindControl("progreso");
+                HtmlGenericControl spanAvanceP = (HtmlGenericControl)e.Row.FindControl("spanAvanceP");
+                HtmlGenericControl progresoP = (HtmlGenericControl)e.Row.FindControl("progresoP");
+                HtmlGenericControl spanAvanceE = (HtmlGenericControl)e.Row.FindControl("spanAvanceE");
+                HtmlGenericControl progresoE = (HtmlGenericControl)e.Row.FindControl("progresoE");
 
-                decimal avance = BuscarPorcentajesAvance(id);
+                decimal avance = BuscarPorcentajesAvance(id,2); //PLANEACION
 
-                progreso.Style.Add("width", avance.ToString() + "%");
-                spanAvance.InnerText = avance.ToString() + "%";
+                progresoP.Style.Add("width", avance.ToString() + "%");
+                spanAvanceP.InnerText = avance.ToString() + "%";
+
+
+                avance = BuscarPorcentajesAvance(id, 3); //EJECUCION
+
+                progresoE.Style.Add("width", avance.ToString() + "%");
+                spanAvanceE.InnerText = avance.ToString() + "%";
+
 
             }
         }
@@ -71,7 +80,7 @@ namespace SIP.Formas.POA
         }
 
 
-        public decimal BuscarPorcentajesAvance(int idPOADetalle)
+        public decimal BuscarPorcentajesAvance(int idPOADetalle, int orden)
         {
 
             decimal avance;
@@ -80,12 +89,11 @@ namespace SIP.Formas.POA
             var listPOAPlantillasPlaneacion = (from poapl in uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == idPOADetalle && e.Detalles.Count > 0)
                                                join pl in uow.PlantillaBusinessLogic.Get()
                                                on poapl.PlantillaId equals pl.Id
-                                               select new { poaPlantillaID = poapl.Id, Aprobado = poapl.Aprobado, Padre = pl.Padre }).Where(e=>e.Padre.Orden==2);
+                                               select new { poaPlantillaID = poapl.Id, Aprobado = poapl.Aprobado, Padre = pl.Padre }).Where(e=>e.Padre.Orden==orden);
 
 
             decimal totalPlantillas = listPOAPlantillasPlaneacion.Count();
             decimal totalEvaluadas = listPOAPlantillasPlaneacion.Where(e => e.Aprobado == true).Count();
-
 
             if (totalPlantillas > 0)
             {
@@ -96,6 +104,7 @@ namespace SIP.Formas.POA
                 avance = 0;
 
             return avance;
+
         }
 
 

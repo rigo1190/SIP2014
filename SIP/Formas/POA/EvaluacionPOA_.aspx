@@ -3,6 +3,32 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function () {
+
+            $("#linkPlaneacion").click(function () {
+                $("#<%= divPlaneacion.ClientID %>").css("display", "block");
+                $("#<%= divEjecucion.ClientID %>").css("display", "none");
+                
+                $('#linkEjecucion').removeClass('active');
+                $('#linkPlaneacion').addClass('active');
+
+            });
+
+
+            $("#linkEjecucion").click(function () {
+                $("#<%= divPlaneacion.ClientID %>").css("display", "none");
+                $("#<%= divEjecucion.ClientID %>").css("display", "block");
+
+                $('#linkPlaneacion').removeClass('active');
+                $('#linkEjecucion').addClass('active');
+            });
+
+
+        });
+
+
+
+
         function fnc_AbrirCollapse() {
 
             var numeroCollapse=$("#<%= _numCollapse.ClientID %>").val();
@@ -16,6 +42,13 @@
                 case "9":
                     $("#collapse5").addClass("panel-collapse collapse in");
                 
+            }
+
+            //Mostrar la pestaña correspondiente de evaluacion, PLANEACION o EJECUCION
+            var numGrid = $("#<%= _NumGrid.ClientID %>").val();
+            if (numGrid > 10) {
+                $("#<%= divPlaneacion.ClientID %>").css("display", "none");
+                $("#<%= divEjecucion.ClientID %>").css("display", "block");
             }
 
         }
@@ -55,6 +88,7 @@
             cadenaValores = fnc_ObtenerRadioChecks(numGrid);
             
             switch (numGrid) {
+                //ETAPA DE PLANEACION
                 case 1:
                     numeroCollapse = 1;
                     break;
@@ -85,6 +119,30 @@
                 case 10:
                     numeroCollapse = 11;
                     break;
+
+                //ETAPA DE EJECUCION
+                case 11:
+                    numeroCollapse = "1_2";
+                    break;
+                case 12:
+                    numeroCollapse = "2_2";
+                    break;
+                case 13:
+                    numeroCollapse = "3_2";
+                    break;
+                case 14:
+                    numeroCollapse = "4_2";
+                    break;
+                case 15:
+                    numeroCollapse = "5_2";
+                    break;
+                case 16:
+                    numeroCollapse = "6_2";
+                    break;
+                case 17:
+                    numeroCollapse = "7_2";
+                    break;
+                
 
             }
 
@@ -140,6 +198,8 @@
             var nomGrid = fnc_GetNombreGrid(numGrid);
 
             switch (numGrid) {
+                //GRIDS DE LA ETAPA DE EVALUACION
+
                 case 1: //PLAN DE DESARROLLO VERCRUZANO
                     grid = document.getElementById('<%=gridPlanDesarrollo.ClientID %>'); //Se recupera el grid
                     break;
@@ -169,6 +229,29 @@
                     break;
                 case 10: //Administración Directa
                     grid = document.getElementById('<%=gridAdmin.ClientID %>'); //Se recupera el grid
+                    break;
+
+                //GRIDS DE LA ETAPA DE EJECUCION
+                case 11: //Control técnico financiero
+                    grid = document.getElementById('<%=gridTecnicoFinanciero.ClientID %>'); //Se recupera el grid
+                    break;
+                case 12: //Bitácora electrónica - convencional
+                    grid = document.getElementById('<%=gridBitacora.ClientID %>'); //Se recupera el grid
+                    break;
+                case 13: //Supervisión y estimaciones
+                    grid = document.getElementById('<%=gridEstimaciones.ClientID %>'); //Se recupera el grid
+                    break;
+                case 14: //Convenios prefiniquitos
+                    grid = document.getElementById('<%=gridConvenios.ClientID %>'); //Se recupera el grid
+                    break;
+                case 15: //Finiquito
+                    grid = document.getElementById('<%=gridFiniquito.ClientID %>'); //Se recupera el grid
+                    break;
+                case 16: //Acta entrega recepción
+                    grid = document.getElementById('<%=gridEntrega.ClientID %>'); //Se recupera el grid
+                    break;
+                case 17: //Documentación de gestión de recursos
+                    grid = document.getElementById('<%=gridGestion.ClientID %>'); //Se recupera el grid
                     break;
 
             }
@@ -214,6 +297,7 @@
             var nombre = "";
 
             switch (numGrid) {
+                //GRIDS DE LA ETAPA DE PLANEACION
                 case 1:
                     nombre = "gridPlanDesarrollo";
                     break;
@@ -244,6 +328,29 @@
                 case 10:
                     nombre = "gridAdmin";
                     break;
+
+                //GRIDS DE LA ETAPA DE EJECUCION
+                case 11:
+                    nombre = "gridTecnicoFinanciero";
+                    break;
+                case 12:
+                    nombre = "gridBitacora";
+                    break;
+                case 13:
+                    nombre = "gridEstimaciones";
+                    break;
+                case 14:
+                    nombre = "gridConvenios";
+                    break;
+                case 15:
+                    nombre = "gridFiniquito";
+                    break;
+                case 16:
+                    nombre = "gridEntrega";
+                    break;
+                case 17:
+                    nombre = "gridGestion";
+                    break;
             }
 
             return nombre;
@@ -255,6 +362,8 @@
             var checked=false;
 
             switch (numGrid) {
+                //GRIDS DE LA ETAPA DE PLANEACION
+
                 case 1: //PLAN DE DESARROLLO VERCRUZANO
                     checked=$("#<%= chkAprobadoPD.ClientID %>").is(':checked');
                     break;
@@ -285,6 +394,30 @@
                 case 10: //Administración Directa
                     checked = $("#<%= chkAprobadoAdmin.ClientID %>").is(':checked');
                     break;
+
+                //GRIDS DE LA ETAPA DE EJECUCION
+                case 11: //Control técnico financiero
+                    checked = $("#<%= chkAprobadoTecnicoFinanciero.ClientID %>").is(':checked');
+                    break;
+                case 12: //Bitácora electrónica - convencional
+                    checked = $("#<%= chkAprobadoBitacora.ClientID %>").is(':checked');
+                    break;
+                case 13: //Supervisión y estimaciones
+                    checked = $("#<%= chkAprobadoEstimaciones.ClientID %>").is(':checked');
+                    break;
+                case 14: //Convenios prefiniquitos
+                    checked = $("#<%= chkAprobadoConvenios.ClientID %>").is(':checked');
+                    break;
+                case 15: //Finiquito
+                    checked = $("#<%= chkAprobadoFiniquito.ClientID %>").is(':checked');
+                    break;
+                case 16: //Acta entrega recepción
+                    checked = $("#<%= chkAprobadoEntrega.ClientID %>").is(':checked');
+                    break;
+                case 17: //Documentación de gestión de recursos
+                    checked = $("#<%= chkAprobadoGestion.ClientID %>").is(':checked');
+                    break;
+
             }
 
             return checked;
@@ -424,8 +557,19 @@
                     </div>
                     <div class="panel-body">
                         
-                         <div class="panel-group" id="accordion">
-                             <div class="panel panel-default">
+                        <div class="row">
+                            <div id="divMenu" runat="server">
+                                <ul class="nav nav-tabs nav-justified panel-success">
+                                    <li class="active"><a id="linkPlaneacion" href="#">Etapa Planeación</a></li>
+                                    <li class="active"><a id="linkEjecucion" href="#">Etapa Ejecución</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div id="divPlaneacion" runat="server">
+                             <div class="panel-group" id="accordion">
+                                 <div class="panel panel-default">
                                  
                                  <div class="panel-heading">
                                     <h4 class="panel-title">
@@ -1111,9 +1255,498 @@
                                     </div>
                                 </div>
 
-                             </div>   
+                                 </div>   
+                             </div>
+                        </div>
 
-                         </div>
+                        <div id="divEjecucion" runat="server" style="display:none">
+                            <div class="panel-group" id="accordion2">
+                                 <div class="panel panel-default">
+                                 
+                                     <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapse1_2">Control técnico financiero</a>
+                                        </h4>
+                                    </div>
+                                     <div id="collapse1_2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <asp:GridView OnRowDataBound="gridTecnicoFinanciero_RowDataBound" PageSize="1000" Height="25px" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridTecnicoFinanciero" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Acciones">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle BackColor="#EEEEEE" />
+                                                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="Documento de Evaluación" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "PlantillaDetalle.Pregunta") %>
+                                                            <input type="hidden" value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server" id="idPregunta" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="REQUIERE" SortExpression="SI">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false" runat="server" id="chkRequiere" />
+                                                        </ItemTemplate>
+                                                
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                            
+                                                    <asp:TemplateField  HeaderStyle-HorizontalAlign="Center" HeaderText="PRESENTÓ" SortExpression="NO">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false"  runat="server" id="chkPresento" />
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="Observaciones" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                            </Columns>
+
+                                            </asp:GridView>
+
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnTecnicoFinanciero" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(11);" />
+                                            
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoTecnicoFinanciero" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                     <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2_2">Bitácora electrónica - convencional</a>
+                                        </h4>
+                                    </div>
+                                     <div id="collapse2_2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridBitacora_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridBitacora" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Acciones">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle BackColor="#EEEEEE" />
+                                                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Documento de Evaluación" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "PlantillaDetalle.Pregunta") %>
+                                                            <input type="hidden" value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server" id="idPregunta" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                               
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="REQUIERE" SortExpression="SI">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false" runat="server" id="chkRequiere" />
+                                                        </ItemTemplate>
+                                                
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField  HeaderStyle-HorizontalAlign="Center" HeaderText="PRESENTÓ" SortExpression="NO">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false"  runat="server" id="chkPresento" />
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Observaciones" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                            
+                                        
+                                            </asp:GridView>
+
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnBitacora" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(12);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoBitacora" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                     <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapse3_2">Supervisión y estimaciones</a>
+                                        </h4>
+                                    </div>
+                                     <div id="collapse3_2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridEstimaciones_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridEstimaciones" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Acciones">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle BackColor="#EEEEEE" />
+                                                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Documento de Evaluación" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "PlantillaDetalle.Pregunta") %>
+                                                            <input type="hidden" value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server" id="idPregunta" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                               
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="REQUIERE" SortExpression="SI">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false" runat="server" id="chkRequiere" />
+                                                        </ItemTemplate>
+                                                
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField  HeaderStyle-HorizontalAlign="Center" HeaderText="PRESENTÓ" SortExpression="NO">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false"  runat="server" id="chkPresento" />
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Observaciones" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                            
+                                        
+                                            </asp:GridView>
+
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnEstimaciones" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(13);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoEstimaciones" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                     <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapse4_2">Convenios prefiniquitos</a>
+                                        </h4>
+                                    </div>
+                                     <div id="collapse4_2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridConvenios_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridConvenios" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Acciones">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle BackColor="#EEEEEE" />
+                                                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Documento de Evaluación" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "PlantillaDetalle.Pregunta") %>
+                                                            <input type="hidden" value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server" id="idPregunta" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                               
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="REQUIERE" SortExpression="SI">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false" runat="server" id="chkRequiere" />
+                                                        </ItemTemplate>
+                                                
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField  HeaderStyle-HorizontalAlign="Center" HeaderText="PRESENTÓ" SortExpression="NO">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false"  runat="server" id="chkPresento" />
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Observaciones" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+
+                                            </asp:GridView>
+
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnConvenios" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(14);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoConvenios" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                     <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapse5_2">Finiquito</a>
+                                        </h4>
+                                    </div>
+                                     <div id="collapse5_2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+                                           <div class="panel-body">
+                                                <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridFiniquito_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridFiniquito" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="Acciones">
+                                                            <ItemTemplate>
+                                                                <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                            </ItemTemplate>
+                                                            <HeaderStyle BackColor="#EEEEEE" />
+                                                            <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Documento de Evaluación" SortExpression="Orden">
+                                                            <ItemTemplate>
+                                                                <%# DataBinder.Eval(Container.DataItem, "PlantillaDetalle.Pregunta") %>
+                                                                <input type="hidden" value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server" id="idPregunta" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="REQUIERE" SortExpression="SI">
+                                                            <ItemTemplate>
+                                                                <input type="checkbox" value="false" runat="server" id="chkRequiere" />
+                                                            </ItemTemplate>
+                                                
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField  HeaderStyle-HorizontalAlign="Center" HeaderText="PRESENTÓ" SortExpression="NO">
+                                                            <ItemTemplate>
+                                                                <input type="checkbox" value="false"  runat="server" id="chkPresento" />
+                                                            </ItemTemplate>
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Observaciones" SortExpression="Orden">
+                                                            <ItemTemplate>
+                                                                <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                            </ItemTemplate>
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                            <ItemTemplate>
+                                                                <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                            </ItemTemplate>
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                           
+                                        
+                                                </asp:GridView>
+                                                <div>
+                                                    <input value="Guardar" type="button" id="btnFiniquito" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(15);" />
+                                                    <label>&nbsp;Evaluación Aprobada</label>
+                                                    <input type="checkbox" value="false" runat="server" id="chkAprobadoFiniquito" />
+                                                </div>
+                                        </div>
+
+                                        </div>
+                                    </div>
+
+                                     <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapse6_2">Acta entrega recepción</a>
+                                        </h4>
+                                    </div>
+                                     <div id="collapse6_2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridEntrega_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridEntrega" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Acciones">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle BackColor="#EEEEEE" />
+                                                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Documento de Evaluación" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "PlantillaDetalle.Pregunta") %>
+                                                            <input type="hidden" value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server" id="idPregunta" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                               
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="REQUIERE" SortExpression="SI">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false" runat="server" id="chkRequiere" />
+                                                        </ItemTemplate>
+                                                
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField  HeaderStyle-HorizontalAlign="Center" HeaderText="PRESENTÓ" SortExpression="NO">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false"  runat="server" id="chkPresento" />
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Observaciones" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                            
+                                        
+                                            </asp:GridView>
+
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnEntrega" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(16);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoEntrega" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                     <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapse7_2">Documentación de gestión de recursos</a>
+                                        </h4>
+                                    </div>
+                                     <div id="collapse7_2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <asp:GridView  Height="25px" OnRowDataBound="gridGestion_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridGestion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" PageSize="1000">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="Acciones">
+                                                        <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        </ItemTemplate>
+                                                        <HeaderStyle BackColor="#EEEEEE" />
+                                                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="Documento de Evaluación" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "PlantillaDetalle.Pregunta") %>
+                                                            <input type="hidden" value='<%# DataBinder.Eval(Container.DataItem, "Id") %>' runat="server" id="idPregunta" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                               
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="REQUIERE" SortExpression="SI">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false" runat="server" id="chkRequiere" />
+                                                        </ItemTemplate>
+                                                
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField  HeaderStyle-HorizontalAlign="Center" HeaderText="PRESENTÓ" SortExpression="NO">
+                                                        <ItemTemplate>
+                                                            <input type="checkbox" value="false"  runat="server" id="chkPresento" />
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                     <asp:TemplateField HeaderText="Observaciones" SortExpression="Orden">
+                                                        <ItemTemplate>
+                                                            <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblArchivo" runat="server"></asp:Label>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                            
+                                        
+                                            </asp:GridView>
+
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnGestion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(17);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoGestion" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                 </div>   
+                             </div>
+                        </div>
 
                     </div>
 

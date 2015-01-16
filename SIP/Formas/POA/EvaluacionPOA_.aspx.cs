@@ -33,10 +33,27 @@ namespace SIP.Formas.POA
 
                 BindGridsEvaluacion();
 
+                CargarPreguntasPlantillasEjecucion(POADetalleID);
+
+                BindGridsEvaluacionEjecucion();
 
             }
 
         }
+
+        private void GetPlantillasEjecucion(int idPOADetalle)
+        {
+           var list = (from pl1 in uow.PlantillaBusinessLogic.Get()
+                        join pl2 in uow.PlantillaBusinessLogic.Get()
+                        on pl1.Id equals pl2.Id
+                        select new { PlantillaID = pl1.Id, Padre = pl1.Padre, Descripcion=pl1.Descripcion }).Where(e => e.Padre.Orden == 3);
+
+            foreach (var item in list)
+            {
+
+            } 
+        }
+
 
         #region METODOS
 
@@ -46,6 +63,8 @@ namespace SIP.Formas.POA
 
             switch (numGrid)
             {
+                //ETAPA DE PLANEACION
+
                 case 1: //Plan de Desarrollo Estatal Urbano
                     gridPlanDesarrollo.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                     gridPlanDesarrollo.DataBind();
@@ -94,6 +113,37 @@ namespace SIP.Formas.POA
                 case 10: //Administración Directa
                     gridAdmin.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
                     gridAdmin.DataBind();
+                    break;
+
+                //ETAPA DE EJECUCION
+
+                case 11: //Control técnico financiero
+                    gridTecnicoFinanciero.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                    gridTecnicoFinanciero.DataBind();
+                    break;
+                case 12: // Bitácora electrónica - convencional
+                    gridBitacora.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                    gridBitacora.DataBind();
+                    break;
+                case 13: // Supervisión y estimaciones
+                    gridEstimaciones.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                    gridEstimaciones.DataBind();
+                    break;
+                case 14: // Convenios prefiniquitos
+                    gridConvenios.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                    gridConvenios.DataBind();
+                    break;
+                case 15: // Finiquito
+                    gridFiniquito.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                    gridFiniquito.DataBind();
+                    break;
+                case 16: // Acta entrega recepción
+                    gridEntrega.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                    gridEntrega.DataBind();
+                    break;
+                case 17: // Documentación de gestión de recursos
+                    gridGestion.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                    gridGestion.DataBind();
                     break;
 
             }
@@ -230,15 +280,100 @@ namespace SIP.Formas.POA
 
 
         }
+
+        private void BindGridsEvaluacionEjecucion()
+        {
+            POAPlantilla poaPlantilla;
+            int POADetalleID = Utilerias.StrToInt(_IDPOADetalle.Value);
+
+            var list = (from pl1 in uow.PlantillaBusinessLogic.Get()
+                        join pl2 in uow.PlantillaBusinessLogic.Get()
+                        on pl1.Id equals pl2.Id
+                        select new { PlantillaID = pl1.Id, Padre = pl1.Padre, Descripcion = pl1.Descripcion, Orden=pl1.Orden }).Where(e => e.Padre.Orden == 3);
+
+            foreach (var item in list)
+            {
+                poaPlantilla = uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.PlantillaId == item.PlantillaID).FirstOrDefault();
+
+                if (poaPlantilla.Detalles == null)
+                    continue;
+                else if (poaPlantilla.Detalles.Count==0)
+                    continue;
+
+                switch (item.Orden)
+                {
+                    case 1: //Control técnico financiero
+                        gridTecnicoFinanciero.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                        gridTecnicoFinanciero.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoTecnicoFinanciero.Checked = poaPlantilla.Aprobado;
+                        break;
+                    case 2: // Bitácora electrónica - convencional
+                        gridBitacora.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                        gridBitacora.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoBitacora.Checked = poaPlantilla.Aprobado;
+                        break;
+                    case 3: // Supervisión y estimaciones
+                        gridEstimaciones.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                        gridEstimaciones.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoEstimaciones.Checked = poaPlantilla.Aprobado;
+                        break;
+                    case 4: // Convenios prefiniquitos
+                        gridConvenios.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                        gridConvenios.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoConvenios.Checked = poaPlantilla.Aprobado;
+                        break;
+                    case 5: // Finiquito
+                        gridFiniquito.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                        gridFiniquito.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoFiniquito.Checked = poaPlantilla.Aprobado;
+                        break;
+                    case 6: // Acta entrega recepción
+                        gridEntrega.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                        gridEntrega.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoEntrega.Checked = poaPlantilla.Aprobado;
+                        break;
+                    case 7: // Documentación de gestión de recursos
+                        gridGestion.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
+                        gridGestion.DataBind();
+
+                        //Se Bindea el check de APROBADO
+                        chkAprobadoGestion.Checked = poaPlantilla.Aprobado;
+                        break;
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// Metodo que se encarga de clonar las plantillas de la etapa de Planeacion
+        /// </summary>
+        /// <param name="POADetalleID"></param>
         private void CargarPreguntasPlantillas(int POADetalleID)
         {
 
-            List<Plantilla> listPlantillas = uow.PlantillaBusinessLogic.Get(e => e.DependeDe.Orden == 2).ToList(); //PLANTILLAS DE LA ETAPA DE PLANEACION
+            //List<Plantilla> listPlantillas = uow.PlantillaBusinessLogic.Get(e => e.DependeDe.Orden == 2).ToList(); //PLANTILLAS DE LA ETAPA DE PLANEACION
+            var list = (from pl1 in uow.PlantillaBusinessLogic.Get()
+                        join pl2 in uow.PlantillaBusinessLogic.Get()
+                        on pl1.Id equals pl2.Id
+                        select new { PlantillaID = pl1.Id, Padre = pl1.Padre, Descripcion = pl1.Descripcion }).Where(e => e.Padre.Orden == 2);
             POAPlantilla poaPlantilla = null;
             string M;
 
-            foreach (Plantilla p in listPlantillas)
+            foreach (var item in list)
             {
+                Plantilla p = uow.PlantillaBusinessLogic.GetByID(item.PlantillaID);
 
                 poaPlantilla = uow.POAPlantillaBusinessLogic.Get(e => e.PlantillaId == p.Id && e.POADetalleId == POADetalleID).FirstOrDefault(); //Se recupera POAPlantilla
 
@@ -249,6 +384,34 @@ namespace SIP.Formas.POA
             }
 
         }
+
+
+        private void CargarPreguntasPlantillasEjecucion(int POADetalleID)
+        {
+
+            var list = (from pl1 in uow.PlantillaBusinessLogic.Get()
+                        join pl2 in uow.PlantillaBusinessLogic.Get()
+                        on pl1.Id equals pl2.Id
+                        select new { PlantillaID = pl1.Id, Padre = pl1.Padre, Descripcion = pl1.Descripcion }).Where(e => e.Padre.Orden == 3);
+
+
+            POAPlantilla poaPlantilla = null;
+            string M;
+
+            foreach (var item in list)
+            {
+                Plantilla p = uow.PlantillaBusinessLogic.GetByID(item.PlantillaID);
+                poaPlantilla = uow.POAPlantillaBusinessLogic.Get(e => e.PlantillaId == p.Id && e.POADetalleId == POADetalleID).FirstOrDefault(); //Se recupera POAPlantilla
+
+                if (poaPlantilla == null) //Si no existe ningun objeto con la plantilla creada, entonces se procede a clonar la plantilla
+                    M = CopiarPlantilla(p);
+
+            }
+
+        }
+
+
+
         private string CrearPreguntasInexistentes(int POAPlantillaID, int plantillaID)
         {
             //int ordenPlantilla = Utilerias.StrToInt(Request.QueryString["o"].ToString());
@@ -1092,6 +1255,30 @@ namespace SIP.Formas.POA
                 case 10: //Administración Directa
                     check = chkAprobadoAdmin.Checked;
                     break;
+
+                //ETAPA DE EJECUCION
+
+                case 11: //Control técnico financiero
+                    check = chkAprobadoTecnicoFinanciero.Checked;
+                    break;
+                case 12: // Bitácora electrónica - convencional
+                    check = chkAprobadoBitacora.Checked;
+                    break;
+                case 13: // Supervisión y estimaciones
+                    check = chkAprobadoEstimaciones.Checked;
+                    break;
+                case 14: // Convenios prefiniquitos
+                    check = chkAprobadoConvenios.Checked;
+                    break;
+                case 15: // Finiquito
+                    check = chkAprobadoFiniquito.Checked;
+                    break;
+                case 16: // Acta entrega recepción
+                    check = chkAprobadoEntrega.Checked;
+                    break;
+                case 17: // Documentación de gestión de recursos
+                    check = chkAprobadoGestion.Checked;
+                    break;
             }
 
             poaPlantilla.Aprobado = check;
@@ -1111,8 +1298,96 @@ namespace SIP.Formas.POA
         }
 
 
+        protected void gridTecnicoFinanciero_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (gridTecnicoFinanciero.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                {
+                    int id = Utilerias.StrToInt(gridTecnicoFinanciero.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                    RowDataBound(id, 11, e);
+                }
+            }
+        }
+
+        protected void gridBitacora_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (gridBitacora.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                {
+                    int id = Utilerias.StrToInt(gridBitacora.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                    RowDataBound(id, 12, e);
+                }
+            }
+        }
+
+        protected void gridEstimaciones_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (gridEstimaciones.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                {
+                    int id = Utilerias.StrToInt(gridEstimaciones.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                    RowDataBound(id, 13, e);
+                }
+            }
+        }
+
+        protected void gridConvenios_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (gridConvenios.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                {
+                    int id = Utilerias.StrToInt(gridConvenios.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                    RowDataBound(id, 14, e);
+                }
+            }
+        }
+        protected void gridFiniquito_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (gridFiniquito.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                {
+                    int id = Utilerias.StrToInt(gridFiniquito.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                    RowDataBound(id, 15, e);
+                }
+            }
+        }
+
+        protected void gridEntrega_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (gridEntrega.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                {
+                    int id = Utilerias.StrToInt(gridEntrega.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                    RowDataBound(id, 16, e);
+                }
+            }
+        }
+
+        protected void gridGestion_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (gridGestion.DataKeys[e.Row.RowIndex].Values["Id"] != null)
+                {
+                    int id = Utilerias.StrToInt(gridGestion.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                    RowDataBound(id, 17, e);
+                }
+            }
+        }
+
+
+
 
         #endregion
+
+        
+        
 
 
         

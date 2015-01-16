@@ -37,8 +37,8 @@ namespace SIP
             var user = uow.UsuarioBusinessLogic.Get(u => u.Login==strlogin && u.Password==strContrasena).FirstOrDefault(u => u.Login == strlogin && u.Password == strContrasena);
 
             if (user!=null)
-            {                                               
-                        
+            {
+                FormsAuthentication.RedirectFromLoginPage(user.Login, false);        
                 Session.Timeout = 60;
                 Session["IsAuthenticated"] = true;
                 Session["NombreUsuario"] = user.Nombre;

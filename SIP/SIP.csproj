@@ -830,6 +830,11 @@
       <DependentUpon>rptControlFinancieroConceptosDeLaEstimacion.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="rpts\rptEvaluacionPOA1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptEvaluacionPOA.rpt</DependentUpon>
+    </Compile>
     <Compile Include="rpts\TechosFinancierosXup.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

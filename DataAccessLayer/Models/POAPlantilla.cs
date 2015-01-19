@@ -17,6 +17,7 @@ namespace DataAccessLayer.Models
         public bool Aprobado { get; set; }
         public virtual POADetalle POADetalle { get; set; }
         public Plantilla Plantilla { get; set; }
+        public string ObservacionGeneral { get; set; }
         public virtual ICollection<POAPlantillaDetalle> Detalles { get; set; }
 
 

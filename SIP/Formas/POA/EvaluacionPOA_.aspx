@@ -175,10 +175,12 @@
         function fnc_GuardarChecks(numGrid) {
             var cadenaValores;
             var checkAprobado;
+            var obsGeneral;
             cadenaValores = fnc_ObtenerRadioChecks(numGrid);
             checkAprobado = fnc_GetCheckAprobado(numGrid);
+            obsGeneral = fnc_GetObservacionGeneral(numGrid);
 
-            PageMethods.GuardarChecks(cadenaValores,checkAprobado, fnc_ResponseGuardarChecks);
+            PageMethods.GuardarChecks(cadenaValores,checkAprobado,obsGeneral, fnc_ResponseGuardarChecks);
         }
 
 
@@ -424,6 +426,72 @@
         }
 
 
+        function fnc_GetObservacionGeneral(numGrid) {
+
+            var observacion = "";
+
+            switch (numGrid) {
+                //GRIDS DE LA ETAPA DE PLANEACION
+
+                case 1: //PLAN DE DESARROLLO VERCRUZANO
+                    observacion = $("#<%= txtAprobadoPD.ClientID %>").val();
+                    break;
+                case 2: //ANTEPROYECTO
+                    observacion = $("#<%= txtAnteproyecto.ClientID %>").val();
+                    break;
+                case 3: //Fondo y programa
+                    observacion = $("#<%= txtFondoPrograma.ClientID %>").val();
+                    break;
+                case 4: //Proyecto Ejecutivo y Proyecto Base
+                    observacion = $("#<%= txtProyectoEjecutivo.ClientID %>").val();
+                    break;
+                case 5: //Adjudicacion Directa
+                    observacion = $("#<%= txtAdjuDirecta.ClientID %>").val();
+                    break;
+                case 6: //Adjudicacion por excepcion de ley
+                    observacion = $("#<%= txtExcepcion.ClientID %>").val();
+                    break;
+                case 7: //Invitacion a cuando menos tres personas
+                    observacion = $("#<%= txtInvitacion.ClientID %>").val();
+                    break;
+                case 8: //Licitacion Pública
+                    observacion = $("#<%= txtLicitacion.ClientID %>").val();
+                    break;
+                case 9: //Presupuesto Autorizado Contrato
+                    observacion = $("#<%= txtPresupuesto.ClientID %>").val();
+                    break;
+                case 10: //Administración Directa
+                    observacion = $("#<%= txtAdmin.ClientID %>").val();
+                    break;
+
+                    //GRIDS DE LA ETAPA DE EJECUCION
+                case 11: //Control técnico financiero
+                    observacion = $("#<%= txtTecnicoFinanciero.ClientID %>").val();
+                    break;
+                case 12: //Bitácora electrónica - convencional
+                    observacion = $("#<%= txtBitacora.ClientID %>").val();
+                    break;
+                case 13: //Supervisión y estimaciones
+                    observacion = $("#<%= txtEstimaciones.ClientID %>").val();
+                    break;
+                case 14: //Convenios prefiniquitos
+                    observacion = $("#<%= txtConvenios.ClientID %>").val();
+                    break;
+                case 15: //Finiquito
+                    observacion = $("#<%= txtFiniquito.ClientID %>").val();
+                    break;
+                case 16: //Acta entrega recepción
+                    observacion = $("#<%= txtEntrega.ClientID %>").val();
+                    break;
+                case 17: //Documentación de gestión de recursos
+                    observacion = $("#<%= txtGestion.ClientID %>").val();
+                    break;
+
+            }
+
+            return observacion;
+        }
+
 
         //Functin que se encarga de abrir una nueva ventana con el contenido del archivo que se haya adjuntado en la pregunta
         //Creado por Rigoberto TS
@@ -442,6 +510,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
     <div class="container">
+
         <div class="row" runat="server" id="divDatosGenerales">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -635,12 +704,14 @@
 
                                         </asp:GridView>
 
-                                        <div>
-                                            <input value="Guardar" type="button" id="btnPlanDesarrollo" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(1);" />
-                                            
-                                            <label>&nbsp;Evaluación Aprobada</label>
-                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoPD" />
-                                        </div>
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnPlanDesarrollo" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(1);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoPD" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px"  type="text" name="prueba" runat="server" id="txtAprobadoPD" />
+
+                                           </div>
 
                                     </div>
                                 </div>
@@ -704,11 +775,13 @@
                                         
                                         </asp:GridView>
 
-                                        <div>
-                                            <input value="Guardar" type="button" id="btnAnteproyecto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(2);" />
-                                            <label>&nbsp;Evaluación Aprobada</label>
-                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoAnteproyecto" />
-                                        </div>
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnAnteproyecto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(2);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoAnteproyecto" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtAnteproyecto" />
+                                            </div>
 
                                     </div>
                                 </div>
@@ -772,11 +845,13 @@
                                         
                                         </asp:GridView>
 
-                                        <div>
-                                            <input value="Guardar" type="button" id="btnFondoPrograma" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(3);" />
-                                            <label>&nbsp;Evaluación Aprobada</label>
-                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoFondoPrograma" />
-                                        </div>
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnFondoPrograma" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(3);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoFondoPrograma" />
+                                                 <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtFondoPrograma" />
+                                            </div>
 
                                     </div>
                                 </div>
@@ -839,11 +914,13 @@
 
                                         </asp:GridView>
 
-                                        <div>
-                                            <input value="Guardar" type="button" id="btnProyecto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(4);" />
-                                            <label>&nbsp;Evaluación Aprobada</label>
-                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoProyectoEjecutivo" />
-                                        </div>
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnProyecto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(4);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoProyectoEjecutivo" />
+                                                 <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtProyectoEjecutivo" />
+                                            </div>
 
                                     </div>
                                 </div>
@@ -913,14 +990,16 @@
                                                             </Columns>
                                                            
                                         
-                                                       </asp:GridView>
-                                                       <div>
-                                                            <input value="Guardar" type="button" id="btnTipoAdju" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(5);" />
-                                                            <label>&nbsp;Evaluación Aprobada</label>
-                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoAdjuDirecta" />
-                                                       </div>
+                                                           </asp:GridView>
+                                                           <div>
+                                                                <input value="Guardar" type="button" id="btnTipoAdju" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(5);" />
+                                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoAdjuDirecta" />
+                                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                                <textarea style="height:100px; width:580px" type="text" name="prueba" runat="server" id="txtAdjuDirecta" />
+                                                           </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
@@ -977,14 +1056,16 @@
                                                             </Columns>
                                                             
                                         
-                                                       </asp:GridView>
-                                                       <div>
-                                                            <input value="Guardar" type="button" id="btnExcepcion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(6);" />
-                                                            <label>&nbsp;Evaluación Aprobada</label>
-                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoExcepcion" />
-                                                       </div>
+                                                           </asp:GridView>
+                                                           <div>
+                                                                <input value="Guardar" type="button" id="btnExcepcion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(6);" />
+                                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoExcepcion" />
+                                                               <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                                <textarea style="height:100px; width:570px" type="text" name="prueba" runat="server" id="txtExcepcion" />
+                                                           </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
@@ -1041,14 +1122,16 @@
                                                             </Columns>
                                                             
                                         
-                                                       </asp:GridView>
-                                                       <div>
-                                                            <input value="Guardar" type="button" id="btnInvitacion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(7);" />
-                                                            <label>&nbsp;Evaluación Aprobada</label>
-                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoInvitacion" />
-                                                       </div>
+                                                           </asp:GridView>
+                                                           <div>
+                                                                <input value="Guardar" type="button" id="btnInvitacion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(7);" />
+                                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoInvitacion" />
+                                                               <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                                <textarea style="height:100px; width:580px" type="text" name="prueba" runat="server" id="txtInvitacion" />
+                                                           </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
                                             <div class="panel-heading">
                                                 <h4 class="panel-title">
@@ -1105,14 +1188,16 @@
                                                             </Columns>
                                                             
                                         
-                                                       </asp:GridView>
-                                                       <div>
-                                                            <input value="Guardar" type="button" id="btnLicitacion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(8);" />
-                                                            <label>&nbsp;Evaluación Aprobada</label>
-                                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoLicitacion" />
-                                                       </div>
+                                                           </asp:GridView>
+                                                           <div>
+                                                                <input value="Guardar" type="button" id="btnLicitacion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(8);" />
+                                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoLicitacion" />
+                                                               <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                                <textarea style="height:100px; width:580px" type="text" name="prueba" runat="server" id="txtLicitacion" />
+                                                           </div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
                                         </div>
 
@@ -1178,11 +1263,13 @@
                                         
                                         </asp:GridView>
 
-                                        <div>
-                                            <input value="Guardar" type="button" id="btnPresupuesto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(9);" />
-                                            <label>&nbsp;Evaluación Aprobada</label>
-                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoPresupuesto" />
-                                        </div>
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnPresupuesto" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(9);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoPresupuesto" />
+                                                 <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtPresupuesto" />
+                                            </div>
 
                                     </div>
                                 </div>
@@ -1246,11 +1333,13 @@
                                         
                                         </asp:GridView>
 
-                                        <div>
-                                            <input value="Guardar" type="button" id="btnAdmin" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(10);" />
-                                            <label>&nbsp;Evaluación Aprobada</label>
-                                            <input type="checkbox" value="false" runat="server" id="chkAprobadoAdmin" />
-                                        </div>
+                                            <div>
+                                                <input value="Guardar" type="button" id="btnAdmin" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(10);" />
+                                                <label>&nbsp;Evaluación Aprobada</label>
+                                                <input type="checkbox" value="false" runat="server" id="chkAprobadoAdmin" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtAdmin" />
+                                            </div>
 
                                     </div>
                                 </div>
@@ -1332,6 +1421,8 @@
                                             
                                                 <label>&nbsp;Evaluación Aprobada</label>
                                                 <input type="checkbox" value="false" runat="server" id="chkAprobadoTecnicoFinanciero" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtTecnicoFinanciero" />
                                             </div>
 
                                         </div>
@@ -1400,6 +1491,8 @@
                                                 <input value="Guardar" type="button" id="btnBitacora" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(12);" />
                                                 <label>&nbsp;Evaluación Aprobada</label>
                                                 <input type="checkbox" value="false" runat="server" id="chkAprobadoBitacora" />
+                                                 <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtBitacora" />
                                             </div>
 
                                         </div>
@@ -1468,6 +1561,8 @@
                                                 <input value="Guardar" type="button" id="btnEstimaciones" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(13);" />
                                                 <label>&nbsp;Evaluación Aprobada</label>
                                                 <input type="checkbox" value="false" runat="server" id="chkAprobadoEstimaciones" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtEstimaciones" />
                                             </div>
 
                                         </div>
@@ -1535,6 +1630,8 @@
                                                 <input value="Guardar" type="button" id="btnConvenios" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(14);" />
                                                 <label>&nbsp;Evaluación Aprobada</label>
                                                 <input type="checkbox" value="false" runat="server" id="chkAprobadoConvenios" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtConvenios" />
                                             </div>
 
                                         </div>
@@ -1602,6 +1699,8 @@
                                                     <input value="Guardar" type="button" id="btnFiniquito" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(15);" />
                                                     <label>&nbsp;Evaluación Aprobada</label>
                                                     <input type="checkbox" value="false" runat="server" id="chkAprobadoFiniquito" />
+                                                    <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                    <textarea style="height:100px; width:570px" type="text" name="prueba" runat="server" id="txtFiniquito" />
                                                 </div>
                                         </div>
 
@@ -1671,6 +1770,8 @@
                                                 <input value="Guardar" type="button" id="btnEntrega" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(16);" />
                                                 <label>&nbsp;Evaluación Aprobada</label>
                                                 <input type="checkbox" value="false" runat="server" id="chkAprobadoEntrega" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtEntrega" />
                                             </div>
 
                                         </div>
@@ -1739,6 +1840,8 @@
                                                 <input value="Guardar" type="button" id="btnGestion" runat="server" class="btn btn-default" onclick="fnc_GuardarChecks(17);" />
                                                 <label>&nbsp;Evaluación Aprobada</label>
                                                 <input type="checkbox" value="false" runat="server" id="chkAprobadoGestion" />
+                                                <label for="disabledSelect">&nbsp;&nbsp;&nbsp;&nbsp;Observaciones Generales:</label>
+                                                <textarea style="height:100px; width:610px" type="text" name="prueba" runat="server" id="txtGestion" />
                                             </div>
 
                                         </div>
@@ -1769,45 +1872,44 @@
         
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="modalTitle">Datos del Documento de Evaluación</h4>
-                  </div>
-                    <div class="modal-body">
-                      <div class="container">
-                        <div class="container-fluid">
-                             <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label>Documento de Evaluación</label>
-                                         <%--<input class="form-control" disabled="disabled" runat="server" id="txtPregunta"/>--%>
-                                        <textarea style="height:120px"  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtPregunta" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="disabledSelect">Observaciones:</label>
-                                        <textarea style="height:120px"  type="text" name="prueba" runat="server" class="form-control" id="txtObservacionesPregunta" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Documento Soporte actual:</label>
-                                        <%--<input type="text" disabled="disabled" name="prueba" id="txtArchivoAdjunto" runat="server" class="form-control"  />--%>
-                                        <textarea style="height:120px"  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtArchivoAdjunto" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="disabledSelect">Documento Soporte:</label>
-                                        <asp:FileUpload ID="fileUpload" runat="server" />
-                                    </div>
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="modalTitle">Datos del Documento de Evaluación</h4>
+                      </div>
+                       <div class="modal-body">
+                           <div class="form-group">
+                                    <label>Documento de Evaluación</label>
+                                        <%--<input class="form-control" disabled="disabled" runat="server" id="txtPregunta"/>--%>
+                                    <textarea style="height:120px"  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtPregunta" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="disabledSelect">Observaciones:</label>
+                                    <textarea style="height:120px"  type="text" name="prueba" runat="server" class="form-control" id="txtObservacionesPregunta" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Documento Soporte actual:</label>
+                                    <%--<input type="text" disabled="disabled" name="prueba" id="txtArchivoAdjunto" runat="server" class="form-control"  />--%>
+                                    <textarea style="height:70px"  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtArchivoAdjunto" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="disabledSelect">Documento Soporte:</label>
+                                    <asp:FileUpload ID="fileUpload" runat="server" />
                                 </div>
 
-                                <div>
+                                 <div class="form-group">
                                     <asp:Button OnClick="btnGuardarEdicion_Click" ID="btnGuardarEdicion" runat="server" CssClass="btn btn-default" Text="Guardar" />  
                                     <input value="Cancelar" data-dismiss="modal" aria-hidden="true" type="button" id="btnCancelar" runat="server" class="btn btn-default" />
                                 </div>
                             </div>
-                      </div>
-                    </div>
-                </div>   
-              </div>
-              <div class="modal-footer">
-                  
-              </div>
-        </div>
+
+                           
+
+                       </div>
+                </div>
+                
+              
+           
+
+    </div>
+        
 </asp:Content>

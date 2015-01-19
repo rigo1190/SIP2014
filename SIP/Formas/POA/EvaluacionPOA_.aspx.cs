@@ -168,6 +168,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoPD.Checked = poaPlantilla.Aprobado;
+                        txtAprobadoPD.Value = poaPlantilla.ObservacionGeneral;
                         break;
 
                     case 2: //Anteproyecto y normatividad
@@ -176,6 +177,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoAnteproyecto.Checked = poaPlantilla.Aprobado;
+                        txtAnteproyecto.Value = poaPlantilla.ObservacionGeneral;
                         break;
 
                     case 3: //Fondo y programa
@@ -184,6 +186,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoFondoPrograma.Checked = poaPlantilla.Aprobado;
+                        txtFondoPrograma.Value = poaPlantilla.ObservacionGeneral;
                         break;
 
                     case 4: //Proyecto Ejecutivo y Proyecto Base
@@ -192,6 +195,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoProyectoEjecutivo.Checked = poaPlantilla.Aprobado;
+                        txtProyectoEjecutivo.Value = poaPlantilla.ObservacionGeneral;
                         break;
 
                     case 5: //TIpo de Adjudicacion
@@ -212,7 +216,7 @@ namespace SIP.Formas.POA
 
                                         //Se Bindea el check de APROBADO
                                         chkAprobadoAdjuDirecta.Checked = poaPlantilla.Aprobado;
-
+                                        txtAdjuDirecta.Value = poaPlantilla.ObservacionGeneral;
                                         if (pd.Detalles.Count > 0)
                                         {
                                             Plantilla temp = pd.Detalles.ElementAt(0);
@@ -224,6 +228,7 @@ namespace SIP.Formas.POA
 
                                             //Se Bindea el check de APROBADO
                                             chkAprobadoExcepcion.Checked = poaPlantilla.Aprobado;
+                                            txtExcepcion.Value = poaPlantilla.ObservacionGeneral;
 
                                             poaPlantilla = null;
                                             temp = null;
@@ -236,6 +241,7 @@ namespace SIP.Formas.POA
 
                                             //Se Bindea el check de APROBADO
                                             chkAprobadoInvitacion.Checked = poaPlantilla.Aprobado;
+                                            txtInvitacion.Value = poaPlantilla.ObservacionGeneral;
  
                                         }
 
@@ -246,6 +252,7 @@ namespace SIP.Formas.POA
 
                                         //Se Bindea el check de APROBADO
                                         chkAprobadoLicitacion.Checked = poaPlantilla.Aprobado;
+                                        txtLicitacion.Value = poaPlantilla.ObservacionGeneral;
                                         break;
                                 }
                             }
@@ -262,7 +269,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoPresupuesto.Checked = poaPlantilla.Aprobado;
-                        
+                        txtPresupuesto.Value = poaPlantilla.ObservacionGeneral;
                         break;
 
                     case 7: //Administración Directa
@@ -271,6 +278,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoAdmin.Checked = poaPlantilla.Aprobado;
+                        txtAdmin.Value = poaPlantilla.ObservacionGeneral;
                         break;
                 }
 
@@ -308,6 +316,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoTecnicoFinanciero.Checked = poaPlantilla.Aprobado;
+                        txtTecnicoFinanciero.Value = poaPlantilla.ObservacionGeneral;
                         break;
                     case 2: // Bitácora electrónica - convencional
                         gridBitacora.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
@@ -315,6 +324,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoBitacora.Checked = poaPlantilla.Aprobado;
+                        txtBitacora.Value = poaPlantilla.ObservacionGeneral;
                         break;
                     case 3: // Supervisión y estimaciones
                         gridEstimaciones.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
@@ -322,6 +332,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoEstimaciones.Checked = poaPlantilla.Aprobado;
+                        txtEstimaciones.Value = poaPlantilla.ObservacionGeneral;
                         break;
                     case 4: // Convenios prefiniquitos
                         gridConvenios.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
@@ -329,6 +340,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoConvenios.Checked = poaPlantilla.Aprobado;
+                        txtConvenios.Value = poaPlantilla.ObservacionGeneral;
                         break;
                     case 5: // Finiquito
                         gridFiniquito.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
@@ -336,6 +348,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoFiniquito.Checked = poaPlantilla.Aprobado;
+                        txtFiniquito.Value = poaPlantilla.ObservacionGeneral;
                         break;
                     case 6: // Acta entrega recepción
                         gridEntrega.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
@@ -343,6 +356,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoEntrega.Checked = poaPlantilla.Aprobado;
+                        txtEntrega.Value = poaPlantilla.ObservacionGeneral;
                         break;
                     case 7: // Documentación de gestión de recursos
                         gridGestion.DataSource = poaPlantilla.Detalles.OrderBy(e => e.PlantillaDetalle.Orden).ToList();
@@ -350,6 +364,7 @@ namespace SIP.Formas.POA
 
                         //Se Bindea el check de APROBADO
                         chkAprobadoGestion.Checked = poaPlantilla.Aprobado;
+                        txtGestion.Value = poaPlantilla.ObservacionGeneral;
                         break;
                 }
             }
@@ -724,7 +739,7 @@ namespace SIP.Formas.POA
         }
 
         [WebMethod]
-        public static List<string> GuardarChecks(string cadValores, bool checkAprobado)
+        public static List<string> GuardarChecks(string cadValores, bool checkAprobado, string obsGeneral)
         {
             string M = string.Empty;
             List<string> R = new List<string>();
@@ -792,6 +807,7 @@ namespace SIP.Formas.POA
 
             POAPlantilla plantilla = uow.POAPlantillaBusinessLogic.GetByID(pregu.POAPlantillaId);
             plantilla.Aprobado = checkAprobado;
+            plantilla.ObservacionGeneral = obsGeneral;
 
             uow.POAPlantillaBusinessLogic.Update(plantilla);
             uow.SaveChanges();
@@ -1194,7 +1210,7 @@ namespace SIP.Formas.POA
                 return;
             }
 
-            M = GuardarCheckAprobadoIndividual(Utilerias.StrToInt(_NumGrid.Value), obj);
+            M = GuardarCheckAprobadoObsIndividual(Utilerias.StrToInt(_NumGrid.Value), obj);
 
             if (!M.Equals(string.Empty))
             {
@@ -1208,80 +1224,99 @@ namespace SIP.Formas.POA
             ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_AbrirCollapse()", true);
         }
 
-        private string GuardarCheckAprobadoIndividual(int numGrid, POAPlantillaDetalle obj )
+        private string GuardarCheckAprobadoObsIndividual(int numGrid, POAPlantillaDetalle obj )
         {
             string M = string.Empty;
             bool check = false;
+            string observacionesGen = string.Empty;
             POAPlantilla poaPlantilla = uow.POAPlantillaBusinessLogic.GetByID(obj.POAPlantillaId);
 
             switch (numGrid)
             {
                 case 1: //Plan de Desarrollo Estatal Urbano
                     check = chkAprobadoPD.Checked;
+                    observacionesGen = txtAprobadoPD.Value;
                     break;
 
                 case 2: //Anteproyecto y normatividad
                     check = chkAprobadoAnteproyecto.Checked;
+                    observacionesGen = txtAnteproyecto.Value;
                     break;
 
                 case 3: //Fondo y programa
                     check = chkAprobadoFondoPrograma.Checked;
+                    observacionesGen = txtFondoPrograma.Value;
                     break;
 
                 case 4: //Proyecto Ejecutivo y Proyecto Base
                     check = chkAprobadoProyectoEjecutivo.Checked;
+                    observacionesGen = txtProyectoEjecutivo.Value;
                     break;
 
                 case 5: //Adjudicacion Directa
                     check = chkAprobadoAdjuDirecta.Checked;
+                    observacionesGen = txtAdjuDirecta.Value;
                     break;
 
                 case 6: //Adjudicacion por excepcion de ley
                     check = chkAprobadoExcepcion.Checked;
+                    observacionesGen = txtExcepcion.Value;
                     break;
 
                 case 7: //Invitacion a cuando menos tres personas
                     check = chkAprobadoInvitacion.Checked;
+                    observacionesGen = txtInvitacion.Value;
                     break;
 
                 case 8: //Licitacion Pública
                     check = chkAprobadoLicitacion.Checked;
+                    observacionesGen = txtLicitacion.Value;
                     break;
 
                 case 9: //Presupuesto Autorizado Contrato
                     check = chkAprobadoPresupuesto.Checked;
+                    observacionesGen = txtPresupuesto.Value;
                     break;
 
                 case 10: //Administración Directa
                     check = chkAprobadoAdmin.Checked;
+                    observacionesGen = txtAdmin.Value;
                     break;
 
                 //ETAPA DE EJECUCION
 
                 case 11: //Control técnico financiero
                     check = chkAprobadoTecnicoFinanciero.Checked;
+                    observacionesGen = txtTecnicoFinanciero.Value;
                     break;
                 case 12: // Bitácora electrónica - convencional
                     check = chkAprobadoBitacora.Checked;
+                    observacionesGen = txtBitacora.Value;
                     break;
                 case 13: // Supervisión y estimaciones
                     check = chkAprobadoEstimaciones.Checked;
+                    observacionesGen = txtEstimaciones.Value;
                     break;
                 case 14: // Convenios prefiniquitos
                     check = chkAprobadoConvenios.Checked;
+                    observacionesGen = txtConvenios.Value;
                     break;
                 case 15: // Finiquito
                     check = chkAprobadoFiniquito.Checked;
+                    observacionesGen = txtFiniquito.Value;
                     break;
                 case 16: // Acta entrega recepción
                     check = chkAprobadoEntrega.Checked;
+                    observacionesGen = txtEntrega.Value;
                     break;
                 case 17: // Documentación de gestión de recursos
                     check = chkAprobadoGestion.Checked;
+                    observacionesGen = txtGestion.Value;
                     break;
             }
 
             poaPlantilla.Aprobado = check;
+            poaPlantilla.ObservacionGeneral = observacionesGen;
             uow.POAPlantillaBusinessLogic.Update(poaPlantilla);
             uow.SaveChanges();
 

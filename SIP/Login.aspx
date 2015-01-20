@@ -31,7 +31,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
        
-         
+        <br />
+        <br />
         <div class="container">
 
              <div class="well text-center"><h3>Sistema de Inversión Pública</h3></div>     

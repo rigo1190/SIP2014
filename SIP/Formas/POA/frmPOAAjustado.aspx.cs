@@ -544,7 +544,7 @@ namespace SIP.Formas.POA
             IQueryable<Obra> list = null;
 
             list = uow.ObraBusinessLogic.Get(o => o.POA.UnidadPresupuestalId == unidadpresupuestalId & o.POA.EjercicioId == ejercicioId, orderBy: r => r.OrderBy(ro => ro.Consecutivo));
-
+            lblResumen.Text = String.Format("Total de obras : {0}", list.Count());
             return list;            
         }
 

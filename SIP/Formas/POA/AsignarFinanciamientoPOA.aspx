@@ -163,11 +163,8 @@
                         </Columns>
                       </asp:GridView>
 
-            </div>
-            <div class="panel-footer"></div>
+            </div>            
         </div>
-
-
 
 
 
@@ -175,35 +172,43 @@
            <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
         </div>
 
-        <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObraFinanciamiento" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
-            <Columns>
+        <div class="panel panel-success">
+          <div class="panel-heading"><strong>Financiamientos de la obra</strong></div>
+          <div class="panel-body">
 
-                       <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
-                            <ItemTemplate>
+                    <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObraFinanciamiento" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
+                        <Columns>
+
+                               <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
+                                    <ItemTemplate>
                                                     
-                                <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" data-tipo-operacion="editar"/>
-                                <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" data-tipo-operacion="borrar"/>
+                                        <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" data-tipo-operacion="editar"/>
+                                        <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" data-tipo-operacion="borrar"/>
 
-                            </ItemTemplate>                         
-                        </asp:TemplateField>     
+                                    </ItemTemplate>                         
+                                </asp:TemplateField>     
                                          
-                       <asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-9" HeaderStyle-CssClass="panel-footer">                          
-                            <ItemTemplate>
-                                <asp:Label ID="LabelFinanciamiento" runat="server" Text='<%# Bind("TechoFinancieroUnidadPresupuestal.Descripcion") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
+                               <asp:TemplateField HeaderText="Financiamiento" ItemStyle-CssClass="col-md-9" HeaderStyle-CssClass="panel-footer">                          
+                                    <ItemTemplate>
+                                        <asp:Label ID="LabelFinanciamiento" runat="server" Text='<%# Bind("TechoFinancieroUnidadPresupuestal.Descripcion") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
 
-                       <asp:TemplateField HeaderText="Importe" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                            
-                            <ItemTemplate>
-                                <asp:Label ID="labelImporte" runat="server" Text='<%# Eval("Importe", "{0:C}") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>                       
+                               <asp:TemplateField HeaderText="Importe" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                            
+                                    <ItemTemplate>
+                                        <asp:Label ID="labelImporte" runat="server" Text='<%# Eval("Importe", "{0:C}") %>'></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>                       
 
-            </Columns>
+                        </Columns>
                     
-            <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
+                        <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
                     
-        </asp:GridView>
+                </asp:GridView>
+                         
+          </div>
+        </div>
+
 
         <div id="divBtnNuevo" runat="server" style="display:block">
               <asp:Button ID="btnNuevo" runat="server" Text="Agregar nuevo financiamiento" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
@@ -213,9 +218,6 @@
 
         <div id="divEdicion" runat="server" class="panel-footer" style="display:none">
 
-            
-
-               
 
                     <div class="form-group">
                       <label for="ddlTechoFinancieroUnidadPresupuestal">Financiamiento</label>

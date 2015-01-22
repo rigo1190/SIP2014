@@ -10,16 +10,16 @@
 namespace SIP.Formas.ControlFinanciero {
     
     
-    public partial class wfPresupuestoContratado {
+    public partial class wfProgramaDeObra {
         
         /// <summary>
-        /// divMSGnoHayContrato control.
+        /// divMSGnoHayPresupuesto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMSGnoHayContrato;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMSGnoHayPresupuesto;
         
         /// <summary>
         /// divCargarArchivo control.
@@ -58,22 +58,31 @@ namespace SIP.Formas.ControlFinanciero {
         protected global::System.Web.UI.WebControls.Button btnCargarConceptosDeObra;
         
         /// <summary>
-        /// divGuardarPresupuesto control.
+        /// divErrorEnLosRegistros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGuardarPresupuesto;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divErrorEnLosRegistros;
         
         /// <summary>
-        /// Button1 control.
+        /// divGuardarProgramaDeObra control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divGuardarProgramaDeObra;
+        
+        /// <summary>
+        /// btnGuardarProgramaDeObra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardarProgramaDeObra;
         
         /// <summary>
         /// divTMP control.
@@ -94,13 +103,13 @@ namespace SIP.Formas.ControlFinanciero {
         protected global::System.Web.UI.WebControls.GridView grid;
         
         /// <summary>
-        /// divPresupuesto control.
+        /// divProgramaDeObra control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPresupuesto;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divProgramaDeObra;
         
         /// <summary>
         /// accordion control.

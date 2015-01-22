@@ -5,7 +5,19 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server"> 
+<div class="container">
 
+
+       <div class="panel panel-success">
+        <div class="panel-heading">
+
+            <div class="row">
+                <div class="col-md-4"><h3 class="panel-title">Avance Físico - Financiero</h3></div>
+                <div class="col-md-4"> . </div>
+                <div class="col-md-4"> . </div>
+             </div>
+        </div>
+    </div>
 
     <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True" OnRowDataBound="grid_RowDataBound" >
                 <Columns>
@@ -84,5 +96,5 @@
                 
                     
         </asp:GridView>
-
+</div>
 </asp:Content>

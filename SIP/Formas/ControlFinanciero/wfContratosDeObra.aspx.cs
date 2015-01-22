@@ -25,7 +25,9 @@ namespace SIP.Formas.ControlFinanciero
 
         private void BindGrid()
         {
-            this.grid.DataSource = uow.ObraBusinessLogic.Get().ToList();
+            int idEjercicio = int.Parse(Session["EjercicioId"].ToString());
+
+            this.grid.DataSource = uow.ObraBusinessLogic.Get(p => p.POA.EjercicioId == idEjercicio).ToList();
             this.grid.DataBind();
         }
 
@@ -44,9 +46,13 @@ namespace SIP.Formas.ControlFinanciero
 
                 LinkButton linkC = (LinkButton)e.Row.FindControl("linkContrato");
                 LinkButton linkP = (LinkButton)e.Row.FindControl("LinkPresupuesto");
+                LinkButton linkPdO = (LinkButton)e.Row.FindControl("LinkProgramacion");
+                LinkButton linkPdE = (LinkButton)e.Row.FindControl("LinkProgramacionEstimaciones");
                 
                 linkC.Text = "Pendiente";
                 linkP.Text = "Pendiente";
+                linkPdO.Text = "Pendiente";
+                linkPdE.Text = "Pendiente";
 
                 if (obra.StatusControlFinanciero > 0)
                 {
@@ -55,6 +61,14 @@ namespace SIP.Formas.ControlFinanciero
                     
                     if (obra.StatusControlFinanciero > 1)
                         linkP.Text = contrato.Total.ToString("C2");
+
+                    if (obra.StatusControlFinanciero > 2)
+                        linkPdO.Text = "Cargado...";
+                        //linkPdO.CssClass = "alert-success";
+
+                    if (obra.StatusControlFinanciero > 3)
+                        linkPdE.Text = "Cargadas...";
+
                 }
 
               
@@ -80,6 +94,24 @@ namespace SIP.Formas.ControlFinanciero
             Session["XidObra"] = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
 
             Response.Redirect("wfPresupuestoContratado.aspx");
+        }
+
+        protected void LinkProgramacion_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).NamingContainer;
+
+            Session["XidObra"] = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
+
+            Response.Redirect("wfProgramaDeObra.aspx");
+        }
+
+        protected void LinkProgramacionEstimaciones_Click(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((LinkButton)sender).NamingContainer;
+
+            Session["XidObra"] = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
+
+            Response.Redirect("wfProgramacionEstimaciones.aspx");
         }
 
 

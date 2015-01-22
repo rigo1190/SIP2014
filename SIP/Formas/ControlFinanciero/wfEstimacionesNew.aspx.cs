@@ -323,7 +323,7 @@ namespace SIP.Formas.ControlFinanciero
             }
 
             Obra obra = uow.ObraBusinessLogic.GetByID(this.idObra);
-                obra.StatusControlFinanciero = 4;
+                obra.StatusControlFinanciero = 6;
             uow.ObraBusinessLogic.Update(obra);
 
 

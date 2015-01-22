@@ -5,6 +5,16 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <div class="container">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-4"><h3 class="panel-title">Lista de Obras</h3></div>
+                <div class="col-md-8">.</div>
+                
+             </div>   
+        </div>
+    </div>
 <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True" OnRowDataBound="grid_RowDataBound" >
                 <Columns>
                                   
@@ -23,7 +33,7 @@
                     </asp:TemplateField>
 
 
-                    <asp:TemplateField HeaderText="Número de Contrato" SortExpression="Número de Contrato">
+                    <asp:TemplateField HeaderText="A) Datos del Contrato">
                         <ItemTemplate>                           
 
                         <div id = "DIVcontrato" runat="server">
@@ -33,7 +43,7 @@
                     </asp:TemplateField>    
                     
                     
-                    <asp:TemplateField HeaderText="Presupuesto Contratado" SortExpression="Presupuesto Contratado">
+                    <asp:TemplateField HeaderText="B) Presupuesto Contratado">
                         <ItemTemplate>                           
 
                         <div id = "DIVPresupuestoContratado" runat="server">
@@ -42,7 +52,23 @@
                         </ItemTemplate>
                     </asp:TemplateField>    
                      
+                    <asp:TemplateField HeaderText="C) Programa de Obra">
+                        <ItemTemplate>                           
 
+                        <div id = "DIVProgramaDeObra" runat="server">
+                        <asp:LinkButton ID="LinkProgramacion" runat="server" PostBackUrl="#" OnClick ="LinkProgramacion_Click">Pendiente</asp:LinkButton>  
+                        </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>    
+
+                    <asp:TemplateField HeaderText="D) Programación de Estimaciones">
+                        <ItemTemplate>                           
+
+                        <div id = "DIVProgramacionEstimaciones" runat="server">
+                        <asp:LinkButton ID="LinkProgramacionEstimaciones" runat="server" PostBackUrl="#" OnClick ="LinkProgramacionEstimaciones_Click">Pendiente</asp:LinkButton>  
+                        </div>
+                        </ItemTemplate>
+                    </asp:TemplateField>    
                      
                      
 
@@ -53,6 +79,6 @@
         </asp:GridView>
 
      
-
+</div>
 </asp:Content>
 

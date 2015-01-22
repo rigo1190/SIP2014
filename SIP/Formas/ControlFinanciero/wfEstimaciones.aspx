@@ -45,7 +45,7 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <div class="container">
 
    <div class="panel panel-success">
         <div class="panel-heading">
@@ -88,7 +88,7 @@
             <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridContrato" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True"  >
                 <Columns>
                                   
-                    <asp:TemplateField HeaderText="No. Contrato">
+                    <asp:TemplateField HeaderText="Contrato">
                         <ItemTemplate>
                             <asp:Label ID="Label1" runat="server" Text='<%# Bind("NumeroDeContrato") %>'></asp:Label>
                         </ItemTemplate>
@@ -103,7 +103,7 @@
                     
                     <asp:TemplateField HeaderText="Importe Contratado">
                         <ItemTemplate>
-                            <asp:Label ID="label3" runat="server" Text='<%# Bind("Total") %>'></asp:Label>
+                            <asp:Label ID="label3" runat="server" Text='<%# Bind("Total","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>                    
 
@@ -127,19 +127,19 @@
 
                     <asp:TemplateField HeaderText="Fecha del Contrato">
                         <ItemTemplate>
-                            <asp:Label ID="label7" runat="server" Text='<%# Bind("FechaDelContrato") %>'></asp:Label>
+                            <asp:Label ID="label7" runat="server" Text='<%# Bind("FechaDelContrato","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField> 
 
                     <asp:TemplateField HeaderText="Fecha de Inicio">
                         <ItemTemplate>
-                            <asp:Label ID="label8" runat="server" Text='<%# Bind("FechaDeInicio") %>'></asp:Label>
+                            <asp:Label ID="label8" runat="server" Text='<%# Bind("FechaDeInicio","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField> 
 
                     <asp:TemplateField HeaderText="Fecha de Término">
                         <ItemTemplate>
-                            <asp:Label ID="label9" runat="server" Text='<%# Bind("FechaDeTermino") %>'></asp:Label>
+                            <asp:Label ID="label9" runat="server" Text='<%# Bind("FechaDeTermino","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField> 
 
@@ -244,5 +244,5 @@
 
     </div>
 
-
+</div>
 </asp:Content>

@@ -265,6 +265,8 @@
     <Content Include="Formas\ControlFinanciero\wfEstimacionesNew.aspx" />
     <Content Include="Formas\ControlFinanciero\wfListaObras.aspx" />
     <Content Include="Formas\ControlFinanciero\wfPresupuestoContratado.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfProgramacionEstimaciones.aspx" />
+    <Content Include="Formas\ControlFinanciero\wfProgramaDeObra.aspx" />
     <Content Include="Formas\ControlFinanciero\wfSeguimiento.aspx" />
     <Content Include="Formas\frmSelectorEjercicio.aspx" />
     <Content Include="Formas\POA\AsignarFinanciamientoPOA.aspx" />
@@ -589,6 +591,20 @@
     <Compile Include="Formas\ControlFinanciero\wfPresupuestoContratado.aspx.designer.cs">
       <DependentUpon>wfPresupuestoContratado.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfProgramacionEstimaciones.aspx.cs">
+      <DependentUpon>wfProgramacionEstimaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfProgramacionEstimaciones.aspx.designer.cs">
+      <DependentUpon>wfProgramacionEstimaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfProgramaDeObra.aspx.cs">
+      <DependentUpon>wfProgramaDeObra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\ControlFinanciero\wfProgramaDeObra.aspx.designer.cs">
+      <DependentUpon>wfProgramaDeObra.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\ControlFinanciero\wfSeguimiento.aspx.cs">
       <DependentUpon>wfSeguimiento.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -834,6 +850,7 @@
       <DependentUpon>rptEvaluacionPOA.rpt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="rpts\TechosFinancierosXup.cs">
       <AutoGen>True</AutoGen>

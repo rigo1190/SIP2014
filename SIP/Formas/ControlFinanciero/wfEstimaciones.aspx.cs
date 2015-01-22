@@ -31,7 +31,7 @@ namespace SIP.Formas.ControlFinanciero
                 _URLVisor.Value = ResolveClientUrl("~/rpts/wfVerReporte.aspx");               
                 _idContrato.Value = "0";
 
-                if (obra.StatusControlFinanciero == 2)//no hay anticipo registrado
+                if (obra.StatusControlFinanciero < 5)//no hay anticipo registrado
                 {
                     DIVmostrarEstimaciones.Style.Add("display", "none");
                 }

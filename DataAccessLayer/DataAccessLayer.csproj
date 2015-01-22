@@ -60,6 +60,8 @@
     <Compile Include="Models\Estimaciones.cs" />
     <Compile Include="Models\EstimacionesConceptos.cs" />
     <Compile Include="Models\EstimacionesConceptosTMP.cs" />
+    <Compile Include="Models\EstimacionesProgramadas.cs" />
+    <Compile Include="Models\EstimacionesProgramadasConceptos.cs" />
     <Compile Include="Models\Firmas.cs" />
     <Compile Include="Models\FondoLineamientos.cs" />
     <Compile Include="Models\GrupoBeneficiario.cs" />
@@ -88,6 +90,8 @@
     <Compile Include="Models\POAPlantillaDetalle.cs" />
     <Compile Include="Models\PresupuestosContratados.cs" />
     <Compile Include="Models\Programa.cs" />
+    <Compile Include="Models\ProgramasDeObras.cs" />
+    <Compile Include="Models\ProgramasDeObrasTMP.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\RubroVerificacionObra.cs" />
     <Compile Include="Models\SituacionObra.cs" />

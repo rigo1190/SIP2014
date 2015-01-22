@@ -24,7 +24,8 @@ namespace SIP.Formas.ControlFinanciero
 
         private void BindGrid()
         {
-            this.grid.DataSource = uow.ObraBusinessLogic.Get(p=>p.StatusControlFinanciero > 1).ToList();
+            int idEjercicio = int.Parse(Session["EjercicioId"].ToString());
+            this.grid.DataSource = uow.ObraBusinessLogic.Get(p => p.POA.EjercicioId == idEjercicio &&  p.StatusControlFinanciero > 3).ToList();
             this.grid.DataBind();
         }
 
@@ -60,7 +61,7 @@ namespace SIP.Formas.ControlFinanciero
                 HtmlGenericControl progresoB = (HtmlGenericControl)e.Row.FindControl("ProgresoB");
                 
 
-                if (obra.StatusControlFinanciero > 2)
+                if (obra.StatusControlFinanciero > 4)
                 {
                     ContratosDeObra contrato = uow.ContratosDeObraBL.Get(p => p.ObraId == idObra).First();
                     Estimaciones anticipo = uow.EstimacionesBL.Get(p=>p.ContratoDeObra.ObraId == idObra && p.NumeroDeEstimacion == 0).First();
@@ -72,7 +73,7 @@ namespace SIP.Formas.ControlFinanciero
 
 
 
-                    if (obra.StatusControlFinanciero > 3)
+                    if (obra.StatusControlFinanciero > 5)
                     {
                         listaEstimaciones = uow.EstimacionesBL.Get(p=>p.ContratoDeObra.ObraId == idObra && p.NumeroDeEstimacion > 0).ToList();
                         string cad = " ";

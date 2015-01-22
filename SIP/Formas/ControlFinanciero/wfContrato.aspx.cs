@@ -55,7 +55,7 @@ namespace SIP.Formas.ControlFinanciero
 
             }
 
-            if (obra.StatusControlFinanciero > 2)
+            if (obra.StatusControlFinanciero > 3)
             {
                 divBtnGuardarContrato.Style.Add("display", "none");
             }

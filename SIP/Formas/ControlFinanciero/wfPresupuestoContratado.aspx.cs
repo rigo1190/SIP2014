@@ -40,27 +40,31 @@ namespace SIP.Formas.ControlFinanciero
 
                 if (obra.StatusControlFinanciero == 0)//no hay contrato registrado
                 {
+                    //divMSGnoHayContrato.Style.Add("display", "none");     --> mostrar
                     divCargarArchivo.Style.Add("display","none");
+                    divGuardarPresupuesto.Style.Add("display", "none");
                     divTMP.Style.Add("display", "none");
                     divPresupuesto.Style.Add("display", "none");
                 }
 
-
                 if (obra.StatusControlFinanciero == 1)// ya esta cargado el contrato
                 {
+                    divMSGnoHayContrato.Style.Add("display", "none");
+                    //divCargarArchivo.Style.Add("display", "none");    --> mostrar
                     divGuardarPresupuesto.Style.Add("display", "none");
-                    divTMP.Style.Add("display", "none");                    
+                    divTMP.Style.Add("display", "none");
                     divPresupuesto.Style.Add("display", "none");
-                    divMSGnoHayContrato.Style.Add("display", "none"); 
                 }
 
 
                 if (obra.StatusControlFinanciero > 1)// ya esta registrado el presupuesto contratado
                 {
-                    divCargarArchivo.Style.Add("display", "none");
-                    divTMP.Style.Add("display", "none");
                     divMSGnoHayContrato.Style.Add("display", "none");
-
+                    divCargarArchivo.Style.Add("display", "none");    
+                    divGuardarPresupuesto.Style.Add("display", "none");
+                    divTMP.Style.Add("display", "none");
+                    //divPresupuesto.Style.Add("display", "none");      --> mostrar
+                    
                     cargarPresupuestoContratado();
                 }
 
@@ -161,11 +165,10 @@ namespace SIP.Formas.ControlFinanciero
                     this.grid.DataSource = table;
                     this.grid.DataBind();
 
+                    this.divCargarArchivo.Style.Add("display", "none");
+                    this.divGuardarPresupuesto.Style.Add("display", "block");
                     this.divTMP.Style.Add("display","block");
-                    this.divGuardarPresupuesto.Style.Add("display","block");
-                    this.divBtnMostrarDatosExcel.Style.Add("display", "none");
-
-
+                    
 
                 }
 
@@ -321,11 +324,15 @@ namespace SIP.Formas.ControlFinanciero
 
             if (uow.Errors.Count == 0)
             {
-                divPresupuesto.Style.Add("display", "block");
+                divMSGnoHayContrato.Style.Add("display", "none");
                 divCargarArchivo.Style.Add("display", "none");
+                divGuardarPresupuesto.Style.Add("display", "none");
                 divTMP.Style.Add("display", "none");
+                
+                divPresupuesto.Style.Add("display", "block");      
 
                 cargarPresupuestoContratado();
+
             }
 
         }

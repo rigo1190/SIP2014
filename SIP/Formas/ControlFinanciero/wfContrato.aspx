@@ -16,23 +16,25 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <div class="container">
+    
     <div class="panel panel-success">
         <div class="panel-heading">
-
             <div class="row">
-                <div class="col-md-4"><h3 class="panel-title">Datos del Contrato</h3></div>
-                <div class="col-md-6"> . </div>
-                <div class="col-md-2"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfContratosDeObra.aspx") %>" >Regresar</a></div>
+                <div class="col-md-2"><h3 class="panel-title">Datos del Contrato</h3></div>
+                
+                <div class="col-md-2 text-center"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfContrato.aspx") %>" >A) Contrato</a></div>
+                <div class="col-md-2 text-center"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfPresupuestoContratado.aspx") %>" >B) Presupuesto Contratado</a> </div>
+                <div class="col-md-2 text-center"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfProgramaDeObra.aspx") %>" >C) Programa de Obra</a></div>
+                <div class="col-md-2 text-center"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfProgramacionEstimaciones.aspx") %>" >D) Programación de Estimaciones</a></div>
+                <div class="col-md-2 text-center"><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfContratosDeObra.aspx") %>" >Regresar</a></div>
 
-
-             </div>
-            
-
+             </div>   
         </div>
     </div>
 
 
-<div class="row">
+    <div class="row">
 
                     
                  <div class="col-md-4">
@@ -151,7 +153,7 @@
                     
                                                    
                     <div class="form-group"  id="divBtnGuardarContrato" runat="server">
-                        <asp:Button  CssClass="btn btn-default" Text="Guardar Datos del Contrato" ID="btnGuardarContrato" runat="server" AutoPostBack="false" OnClick ="btnGuardarContrato_Click" ValidationGroup="validateX" />                        
+                        <asp:Button  CssClass="btn btn-primary" Text="Guardar Datos del Contrato" ID="btnGuardarContrato" runat="server" AutoPostBack="false" OnClick ="btnGuardarContrato_Click" ValidationGroup="validateX" />                        
                     </div>
                 </div>
 
@@ -159,4 +161,6 @@
 
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="validateX" ViewStateMode="Disabled" />
 
+
+    </div>
 </asp:Content>

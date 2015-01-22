@@ -75,6 +75,12 @@ namespace BusinessLogicLayer
         private IBusinessLogic<EstimacionesConceptos> estimacionesconceptosBL;
         private IBusinessLogic<EstimacionesConceptosTMP> estimacionesconceptostmpBL;
 
+        private IBusinessLogic<ProgramasDeObras> programasdeobrasBL;
+        private IBusinessLogic<ProgramasDeObrasTMP> programasdeobrastmpBL;
+        private IBusinessLogic<EstimacionesProgramadas> estimacionesprogramadasBL;
+        private IBusinessLogic<EstimacionesProgramadasConceptos> estimacionesprogramadasconceptosBL;
+
+
         public UnitOfWork()
         {
             this.contexto = new Contexto();
@@ -770,6 +776,67 @@ namespace BusinessLogicLayer
                 return this.estimacionesconceptostmpBL;
             }
         }
+
+        public IBusinessLogic<ProgramasDeObras> ProgramasDeObrasBL
+        {
+            get
+            {
+                if (this.programasdeobrasBL == null)
+                {
+                    this.programasdeobrasBL = new GenericBusinessLogic<ProgramasDeObras>(contexto);
+                }
+
+                return this.programasdeobrasBL;
+            }
+        }
+
+
+        public IBusinessLogic<ProgramasDeObrasTMP> ProgramasDeObraTMPBL
+        {
+            get
+            {
+                if (this.programasdeobrastmpBL == null)
+                {
+                    this.programasdeobrastmpBL = new GenericBusinessLogic<ProgramasDeObrasTMP>(contexto);
+                }
+                return this.programasdeobrastmpBL;
+            }
+        }
+        
+        public IBusinessLogic<EstimacionesProgramadas> EstimacionesProgramadasBL
+        {
+            get
+            {
+                if (this.estimacionesprogramadasBL == null)
+                {
+                    this.estimacionesprogramadasBL = new GenericBusinessLogic<EstimacionesProgramadas>(contexto);
+                }
+                return this.estimacionesprogramadasBL;
+            }
+        }
+
+        public IBusinessLogic<EstimacionesProgramadasConceptos> EstimacionesProgramadasConceptosBL
+        {
+            get
+            {
+                if (this.estimacionesprogramadasconceptosBL == null)
+                {
+                    this.estimacionesprogramadasconceptosBL = new GenericBusinessLogic<EstimacionesProgramadasConceptos>(contexto);
+                }
+                return this.estimacionesprogramadasconceptosBL;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
 
      
         public void SaveChanges()

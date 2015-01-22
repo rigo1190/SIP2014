@@ -55,7 +55,7 @@ namespace SIP.Formas.ControlFinanciero
 
             divBtnImprimir.Style.Add("display", "none");
 
-            if (obra.StatusControlFinanciero > 2)//datos del anticipo
+            if (obra.StatusControlFinanciero > 4)//datos del anticipo
             {
                 
 
@@ -103,9 +103,9 @@ namespace SIP.Formas.ControlFinanciero
 
                 Obra obra = uow.ObraBusinessLogic.GetByID(this.idObra);
 
-                if (obra.StatusControlFinanciero == 2)
+                if (obra.StatusControlFinanciero == 4)
                 {
-                    obra.StatusControlFinanciero = 3;
+                    obra.StatusControlFinanciero = 5;
                     uow.ObraBusinessLogic.Update(obra);
                 }
 

@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+<div class="container">
     
      <div class="row panel-footer alert alert-success">
         <div class="col-md-4">
@@ -121,6 +121,6 @@
         </div>
     </div>
 
-    
+</div>    
 </asp:Content>
 

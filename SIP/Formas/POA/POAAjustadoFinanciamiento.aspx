@@ -58,8 +58,8 @@
 
         }
 
-        function fnc_MostrarLineamientos(sender, valor) {
-            //alert("El fondo tiene el id=" + valor);
+        function fnc_MostrarLineamientos(sender, valor)
+        {
             PageMethods.GetLineamientosFondo(valor, OnRequestComplete, OnRequestError);
         }
 

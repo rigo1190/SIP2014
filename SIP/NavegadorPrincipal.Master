@@ -99,7 +99,7 @@
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfOficiosFuentesFinanciamientoDisponibles.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Oficios de Fuentes de Financiamiento Disponibles</a></li>                                  
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroTransferencias.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Transferencias</a></li>
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroNuevoFondo.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Cargar Nuevo Financiamiento</a></li>                                  
-                                  <li>-.-</li>
+                                  <li class="divider"></li>
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroConsultaXup.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Consultar Saldos X Unidad Presupuestal</a></li>                                  
                                   <li><a href="<%=ResolveClientUrl("~/Formas/TechoFin/wfTechoFinancieroBitacora.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Consultar Bitacora de Movimientos</a></li>                         
                              </ul>

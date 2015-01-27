@@ -123,7 +123,7 @@
         </div>
     
         <div id="divProgramaDeObra" class="row" runat ="server">
-            <label>presupuesto contratado</label>
+            <label>Programa de obra</label>
 
 
 

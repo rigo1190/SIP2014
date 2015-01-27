@@ -22,7 +22,7 @@
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+<div class="container">
     
     <div id="divEjercicioCerrado" class="panel panel-success" runat="server">
         <div class="panel-heading">
@@ -134,5 +134,5 @@
 
 
 
-
+</div>
 </asp:Content>

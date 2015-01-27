@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+<div class="container">
 
 
     <div class="bs-example">
@@ -17,5 +17,5 @@
 
     </div>
     </div>
-
+</div>
 </asp:Content>

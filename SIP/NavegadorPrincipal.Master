@@ -151,12 +151,10 @@
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catPlanesSectoriales.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Planes Sectoriales</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/PlantillasPadre.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Plantillas</a></li>
                                 <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catProgramas.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Programas</a></li>
-                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catUnidadesPresupuestales.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Unidades Presupuestales</a></li>
-                                <li class="divider"></li>
-                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/RolesUsuario.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Roles de usuario</a></li>
+                                <li><a href="<%=ResolveClientUrl("~/Formas/Catalogos/catUnidadesPresupuestales.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Unidades Presupuestales</a></li>                               
                             </ul>
                         </li>                                                 
-                        <li><a href="<%=ResolveClientUrl("About.aspx") %>"><span class="glyphicon glyphicon-info-sign"></span> Acerca de</a></li>
+                        <%--<li><a href="<%=ResolveClientUrl("About.aspx") %>"><span class="glyphicon glyphicon-info-sign"></span> Acerca de</a></li>--%>
 
                     </ul>        
         

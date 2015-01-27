@@ -41,14 +41,14 @@
                 <div class="form-group">
                 <label for="ddlEjercicios" class="control-label" runat="server">Ejercicios:</label>
                 <div>
-                    <asp:DropDownList ID="ddlEjercicios" runat="server" Width="1025px" CssClass="form-control" AutoPostBack="false" ></asp:DropDownList>                                         
+                    <asp:DropDownList ID="ddlEjercicios" runat="server" CssClass="form-control" AutoPostBack="false" ></asp:DropDownList>                                         
                 </div>
                 </div>                 
 
                 <div class="form-group" id="divUnidades" runat="server">
                     <label for="ddlUnidadPresupuestal" class="control-label" runat="server">Unidad presupuestal:</label>
                     <div>
-                        <asp:DropDownList ID="ddlUnidadPresupuestal" runat="server" Width="1025px" CssClass ="form-control" AutoPostBack="false" ></asp:DropDownList>                                         
+                        <asp:DropDownList ID="ddlUnidadPresupuestal" runat="server" CssClass ="form-control" AutoPostBack="false" ></asp:DropDownList>                                         
                     </div>
                 </div>      
             </div>

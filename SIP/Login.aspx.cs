@@ -17,34 +17,34 @@ namespace SIP
         private UnitOfWork uow;
         public string clave = "3ncript4d4"; // Clave de cifrado.
         private int ejercicioActivoId;
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             uow = new UnitOfWork();
 
-            ejercicioActivoId = uow.EjercicioBusinessLogic.Get(ej => ej.Estatus == enumEstatusEjercicio.Activo).FirstOrDefault().Id; 
+            ejercicioActivoId = uow.EjercicioBusinessLogic.Get(ej => ej.Estatus == enumEstatusEjercicio.Activo).FirstOrDefault().Id;
 
 
         }
 
         protected void btnEntrar_Click(object sender, EventArgs e)
         {
-           
+
             string strlogin = hiddenLogin.Value;
             string strContrasena = hiddenContrasena.Value;
 
-            var user = uow.UsuarioBusinessLogic.Get(u => u.Login==strlogin && u.Password==strContrasena).FirstOrDefault(u => u.Login == strlogin && u.Password == strContrasena);
+            var user = uow.UsuarioBusinessLogic.Get(u => u.Login == strlogin && u.Password == strContrasena).FirstOrDefault(u => u.Login == strlogin && u.Password == strContrasena);
 
-            if (user!=null)
+            if (user != null)
             {
-                FormsAuthentication.RedirectFromLoginPage(user.Login, false);        
+                FormsAuthentication.RedirectFromLoginPage(user.Login, false);
                 Session.Timeout = 60;
                 Session["IsAuthenticated"] = true;
                 Session["NombreUsuario"] = user.Nombre;
                 Session["Login"] = user.Login;
                 Session["IdUser"] = user.Id.ToString();
-                        
+
                 //EL USUARIO VA A SER UNO DE ESTOS DOS GRANDES TIPOS: SEFIPLAN O DEPENDENCIA
 
                 if (user.Rol.EsSefiplan) //USUARIO DE SEFIPLAN
@@ -66,13 +66,18 @@ namespace SIP
                         case 5: //Analista
                             Response.Redirect("~/Formas/frmSelectorEjercicio.aspx");
                             break;
+
+                        case 6: //Control Financiero
+
+                            Response.Redirect("~/Formas/SelectorEjercicioDependencia.aspx");
+                            break;
                     }
                 }
                 else if (user.Rol.EsDependencia) //USUARIO DE DEPENDENCIA
                 {
                     Response.Redirect("~/Formas/SelectorEjercicioDependencia.aspx");
                 }
-                      
+
             }
 
             else
@@ -81,7 +86,7 @@ namespace SIP
                 lblMensajes.Text = "Nombre de usuario o contraseña incorrectos";
                 lblMensajes.CssClass = "error";
             }
-          
+
         }
 
         private string Encriptar(string pass)
@@ -108,6 +113,6 @@ namespace SIP
 
             return Convert.ToBase64String(resultado, 0, resultado.Length);
         }
-              
+
     }
 }

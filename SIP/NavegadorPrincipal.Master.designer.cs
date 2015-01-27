@@ -31,6 +31,24 @@ namespace SIP {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// Control mnInicioSefiplan.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnInicioSefiplan;
+        
+        /// <summary>
+        /// Control mnInicioDependencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnInicioDependencia;
+        
+        /// <summary>
         /// Control mnTechosFinancieros.
         /// </summary>
         /// <remarks>
@@ -40,13 +58,13 @@ namespace SIP {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnTechosFinancieros;
         
         /// <summary>
-        /// Control Li1.
+        /// Control mnControlFinanciero.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Li1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mnControlFinanciero;
         
         /// <summary>
         /// Control mnPOA.

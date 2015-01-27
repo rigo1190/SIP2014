@@ -86,12 +86,11 @@
         
                       <ul class="nav navbar-nav nav-pills">
                              
-                          <li><a href="<%=ResolveClientUrl("~/Formas/frmSelectorEjercicio.aspx") %>"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
-    
-                         <%-- <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> Administración<b class="caret"></b></a>
-                             <ul class="dropdown-menu"></ul>
-                          </li>--%>
+                          <li visible="false" runat="server" id="mnInicioSefiplan"><a href="<%=ResolveClientUrl("~/Formas/frmSelectorEjercicio.aspx") %>"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
 
+                          <li visible="false" runat="server" id="mnInicioDependencia"><a href="<%=ResolveClientUrl("~/Formas/SelectorEjercicioDependencia.aspx") %>"><span class="glyphicon glyphicon-home"></span> Inicio</a></li>
+    
+                       
 
                           <li visible="false" runat="server" id="mnTechosFinancieros" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Techos Financieros<b class="caret"></b></a>
                              <ul class="dropdown-menu">
@@ -107,7 +106,7 @@
 
 
 
-                          <li visible="true" runat="server" id="Li1" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Control Financiero<b class="caret"></b></a>
+                          <li visible="false" runat="server" id="mnControlFinanciero" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-list-alt"></span> Control Financiero<b class="caret"></b></a>
                              <ul class="dropdown-menu">
                                   <li><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfContratosDeObra.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Contratos</a></li>                                  
                                   <li><a href="<%=ResolveClientUrl("~/Formas/ControlFinanciero/wfAvanceFisicoFinanciero.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>Avance Físico-Financiero</a></li>                                  

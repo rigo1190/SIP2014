@@ -3,40 +3,14 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
 
 
             $('.campoNumerico').autoNumeric('init');
+                     
 
-
-            $('*[data-tipo-operacion]').click(function () {
-
-                if ($("#<%= divEdicion.ClientID %>").is(':visible')) {
-                    return false;
-                }
-
-
-
-                var strOperacion = $(this).data("tipo-operacion").toUpperCase();
-
-                switch (strOperacion) {
-
-                    case "EDITAR":
-                        return true;
-                        break;
-                    case "BORRAR":
-                        return confirm("¿Está seguro de eliminar el registro?");
-                        break;                   
-                    default:
-                        break;
-                }
-
-                return false;
-
-            });
-           
-
-        }); //$(document).ready
+        }); 
 
 
 
@@ -59,8 +33,7 @@
          }
 
         function fnc_OcultarDivs(sender) {        
-             $("#<%= divBtnNuevo.ClientID %>").css("display", "block");
-             $("#<%= divEdicion.ClientID %>").css("display", "none");
+             $("#<%= divBtnNuevo.ClientID %>").css("display", "block");         
              $("#<%= divMsg.ClientID %>").css("display", "none");
              return false;
         }
@@ -95,6 +68,29 @@
             PageMethods.GetLineamientosFondo(valor, OnRequestComplete, OnRequestError);
         }
 
+        function fnc_MostrarPanelEditar()
+        {
+            $('#modalEdicion').modal('show');
+        }
+
+        function fnc_OcultarPanelEditar() {
+            $('#modalEdicion').modal('hide');
+        }
+
+        function fnc_MostrarPanelBorrar() {
+            $('#modalBorrar').modal('show');
+        }
+
+        function fnc_OcultarPanelBorrar() {
+            $('#modalBorrar').modal('hide');
+        }
+
+        function BindEvents() {
+            $(document).ready(function () {      
+                $('.campoNumerico').autoNumeric('init');
+            });
+        }
+
 
     </script>
 
@@ -116,7 +112,8 @@
                   <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar a la asignación de financiamiento para el proyecto de POA ajustado</strong></a>
                 </div>              
             </div>
-        </div>                        
+        </div>   
+                             
         <br />
 
         <div class="panel panel-default">
@@ -126,12 +123,13 @@
           </div>
         </div>
 
-         <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:block" runat="server">
+        <div class="panel panel-success" id="divTechoFinancieroEstatus" style="display:block" runat="server">
+
             <div class="panel-heading">
 
                 <div class="row">
                     <div class="col-md-8"><strong>Financiamientos de la unidad presupuestal</strong></div> 
-                </div>                
+                </div>               
 
             </div>
             <div class="panel-body">
@@ -163,27 +161,29 @@
                         </Columns>
                       </asp:GridView>
 
-            </div>            
-        </div>
+            </div> 
+                       
+        </div>        
 
-
-
-        <div class="panel-footer alert alert-danger strong" id="divMsg" style="display:none" runat="server">
-           <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
-        </div>
+    
 
         <div class="panel panel-success">
+
           <div class="panel-heading"><strong>Financiamientos de la obra</strong></div>
           <div class="panel-body">
 
-                    <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObraFinanciamiento" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
+
+                    <%--<asp:UpdatePanel ID="pnlFinanciamientosObra" UpdateMode="Always">
+                        <ContentTemplate>--%>
+
+                            <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="GridViewObraFinanciamiento" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" AllowPaging="True">
                         <Columns>
 
                                <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
-                                    <ItemTemplate>
-                                                    
-                                        <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" data-tipo-operacion="editar"/>
-                                        <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" data-tipo-operacion="borrar"/>
+                                    <ItemTemplate>                                                    
+                                      
+                                        <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" />
+                                        <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" />
 
                                     </ItemTemplate>                         
                                 </asp:TemplateField>     
@@ -205,50 +205,23 @@
                         <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
                     
                 </asp:GridView>
+
+                  <%--      </ContentTemplate>
+                        <Triggers></Triggers>
+                    </asp:UpdatePanel>--%>
+
+
+                    
+
+                <div id="divBtnNuevo" runat="server" style="display:block">
+                     <asp:Button ID="btnNuevo" runat="server" Text="Agregar nuevo financiamiento" CssClass="btn btn-default" OnClick="btnNuevo_Click" />             
+                </div>
+
                          
-          </div>
-        </div>
+          </div><!-- panel-body -->
 
-
-        <div id="divBtnNuevo" runat="server" style="display:block">
-              <asp:Button ID="btnNuevo" runat="server" Text="Agregar nuevo financiamiento" CssClass="btn btn-default" OnClick="btnNuevo_Click" AutoPostBack="false" />
-              <hr />              
-              
-        </div>
-
-        <div id="divEdicion" runat="server" class="panel-footer" style="display:none">
-
-
-                    <div class="form-group">
-                      <label for="ddlTechoFinancieroUnidadPresupuestal">Financiamiento</label>
-                      <div>
-                        <asp:DropDownList ID="ddlTechoFinancieroUnidadPresupuestal" CssClass="form-control" runat="server"></asp:DropDownList>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="txtImporte">Importe</label>
-                      <div>
-                          <asp:TextBox ID="txtImporte" CssClass="form-control campoNumerico" runat="server"></asp:TextBox>
-                      </div>
-                    </div>
-
-                   
-
-                
-
-
-           <div class="form-group header">
-                <asp:Button  CssClass="btn btn-default" Text="Guardar" ID="btnGuardar" runat="server" OnClientClick="return fnc_Validar()" OnClick="btnGuardar_Click" AutoPostBack="false" />
-                <asp:Button  CssClass="btn btn-default" Text="Cancelar" ID="btnCancelar" runat="server" OnClientClick="return fnc_OcultarDivs()" AutoPostBack="false" />
-           </div>      
-
-        </div>
-
-        <div style="display:none" runat="server">
-           <asp:TextBox ID="_ID" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>
-           <asp:TextBox ID="_Accion" runat="server" Enable="false" BorderColor="White" BorderStyle="None" ForeColor="White"></asp:TextBox>                                                           
-        </div>      
+        </div><!-- panel financiamientos obra -->
+           
 
     </div><!--div class="container"-->
 
@@ -327,10 +300,95 @@
               </div><!-- modal-body -->                 
             </div>
         </div>
-    </div>
+    </div><!-- modal lineamientos -->
+
+     
+     <div class="modal fade" id="modalEdicion" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+
+            <div class="modal-content">
+
+              <div class="modal-header alert alert-success">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><strong>&times;</strong></button>
+                <h4 class="modal-title"><% Response.Write(ViewState["titulo"]); %></h4>
+              </div><!-- modal header -->
+
+              <div class="modal-body">
+
+                                <asp:UpdatePanel ID="pnlEdicion" runat="server">
+
+                                    <ContentTemplate>
 
 
+                                         <script type="text/javascript">
 
+                                             Sys.Application.add_load(BindEvents);
+
+                                        </script>
+
+
+                                        <div class="panel-footer alert alert-danger strong" id="divMsg" style="display:none" runat="server">
+                                    <asp:Label ID="lblMensajes" runat="server" Text=""></asp:Label>
+                                </div>  
+
+
+                              <div class="form-group">
+                                  <label for="ddlTechoFinancieroUnidadPresupuestal">Financiamiento</label>
+                                  <div>
+                                    <asp:DropDownList ID="ddlTechoFinancieroUnidadPresupuestal" CssClass="form-control" runat="server"></asp:DropDownList>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="txtImporte">Importe</label>
+                                  <div>
+                                      <asp:TextBox ID="txtImporte" CssClass="form-control campoNumerico" runat="server"></asp:TextBox>
+                                  </div>
+                              </div>                        
+
+
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:AsyncPostBackTrigger ControlID="btnGuardar" EventName="Click" />
+                                    </Triggers>
+
+                                </asp:UpdatePanel>
+
+                               
+                    
+
+             </div><!-- modal-body -->  
+                
+              <div class="modal-footer">  
+                  <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-default" OnClientClick="return fnc_Validar()" OnClick="btnGuardar_Click" />
+                  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+              </div><!-- modal-footer -->  
+                                
+            </div><!-- modal-content -->
+
+        </div><!-- modal-dialog -->
+
+    </div><!-- modal Edicion -->
+
+         
+     <div class="modal fade" id="modalBorrar">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header alert alert-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmar operación</h4>
+              </div>
+              <div class="modal-body">
+                <p><strong>¿Desea borrar realmente este registro?</strong></p>
+              </div>
+               <div class="modal-footer">  
+                  <asp:Button ID="btnBorrar" runat="server" Text="Borrar" CssClass="btn btn-default" OnClick="btnBorrar_Click" />
+                  <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+              </div><!-- modal-footer -->  
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+    </div><!-- modal Borrar -->
        
 
 </asp:Content>

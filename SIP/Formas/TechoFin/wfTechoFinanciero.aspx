@@ -194,13 +194,17 @@
             
             <div class="col-md-2">              
                 <div class="form-group" >.<br />
-                    <asp:Button  CssClass="btn btn-default" Text="Guardar" ID="btnGuardar" runat="server" AutoPostBack="false" OnClick ="btnGuardar_Click" ValidationGroup="validateX" />
-                    <asp:Button  CssClass="btn btn-default" Text="Cancelar" ID="btnCancelar" runat="server" AutoPostBack="false" OnClick="btnCancelar_Click" />                        
+                    <asp:Button  CssClass="btn btn-primary" Text="Guardar" ID="btnGuardar" runat="server" AutoPostBack="false" OnClick ="btnGuardar_Click" ValidationGroup="validateX" />
+                    
                 </div>
             </div>
 
 
-                                
+            <div class="col-md-2">              
+                <div class="form-group" >.<br />
+                    <asp:Button  CssClass="btn btn-default" Text="Cancelar" ID="btnCancelar" runat="server" AutoPostBack="false" OnClick="btnCancelar_Click" />                        
+                </div>
+            </div>                                
                 
 
             <div style="display:none" runat="server">

@@ -73,6 +73,7 @@ namespace SIP.Formas.Catalogos
             obj.Abreviatura = txtAbreviatura.Text;
             obj.Nombre = txtNombre.Text;
             obj.Orden = int.Parse(txtOrden.Value);
+            obj.TipoFondoId = 2;
 
             if (_Accion.Value == "Nuevo" && _Tipo.Value == "Fondo")
             {

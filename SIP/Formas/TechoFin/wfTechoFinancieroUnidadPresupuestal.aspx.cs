@@ -74,7 +74,7 @@ namespace SIP.Formas.TechoFin
                          from x in abc.DefaultIfEmpty()
                          select new { Id = up.Id, Nombre= up.Nombre , techo=(x==null? 0 : x.Id)  };
 
-            ddlUP.DataSource = lista.Where(p=>p.techo == 0).ToList();
+            ddlUP.DataSource = lista.Where(p=>p.techo == 0).ToList().OrderBy(q=>q.Nombre);
 
             //ddlUP.DataSource = uow.UnidadPresupuestalBusinessLogic.Get().ToList();            
             ddlUP.DataValueField = "Id";

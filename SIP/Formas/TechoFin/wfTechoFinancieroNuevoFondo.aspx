@@ -56,7 +56,7 @@
 
                 <div class="col-md-2" >
                     <label>Importe</label>
-                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
+                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left;  align-items:flex-start" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
                         
                 </div>
@@ -169,12 +169,12 @@
 
                 <div class="col-md-2" >
                     <label>Oficio</label>
-                    <input type="text" class="input-sm required form-control" id="txtOficio" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
+                    <input type="text" class="input-sm required form-control" id="txtOficio" runat="server" style="text-align: left;  align-items:flex-start" />
                 </div>
             
               <div class="col-md-6" >
                     <label>Observaciones</label><br />
-                    <input type="text" class="input-sm required form-control" id="txtObservaciones" runat="server" style="text-align: left; align-items:flex-start; width: 757px;" />
+                    <input type="text" class="input-sm required form-control" id="txtObservaciones" runat="server" style="text-align: left; align-items:flex-start; " />
                 </div>
             
             <div class="col-md-4">              

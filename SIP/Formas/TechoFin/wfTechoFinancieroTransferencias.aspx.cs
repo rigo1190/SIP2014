@@ -35,9 +35,14 @@ namespace SIP.Formas.TechoFin
 
 
                 if (lista.Count == 0)
-                {
                     divDatos.Style.Add("display", "none");
-                }
+                
+
+                lista = uow.TechoFinancieroStatusBusinessLogic.Get(p=>p.EjercicioId > idEjercicio).ToList();
+
+                if (lista.Count > 0)
+                    divDatos.Style.Add("display", "none");
+
 
 
             }
@@ -275,6 +280,9 @@ namespace SIP.Formas.TechoFin
             int next = uow.TechoFinancieroBitacoraBL.Get(p => p.EjercicioId == idEjercicio).ToList().Max(q => q.Movimiento);
             next++;
 
+            if (txtOficio.Value == string.Empty)
+                return;
+
 
             TechoFinancieroBitacora bitacora = new TechoFinancieroBitacora();
             bitacora.EjercicioId = idEjercicio;
@@ -344,11 +352,11 @@ namespace SIP.Formas.TechoFin
                     uow.TechoFinancieroUnidadPresuestalBusinessLogic.Update(tfup);
                 }
 
-                
 
+                uow.SaveChanges();
             }
 
-            uow.SaveChanges();
+            
 
             if (uow.Errors.Count == 0)
             {

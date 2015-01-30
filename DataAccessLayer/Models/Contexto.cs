@@ -145,23 +145,15 @@ namespace DataAccessLayer.Models
         public virtual DbSet<TechoFinancieroStatus> TechoFinancieroStatus { get; set; }
         public virtual DbSet<TechoFinancieroBitacora> TechoFinancieroBitacora { get; set; }
         public virtual DbSet<TechoFinancieroBitacoraMovimientos> TechoFinancieroBitacoraMovimientos { get; set; }
-
         public virtual DbSet<TechoFinancieroTMPtransferencias> TechoFinancieroTMPtransferencias { get; set; }
-
         public virtual DbSet<Firmas> Firmas { get; set; }
-
-
-        public virtual DbSet<ContratosDeObra> DBScontratosDeObra { get; set; }
-        
+        public virtual DbSet<ContratosDeObra> DBScontratosDeObra { get; set; }        
         public virtual DbSet<PresupuestosContratados> DBSpresupuestosContratados { get; set; }
-
         public virtual DbSet<Estimaciones> DBSestimaciones { get; set; }
         public virtual DbSet<EstimacionesConceptos> DBSestimacionesConceptos { get; set; }
         public virtual DbSet<EstimacionesConceptosTMP> DBestimacionesConceptosTMP { get; set; }
-
         public virtual DbSet<ProgramasDeObras> DBSprogramasdeobras { get; set; }
         public virtual DbSet<ProgramasDeObrasTMP> DBSprogramasdeobrastmp { get; set; }
-
         public virtual DbSet<EstimacionesProgramadas> DBSestimacionesprogramadas { get; set; }
         public virtual DbSet<EstimacionesProgramadasConceptos> DBSestimacionesprogramadasconceptos { get; set; }
     }

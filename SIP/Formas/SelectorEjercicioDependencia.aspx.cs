@@ -46,6 +46,13 @@ namespace SIP.Formas
                         select new { up.Nombre, up.Id }).ToList();
 
 
+            if (list.Count == 0) 
+            {
+                divUnidades.Style.Add("display", "none");
+                return; 
+            }
+
+
             ddlUnidadPresupuestal.DataSource = list;
             ddlUnidadPresupuestal.DataValueField = "Id";
             ddlUnidadPresupuestal.DataTextField = "Nombre";

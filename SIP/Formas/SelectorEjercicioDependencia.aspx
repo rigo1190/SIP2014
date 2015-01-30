@@ -4,14 +4,22 @@
     <script type="text/javascript">
 
 
-        function fnc_Validar() {
+        function fnc_Validar()
+        {
 
+            var se_muestran_unidades = $('#<%= divUnidades.ClientID %>').is(":visible");
 
-            var unidadpresupuestal = $("#<%= ddlUnidadPresupuestal.ClientID %>").val();
-             if (unidadpresupuestal == null || unidadpresupuestal.length == 0 || unidadpresupuestal == undefined || unidadpresupuestal == 0) {
-                 alert("Indique la Unidad presupuestal");
-                 return false;
-             }
+            if (se_muestran_unidades)
+            {
+
+                var unidadpresupuestal = $("#<%= ddlUnidadPresupuestal.ClientID %>").val();
+                if (unidadpresupuestal == null || unidadpresupuestal.length == 0 || unidadpresupuestal == undefined || unidadpresupuestal == 0) {
+                    alert("Indique la Unidad presupuestal");
+                    return false;
+                }
+
+            }                   
+                      
 
              var ejercicio = $("#<%= ddlEjercicios.ClientID %>").val();
              if (ejercicio == null || ejercicio.length == 0 || ejercicio == undefined || ejercicio == 0) {
@@ -41,14 +49,14 @@
                 <div class="form-group">
                 <label for="ddlEjercicios" class="control-label" runat="server">Ejercicios:</label>
                 <div>
-                    <asp:DropDownList ID="ddlEjercicios" runat="server" CssClass="form-control" AutoPostBack="false" ></asp:DropDownList>                                         
+                    <asp:DropDownList ID="ddlEjercicios" runat="server" CssClass="form-control" AutoPostBack="true" ></asp:DropDownList>                                         
                 </div>
                 </div>                 
 
                 <div class="form-group" id="divUnidades" runat="server">
                     <label for="ddlUnidadPresupuestal" class="control-label" runat="server">Unidad presupuestal:</label>
                     <div>
-                        <asp:DropDownList ID="ddlUnidadPresupuestal" runat="server" CssClass ="form-control" AutoPostBack="false" ></asp:DropDownList>                                         
+                        <asp:DropDownList ID="ddlUnidadPresupuestal" runat="server" CssClass ="form-control" AutoPostBack="true" ></asp:DropDownList>                                         
                     </div>
                 </div>      
             </div>

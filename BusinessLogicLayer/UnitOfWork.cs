@@ -36,6 +36,7 @@ namespace BusinessLogicLayer
         private IBusinessLogic<TipoLocalidad> tipoLocalidadBusinessLogic;
         private IBusinessLogic<SituacionObra> situacionObraBusinessLogic;
         private IBusinessLogic<UnidadPresupuestal> unidadPresupuestalBusinessLogic;
+        private IBusinessLogic<Sector> sectorBusinessLogic;
         private IBusinessLogic<POA> poaBusinessLogic;
         private IBusinessLogic<POADetalle> poaDetalleBusinessLogic;
         private IBusinessLogic<Plantilla> plantillaBusinessLogic;
@@ -324,6 +325,19 @@ namespace BusinessLogicLayer
                 }
 
                 return unidadPresupuestalBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<Sector> SectorBusinessLogic
+        {
+            get
+            {
+                if (this.sectorBusinessLogic == null)
+                {
+                    this.sectorBusinessLogic = new GenericBusinessLogic<Sector>(contexto);
+                }
+
+                return sectorBusinessLogic;
             }
         }
 

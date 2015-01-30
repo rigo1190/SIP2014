@@ -61,8 +61,7 @@
             </div>
         
             <div class="panel-body">
-                No se puede cerrar la carga inicial porque hay techos financieros pendientes de dispersar al 100%
-                
+                No se puede cerrar la carga inicial porque hay techos financieros pendientes de dispersar al 100%                
             </div>
 
             <div class="panel-footer clearfix">

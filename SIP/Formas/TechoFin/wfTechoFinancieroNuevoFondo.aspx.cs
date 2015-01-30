@@ -45,8 +45,19 @@ namespace SIP.Formas.TechoFin
                 }
                 else
                 {
-                    divAdd.Style.Add("display", "block");
-                    divNoSePuede.Style.Add("display", "none");
+                    lista = uow.TechoFinancieroStatusBusinessLogic.Get(p => p.EjercicioId > idEjercicio).ToList();
+                    if (lista.Count > 0)
+                    {
+                        divAdd.Style.Add("display", "none");
+                        divNoSePuede.Style.Add("display", "none");
+                    }
+                    else
+                    {
+                        divAdd.Style.Add("display", "block");
+                        divNoSePuede.Style.Add("display", "none");
+                    }
+
+                    
                 }
 
 

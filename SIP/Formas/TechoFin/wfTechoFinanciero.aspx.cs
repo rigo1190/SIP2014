@@ -84,7 +84,7 @@ namespace SIP.Formas.TechoFin
 
         private void BindCombos()
         {
-            ddlFondo.DataSource = uow.FondoBusinessLogic.Get().ToList();
+            ddlFondo.DataSource = uow.FondoBusinessLogic.Get().ToList().OrderBy(p=>p.Abreviatura);
             ddlFondo.DataValueField = "Id";
             ddlFondo.DataTextField = "Abreviatura";
             ddlFondo.DataBind();

@@ -31,8 +31,19 @@ namespace SIP.Formas.TechoFin
 
                 if (lista.Count == 0)
                 {
-                    divClose.Style.Add("display", "block");
-                    divNoSePuedeCerrar.Style.Add("display", "none");
+
+                    lista = uow.TechoFinancieroBusinessLogic.Get(p => p.EjercicioId == idEjercicio).ToList();
+
+                    if (lista.Count == 0)
+                    {
+                        divClose.Style.Add("display", "none");
+                        divNoSePuedeCerrar.Style.Add("display", "block");
+                    }
+                    else
+                    {
+                        divClose.Style.Add("display", "block");
+                        divNoSePuedeCerrar.Style.Add("display", "none");
+                    }                    
                 }
                 else
                 {

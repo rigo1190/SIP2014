@@ -42,9 +42,9 @@
 |   <div id="divDatos" runat="server" class="row ">
 
         
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label>Financiamiento</label>
-                <asp:DropDownList ID="ddlFinanciamiento" CssClass="form-control" runat="server" Height="39px" OnSelectedIndexChanged="ddlFinanciamiento_SelectedIndexChanged" Width="400px" AutoPostBack="True"></asp:DropDownList>
+                <asp:DropDownList ID="ddlFinanciamiento" CssClass="form-control" runat="server" Height="39px" OnSelectedIndexChanged="ddlFinanciamiento_SelectedIndexChanged"  AutoPostBack="True"></asp:DropDownList>
             </div>
 
             
@@ -133,7 +133,7 @@
 
                 <div class="col-md-2" >
                     <label>Importe</label>
-                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
+                    <input type="text" class="input-sm required form-control campoNumerico" id="txtImporte" runat="server" style="text-align: left;  align-items:flex-start" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtImporte" ErrorMessage="El campo Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
                         
                 </div>
@@ -181,7 +181,7 @@
                             <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick ="imgBtnEliminar_Click"/>                            
                         </ItemTemplate>
                         <HeaderStyle BackColor="#EEEEEE" />
-                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
+                        <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="20px" BackColor="#EEEEEE" />
                     </asp:TemplateField>                                  
 
 
@@ -201,12 +201,12 @@
 
                 <div class="col-md-2" >
                     <label>Oficio</label>
-                    <input type="text" class="input-sm required form-control" id="txtOficio" runat="server" style="text-align: left; width:200px;  align-items:flex-start" />
+                    <input type="text" class="input-sm required form-control" id="txtOficio" runat="server" style="text-align: left; align-items:flex-start" />
                 </div>
             
               <div class="col-md-10" >
                     <label>Observaciones</label><br />
-                    <input type="text" class="input-sm required form-control" id="txtObservaciones" runat="server" style="text-align: left; align-items:flex-start; width: 757px;" />
+                    <input type="text" class="input-sm required form-control" id="txtObservaciones" runat="server" style="text-align: left; align-items:flex-start; " />
                 </div>
             
 
@@ -215,7 +215,7 @@
 
 
         <div class="form-group" >.<br />
-            <asp:Button  CssClass="btn btn-default" Text="Registrar Transferencia" ID="btnOk" runat="server" AutoPostBack="false" OnClick ="btnOk_Click"  />                        
+            <asp:Button  CssClass="btn btn-primary" Text="Registrar Transferencia" ID="btnOk" runat="server" AutoPostBack="false" OnClick ="btnOk_Click"  />                        
             <asp:Button  CssClass="btn btn-default" Text="Cancelar Transferencia" ID="btnCancel" runat="server" AutoPostBack="false" OnClick ="btnCancel_Click"  />                        
         </div>
         

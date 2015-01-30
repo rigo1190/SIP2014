@@ -19,42 +19,43 @@ namespace SIP.Formas.Catalogos
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
-            if (!IsPostBack) {
+
+            uow = new UnitOfWork(Session["IdUser"].ToString());
+
+            if (!IsPostBack) 
+            {
                 CargarArbol();
-
-
-                
+                                
                 divcaptura.Style.Add("display", "none");
                 btnMenuCancelar.Style.Add("display", "none");
                 btnMenuGuardar.Style.Add("display", "none");
-
-
-
-                if (treeMain.Nodes.Count > 0) {
+                
+                if (treeMain.Nodes.Count > 0) 
+                {
                     BindControles(treeMain.Nodes[0]);
                     treeMain.Nodes[0].Select();
                     treeMain.ExpandAll();
                 }
 
+                BindearDropDownList();
+
             }
 
-            //Evento que se ejecuta en JAVASCRIPT para evitar que se 'RESCROLLEE' el arbol al seleccionar un NODO y no se pierda el nodo seleccionado
-//            ClientScript.RegisterStartupScript(this.GetType(), "script", "SetSelectedTreeNodeVisible('<%= TreeViewName.ClientID %>_SelectedNode')", true);
+            // Evento que se ejecuta en JAVASCRIPT para evitar que se 'RESCROLLEE' el arbol al seleccionar un NODO y no se pierda el nodo seleccionado
+            // ClientScript.RegisterStartupScript(this.GetType(), "script", "SetSelectedTreeNodeVisible('<%= TreeViewName.ClientID %>_SelectedNode')", true);
              
 
         }
 
 
         #region eventos
+
         protected void treeMain_SelectedNodeChanged(object sender, EventArgs e)
         {
             BindControles(treeMain.SelectedNode);
             divMsg.Style.Add("display", "none");
         }
-
-
-
+        
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             Fondo obj;
@@ -69,10 +70,11 @@ namespace SIP.Formas.Catalogos
                 obj = uow.FondoBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
 
-            obj.Clave = txtClave.Text;
-            obj.Abreviatura = txtAbreviatura.Text;
-            obj.Nombre = txtNombre.Text;
+            obj.Clave = txtClave.Value;
+            obj.Abreviatura = txtAbreviatura.Value;
+            obj.Nombre = txtNombre.Value;
             obj.Orden = int.Parse(txtOrden.Value);
+            obj.TipoFondoId = Convert.ToInt32(ddlTipoFondo.SelectedValue);
 
             if (_Accion.Value == "Nuevo" && _Tipo.Value == "Fondo")
             {
@@ -89,7 +91,14 @@ namespace SIP.Formas.Catalogos
             //validaciones
             uow.Errors.Clear();
 
-            if (_Accion.Value == "Nuevo") {
+            if (_Accion.Value == "Nuevo")
+            {
+
+                if (ddlTipoFondo.SelectedIndex == 0) 
+                {
+                    uow.Errors.Add("Especifique el tipo del fondo");
+                }
+
                 lista = uow.FondoBusinessLogic.Get(p => p.Clave == obj.Clave).ToList();
                 if (lista.Count > 0)
                     uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
@@ -111,11 +120,19 @@ namespace SIP.Formas.Catalogos
                 mensaje = "El registro se ha  almacenado correctamente";
             
 
-            } else { //update
+            } 
+            else
+            {
+                //update
 
                 int xid;
 
                 xid = int.Parse(_ElId.Value);
+
+                if (ddlTipoFondo.SelectedIndex == 0)
+                {
+                    uow.Errors.Add("Especifique el tipo del fondo");
+                }
 
                 lista = uow.FondoBusinessLogic.Get(p => p.Id != xid && p.Clave == obj.Clave).ToList();
                 if (lista.Count > 0)
@@ -263,10 +280,12 @@ namespace SIP.Formas.Catalogos
 
             if (obj != null)
             {
-                txtClave.Text = obj.Clave;
-                txtAbreviatura.Text = obj.Abreviatura;
-                txtNombre.Text = obj.Nombre;
+                txtClave.Value = obj.Clave;
+                txtAbreviatura.Value = obj.Abreviatura;
+                txtNombre.Value = obj.Nombre;
                 txtOrden.Value = obj.Orden.ToString();
+                ddlTipoFondo.SelectedValue = obj.TipoFondoId.ToString();
+               
 
                 //Se busca el nodo del arbol de fondos para colocarlo como seleccionado
                 treeMain.FindNode(_rutaNodoSeleccionado.Value).Select();
@@ -346,29 +365,9 @@ namespace SIP.Formas.Catalogos
 
         }
 
-
-
-
      
-
-
         #endregion
-
-
-
-
-
-
-
         
-
-
-
-
-
-
-
-
 
         #region Metodos
 
@@ -421,15 +420,17 @@ namespace SIP.Formas.Catalogos
 
         private void BindControles(TreeNode node)
         {
+            ddlTipoFondo.SelectedIndex = 0;
+
             Fondo obj = null;
 
             if (node != null)
             {
                 obj = uow.FondoBusinessLogic.GetByID(int.Parse (node.Value));
 
-                txtClave.Text = obj.Clave;
-                txtAbreviatura.Text = obj.Abreviatura;
-                txtNombre.Text = obj.Nombre;
+                txtClave.Value = obj.Clave;
+                txtAbreviatura.Value = obj.Abreviatura;
+                txtNombre.Value = obj.Nombre;
                 txtOrden.Value = obj.Orden.ToString();
                 
                 _ElId.Value = obj.Id.ToString();
@@ -439,9 +440,9 @@ namespace SIP.Formas.Catalogos
             }
             else
             {
-                txtClave.Text = string.Empty;
-                txtAbreviatura.Text = string.Empty;
-                txtNombre.Text = string.Empty;
+                txtClave.Value = string.Empty;
+                txtAbreviatura.Value = string.Empty;
+                txtNombre.Value = string.Empty;
                 txtOrden.Value = string.Empty;
 
                 _ElId.Value = string.Empty;
@@ -455,15 +456,22 @@ namespace SIP.Formas.Catalogos
 
         }
 
+        private void BindearDropDownList()
+        {
+
+            ddlTipoFondo.DataSource = uow.TipoFondoBusinessLogic.Get(orderBy:ro=> ro.OrderBy(tf=> tf.Orden));
+            ddlTipoFondo.DataValueField = "Id";
+            ddlTipoFondo.DataTextField = "Nombre";
+            ddlTipoFondo.DataBind();
+
+            ddlTipoFondo.Items.Insert(0, new ListItem("Seleccione...", "0"));
+
+
+        }              
+
         #endregion
 
-        protected void btnRPT_Click(object sender, EventArgs e)
-        {
-            
-        }
-   
-
-
+       
 
 
     }

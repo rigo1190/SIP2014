@@ -35,10 +35,14 @@ namespace DataAccessLayer.Models
         [StringLength(100, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string Cargo { get; set; }
 
-
         [Index("IX_Orden_ParentId", 2)]
         public int? ParentId { get; set; }
+
+        public int? SectorId { get; set; }
+
         public virtual UnidadPresupuestal Parent { get; set; }
+
+        public virtual Sector Sector { get; set; }
 
         public virtual ICollection<UnidadPresupuestal> DetalleSubUnidadesPresupuestales { get; set; }
 

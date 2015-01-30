@@ -104,6 +104,7 @@ namespace DataAccessLayer.Models
         public virtual DbSet<Municipio> Municipios { get; set; }
         public virtual DbSet<Localidad> Localidades { get; set; }
         public virtual DbSet<UnidadPresupuestal> UnidadesPresupuestales { get; set; }
+        public virtual DbSet<Sector> Sectores { get; set; }
         public virtual DbSet<TipoLocalidad> TiposLocalidad { get; set; }
         public virtual DbSet<SituacionObra> SituacionesObra { get; set; }
         public virtual DbSet<Fondo> Fondos { get; set; }

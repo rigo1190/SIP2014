@@ -34,20 +34,20 @@ namespace SIP.Formas.Catalogos
         {
             ViewState["tituloModal"] = "Modificando registro";          
 
-            GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            ViewState["currentId"] = GridViewRoles.DataKeys[row.RowIndex].Values["Id"].ToString();
+            //GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
+            //ViewState["currentId"] = GridViewRoles.DataKeys[row.RowIndex].Values["Id"].ToString();
 
-            ClientScript.RegisterStartupScript(this.GetType(), "script01", "BeforeUpdateRecord('" + ViewState["currentId"].ToString() +  "');", true);
+            //ClientScript.RegisterStartupScript(this.GetType(), "script01", "BeforeUpdateRecord('" + ViewState["currentId"].ToString() +  "');", true);
 
 
         }
 
         protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)
         {
-            GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            ViewState["currentId"] = GridViewRoles.DataKeys[row.RowIndex].Values["Id"].ToString();
+            //GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
+            //ViewState["currentId"] = GridViewRoles.DataKeys[row.RowIndex].Values["Id"].ToString();
 
-            ClientScript.RegisterStartupScript(this.GetType(), "script01", "BeforeDeleteRecord('" + ViewState["currentId"].ToString() + "');", true);
+            //ClientScript.RegisterStartupScript(this.GetType(), "script01", "BeforeDeleteRecord('" + ViewState["currentId"].ToString() + "');", true);
 
         }
 
@@ -55,6 +55,23 @@ namespace SIP.Formas.Catalogos
         {
             GridView grid = sender as GridView;
             grid.PageIndex = e.NewPageIndex;     
+        }
+
+        [WebMethod]
+        public static IQueryable<Rol> GetRoles()
+        {
+            UnitOfWork uow = new UnitOfWork();
+            IQueryable<Rol> list = uow.RolBusinessLogic.Get();
+
+            //List<poadetails> result = new List<poadetails>();
+
+            //foreach (var item in list)
+            //{
+            //    result.Add(new poadetails { Id = item.Id, Numero = item.Numero, Descripcion = item.Descripcion });
+            //}
+
+            return list;
+
         }
 
         [WebMethod]

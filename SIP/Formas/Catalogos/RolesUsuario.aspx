@@ -1,11 +1,31 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="RolesUsuario.aspx.cs" Inherits="SIP.Formas.Catalogos.RolesUsuario" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
+
+    <style type="text/css">
+
+        .edit-ctrol 
+        {
+                 background: url('/img/edit1.png') no-repeat center center;
+                 cursor: pointer;
+        }
+
+         .delete-ctrol 
+        {
+                 background: url('/img/close.png') no-repeat center center;
+                 cursor: pointer;
+        }
+
+    </style>
+
     <script type="text/javascript">
 
         $(document).ready(function () {
+           
                                   
-            $('.campoNumerico').autoNumeric('init');
+            //$('.campoNumerico').autoNumeric('init');
+
+            GetList();
 
             $('#btnAdd').click(function () 
             {
@@ -22,9 +42,114 @@
                 DeleteRecord();
             });
 
-        });
-     
+            $("td").click(function () {
+                alert("Clik en icono de borrar");
+            });
 
+        });
+
+
+        function GetList_old() {
+            $.ajax({
+
+                type: "POST",
+                url: "RolesUsuario.aspx/GetRoles",
+                contentType: "application/json;charset=utf-8",
+                data: { },
+                dataType: "json",
+                success: function (data) {
+
+                    //On success
+                    
+                    $('#tblRoles').dataTable({
+                        "destroy": true,
+                        "stateSave": true,
+                        "data": data.d,
+                        "columns": [
+                             {                               
+                                 "className": 'edit-ctrol col-md-1',
+                                 "orderable": false,
+                                 "data": null,
+                                 "defaultContent": ''
+                             },
+                             {                               
+                                 "className": 'delete-ctrol col-md-1',
+                                 "orderable": false,
+                                 "data": null,
+                                 "defaultContent": ''
+                             },
+                            { "title": "Id", "data": "Id", "className": "col-md-1", "orderable": false },
+                            { "title": "Clave", "data": "Clave", "className": "col-md-1" },
+                            { "title": "Nombre", "data": "Nombre" },
+                            { "title": "Orden", "data": "Orden", "className": "col-md-1" },
+                            { "title": "EsSefiplan", "data": "EsSefiplan", "className": "col-md-1", "orderable": false },
+                            { "title": "EsDependencia", "data": "EsDependencia", "className": "col-md-1", "orderable": false }
+
+                        ]
+                    });
+
+
+                },
+                error: function (result) {
+                    //On Error
+                    var r = jQuery.parseJSON(result.responseText);
+                    alert("On Error : \n" + r.Message);
+                }
+
+            });
+        }
+        
+        function GetList() {
+            $.ajax({
+
+                type: "POST",
+                url: "RolesUsuario.aspx/GetRoles",
+                contentType: "application/json;charset=utf-8",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+
+                    //On success
+
+                    $('#tblRoles').dataTable({
+                        "stateSave": true,
+                        "destroy": true,                       
+                        "data": data.d,
+                        "columns": [
+                             {
+                                 "className": 'edit-ctrol col-md-1',
+                                 "orderable": false,
+                                 "data": null,
+                                 "defaultContent": ''
+                             },
+                             {
+                                 "className": 'delete-ctrol col-md-1',
+                                 "orderable": false,
+                                 "data": null,
+                                 "defaultContent": ''
+                            },
+                            {  "data": "Id", "className": "col-md-1", "orderable": false },
+                            {  "data": "Clave", "className": "col-md-1" },
+                            {  "data": "Nombre" },                            
+                            {  "data": "EsSefiplan", "className": "col-md-1", "orderable": false },
+                            {  "data": "EsDependencia", "className": "col-md-1", "orderable": false },
+                            {  "data": "Orden", "className": "col-md-1" }
+
+                        ]
+                    });
+
+
+                },
+                error: function (result)
+                {
+                    //On Error
+                    var r = jQuery.parseJSON(result.responseText);
+                    alert("On Error : \n" + r.Message);
+                }
+
+            });
+        }
+     
         function AddRecord()
         {           
 
@@ -45,18 +170,21 @@
 
                     if (response.d.OK) 
                     {
-                        $('#modalEdicion').modal('hide');                       
+
+                        $('#modalEdicion').modal('hide');
+
+                        GetList();
 
                     }
                     else 
                     {
-                        $('#divErrores ul:first').empty();
+                        $('#divErroresEdicion ul:first').empty();
 
                         $.map(response.d.Errors, function (n) {
-                            $('#divErrores ul:first').append($("<li>").text(n));
+                            $('#divErroresEdicion ul:first').append($("<li>").text(n));
                         });
 
-                        $('#divErrores').show();
+                        $('#divErroresEdicion').show();
                     }
 
                 },
@@ -64,9 +192,9 @@
                 {
                     var r = jQuery.parseJSON(response.responseText);
                     
-                    $('#divErrores ul:first').empty();
-                    $('#divErrores ul:first').append($("<li>").text(r.Message));
-                    $('#divErrores').show();
+                    $('#divErroresEdicion ul:first').empty();
+                    $('#divErroresEdicion ul:first').append($("<li>").text(r.Message));
+                    $('#divErroresEdicion').show();
 
 
                 },
@@ -209,6 +337,7 @@
             $('#btnUpdate').hide();
             $('#btnAdd').show();
             
+            $('#divErroresEdicion').hide();
             $('#modalEdicion').modal('show');
         }
 
@@ -248,36 +377,25 @@
             <h3 class="panel-title"><strong>Roles de usuario</strong></h3>
           </div>
           <div class="panel-body">
+             
 
-              <asp:GridView ID="GridViewRoles" runat="server"
-                ItemType="DataAccessLayer.Models.Rol" DataKeyNames="Id"
-                SelectMethod="GridViewRoles_GetData"
-                ShowHeaderWhenEmpty="true" CssClass="table" AutoGenerateColumns="False" 
-                AllowPaging="True" 
-                OnPageIndexChanging="GridViewRoles_PageIndexChanging">
-                <Columns>
-
-                           <asp:TemplateField HeaderText="Acciones" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">
-                                <ItemTemplate>                               
-                                    <asp:ImageButton ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" OnClick="imgBtnEdit_Click" />
-                                    <asp:ImageButton ID="imgBtnEliminar" ToolTip="Borrar" runat="server" ImageUrl="~/img/close.png" OnClick="imgBtnEliminar_Click" />
-                                </ItemTemplate>                         
-                            </asp:TemplateField>
-
-                           <asp:DynamicField DataField="Clave" HeaderText="Clave" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer"/>
-                           <asp:DynamicField DataField="Nombre" HeaderText="Nombre" HeaderStyle-CssClass="panel-footer"/> 
-                           <asp:DynamicField DataField="Orden" HeaderText="Orden" HeaderStyle-CssClass="panel-footer"/>
-                           <asp:DynamicField DataField="EsDependencia" HeaderText="Dependencia" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer"/>
-                           <asp:DynamicField DataField="EsSefiplan" HeaderText="Sefiplan" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer"/> 
-                                         
-                       
-                </Columns>
-                    
-                <PagerSettings FirstPageText="Primera" LastPageText="Ultima" Mode="NextPreviousFirstLast" NextPageText="Siguiente" PreviousPageText="Anterior" />
-                    
-            </asp:GridView>
-
-            <asp:Button ID="btnNuevo" runat="server" Text="Agregar rol" CssClass="btn btn-default" OnClick="btnNuevo_Click" />             
+                <table id="tblRoles" class="table table-condensed table-bordered">
+                    <thead>
+                        <tr>
+                          <th class="col-md-1"></th>
+                          <th class="col-md-1"></th>
+                          <th class="col-md-1">Id</th>
+                          <th class="col-md-1">Clave</th>
+                          <th>Nombre</th>
+                          <th class="col-md-1">SEFIPLAN</th>
+                          <th class="col-md-1">Dependencia</th>
+                          <th class="col-md-1">Orden</th>
+                        </tr>                        
+                    </thead>
+                </table>
+              
+            
+            <asp:Button ID="btnNuevo" runat="server" Text="Agregar rol" CssClass="btn btn-default" OnClientClick="BeforeAddRecord(); return false;" />             
             
 
           </div><!-- panel-body -->
@@ -292,11 +410,11 @@
             <div class="modal-content">
               <div class="modal-header alert alert-success">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><%= ViewState["tituloModal"] %></h4>
+                <h4 class="modal-title">Modificando registro</h4>
               </div>
               <div class="modal-body">
 
-                  <div class="alert alert-danger" id="divErrores" style="display:none">
+                  <div class="alert alert-danger" id="divErroresEdicion" style="display:none">
                       <ul></ul>
                   </div>
 

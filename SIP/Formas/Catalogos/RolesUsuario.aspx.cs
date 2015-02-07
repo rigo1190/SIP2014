@@ -3,73 +3,25 @@ using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace SIP.Formas.Catalogos
 {
     public partial class RolesUsuario : System.Web.UI.Page
     {
         UnitOfWork uow;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork(Session["IdUser"].ToString());     
         }
 
-        public IQueryable<Rol> GridViewRoles_GetData()
-        {
-            IQueryable<Rol> roles = uow.RolBusinessLogic.Get(orderBy:r=>r.OrderBy(ro=>ro.Orden));
-            return roles;
-        }
-
-        protected void btnNuevo_Click(object sender, EventArgs e)
-        {
-            ViewState["tituloModal"] = "Agregando registro";
-            ClientScript.RegisterStartupScript(this.GetType(), "script01", "BeforeAddRecord();", true);            
-        }
-
-        protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
-        {
-            ViewState["tituloModal"] = "Modificando registro";          
-
-            //GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            //ViewState["currentId"] = GridViewRoles.DataKeys[row.RowIndex].Values["Id"].ToString();
-
-            //ClientScript.RegisterStartupScript(this.GetType(), "script01", "BeforeUpdateRecord('" + ViewState["currentId"].ToString() +  "');", true);
-
-
-        }
-
-        protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)
-        {
-            //GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            //ViewState["currentId"] = GridViewRoles.DataKeys[row.RowIndex].Values["Id"].ToString();
-
-            //ClientScript.RegisterStartupScript(this.GetType(), "script01", "BeforeDeleteRecord('" + ViewState["currentId"].ToString() + "');", true);
-
-        }
-
-        protected void GridViewRoles_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridView grid = sender as GridView;
-            grid.PageIndex = e.NewPageIndex;     
-        }
-
+      
         [WebMethod]
         public static IQueryable<Rol> GetRoles()
         {
             UnitOfWork uow = new UnitOfWork();
-            IQueryable<Rol> list = uow.RolBusinessLogic.Get();
-
-            //List<poadetails> result = new List<poadetails>();
-
-            //foreach (var item in list)
-            //{
-            //    result.Add(new poadetails { Id = item.Id, Numero = item.Numero, Descripcion = item.Descripcion });
-            //}
-
+            IQueryable<Rol> list = uow.RolBusinessLogic.Get();          
             return list;
 
         }
@@ -148,8 +100,7 @@ namespace SIP.Formas.Catalogos
             {
                 return new result { OK = false, Errors = uow.Errors };
             }
-
-
+            
             return new result { OK = true };
         }
 

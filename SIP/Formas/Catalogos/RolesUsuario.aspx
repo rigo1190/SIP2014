@@ -4,13 +4,13 @@
 
     <style type="text/css">
 
-        .edit-ctrol 
+        .edit-control 
         {
                  background: url('/img/edit1.png') no-repeat center center;
                  cursor: pointer;
         }
 
-         .delete-ctrol 
+        .delete-control 
         {
                  background: url('/img/close.png') no-repeat center center;
                  cursor: pointer;
@@ -23,7 +23,9 @@
         $(document).ready(function () {
            
                                   
-            //$('.campoNumerico').autoNumeric('init');
+            $('.campoNumerico').autoNumeric('init');
+
+            $('#tblRoles').dataTable();
 
             GetList();
 
@@ -41,65 +43,32 @@
             {
                 DeleteRecord();
             });
-
-            $("td").click(function () {
-                alert("Clik en icono de borrar");
-            });
-
-        });
-
-
-        function GetList_old() {
-            $.ajax({
-
-                type: "POST",
-                url: "RolesUsuario.aspx/GetRoles",
-                contentType: "application/json;charset=utf-8",
-                data: { },
-                dataType: "json",
-                success: function (data) {
-
-                    //On success
-                    
-                    $('#tblRoles').dataTable({
-                        "destroy": true,
-                        "stateSave": true,
-                        "data": data.d,
-                        "columns": [
-                             {                               
-                                 "className": 'edit-ctrol col-md-1',
-                                 "orderable": false,
-                                 "data": null,
-                                 "defaultContent": ''
-                             },
-                             {                               
-                                 "className": 'delete-ctrol col-md-1',
-                                 "orderable": false,
-                                 "data": null,
-                                 "defaultContent": ''
-                             },
-                            { "title": "Id", "data": "Id", "className": "col-md-1", "orderable": false },
-                            { "title": "Clave", "data": "Clave", "className": "col-md-1" },
-                            { "title": "Nombre", "data": "Nombre" },
-                            { "title": "Orden", "data": "Orden", "className": "col-md-1" },
-                            { "title": "EsSefiplan", "data": "EsSefiplan", "className": "col-md-1", "orderable": false },
-                            { "title": "EsDependencia", "data": "EsDependencia", "className": "col-md-1", "orderable": false }
-
-                        ]
-                    });
-
-
-                },
-                error: function (result) {
-                    //On Error
-                    var r = jQuery.parseJSON(result.responseText);
-                    alert("On Error : \n" + r.Message);
-                }
+            
+            
+            $('#tblRoles tbody').on('click', '.edit-control.btn', function () {
+                
+                var rowId = $(this).data("rowid");                
+                BeforeEditRecord(rowId);
 
             });
-        }
+           
+            $('#tblRoles tbody').on('click', '.delete-control.btn', function () {
+                         
+                var rowId = $(this).data("rowid");
+                BeforeDeleteRecord(rowId);
+
+            });
+                      
+
+        }); //$(document).ready
+
+       
+
+
+               
         
-        function GetList() {
+        function GetList()
+        {
             $.ajax({
 
                 type: "POST",
@@ -115,27 +84,54 @@
                         "stateSave": true,
                         "destroy": true,                       
                         "data": data.d,
+                        "language": {
+                            "lengthMenu": "Mostrando _MENU_ registros por página",
+                            "zeroRecords": "- Sin resultados -",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "No se encontraron registros",
+                            "infoFiltered": "(filtrado de _MAX_ registros en total)",
+                            "search": "<span class='glyphicon glyphicon-search'></span>",
+                            "paginate":
+                                {
+                                    "next": "siguiente",
+                                    "previous":"anterior"
+				                }
+                        },
                         "columns": [
-                             {
-                                 "className": 'edit-ctrol col-md-1',
+                             {                               
                                  "orderable": false,
                                  "data": null,
-                                 "defaultContent": ''
-                             },
-                             {
-                                 "className": 'delete-ctrol col-md-1',
-                                 "orderable": false,
-                                 "data": null,
-                                 "defaultContent": ''
-                            },
-                            {  "data": "Id", "className": "col-md-1", "orderable": false },
-                            {  "data": "Clave", "className": "col-md-1" },
-                            {  "data": "Nombre" },                            
-                            {  "data": "EsSefiplan", "className": "col-md-1", "orderable": false },
-                            {  "data": "EsDependencia", "className": "col-md-1", "orderable": false },
-                            {  "data": "Orden", "className": "col-md-1" }
+                                 "defaultContent": "<button type='button' class='edit-control btn'>&nbsp;</button><button type='button' class='delete-control btn'>&nbsp;</button>"
+                            },                         
+                            {  "data": "Clave" },
+                            {  "data": "Nombre" },
+                            {  "data": "EsSefiplan", "orderable": false },
+                            {  "data": "EsDependencia", "orderable": false },
+                            {  "data": "Orden" }
 
-                        ]
+                        ],
+                        "createdRow": function (row, data, index)
+                        {
+                            $('.edit-control.btn', row).attr('data-rowid', data.Id);
+                            $('.delete-control.btn', row).attr('data-rowid', data.Id);
+
+                            if (data.EsSefiplan) {
+                                $('td', row).eq(3).html('<span class="glyphicon glyphicon-ok text-center"></span>');
+                            }
+                            else
+                            {
+                                $('td', row).eq(3).empty();
+                            }
+
+                            if (data.EsDependencia) {
+                                $('td', row).eq(4).html('<span class="glyphicon glyphicon-ok text-center"></span>');
+                            }
+                            else {
+                                $('td', row).eq(4).empty();
+                            }
+                           
+                        }
+
                     });
 
 
@@ -178,13 +174,13 @@
                     }
                     else 
                     {
-                        $('#divErroresEdicion ul:first').empty();
+                        $('#divErroresEdit ul:first').empty();
 
                         $.map(response.d.Errors, function (n) {
-                            $('#divErroresEdicion ul:first').append($("<li>").text(n));
+                            $('#divErroresEdit ul:first').append($("<li>").text(n));
                         });
 
-                        $('#divErroresEdicion').show();
+                        $('#divErroresEdit').show();
                     }
 
                 },
@@ -225,26 +221,27 @@
 
                     if (response.d.OK)
                     {
-                        $('#modalEdicion').modal('hide');                       
+                        $('#modalEdicion').modal('hide');
+                        GetList();
                     }
                     else
                     {
-                        $('#divErrores ul:first').empty();
+                        $('#divErroresEdit ul:first').empty();
 
                         $.map(response.d.Errors, function (n) {
-                            $('#divErrores ul:first').append($("<li>").text(n));
+                            $('#divErroresEdit ul:first').append($("<li>").text(n));
                         });
 
-                        $('#divErrores').show();
+                        $('#divErroresEdit').show();
                     }
 
                 },
                 error: function (response) {
                     var r = jQuery.parseJSON(response.responseText);
 
-                    $('#divErrores ul:first').empty();
-                    $('#divErrores ul:first').append($("<li>").text(r.Message));
-                    $('#divErrores').show();
+                    $('#divErroresEdit ul:first').empty();
+                    $('#divErroresEdit ul:first').append($("<li>").text(r.Message));
+                    $('#divErroresEdit').show();
 
 
                 },
@@ -255,8 +252,8 @@
         }
 
         function DeleteRecord()
-        {           
-            
+        {
+                      
             var rowId = $('#rowId').val();
             var clave = $('#txtClave').val();
             var nombre = $('#txtNombre').val();
@@ -272,7 +269,8 @@
 
                     if (response.d.OK)
                     {
-                        $('#modalBorrar').modal('hide');                       
+                        $('#modalBorrar').modal('hide');
+                        GetList();
                     }
                     else
                     {
@@ -332,16 +330,18 @@
             $('#txtClave').val('');
             $('#txtNombre').val('');
             $('#txtOrden').val('');
-            $('#rbDependencia').prop("checked",true);           
+            $('#rbSefiplan').prop("checked",true);           
 
             $('#btnUpdate').hide();
             $('#btnAdd').show();
             
             $('#divErroresEdicion').hide();
             $('#modalEdicion').modal('show');
+
+           
         }
 
-        function BeforeUpdateRecord(rowId) 
+        function BeforeEditRecord(rowId) 
         {
 
             $('#rowId').val(rowId);         
@@ -351,6 +351,7 @@
             $('#btnAdd').hide();
             $('#btnUpdate').show();
 
+            $('#divErroresEdit').hide();
             $('#modalEdicion').modal('show');
 
         }
@@ -358,6 +359,7 @@
         function BeforeDeleteRecord(rowId)
         {           
             $('#rowId').val(rowId);
+            $('#divErroresDelete').hide();
             $('#modalBorrar').modal('show');
         }
         
@@ -382,14 +384,12 @@
                 <table id="tblRoles" class="table table-condensed table-bordered">
                     <thead>
                         <tr>
-                          <th class="col-md-1"></th>
-                          <th class="col-md-1"></th>
-                          <th class="col-md-1">Id</th>
-                          <th class="col-md-1">Clave</th>
-                          <th>Nombre</th>
-                          <th class="col-md-1">SEFIPLAN</th>
-                          <th class="col-md-1">Dependencia</th>
-                          <th class="col-md-1">Orden</th>
+                          <th class="col-md-1 panel-footer">Acciones</th>
+                          <th class="col-md-1 panel-footer">Clave</th>
+                          <th class="panel-footer">Nombre</th>
+                          <th class="col-md-1 panel-footer text-center">SEFIPLAN</th>
+                          <th class="col-md-1 panel-footer text-center">Dependencia</th>
+                          <th class="col-md-1 panel-footer">Orden</th>
                         </tr>                        
                     </thead>
                 </table>
@@ -414,7 +414,7 @@
               </div>
               <div class="modal-body">
 
-                  <div class="alert alert-danger" id="divErroresEdicion" style="display:none">
+                  <div class="alert alert-danger" id="divErroresEdit" style="display:none">
                       <ul></ul>
                   </div>
 
@@ -441,8 +441,8 @@
                   </div>                   
                          
                   <div class="form-group">
-                      <label class="radio-inline"><input type="radio" name="optradio" id="rbDependencia"/>Dependencias</label>
-                      <label class="radio-inline"><input type="radio" name="optradio" id="rbSefiplan"/>Sefiplan</label>                                
+                      <label class="radio-inline"><input type="radio" name="optradio" id="rbSefiplan"/>Sefiplan</label>
+                      <label class="radio-inline"><input type="radio" name="optradio" id="rbDependencia"/>Dependencias</label>                                                      
                   </div>          
                          
             
@@ -471,7 +471,7 @@
                   <ul></ul>
               </div>
 
-              <strong>¿Desea borrar realmente este registro?</strong>
+              ¿Desea borrar realmente este registro?
             
           </div>
           <div class="modal-footer">

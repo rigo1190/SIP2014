@@ -35,6 +35,11 @@ namespace DataAccessLayer.Models
         [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string StatusNombre { get; set; }
 
+        public int StatusFechas { get; set; }
+
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string StatusFechasNombre { get; set; }
+
         public decimal importe { get; set; }
         public decimal subtotal { get; set; }
 

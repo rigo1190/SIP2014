@@ -198,6 +198,12 @@
                             </ItemTemplate>
                         </asp:TemplateField>
 
+                        <asp:TemplateField HeaderText="N Dias de Desfase">                    
+                            <ItemTemplate>                            
+                                    <asp:Label ID="lblStatusFechas" runat="server" Text='<%# Bind("StatusFechasNombre") %>'></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                     </Columns>
                     
                 

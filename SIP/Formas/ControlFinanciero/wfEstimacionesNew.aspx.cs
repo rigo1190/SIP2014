@@ -103,6 +103,8 @@ namespace SIP.Formas.ControlFinanciero
                             obj.UnidadDeMedida = rows.Cell("D").GetString();
                             obj.Cantidad = double.Parse(cantidad.ToString());
 
+                            obj.StatusFechas = 1;
+                            obj.StatusFechasNombre = " ";
                             uow.EstimacionesConceptosTMPBL.Insert(obj);
                         }
                         

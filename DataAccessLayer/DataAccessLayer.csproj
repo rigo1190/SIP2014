@@ -94,6 +94,7 @@
     <Compile Include="Models\ProgramasDeObrasTMP.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\RubroVerificacionObra.cs" />
+    <Compile Include="Models\Sector.cs" />
     <Compile Include="Models\SituacionObra.cs" />
     <Compile Include="Models\TechoFinanciero.cs" />
     <Compile Include="Models\TechoFinancieroBitacora.cs">

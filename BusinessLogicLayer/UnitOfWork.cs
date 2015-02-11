@@ -840,18 +840,7 @@ namespace BusinessLogicLayer
                 return this.estimacionesprogramadasconceptosBL;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
+        
      
         public void SaveChanges()
         {
@@ -897,6 +886,30 @@ namespace BusinessLogicLayer
             
         }
 
+        public void RollBack()
+        {
+
+            var changedEntries = contexto.ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged);
+
+
+            foreach (var entry in changedEntries.Where(x => x.State == EntityState.Modified))
+            {
+                entry.CurrentValues.SetValues(entry.OriginalValues);
+                entry.State = EntityState.Unchanged;
+            }
+
+            foreach (var entry in changedEntries.Where(x => x.State == EntityState.Added))
+            {
+                entry.State = EntityState.Detached;
+            }
+
+            foreach (var entry in changedEntries.Where(x => x.State == EntityState.Deleted))
+            {
+                entry.State = EntityState.Unchanged;
+            }
+
+        }
+
         public List<String> Errors 
         {
             get 
@@ -904,33 +917,17 @@ namespace BusinessLogicLayer
                 return errors;
             }
         }
-        
-        public void RollBack()
+
+        public object GetResult() 
         {
-           
-            var changedEntries = contexto.ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged);
-
-            #region < Pendiente revisar, esto podria cancelar toda una sesión de trabajo >
-
-            //foreach (var entry in changedEntries.Where(x => x.State == EntityState.Modified))
-            //{
-            //    entry.CurrentValues.SetValues(entry.OriginalValues);
-            //    entry.State = EntityState.Unchanged;
-            //}
-
-            //foreach (var entry in changedEntries.Where(x => x.State == EntityState.Added))
-            //{
-            //    entry.State = EntityState.Detached;
-            //} 
-
-            #endregion
-
-            foreach (var entry in changedEntries.Where(x => x.State == EntityState.Deleted))
+            if (errors.Count == 0) 
             {
-                entry.State = EntityState.Unchanged;
+                return new { OK = true };
             }
-            
+
+            return new  { OK = false, Errors = errors };
         }
+        
         
         private bool disposed = false;
         protected virtual void Dispose(bool disposing)
@@ -944,6 +941,7 @@ namespace BusinessLogicLayer
             }
             this.disposed = true;
         }
+
         public void Dispose()
         {
             Dispose(true);
@@ -951,4 +949,9 @@ namespace BusinessLogicLayer
         }
 
     }
+    //public class result
+    //{
+    //    public bool OK { get; set; }
+    //    public List<string> Errors { get; set; }
+    //}
 }

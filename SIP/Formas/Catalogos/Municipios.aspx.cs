@@ -4,267 +4,114 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
+using System.Web.Services;
 
 namespace SIP.Formas.Catalogos
 {
     public partial class Municipios : System.Web.UI.Page
-    {
-        private UnitOfWork uow;
+    {      
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
-
-            if (!IsPostBack) 
-            {
-                BindGrid();
-                divEdicion.Style.Add("display", "none");
-                divBtnNuevo.Style.Add("display", "block");
-
-                divMsg.Style.Add("display", "none");
-                divMsgSuccess.Style.Add("display", "none");
-            }           
+            //
         }
 
 
-        private void BindGrid()
+        [WebMethod]
+        public static IQueryable GetList()
         {
-            this.grid.DataSource = uow.MunicipioBusinessLogic.Get().ToList();
-            this.grid.DataBind();
+            UnitOfWork uow = new UnitOfWork();
+            var list = uow.MunicipioBusinessLogic.Get().Select(e => new { Id=e.Id,Clave=e.Clave,Nombre=e.Nombre,Orden=e.Orden});
+            return list;
         }
 
-
-               
-
-        protected void btnNuevo_Click(object sender, EventArgs e)
+        [WebMethod]
+        public static object GetRecord(int id)
         {
-            _Accion.Text = "Nuevo";
 
-            divEdicion.Style.Add("display", "block");
-            divBtnNuevo.Style.Add("display", "none");
-            divMsg.Style.Add("display", "none");
-            divMsgSuccess.Style.Add("display", "none");
+            UnitOfWork uow = new UnitOfWork();
+
+            Municipio municipio = uow.MunicipioBusinessLogic.GetByID(id);
+
+            return new {Id=municipio.Id,Clave=municipio.Clave,Nombre=municipio.Nombre,Orden=municipio.Orden };
+           
+        }
+
+        [WebMethod(EnableSession=true)]
+        public static object AddRecord(string clave, string nombre, int orden)
+        {
+
+            UnitOfWork uow = new UnitOfWork(HttpContext.Current.Session["IdUser"].ToString());
+
+            Municipio municipio = new Municipio { Clave = clave, Nombre = nombre, Orden = orden };  
+
+            //Validar clave y número de orden
+
+            var list = uow.MunicipioBusinessLogic.Get(m=>m.Clave==clave);
+
+            if (list.Count() > 0) uow.Errors.Add("La clave que intenta ingresar ya existe");
+
+            list = uow.MunicipioBusinessLogic.Get(m => m.Orden == orden);
+
+            if (list.Count() > 0) uow.Errors.Add("El número de orden que intenta ingresar ya existe");
+
+            if (uow.Errors.Count > 0) return uow.GetResult();
                         
+
+            uow.MunicipioBusinessLogic.Insert(municipio);                            
+
+            uow.SaveChanges();
+
+            return uow.GetResult();
+
         }
 
-        protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
+        [WebMethod(EnableSession=true)]
+        public static object UpdateRecord(int id, string clave, string nombre, int orden)
         {
-            GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            _idMUN.Text= grid.DataKeys[row.RowIndex].Values["Id"].ToString();
-            _Accion.Text = "update";
 
-            Municipio mun = uow.MunicipioBusinessLogic.GetByID(int.Parse(_idMUN.Text));
-            BindCatalogo(mun);
+            UnitOfWork uow = new UnitOfWork(HttpContext.Current.Session["IdUser"].ToString());
 
+            //Validar duplicidad en clave y número de orden
 
-            divEdicion.Style.Add("display", "block");
-            divBtnNuevo.Style.Add("display", "none");
+            var list = uow.MunicipioBusinessLogic.Get(m => m.Clave == clave & m.Id != id);
 
-            divMsg.Style.Add("display", "none");
-            divMsgSuccess.Style.Add("display", "none");
+            if (list.Count() > 0) uow.Errors.Add("La clave que intenta ingresar ya existe");
+
+            list = uow.MunicipioBusinessLogic.Get(m => m.Orden == orden & m.Id!=id);
+
+            if (list.Count() > 0) uow.Errors.Add("El número de orden que intenta ingresar ya existe");
+
+            if (uow.Errors.Count > 0) return uow.GetResult();
+                        
+
+            Municipio municipio = uow.MunicipioBusinessLogic.GetByID(id);
+            municipio.Clave = clave;
+            municipio.Nombre = nombre;
+            municipio.Orden = orden;               
+          
+            uow.MunicipioBusinessLogic.Update(municipio);
+
+            uow.SaveChanges();                      
+
+            return uow.GetResult();
         }
 
-        protected void imgBtnEliminar_Click(object sender, ImageClickEventArgs e)
+        [WebMethod(EnableSession=true)]
+        public static object DeleteRecord(int id)
         {
-            GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;
-            _idMUN.Text = grid.DataKeys[row.RowIndex].Values["Id"].ToString();
 
-            Municipio mun = uow.MunicipioBusinessLogic.GetByID(int.Parse(_idMUN.Text));
+            UnitOfWork uow = new UnitOfWork(HttpContext.Current.Session["IdUser"].ToString());
 
+            Municipio municipio = uow.MunicipioBusinessLogic.GetByID(id);
 
+            uow.MunicipioBusinessLogic.Delete(municipio);
 
-            uow.Errors.Clear();
-            List<POADetalle> lista;
-            lista = uow.POADetalleBusinessLogic.Get(p => p.MunicipioId == mun.Id).ToList();
-                
-
-            if (lista.Count > 0)
-                uow.Errors.Add("El registro no puede eliminarse porque ya ha sido usado en el sistema");
-
-
-
-            if (uow.Errors.Count == 0)
-            {
-                uow.MunicipioBusinessLogic.Delete(mun);
-                uow.SaveChanges();
-            }
-
-
-            if (uow.Errors.Count == 0)
-            {
-                BindGrid();
-                lblMensajeSuccess.Text = "El registro se ha eliminado correctamente";
-
-                divEdicion.Style.Add("display", "none");
-                divBtnNuevo.Style.Add("display", "block");
-
-                divMsg.Style.Add("display", "none");
-                divMsgSuccess.Style.Add("display", "block");
-
-            }
-
-            else
-            {
-                string mensaje;
-
-                divMsg.Style.Add("display", "block");
-                divMsgSuccess.Style.Add("display", "none");
-
-                mensaje = string.Empty;
-                foreach (string cad in uow.Errors)
-                    mensaje = mensaje + cad + "<br>";
-
-                lblMensajes.Text = mensaje;
-            }
+            uow.SaveChanges();
+         
+            return uow.GetResult();
         }
 
-        
-
-        protected void btnCrear_Click(object sender, EventArgs e)
-        {
-            
-            Municipio mun;
-            List<Municipio> lista;
-            string mensaje = "";
-            int orden;
-
-            if (_Accion.Text == "Nuevo")
-                mun = new Municipio();
-            else
-                mun = uow.MunicipioBusinessLogic.GetByID(int.Parse(_idMUN.Text));
-
-
-
-
-
-            mun.Clave = txtClave.Value;
-            mun.Nombre = txtNombre.Value;
-
-            if (_Accion.Text == "Nuevo") {
-                lista = uow.MunicipioBusinessLogic.Get().ToList();
-                orden = lista.Max(p => p.Orden);
-                orden++;
-
-                mun.Orden = orden;
-            }
-
-
-
-
-            //Validaciones
-            uow.Errors.Clear();
-            if (_Accion.Text == "Nuevo")
-            {
-
-                lista = uow.MunicipioBusinessLogic.Get(p => p.Clave == mun.Clave).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
-
-
-                lista = uow.MunicipioBusinessLogic.Get(p => p.Nombre == mun.Nombre).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El Nombre que capturo ya ha sido registrada anteriormente, verifique su información");
-
-                
-                uow.MunicipioBusinessLogic.Insert(mun);
-                mensaje = "El nuevo municipio ha sido registrado correctamente";
-
-
-
-
-            }
-            else//Update
-            {
-
-                int xid;
-
-                xid = int.Parse(_idMUN.Text);
-
-                lista = uow.MunicipioBusinessLogic.Get(p => p.Id != xid && p.Clave == mun.Clave).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("La Clave que capturo ya ha sido registrada anteriormente, verifique su información");
-
-
-                lista = uow.MunicipioBusinessLogic.Get(p => p.Id != xid && p.Nombre == mun.Nombre).ToList();
-                if (lista.Count > 0)
-                    uow.Errors.Add("El Nombre que capturo ya ha sido registrada anteriormente, verifique su información");
-
-                uow.MunicipioBusinessLogic.Update(mun);
-                mensaje = "Los cambios se registraron satisfactoriamente";
-            }
-
-
-
-
-
-            if (uow.Errors.Count == 0)
-                uow.SaveChanges();
-
-
-            if (uow.Errors.Count == 0)
-            {
-                //ClientScript.RegisterStartupScript(this.GetType(), "script", "fnc_EjecutarMensaje('" + mensaje + "')", true);
-                txtClave.Value = string.Empty;
-                txtNombre.Value = string.Empty;
-                
-                BindGrid();
-
-                lblMensajeSuccess.Text = mensaje;
-
-                divEdicion.Style.Add("display", "none");
-                divBtnNuevo.Style.Add("display", "block");
-                divMsg.Style.Add("display", "none");
-                divMsgSuccess.Style.Add("display", "block");
-
-            }
-            else
-            {
-                divMsg.Style.Add("display", "block");
-                divMsgSuccess.Style.Add("display", "none");
-
-                mensaje = string.Empty;
-                foreach (string cad in uow.Errors)
-                    mensaje = mensaje + cad + "<br>";
-
-
-
-                lblMensajes.Text = mensaje;
-
-            }
-        }
-
-
-
-
-        protected void grid_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            grid.PageIndex = e.NewPageIndex;
-            BindGrid();
-
-            divBtnNuevo.Style.Add("display", "block");
-
-            divEdicion.Style.Add("display", "none");
-            divMsg.Style.Add("display", "none");
-            divMsgSuccess.Style.Add("display", "none");
-        }
-
-
-
-
-        public void BindCatalogo(Municipio UP)
-        {
-            txtClave.Value = UP.Clave;
-            txtNombre.Value = UP.Nombre;
-            _idMUN.Text = UP.Id.ToString();
-        }
-
-   
-       
-
-       
-
-
+      
     }
 }

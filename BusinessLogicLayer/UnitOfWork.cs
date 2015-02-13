@@ -949,9 +949,5 @@ namespace BusinessLogicLayer
         }
 
     }
-    //public class result
-    //{
-    //    public bool OK { get; set; }
-    //    public List<string> Errors { get; set; }
-    //}
+    
 }

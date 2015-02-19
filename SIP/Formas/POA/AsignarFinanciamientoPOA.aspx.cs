@@ -115,7 +115,7 @@ namespace SIP.Formas.POA
 
         protected void btnNuevo_Click(object sender, EventArgs e)
         {
-            ViewState["titulo"] = "Agregando registro";
+            ViewState["titulo"] = "Agregando financiamiento de obra";
             ViewState["accion"] = "N";
 
             //Se limpian los controles
@@ -132,7 +132,7 @@ namespace SIP.Formas.POA
 
         protected void imgBtnEdit_Click(object sender, ImageClickEventArgs e)
         {
-            ViewState["titulo"] = "Modificando registro";
+            ViewState["titulo"] = "Modificando financiamiento de obra";
             ViewState["accion"] = "A";
 
             GridViewRow row = (GridViewRow)((ImageButton)sender).NamingContainer;

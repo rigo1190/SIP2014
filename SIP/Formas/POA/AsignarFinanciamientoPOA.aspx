@@ -70,7 +70,8 @@
 
         function fnc_MostrarPanelEditar()
         {
-            $('#modalEdicion').modal('show');
+            //$('#modalEdicion').modal('show');
+            $('#modalEdicion').modal({ backdrop: 'static', show: true });
         }
 
         function fnc_OcultarPanelEditar() {
@@ -78,7 +79,8 @@
         }
 
         function fnc_MostrarPanelBorrar() {
-            $('#modalBorrar').modal('show');
+            //$('#modalBorrar').modal('show');
+            $('#modalBorrar').modal({ backdrop: 'static', show: true });
         }
 
         function fnc_OcultarPanelBorrar() {
@@ -169,7 +171,7 @@
 
         <div class="panel panel-success">
 
-          <div class="panel-heading"><strong>Financiamientos de la obra</strong></div>
+          <div class="panel-heading"><strong>Financiamientos de la obra o acción</strong></div>
           <div class="panel-body">
 
 
@@ -375,7 +377,7 @@
      <div class="modal fade" id="modalBorrar">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header alert alert-warning">
+              <div class="modal-header alert alert-success">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Confirmar operación</h4>
               </div>

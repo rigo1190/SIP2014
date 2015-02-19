@@ -122,11 +122,11 @@
 
                           <li visible="false"  runat="server" id="mnPOA" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span> POA<b class="caret"></b></a>
                              <ul class="dropdown-menu">
-                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Anteproyecto de POA</a></li>
-                                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento</a></li>
-                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>
-                                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento en POA ajustado</a></li>
-				  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
+                                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Anteproyecto de POA</a></li>
+                                 <%--<li><a href="<%=ResolveClientUrl("~/Formas/POA/POAFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento</a></li>--%>
+                                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>
+                                 <%--<li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Asignar financiamiento en POA ajustado</a></li>--%>
+				                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
                              </ul>
                           </li>
 

@@ -27,6 +27,17 @@ namespace SIP.Formas.POA
 
 
                 BindGrid();
+
+                //Se busca el usuario, si usuario dependencia, se oculta la columna del boton De EVALUAR POA
+                int idUser = Utilerias.StrToInt(Session["IdUser"].ToString());
+
+                Usuario objUser = uow.UsuarioBusinessLogic.GetByID(idUser);
+
+                if (objUser.Rol.EsDependencia)
+                    grid.Columns[5].Visible = false;
+                
+
+
             }
         }
 

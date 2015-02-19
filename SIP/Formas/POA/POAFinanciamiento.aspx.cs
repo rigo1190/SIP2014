@@ -33,8 +33,8 @@ namespace SIP.Formas.POA
 
             DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
 
-            totalobrasanteproyecto = String.Format("Total de obras en anteproyecto: {0} ", poa.GetTotalObrasAnteProyecto());
-            totalobrasproyecto = String.Format("Total de obras con financiamiento: {0} ", poa.GetTotalObrasProyecto());           
+            totalobrasanteproyecto = String.Format("Total de obras y acciones en anteproyecto: {0} ", poa.GetTotalObrasAnteProyecto());
+            totalobrasproyecto = String.Format("Total de obras y acciones con financiamiento: {0} ", poa.GetTotalObrasProyecto());           
 
 
             if (tfunidadpresupuestal != null) 

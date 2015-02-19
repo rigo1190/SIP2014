@@ -625,7 +625,7 @@ namespace SIP.Formas.POA
 
             list = uow.POADetalleBusinessLogic.Get(pd => pd.POA.UnidadPresupuestalId == unidadpresupuestalId & pd.POA.EjercicioId == ejercicioId & pd.Extemporanea == false, orderBy: r => r.OrderBy(ro => ro.Consecutivo));
 
-            lblResumen.Text = String.Format("Total de obras : {0}", list.Count());
+            lblResumen.Text = String.Format("Total de obras y acciones: {0}", list.Count());
 
             return list;
         }

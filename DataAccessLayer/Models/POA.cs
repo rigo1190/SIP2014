@@ -12,6 +12,7 @@ namespace DataAccessLayer.Models
         public POA() 
         {
             this.Detalles = new HashSet<POADetalle>();
+            this.DetalleObras = new HashSet<Obra>();
         }
 
         [Index("IX_EjercicioId_UnidadPresupuestalId", 1, IsUnique = true)]

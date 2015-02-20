@@ -16,19 +16,20 @@ namespace SIP
         {
             uow = new UnitOfWork();
             int id = Utilerias.StrToInt(Request.Params["i"].ToString());
-            POAPlantillaDetalle obj = uow.POAPlantillaDetalleBusinessLogic.GetByID(id);
+            POAPlantillaDetalleDoctos obj = uow.POAPlantillaDetalleDoctosBL.GetByID(id);
 
             if (obj.NombreArchivo == null)
             {
                 lblMsgError.Text = "No existe ningun archivo adjunto";
                 divMsgError.Style.Add("display", "block");
+
             }else if (obj.NombreArchivo.Equals(string.Empty))
             {
                 lblMsgError.Text = "No existe ningun archivo adjunto";
                 divMsgError.Style.Add("display", "block");
             }
             else
-                Response.Redirect("~/ArchivosAdjuntos/" + obj.Id + "/" + obj.NombreArchivo);
+                Response.Redirect("~/ArchivosAdjuntos/" + obj.POAPlantillaDetalleId + "/" + obj.NombreArchivo);
 
         }
     }

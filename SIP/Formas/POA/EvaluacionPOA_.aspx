@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/NavegadorPrincipal.Master" AutoEventWireup="true" CodeBehind="EvaluacionPOA_.aspx.cs" Inherits="SIP.Formas.POA.EvaluacionPOA_" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
+    <script src="../../Scripts/jquery-browser.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -23,10 +23,46 @@
                 $('#linkEjecucion').addClass('active');
             });
 
+            $(function () {
+                $('[data-toggle="popover"]').popover();
+                $('[data-tooltip="tooltip"]').tooltip();
+                
+            })
+
+            $('.popover').css("background-color", "red")
 
         });
 
+        function fnc_GetFile() {
+            try {
+                var file="";
+                //for IE
+                if ($.browser.msie) {
+                    var objFSO = new ActiveXObject("Scripting.FileSystemObject");
+                    file = $("#<%= fileUpload.ClientID %>")[0].value;
+                }
+                //for FF, Safari, Opeara and Others
+                else {
+                    file = $("#<%= fileUpload.ClientID %>")[0].value;
+                }
 
+                return file;
+               
+            }
+            catch (e) {
+                
+            }
+        }
+
+        function fnc_GuardarEdicion() {
+            var nombreArchivo = fnc_GetFile();
+            PageMethods.GuardarEdicion(nombreArchivo, fnc_ResponseGuardarEdicion)
+        }
+
+
+        function fnc_ResponseGuardarEdicion(response) {
+            alert(response);
+        }
 
 
         function fnc_AbrirCollapse() {
@@ -164,12 +200,81 @@
         function fnc_ResponseGetValoresPregunta(response) {
 
             $("#<%= txtObservacionesPregunta.ClientID %>").text(response[0]);
-            $("#<%= txtArchivoAdjunto.ClientID %>").val(response[1]);
+            <%--<%--$("#<%= txtArchivoAdjunto.ClientID %>").val(response[1]);--%>
             $("#<%= txtPregunta.ClientID %>").val(response[2]);
+
+            var divDoctos = document.getElementById("divDoctos");
+            var totalNodes = divDoctos.childNodes.length;
+
+
+            if (totalNodes >= 1) {
+                for (index = totalNodes - 1; index >= 0; index--) {
+                    divDoctos.removeChild(divDoctos.childNodes[index]);
+                }
+            }
+
+            if (response.length > 3) {
+
+                for (index = 0; index < response[3].length; index++) {
+
+                    var funcionDoc = "fnc_AbrirArchivo("+response[3][index]["Id"] + ")";
+
+                    var funcionEliminar = "fnc_EliminarArchivo(" + response[3][index]["Id"] + "," + index + ")";
+
+                    var inputTag = document.createElement("div");
+                    inputTag.id = "div" + index;
+
+                    var html = "<table>";
+                    html += "<tr>";
+
+                    html += "<td>";
+                    html += "<a href='#'>"
+                    html += "<span id='doc" + index + "' onClick = " + funcionDoc + ">" + response[3][index]["NombreArchivo"] + "</span>";
+                    html += "</a>";
+                    html += "</td>";
+                    
+                    html += "<td>";
+                    html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                    html += "</td>";
+
+                    html += "<td colspan=2>";
+                    html += "<a href='#'>"
+                    html += "<span id='btnE" + index + "' onClick = " + funcionEliminar + ">Eliminar</span>";
+                    html += "</a>";
+                    html += "</td>";
+
+                    html += "</tr>";
+                    html += "</table>";
+
+                    inputTag.innerHTML = html; //"<span onClick = " + funcion + ">" + response[3][index]+"</span>";
+                    divDoctos.appendChild(inputTag);
+
+                }
+            }
+
 
             $("#modalDatos").modal('show') //Se muestra el modal
         }
 
+        function fnc_EliminarArchivo(idDocto, index) {
+
+            $("#<%= _index.ClientID %>").val(index);
+
+            PageMethods.EliminarArchivo(idDocto,fnc_ResponseEliminarArchivo)
+
+        }
+
+        function fnc_ResponseEliminarArchivo(response) {
+
+            if (response == "")
+            {
+                var divDoctos = document.getElementById("divDoctos");
+                var index = $("#<%= _index.ClientID %>").val();
+                var divIndex = document.getElementById("div" + index);
+
+                divDoctos.removeChild(divIndex);
+            }
+        }
 
 
         function fnc_GuardarChecks(numGrid) {
@@ -186,6 +291,7 @@
 
         function fnc_ResponseGuardarChecks(response) {
             alert(response[0]);
+            fnc_AbrirCollapse();
         }
 
         //Funcion que se encarga de recuperar todas las FILAS del GRID de PREGUNTAS
@@ -496,11 +602,15 @@
         //Functin que se encarga de abrir una nueva ventana con el contenido del archivo que se haya adjuntado en la pregunta
         //Creado por Rigoberto TS
         //15/10/2014
-        function fnc_AbrirArchivo(ruta, id) {
+        function fnc_AbrirArchivo(id) {
+
+            var ruta = '<%= ResolveClientUrl("~/AbrirDocto.aspx") %>';
             var izq = (screen.width - 750) / 2
             var sup = (screen.height - 600) / 2
             window.open(ruta + '?i=' + id, 'pmgw', 'toolbar=no,status=no,scrollbars=yes,resizable=yes,directories=no,location=no,menubar=no,width=750,height=500,top=' + sup + ',left=' + izq);
         }
+
+        
 
     </script>
 
@@ -510,6 +620,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
     <div class="container">
+         <div class="page-header"">
+            <h3>Evaluación de la OBRA (Planeación y Ejecución)</h3>
+             <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>" ><span class="glyphicon glyphicon-arrow-left"></span> <strong>regresar listado de POA</strong></a>
+        </div>
+
+        <%--<div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4 text-right">
+                
+            </div>
+        </div>   --%>
 
         <div class="row" runat="server" id="divDatosGenerales">
             <div class="panel panel-success">
@@ -520,6 +641,7 @@
                     
                     <div class="row top-buffer">
                         <div class="col-md-2">
+                            
                             <label for="disabledSelect">Entidad Ejecutora:</label>
                         </div>
                         <div class="col-md-4">
@@ -629,8 +751,8 @@
                         <div class="row">
                             <div id="divMenu" runat="server">
                                 <ul class="nav nav-tabs nav-justified panel-success">
-                                    <li class="active"><a id="linkPlaneacion" href="#">Etapa Planeación</a></li>
-                                    <li class="active"><a id="linkEjecucion" href="#">Etapa Ejecución</a></li>
+                                    <li class="active"><a id="linkPlaneacion">Etapa Planeación</a></li>
+                                    <li class="active"><a id="linkEjecucion">Etapa Ejecución</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -647,7 +769,7 @@
                                 </div>
                                  <div id="collapse1" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <asp:GridView OnRowDataBound="gridPlanDesarrollo_RowDataBound" PageSize="1000" Height="25px" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridPlanDesarrollo" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                        <asp:GridView OnRowDataBound="gridPlanDesarrollo_RowDataBound" PageSize="1000" Height="25px" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridPlanDesarrollo" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
@@ -685,20 +807,48 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>--%>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
 
 
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
 
                                         </Columns>
 
@@ -723,7 +873,7 @@
                                 </div>
                                  <div id="collapse2" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridAnteproyecto_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridAnteproyecto" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                        <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridAnteproyecto_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridAnteproyecto" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
@@ -757,18 +907,49 @@
                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>--%>
+
+                                                
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+
+                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
 
                                             </Columns>
                                             
@@ -793,7 +974,7 @@
                                 </div>
                                  <div id="collapse3" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridFondoPrograma_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridFondoPrograma" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                        <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridFondoPrograma_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridFondoPrograma" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
@@ -827,18 +1008,49 @@
                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>--%>
+
+                                                
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+
+                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
 
                                             </Columns>
                                             
@@ -863,7 +1075,7 @@
                                 </div>
                                  <div id="collapse4" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridProyectoEjecutivo_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridProyectoEjecutivo" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                        <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridProyectoEjecutivo_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridProyectoEjecutivo" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
@@ -897,18 +1109,49 @@
                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>--%>
+
+                                                
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+
+                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
 
                                             </Columns>
 
@@ -942,7 +1185,7 @@
                                             </div>
                                             <div id="collapse6" class="panel-collapse collapse">
                                                 <div class="panel-body">
-                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridAdjuDirecta_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridAdjuDirecta" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridAdjuDirecta_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridAdjuDirecta" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
@@ -975,18 +1218,49 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>--%>
+
+                                                                
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+
+                                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
-                                                                </asp:TemplateField>
+                                                                </asp:TemplateField>--%>
                                                             </Columns>
                                                            
                                         
@@ -1008,7 +1282,7 @@
                                              </div>
                                             <div id="collapse7" class="panel-collapse collapse">
                                                 <div class="panel-body">
-                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridExcepcion_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridExcepcion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridExcepcion_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridExcepcion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
@@ -1041,18 +1315,49 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>--%>
+
+                                                                
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+
+                                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
-                                                                </asp:TemplateField>
+                                                                </asp:TemplateField>--%>
                                                             </Columns>
                                                             
                                         
@@ -1074,7 +1379,7 @@
                                             </div>
                                             <div id="collapse8" class="panel-collapse collapse">
                                                 <div class="panel-body">
-                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridInvitacion_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridInvitacion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridInvitacion_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridInvitacion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
@@ -1107,18 +1412,48 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+
+                                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>--%>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
-                                                                </asp:TemplateField>
+                                                                </asp:TemplateField>--%>
                                                             </Columns>
                                                             
                                         
@@ -1140,7 +1475,7 @@
                                              </div>
                                             <div id="collapse9" class="panel-collapse collapse">
                                                 <div class="panel-body">
-                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridLicitacion_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridLicitacion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                       <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridLicitacion_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridLicitacion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
@@ -1173,18 +1508,47 @@
                                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>--%>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                                    <ItemTemplate>
+                                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </asp:TemplateField>
+
+                                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                                     <ItemTemplate>
                                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="Center" />
-                                                                </asp:TemplateField>
+                                                                </asp:TemplateField>--%>
                                                             </Columns>
                                                             
                                         
@@ -1211,7 +1575,7 @@
                                 </div>
                                  <div id="collapse10" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridPresupuesto_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridPresupuesto" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                        <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridPresupuesto_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridPresupuesto" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
@@ -1245,18 +1609,47 @@
                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>--%>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
 
                                             </Columns>
                                             
@@ -1281,7 +1674,7 @@
                                 </div>
                                  <div id="collapse11" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        <asp:GridView  Height="25px" OnRowDataBound="gridAdmin_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridAdmin" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" PageSize="1000">
+                                        <asp:GridView  Height="25px" OnRowDataBound="gridAdmin_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridAdmin" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" PageSize="1000">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
@@ -1315,18 +1708,47 @@
                                                         <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                               <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>--%>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                    <ItemTemplate>
+                                                        <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                    </ItemTemplate>
+                                                    <ItemStyle HorizontalAlign="Center" />
+                                                </asp:TemplateField>
+
+                                                <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                     <ItemTemplate>
                                                         <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                     </ItemTemplate>
                                                     <ItemStyle HorizontalAlign="Center" />
-                                                </asp:TemplateField>
+                                                </asp:TemplateField>--%>
 
                                             </Columns>
                                             
@@ -1359,7 +1781,7 @@
                                     </div>
                                      <div id="collapse1_2" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <asp:GridView OnRowDataBound="gridTecnicoFinanciero_RowDataBound" PageSize="1000" Height="25px" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridTecnicoFinanciero" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                            <asp:GridView OnRowDataBound="gridTecnicoFinanciero_RowDataBound" PageSize="1000" Height="25px" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridTecnicoFinanciero" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
@@ -1397,20 +1819,47 @@
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                   <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>--%>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
                                                     </asp:TemplateField>
 
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
 
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                   <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                             </Columns>
 
@@ -1435,7 +1884,7 @@
                                     </div>
                                      <div id="collapse2_2" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridBitacora_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridBitacora" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridBitacora_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridBitacora" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
@@ -1469,18 +1918,47 @@
                                                             <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>--%>
+
+                                                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                                 </Columns>
                                             
@@ -1505,7 +1983,7 @@
                                     </div>
                                      <div id="collapse3_2" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridEstimaciones_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridEstimaciones" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridEstimaciones_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridEstimaciones" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
@@ -1539,18 +2017,47 @@
                                                             <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>--%>
+
+                                                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                                 </Columns>
                                             
@@ -1575,7 +2082,7 @@
                                     </div>
                                      <div id="collapse4_2" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridConvenios_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridConvenios" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                            <asp:GridView Height="25px" PageSize="1000" OnRowDataBound="gridConvenios_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridConvenios" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
@@ -1609,18 +2116,47 @@
                                                             <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>--%>
+
+                                                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                   <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                                 </Columns>
 
@@ -1646,7 +2182,7 @@
                                         <div class="panel-body">
 
                                            <div class="panel-body">
-                                                <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridFiniquito_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridFiniquito" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                                <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridFiniquito_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridFiniquito" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="Acciones">
                                                             <ItemTemplate>
@@ -1679,18 +2215,47 @@
                                                                 <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                       <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                             <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>--%>
+
+                                                         <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                            <ItemTemplate>
+                                                                <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                            </ItemTemplate>
+                                                            <ItemStyle HorizontalAlign="Center" />
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                            <ItemTemplate>
+                                                                <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                            </ItemTemplate>
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+
+                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                            <ItemTemplate>
+                                                                <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                            </ItemTemplate>
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+
+                                                        <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                            <ItemTemplate>
+                                                                <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                            </ItemTemplate>
+                                                            <ItemStyle HorizontalAlign="Center" />
+                                                        </asp:TemplateField>
+
+                                                       <%-- <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                             <ItemTemplate>
                                                                 <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                             </ItemTemplate>
                                                             <ItemStyle HorizontalAlign="Center" />
-                                                        </asp:TemplateField>
+                                                        </asp:TemplateField>--%>
                                                     </Columns>
                                                            
                                         
@@ -1714,7 +2279,7 @@
                                     </div>
                                      <div id="collapse6_2" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridEntrega_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridEntrega" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
+                                            <asp:GridView PageSize="1000" Height="25px" OnRowDataBound="gridEntrega_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridEntrega" DataKeyNames="Id" AutoGenerateColumns="False" runat="server">
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
@@ -1748,18 +2313,47 @@
                                                             <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>--%>
+
+                                                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                                 </Columns>
                                             
@@ -1784,7 +2378,7 @@
                                     </div>
                                      <div id="collapse7_2" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <asp:GridView  Height="25px" OnRowDataBound="gridGestion_RowDataBound" EnablePersistedSelection="true" ShowHeaderWhenEmpty="true" CssClass="table" ID="gridGestion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" PageSize="1000">
+                                            <asp:GridView  Height="25px" OnRowDataBound="gridGestion_RowDataBound" EnablePersistedSelection="true" CssClass="table" ShowHeaderWhenEmpty="true" ID="gridGestion" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" PageSize="1000">
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
@@ -1818,18 +2412,47 @@
                                                             <%# DataBinder.Eval(Container.DataItem, "Observaciones") %>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Documento soporte" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <asp:Label ID="lblArchivo" runat="server"></asp:Label>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>--%>
+
+                                                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="LOPySRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA1" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
                                                     </asp:TemplateField>
-                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="RLOPSRM" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA2" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Contrato" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA3" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Admón. Directa" SortExpression="NOAplica">
+                                                        <ItemTemplate>
+                                                            <button type="button" class="btn btn-default" id="btnA4" data-container="body" runat="server" data-toggle="popover" data-placement="right"></button>
+                                                        </ItemTemplate>
+                                                        <ItemStyle HorizontalAlign="Center" />
+                                                    </asp:TemplateField>
+
+                                                    <%--<asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="Ver" SortExpression="NOAplica">
                                                         <ItemTemplate>
                                                             <button type="button" runat="server" id="btnVer"><span class="glyphicon glyphicon-search"></span></button>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Center" />
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>--%>
 
                                                 </Columns>
                                             
@@ -1866,6 +2489,7 @@
             <input type="hidden" runat="server" id="_NumGrid" />
             <input type="hidden" runat="server" id="_URLVisor" />
             <input type="hidden" runat="server" id="_numCollapse" />
+            <input type="hidden" runat="server" id="_index" />
           
     </div>
     <div class="modal fade" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
@@ -1879,25 +2503,26 @@
                        <div class="modal-body">
                            <div class="form-group">
                                     <label>Documento de Evaluación</label>
-                                        <%--<input class="form-control" disabled="disabled" runat="server" id="txtPregunta"/>--%>
                                     <textarea style="height:120px"  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtPregunta" />
                                 </div>
                                 <div class="form-group">
                                     <label for="disabledSelect">Observaciones:</label>
                                     <textarea style="height:120px"  type="text" name="prueba" runat="server" class="form-control" id="txtObservacionesPregunta" />
                                 </div>
-                                <div class="form-group">
-                                    <label>Documento Soporte actual:</label>
-                                    <%--<input type="text" disabled="disabled" name="prueba" id="txtArchivoAdjunto" runat="server" class="form-control"  />--%>
-                                    <textarea style="height:70px"  type="text" disabled="disabled" name="prueba" runat="server" class="form-control" id="txtArchivoAdjunto" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="disabledSelect">Documento Soporte:</label>
+
+                                <div class="form-group" >
+                                    <label for="disabledSelect">Adjuntar Documento Soporte:</label>
                                     <asp:FileUpload ID="fileUpload" runat="server" />
                                 </div>
 
+                                <div class="form-group">
+                                    <label>Documentos Soporte actuales:</label>
+                                    <div id="divDoctos">
+                                    </div>
+                                </div>
                                  <div class="form-group">
-                                    <asp:Button OnClick="btnGuardarEdicion_Click" ID="btnGuardarEdicion" runat="server" CssClass="btn btn-default" Text="Guardar" />  
+                                     <%--<input type="button" value="Get File Size" onclick="GetFileSize('fileUpload');" />--%>
+                                    <asp:Button ID="btnGuardarEdicion" OnClick="btnGuardarEdicion_Click" runat="server" CssClass="btn btn-default" Text="Guardar" />  
                                     <input value="Cancelar" data-dismiss="modal" aria-hidden="true" type="button" id="btnCancelar" runat="server" class="btn btn-default" />
                                 </div>
                             </div>

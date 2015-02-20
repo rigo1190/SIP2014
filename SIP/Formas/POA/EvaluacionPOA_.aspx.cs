@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -21,6 +22,8 @@ namespace SIP.Formas.POA
 
             if (!IsPostBack)
             {
+                //DisplayArea.Cursor = Cursors.Wait;
+
                 string M = string.Empty;
                 int POADetalleID = Request.QueryString["pd"] != null ? Utilerias.StrToInt(Request.QueryString["pd"].ToString()) : 0;
                 int idObra = Request.QueryString["ob"] != null ? Utilerias.StrToInt(Request.QueryString["ob"].ToString()) : 0; //Se recupera el id del objeto OBRA            
@@ -148,6 +151,13 @@ namespace SIP.Formas.POA
 
             }
 
+            //for (int i = 1; i <= 17; i++)
+            //{
+            //    if (i!=numGrid)
+            //        DibujarEncabezado(i);
+            //}
+
+
         }
         private void BindGridsEvaluacion()
         {
@@ -155,6 +165,13 @@ namespace SIP.Formas.POA
             POAPlantilla poaPlantilla;
             int POADetalleID = Utilerias.StrToInt(_IDPOADetalle.Value);
 
+
+            //var listPOAPlantillasPlaneacion = (from poapl in uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.Detalles.Count > 0)
+            //                                   join pl in uow.PlantillaBusinessLogic.Get()
+            //                                   on poapl.PlantillaId equals pl.Id
+            //                                   select new { poaPlantillaID = poapl.Id, Padre = pl.Padre, Orden=pl.Orden }).Where(e => e.Padre.Orden == 2);
+            
+            
             foreach (Plantilla p in listPlantillas)
             {
                 poaPlantilla = uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.PlantillaId == p.Id).FirstOrDefault();
@@ -379,8 +396,8 @@ namespace SIP.Formas.POA
         {
 
             //List<Plantilla> listPlantillas = uow.PlantillaBusinessLogic.Get(e => e.DependeDe.Orden == 2).ToList(); //PLANTILLAS DE LA ETAPA DE PLANEACION
-            var list = (from pl1 in uow.PlantillaBusinessLogic.Get()
-                        join pl2 in uow.PlantillaBusinessLogic.Get()
+            var list = (from pl1 in uow.PlantillaBusinessLogic.Get(e=> e.DetallePreguntas.Count > 0)
+                        join pl2 in uow.PlantillaBusinessLogic.Get(e => e.DetallePreguntas.Count > 0)
                         on pl1.Id equals pl2.Id
                         select new { PlantillaID = pl1.Id, Padre = pl1.Padre, Descripcion = pl1.Descripcion }).Where(e => e.Padre.Orden == 2);
             POAPlantilla poaPlantilla = null;
@@ -395,7 +412,7 @@ namespace SIP.Formas.POA
                 if (poaPlantilla == null) //Si no existe ningun objeto con la plantilla creada, entonces se procede a clonar la plantilla
                     M = CopiarPlantilla(p);
                 else
-                    M = CrearPreguntasInexistentes(poaPlantilla.Id, p.Id);
+                    M = CrearPreguntasInexistentes(poaPlantilla.Id, p.Id, p.DetallePreguntas.ToList());//CrearPreguntasInexistentes(poaPlantilla.Id, p.Id);
             }
 
         }
@@ -420,41 +437,32 @@ namespace SIP.Formas.POA
 
                 if (poaPlantilla == null) //Si no existe ningun objeto con la plantilla creada, entonces se procede a clonar la plantilla
                     M = CopiarPlantilla(p);
+                else
+                    M = CrearPreguntasInexistentes(poaPlantilla.Id, p.Id, p.DetallePreguntas.ToList());//CrearPreguntasInexistentes(poaPlantilla.Id, p.Id);
 
             }
 
         }
 
-
-
-        private string CrearPreguntasInexistentes(int POAPlantillaID, int plantillaID)
+        private string CrearPreguntasInexistentes(int idPOAPlantilla,int idPlantilla, List<PlantillaDetalle> DetallePreguntas)
         {
-            //int ordenPlantilla = Utilerias.StrToInt(Request.QueryString["o"].ToString());
             string M = string.Empty;
+            POAPlantillaDetalle objPOAPlantillaDetalle;
 
-            //Consulta que hace la diferencia de preguntas entre POAPLANTILLADETALLE y PLANTILLADETALLE
-            var list = (from p in uow.PlantillaDetalleBusinessLogic.Get()
-                        join pp in uow.PlantillaBusinessLogic.Get(e => e.Id == plantillaID).ToList()
-                        on p.PlantillaId equals pp.Id
-                        join po in uow.POAPlantillaDetalleBusinessLogic.Get()
-                        on p.Id equals po.PlantillaDetalleId into temp
-                        from pi in temp.DefaultIfEmpty()
-                        select new { p.Id, pp.Orden, pregunta = (pi == null ? 0 : pi.PlantillaDetalleId) });
-
-
-            foreach (var obj in list)
+            foreach (PlantillaDetalle pd in DetallePreguntas)
             {
-                if (obj.pregunta == 0)
-                {
-                    POAPlantillaDetalle objPOAPlantillaDetalle = new POAPlantillaDetalle();
-                    objPOAPlantillaDetalle.POAPlantillaId = POAPlantillaID; //ID del obj POAPlantilla
-                    objPOAPlantillaDetalle.PlantillaDetalleId = obj.Id; //Id del obj Plantilla detalle
 
+                objPOAPlantillaDetalle = uow.POAPlantillaDetalleBusinessLogic.Get(e => e.POAPlantillaId == idPOAPlantilla && e.PlantillaDetalleId == pd.Id).FirstOrDefault();
+
+                if (objPOAPlantillaDetalle == null)
+                {
+                    objPOAPlantillaDetalle = new POAPlantillaDetalle();
+                    objPOAPlantillaDetalle.POAPlantillaId = idPOAPlantilla; //ID del obj POAPlantilla
+                    objPOAPlantillaDetalle.PlantillaDetalleId = pd.Id; //Id del obj Plantilla detalle
 
                     uow.POAPlantillaDetalleBusinessLogic.Insert(objPOAPlantillaDetalle);
                     uow.SaveChanges();
 
-                    //Si hubo errores
                     if (uow.Errors.Count > 0)
                     {
                         M = string.Empty;
@@ -464,24 +472,100 @@ namespace SIP.Formas.POA
                         return M;
                     }
                 }
+
+                
+
             }
 
-
-            Plantilla objPlantilla = uow.PlantillaBusinessLogic.GetByID(plantillaID);
+            Plantilla objPlantilla = uow.PlantillaBusinessLogic.GetByID(idPlantilla);
 
             if (objPlantilla.Detalles.Count > 0)
             {
                 foreach (Plantilla p in objPlantilla.Detalles)
                 {
-                    CrearPreguntasInexistentes(POAPlantillaID, p.Id);
+                    CrearPreguntasInexistentes(idPOAPlantilla, p.Id, objPlantilla.DetallePreguntas.ToList());
                 }
             }
 
 
 
             return M;
-
         }
+
+        //private string CrearPreguntasInexistentes(int POAPlantillaID, int plantillaID)
+        //{
+        //    //int ordenPlantilla = Utilerias.StrToInt(Request.QueryString["o"].ToString());
+        //    string M = string.Empty;
+
+        //    //Consulta que hace la diferencia de preguntas entre POAPLANTILLADETALLE y PLANTILLADETALLE
+        //    var list = (from p in uow.PlantillaDetalleBusinessLogic.Get()
+        //                join pp in uow.PlantillaBusinessLogic.Get(e => e.Id == plantillaID).ToList()
+        //                on p.PlantillaId equals pp.Id
+        //                join po in uow.POAPlantillaDetalleBusinessLogic.Get(e=>e.POAPlantillaId==POAPlantillaID)
+        //                on p.Id equals po.PlantillaDetalleId into temp
+        //                from pi in temp.DefaultIfEmpty()
+        //                select new { p.Id, pp.Orden, pregunta = (pi == null ? 0 : pi.PlantillaDetalleId) });
+
+
+        //    //var tem=(from pp in uow.PlantillaBusinessLogic.Get(e=>e.Id==plantillaID)
+        //    //         join pd in uow.PlantillaDetalleBusinessLogic.Get()
+        //    //         on pp.Id equals pd.PlantillaId
+        //    //         join poap in uow.POAPlantillaBusinessLogic.Get(e=>e.Id==POAPlantillaID)
+        //    //         on pp.Id equals poap.PlantillaId
+        //    //         join poapd in uow.POAPlantillaDetalleBusinessLogic.Get()
+        //    //         on poap.Id equals poapd.POAPlantillaId into temp
+        //    //         from pi in temp.DefaultIfEmpty()
+        //    //         select new { pd.Id, pp.Orden, pregunta = (pi == null ? 0 : pi.PlantillaDetalleId) });
+
+        //    foreach (var obj in list)
+        //    {
+        //        if (obj.pregunta == 0)
+        //        {
+        //            POAPlantillaDetalle objPOAPlantillaDetalle;
+
+        //            objPOAPlantillaDetalle = uow.POAPlantillaDetalleBusinessLogic.Get(e => e.POAPlantillaId == POAPlantillaID && e.PlantillaDetalleId == obj.Id).FirstOrDefault();
+
+        //            if (objPOAPlantillaDetalle == null)
+        //            {
+        //                objPOAPlantillaDetalle = new POAPlantillaDetalle();
+        //                objPOAPlantillaDetalle.POAPlantillaId = POAPlantillaID; //ID del obj POAPlantilla
+        //                objPOAPlantillaDetalle.PlantillaDetalleId = obj.Id; //Id del obj Plantilla detalle
+                        
+        //                uow.POAPlantillaDetalleBusinessLogic.Insert(objPOAPlantillaDetalle);
+        //                uow.SaveChanges();
+        //            }
+
+        //            //Si hubo errores
+        //            if (uow.Errors.Count > 0)
+        //            {
+        //                M = string.Empty;
+        //                foreach (string cad in uow.Errors)
+        //                    M += cad;
+
+        //                return M;
+        //            }
+        //        }
+        //    }
+
+
+        //    Plantilla objPlantilla = uow.PlantillaBusinessLogic.GetByID(plantillaID);
+
+        //    if (objPlantilla.Detalles.Count > 0)
+        //    {
+        //        foreach (Plantilla p in objPlantilla.Detalles)
+        //        {
+        //            CrearPreguntasInexistentes(POAPlantillaID, p.Id);
+        //        }
+        //    }
+
+
+
+        //    return M;
+
+        //}
+
+
+
         private string CopiarPlantilla(Plantilla p)
         {
 
@@ -678,10 +762,12 @@ namespace SIP.Formas.POA
 
         private void RowDataBound(int id, int numGrid, GridViewRowEventArgs e)
         {
+           
             HtmlInputCheckBox chkRequiere = (HtmlInputCheckBox)e.Row.FindControl("chkRequiere");
             HtmlInputCheckBox chkPresento = (HtmlInputCheckBox)e.Row.FindControl("chkPresento");
             ImageButton imgBtnEdit = (ImageButton)e.Row.FindControl("imgBtnEdit");
-            Label lblArchivo = (Label)e.Row.FindControl("lblArchivo");
+            
+            //Label lblArchivo = (Label)e.Row.FindControl("lblArchivo");
 
             POAPlantillaDetalle obj = uow.POAPlantillaDetalleBusinessLogic.GetByID(id);
 
@@ -718,9 +804,9 @@ namespace SIP.Formas.POA
             }
 
 
-            if (obj.NombreArchivo != null)
-                if (!obj.NombreArchivo.Equals(string.Empty))
-                    lblArchivo.Text = obj.NombreArchivo;
+            //if (obj.NombreArchivo != null)
+            //    if (!obj.NombreArchivo.Equals(string.Empty))
+                    //lblArchivo.Text = obj.NombreArchivo;
             //    else
             //        lblArchivo.Text = "No existe archivo adjunto";
             //else
@@ -733,10 +819,73 @@ namespace SIP.Formas.POA
 
 
             //Se coloca la fucnion a corespondiente para visualizar el DOCUMENTO ADJUNTO A LA PREGUNTA
-            HtmlButton btnVer = (HtmlButton)e.Row.FindControl("btnVer");
-            string ruta = ResolveClientUrl("~/AbrirDocto.aspx");
-            btnVer.Attributes["onclick"] = "fnc_AbrirArchivo('" + ruta + "'," + id + ")";
+            //HtmlButton btnVer = (HtmlButton)e.Row.FindControl("btnVer");
+            //string ruta = ResolveClientUrl("~/AbrirDocto.aspx");
+            //btnVer.Attributes["onclick"] = "fnc_AbrirArchivo('" + ruta + "'," + id + ")";
+
+
+            //Tooltip para la fundamentacion
+            List<string> fp;
+
+
+            for (int i = 1; i <= 4; i++)
+            {
+                fp = GetFundamentacion(i, obj);
+
+                HtmlButton btnA = (HtmlButton)e.Row.FindControl("btnA"+i.ToString());
+                btnA.InnerText = fp[0] != string.Empty ? "Art:" : "N/A";
+                btnA.Attributes.Add("title",fp[0] != string.Empty ? fp[0] : "N/A");
+                btnA.Attributes.Add("data-tooltip", "tooltip");
+                btnA.Attributes.Add("data-content",fp[1] != string.Empty ? fp[1] : string.Empty); //"Este es un ejemplo de articulada para cada uno de los puntos correspondientes, Este es un ejemplo de articulada para cada uno de los puntos correspondientes");// fp[1];
+            }
+            
+            
         }
+
+
+        public List<string> GetFundamentacion(int rubro,POAPlantillaDetalle obj)
+        {
+            List<string> fundamentacion = new List<string>();
+
+            PlantillaDetalle pd = uow.PlantillaDetalleBusinessLogic.GetByID(obj.PlantillaDetalleId);
+            List<FundamentacionPlantilla> listFP = uow.FundamentacionPlantillaBL.Get(e => e.PlantillaDetalleId == pd.Id).ToList();
+            FundamentacionPlantilla fp = null;
+
+            switch (rubro)
+            {
+                case 1: //LOPySRM
+                    fp = listFP.Where(e => e.RubroFundamentacionId == 1).FirstOrDefault();
+                    break;
+
+                case 2: //RLOPSRM
+                    fp = listFP.Where(e => e.RubroFundamentacionId == 2).FirstOrDefault();
+                    break;
+
+                case 3: //Contrato
+                    fp = listFP.Where(e => e.RubroFundamentacionId == 3).FirstOrDefault();
+                    break;
+
+                case 4: //Admón. Directa
+                    fp = listFP.Where(e => e.RubroFundamentacionId == 4).FirstOrDefault();
+                    break;
+            }
+
+            if (fp != null)
+            {
+                fundamentacion.Add(fp.DescripcionCorta);
+                fundamentacion.Add(fp.Fundamentacion);
+            }
+            else
+            {
+                fundamentacion.Add(string.Empty);
+                fundamentacion.Add(string.Empty);
+            }
+            
+
+            return fundamentacion;
+        }
+
+
 
         [WebMethod]
         public static List<string> GuardarChecks(string cadValores, bool checkAprobado, string obsGeneral)
@@ -910,7 +1059,7 @@ namespace SIP.Formas.POA
         /// <param name="postedFile">Archivo que selecciono el usuario</param>
         /// <param name="idPregunta">ID de la pregunta a la que se le va a asociar el archivo</param>
         /// <returns></returns>
-        private List<string> GuardarArchivo(HttpPostedFile postedFile, int idPregunta)
+        private List<string> GuardarArchivo(FileUpload fileUpload, int idPregunta)
         {
 
             string M = string.Empty;
@@ -933,9 +1082,9 @@ namespace SIP.Formas.POA
                 if (!Directory.Exists(ruta))
                     Directory.CreateDirectory(ruta); //Se crea la carpeta
 
-                ruta += postedFile.FileName;
+                ruta += fileUpload.FileName;
 
-                postedFile.SaveAs(ruta); //Se guarda el archivo
+                fileUpload.PostedFile.SaveAs(ruta); //Se guarda el archivo
 
             }
             catch (Exception ex)
@@ -949,26 +1098,41 @@ namespace SIP.Formas.POA
             return R;
 
         }
-        private string EliminarArchivo(int id, string nombreArchivo)
+
+
+        [WebMethod]
+        public static string EliminarArchivo(int id)
         {
             string M = string.Empty;
             try
             {
+                UnitOfWork uow = new UnitOfWork();
+                POAPlantillaDetalleDoctos docto = uow.POAPlantillaDetalleDoctosBL.GetByID(id);
                 string ruta = string.Empty;
-
+                
                 //eliminar archivo
                 ruta = System.Configuration.ConfigurationManager.AppSettings["ArchivosPlantilla"];
 
                 if (!ruta.EndsWith("/"))
                     ruta += "/";
 
-                ruta += id.ToString() + "/";
+                ruta += docto.POAPlantillaDetalleId.ToString() + "/";
 
                 if (ruta.StartsWith("~") || ruta.StartsWith("/"))   //Es una ruta relativa al sitio
-                    ruta = Server.MapPath(ruta);
+                    ruta = HttpContext.Current.Server.MapPath(ruta);//Server.MapPath(ruta);
 
-                File.Delete(ruta + "\\" + nombreArchivo);
-                Directory.Delete(ruta);
+                File.Delete(ruta + "\\" + docto.NombreArchivo);
+
+                uow.POAPlantillaDetalleDoctosBL.Delete(docto);
+                uow.SaveChanges();
+
+                if (uow.Errors.Count > 0)
+                {
+                    foreach (string e in uow.Errors)
+                        M += e;
+                }
+
+                //Directory.Delete(ruta);
 
             }
             catch (Exception ex)
@@ -987,11 +1151,12 @@ namespace SIP.Formas.POA
         /// <param name="idPregunta">ID de la pregunta que se selecciono del grid</param>
         /// <returns>Retorna una lista con los valores de la pregunta hacia el CLIENTE (JAVASCRIPT)</returns>
         [WebMethod]
-        public static List<string> GetValoresPregunta(string idPregunta)
+        public static List<object> GetValoresPregunta(string idPregunta)
         {
-            List<string> R = new List<string>();
+            List<object> R = new List<object>();
 
             UnitOfWork uow = new UnitOfWork();
+            Dictionary<string, int> test = new Dictionary<string, int>();
 
             POAPlantillaDetalle obj = uow.POAPlantillaDetalleBusinessLogic.GetByID(Utilerias.StrToInt(idPregunta));
 
@@ -1000,11 +1165,26 @@ namespace SIP.Formas.POA
                 R.Add(obj.Observaciones != null && obj.Observaciones != string.Empty ? obj.Observaciones : string.Empty);
                 R.Add(obj.NombreArchivo != null && obj.NombreArchivo != string.Empty ? obj.NombreArchivo : string.Empty);
                 R.Add(obj.PlantillaDetalle.Pregunta);
+
+                //Se recupera la Lista de documentos qu existan para la pregunta
+
+                if (obj.DetalleDoctos.Count > 0)
+                {
+
+                    var list = (from d in obj.DetalleDoctos
+                                select new { d.Id, d.NombreArchivo });
+
+                    R.Add(list);
+  
+                }
             }
 
             return R;
 
         }
+
+
+        
 
         #endregion
 
@@ -1013,6 +1193,9 @@ namespace SIP.Formas.POA
 
         protected void gridPlanDesarrollo_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(1);
+            
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridPlanDesarrollo.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1026,6 +1209,9 @@ namespace SIP.Formas.POA
         }
         protected void gridAnteproyecto_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(2);
+            
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridAnteproyecto.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1037,6 +1223,9 @@ namespace SIP.Formas.POA
         }
         protected void gridFondoPrograma_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(3);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridFondoPrograma.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1048,6 +1237,9 @@ namespace SIP.Formas.POA
         }
         protected void gridProyectoEjecutivo_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(4);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridProyectoEjecutivo.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1059,6 +1251,9 @@ namespace SIP.Formas.POA
         }
         protected void gridAdjuDirecta_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(5);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridAdjuDirecta.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1070,6 +1265,9 @@ namespace SIP.Formas.POA
         }
         protected void gridExcepcion_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(6);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridExcepcion.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1081,6 +1279,9 @@ namespace SIP.Formas.POA
         }
         protected void gridInvitacion_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(7);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridInvitacion.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1092,6 +1293,9 @@ namespace SIP.Formas.POA
         }
         protected void gridLicitacion_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(8);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridLicitacion.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1103,6 +1307,9 @@ namespace SIP.Formas.POA
         }
         protected void gridPresupuesto_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(9);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridPresupuesto.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1114,6 +1321,9 @@ namespace SIP.Formas.POA
         }
         protected void gridAdmin_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(10);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridAdmin.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1123,6 +1333,23 @@ namespace SIP.Formas.POA
                 }
             }
         }
+
+
+        [WebMethod]
+        public static string GuardarEdicion(string nombreArchivo)
+        {
+            string M = "Funciona";
+
+            FileInfo fi = new FileInfo(nombreArchivo);
+
+            FileUpload fu = new FileUpload();
+            
+            
+
+            
+            return M;
+        }
+
         protected void btnGuardarEdicion_Click(object sender, EventArgs e)
         {
             int idPregunta = Utilerias.StrToInt(_IDPregunta.Value);
@@ -1146,17 +1373,23 @@ namespace SIP.Formas.POA
                     return;
                 }
 
+                POAPlantillaDetalleDoctos doctonew;
+                
+                doctonew = obj.DetalleDoctos.Where(d => d.NombreArchivo == fileUpload.FileName && d.TipoArchivo == fileUpload.PostedFile.ContentType).FirstOrDefault();
 
-                if (nomAnterior != null)
+                if (doctonew == null)
                 {
-                    if (!nomAnterior.Equals(Path.GetFileName(fileUpload.FileName)))  //Se elimina el archivo anterior
-                        if (!nomAnterior.Equals(string.Empty))
-                            M = EliminarArchivo(obj.Id, nomAnterior);
+                    doctonew = new POAPlantillaDetalleDoctos();
+                    doctonew.POAPlantillaDetalleId = obj.Id;
+                    doctonew.NombreArchivo = Path.GetFileName(fileUpload.FileName);
+                    doctonew.TipoArchivo = fileUpload.PostedFile.ContentType;
 
+                    obj.DetalleDoctos.Add(doctonew);
                 }
 
+                //R = GuardarArchivo(fileUpload.PostedFile, idPregunta); ///Se guarda el archivo fisicamente en el servidor
+                R = GuardarArchivo(fileUpload, idPregunta); //Se guarda el archivo fisicamente en el servidor
 
-                R = GuardarArchivo(fileUpload.PostedFile, idPregunta); //Se guarda el archivo
 
                 ////Si hubo errores
                 //if (!R[0].Equals(string.Empty))
@@ -1167,12 +1400,7 @@ namespace SIP.Formas.POA
                 //    return;
                 //}
 
-                //Se guarda el objeto con la informacion del archivo y sus datos correspondientes
-                obj.NombreArchivo = Path.GetFileName(fileUpload.FileName);
-                obj.TipoArchivo = fileUpload.PostedFile.ContentType;
             }
-
-
 
             obj.Observaciones = txtObservacionesPregunta.Value;
             uow.POAPlantillaDetalleBusinessLogic.Update(obj);
@@ -1332,9 +1560,109 @@ namespace SIP.Formas.POA
             return M;
         }
 
+        private void DibujarEncabezado(int numGrid)
+        {
+            GridViewRow gvrow = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Insert);
+            TableCell cell0 = new TableCell();
+            cell0.Text = string.Empty;
+            cell0.HorizontalAlign = HorizontalAlign.Center;
+            cell0.ColumnSpan = 5;
+
+            TableCell cell1 = new TableCell();
+            cell1.Text = "FEDERAL";
+            cell1.ForeColor = System.Drawing.Color.Black;
+
+            cell1.HorizontalAlign = HorizontalAlign.Center;
+            cell1.ColumnSpan = 2;
+
+            TableCell cell2 = new TableCell();
+            cell2.Text = "LEY ESTATAL 825";
+            cell2.ForeColor = System.Drawing.Color.Black;
+            cell2.HorizontalAlign = HorizontalAlign.Center;
+            cell2.ColumnSpan = 2;
+
+
+            gvrow.Cells.Add(cell0);
+            gvrow.Cells.Add(cell1);
+            gvrow.Cells.Add(cell2);
+
+            //grid.Controls[0].Controls.AddAt(0, gvrow);
+
+            switch (numGrid)
+            {
+                case 1: //Plan de Desarrollo Estatal Urbano
+                    gridPlanDesarrollo.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 2: //Anteproyecto y normatividad
+                    gridAnteproyecto.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 3: //Fondo y programa
+                    gridFondoPrograma.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 4: //Proyecto Ejecutivo y Proyecto Base
+                    gridProyectoEjecutivo.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 5: //Adjudicacion Directa
+                    gridAdjuDirecta.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 6: //Adjudicacion por excepcion de ley
+                    gridExcepcion.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 7: //Invitacion a cuando menos tres personas
+                    gridInvitacion.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 8: //Licitacion Pública
+                    gridLicitacion.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 9: //Presupuesto Autorizado Contrato
+                    gridPresupuesto.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                case 10: //Administración Directa
+                    gridAdmin.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+
+                //ETAPA DE EJECUCION
+
+                case 11: //Control técnico financiero
+                    gridTecnicoFinanciero.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+                case 12: // Bitácora electrónica - convencional
+                    gridBitacora.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+                case 13: // Supervisión y estimaciones
+                    gridEstimaciones.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+                case 14: // Convenios prefiniquitos
+                    gridConvenios.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+                case 15: // Finiquito
+                    gridFiniquito.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+                case 16: // Acta entrega recepción
+                    gridEntrega.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+                case 17: // Documentación de gestión de recursos
+                    gridGestion.Controls[0].Controls.AddAt(0, gvrow);
+                    break;
+            }
+
+        }
+
 
         protected void gridTecnicoFinanciero_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(11);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridTecnicoFinanciero.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1347,6 +1675,9 @@ namespace SIP.Formas.POA
 
         protected void gridBitacora_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(12);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridBitacora.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1359,6 +1690,9 @@ namespace SIP.Formas.POA
 
         protected void gridEstimaciones_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(13);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridEstimaciones.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1371,6 +1705,9 @@ namespace SIP.Formas.POA
 
         protected void gridConvenios_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(14);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridConvenios.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1382,6 +1719,9 @@ namespace SIP.Formas.POA
         }
         protected void gridFiniquito_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(15);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridFiniquito.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1394,6 +1734,9 @@ namespace SIP.Formas.POA
 
         protected void gridEntrega_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(16);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridEntrega.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1406,6 +1749,9 @@ namespace SIP.Formas.POA
 
         protected void gridGestion_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            //if (e.Row.RowType == DataControlRowType.Header)
+                //DibujarEncabezado(17);
+
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 if (gridGestion.DataKeys[e.Row.RowIndex].Values["Id"] != null)
@@ -1417,7 +1763,7 @@ namespace SIP.Formas.POA
         }
 
 
-        
+
 
         #endregion
 

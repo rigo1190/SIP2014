@@ -868,6 +868,15 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden _numCollapse;
         
         /// <summary>
+        /// Control _index.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden _index;
+        
+        /// <summary>
         /// Control txtPregunta.
         /// </summary>
         /// <remarks>
@@ -884,15 +893,6 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtObservacionesPregunta;
-        
-        /// <summary>
-        /// Control txtArchivoAdjunto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtArchivoAdjunto;
         
         /// <summary>
         /// Control fileUpload.

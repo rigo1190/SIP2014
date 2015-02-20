@@ -156,6 +156,9 @@ namespace DataAccessLayer.Models
         public virtual DbSet<ProgramasDeObrasTMP> DBSprogramasdeobrastmp { get; set; }
         public virtual DbSet<EstimacionesProgramadas> DBSestimacionesprogramadas { get; set; }
         public virtual DbSet<EstimacionesProgramadasConceptos> DBSestimacionesprogramadasconceptos { get; set; }
+        public virtual DbSet<POAPlantillaDetalleDoctos> POAPlantillaDetalleDoctos { get; set; }
+        public virtual DbSet<RubroFundamentacion> RubroFundamentacion { get; set; }
+        public virtual DbSet<FundamentacionPlantilla> FundamentacionPlantilla { get; set; }
     }
 
 }

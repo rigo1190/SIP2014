@@ -252,6 +252,7 @@
     <Content Include="Formas\Catalogos\catProgramas.aspx" />
     <Content Include="Formas\Catalogos\catUnidadesPresupuestales.aspx" />
     <Content Include="Formas\Catalogos\Ejercicios.aspx" />
+    <Content Include="Formas\Catalogos\Fundamentacion.aspx" />
     <Content Include="Formas\Catalogos\Inicio.aspx" />
     <Content Include="Formas\Catalogos\Municipios.aspx" />
     <Content Include="Formas\Catalogos\PlantillaPreguntas.aspx" />
@@ -324,6 +325,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-browser.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -499,6 +501,13 @@
     </Compile>
     <Compile Include="Formas\Catalogos\Ejercicios.aspx.designer.cs">
       <DependentUpon>Ejercicios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\Catalogos\Fundamentacion.aspx.cs">
+      <DependentUpon>Fundamentacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Formas\Catalogos\Fundamentacion.aspx.designer.cs">
+      <DependentUpon>Fundamentacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Formas\Catalogos\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>

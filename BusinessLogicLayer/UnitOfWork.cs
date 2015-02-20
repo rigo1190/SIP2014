@@ -80,6 +80,10 @@ namespace BusinessLogicLayer
         private IBusinessLogic<ProgramasDeObrasTMP> programasdeobrastmpBL;
         private IBusinessLogic<EstimacionesProgramadas> estimacionesprogramadasBL;
         private IBusinessLogic<EstimacionesProgramadasConceptos> estimacionesprogramadasconceptosBL;
+		
+		private IBusinessLogic<FundamentacionPlantilla> fundamentacionPlantillaBL;
+        private IBusinessLogic<RubroFundamentacion> rubroFundamentacionBL;
+        private IBusinessLogic<POAPlantillaDetalleDoctos> poaPlantillaDetalleDoctosBL;
 
 
         public UnitOfWork()
@@ -91,6 +95,44 @@ namespace BusinessLogicLayer
         {           
             this.usuarioId = Utilerias.StrToInt(usuarioId);
             this.contexto = new Contexto();
+        }
+
+        public IBusinessLogic<POAPlantillaDetalleDoctos> POAPlantillaDetalleDoctosBL
+        {
+            get
+            {
+                if (this.poaPlantillaDetalleDoctosBL == null)
+                {
+                    this.poaPlantillaDetalleDoctosBL = new GenericBusinessLogic<POAPlantillaDetalleDoctos>(contexto);
+                }
+
+                return poaPlantillaDetalleDoctosBL;
+            }
+        }
+
+        public IBusinessLogic<RubroFundamentacion> RubroFundamentacionBL
+        {
+            get
+            {
+                if (this.rubroFundamentacionBL == null)
+                {
+                    this.rubroFundamentacionBL = new GenericBusinessLogic<RubroFundamentacion>(contexto);
+                }
+
+                return rubroFundamentacionBL;
+            }
+        }
+        public IBusinessLogic<FundamentacionPlantilla> FundamentacionPlantillaBL
+        {
+            get
+            {
+                if (this.fundamentacionPlantillaBL == null)
+                {
+                    this.fundamentacionPlantillaBL = new GenericBusinessLogic<FundamentacionPlantilla>(contexto);
+                }
+
+                return fundamentacionPlantillaBL;
+            }
         }
 
         public IBusinessLogic<Usuario> UsuarioBusinessLogic

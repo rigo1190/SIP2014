@@ -9,6 +9,11 @@ namespace DataAccessLayer.Models
 {
     public class POAPlantillaDetalle:Generica
     {
+        public POAPlantillaDetalle()
+        {
+            this.DetalleDoctos = new HashSet<POAPlantillaDetalleDoctos>();
+        }
+
         [Index("IX_POAPlantillaId_PlantillaDetalleId", 1, IsUnique = true)]
         public int POAPlantillaId { get; set; }
 
@@ -22,6 +27,8 @@ namespace DataAccessLayer.Models
         public enumPresento Presento { get; set; }
         public virtual POAPlantilla POAPlantilla { get; set; }
         public virtual PlantillaDetalle PlantillaDetalle { get; set; }
+        public virtual ICollection<POAPlantillaDetalleDoctos> DetalleDoctos { get; set; }
+
  
     }
 

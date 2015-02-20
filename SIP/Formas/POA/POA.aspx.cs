@@ -184,6 +184,8 @@ namespace SIP.Formas.POA
             cddlPrograma.SelectedValue = String.Empty;
             cddlSubprograma.SelectedValue = String.Empty;
             cddlSubsubprograma.SelectedValue = String.Empty;
+            ddlUnidadMedida.SelectedIndex = -1;
+
             cddlMeta.SelectedValue = String.Empty;
 
             txtNumeroBeneficiarios.Value = String.Empty;
@@ -193,7 +195,7 @@ namespace SIP.Formas.POA
 
 
             // Todas las obras que se agregan en el anteproyecto, tendran la situación de obra <Nueva>
-            ddlSituacionObra.SelectedIndex = 1;
+            //ddlSituacionObra.SelectedIndex = 1;
 
 
             ddlModalidad.SelectedIndex = -1;
@@ -371,9 +373,9 @@ namespace SIP.Formas.POA
             poadetalle.AperturaProgramaticaId = Utilerias.StrToInt(ddlSubsubprograma.SelectedValue);
             poadetalle.AperturaProgramaticaMetaId = null;
             poadetalle.AperturaProgramaticaUnidadId = Utilerias.StrToInt(ddlUnidadMedida.SelectedValue);
-                       
-            
-            poadetalle.NumeroBeneficiarios =Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString().Replace(",",null));
+
+
+            poadetalle.NumeroBeneficiarios = Utilerias.StrToInt(txtNumeroBeneficiarios.Value.ToString().Replace(",", null));
             poadetalle.CantidadUnidades = Utilerias.StrToInt(txtCantidadUnidades.Value.ToString().Replace(",", null));
             poadetalle.Empleos = Utilerias.StrToInt(txtEmpleos.Value.ToString().Replace(",", null));
             poadetalle.Jornales = Utilerias.StrToInt(txtJornales.Value.ToString().Replace(",", null));

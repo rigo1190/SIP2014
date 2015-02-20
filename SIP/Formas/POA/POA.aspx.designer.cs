@@ -238,15 +238,6 @@ namespace SIP.Formas.POA {
         protected global::System.Web.UI.WebControls.DropDownList ddlUnidadMedida;
         
         /// <summary>
-        /// Control txtNumeroBeneficiarios.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtNumeroBeneficiarios;
-        
-        /// <summary>
         /// Control txtCantidadUnidades.
         /// </summary>
         /// <remarks>
@@ -254,6 +245,15 @@ namespace SIP.Formas.POA {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtCantidadUnidades;
+        
+        /// <summary>
+        /// Control txtNumeroBeneficiarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtNumeroBeneficiarios;
         
         /// <summary>
         /// Control txtEmpleos.

@@ -6,7 +6,9 @@
          $(document).ready(function () {
 
              $("#<%= ddlSituacionObra.ClientID %>").prop("disabled", true);
-                                 
+             $("#<%= ddlSituacionObra.ClientID %> option[value=1]").prop("selected", true);
+             //$("option[value='10']").attr('selected', 'selected');
+             //$("#groupsel_0 option[value=105]").prop("selected", true);
                                                   
              $('.campoNumerico').autoNumeric('init');             
 
@@ -520,14 +522,14 @@
                              <div class="form-group">
                                    <label for="CantidadUnidades">Cantidad de unidades</label>
                                  <div>
-                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtCantidadUnidades" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="999999999" data-m-dec="0" />
                                 </div>
                               </div>
 
                               <div class="form-group">
                                    <label for="NumeroBeneficiarios">Número de beneficiarios</label>
                                  <div>
-                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtNumeroBeneficiarios" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="999999999" data-m-dec="0" />
                                 </div>
                               </div>
 
@@ -535,14 +537,14 @@
                              <div class="form-group">
                                    <label for="Empleos">Empleos</label>
                                  <div>
-                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0"/>
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtEmpleos" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="999999999" data-m-dec="0"/>
                                 </div>
                               </div>
 
                              <div class="form-group">
                                    <label for="Jornales">Jornales</label>
                                  <div>
-                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-m-dec="0" />
+                                    <input type="text" class="input-sm required form-control campoNumerico" id="txtJornales" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="999999999" data-m-dec="0" />
                                 </div>
                               </div>
 

@@ -891,6 +891,15 @@ namespace BusinessLogicLayer
 
             var changedEntries = contexto.ChangeTracker.Entries().Where(e => e.State != EntityState.Unchanged);
 
+            // ojo....... respetar el orden en que se evalua el atributo State
+            // primero Deleted,segundo Modified, al final y nada mas que al final Added
+            // debido a que una vez que asignamos el estado Detached a una entidad,
+            // desasociamos a esta del contexto y el filtro changedEntries.Where(etc....) genera un error
+
+            foreach (var entry in changedEntries.Where(x => x.State == EntityState.Deleted))
+            {
+                entry.State = EntityState.Unchanged;
+            }
 
             foreach (var entry in changedEntries.Where(x => x.State == EntityState.Modified))
             {
@@ -901,12 +910,7 @@ namespace BusinessLogicLayer
             foreach (var entry in changedEntries.Where(x => x.State == EntityState.Added))
             {
                 entry.State = EntityState.Detached;
-            }
-
-            foreach (var entry in changedEntries.Where(x => x.State == EntityState.Deleted))
-            {
-                entry.State = EntityState.Unchanged;
-            }
+            }                       
 
         }
 

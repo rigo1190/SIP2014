@@ -24,7 +24,7 @@ namespace SIP.Formas.POA
             ejercicioId = Utilerias.StrToInt(Session["EjercicioId"].ToString());
 
             poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
-                       
+                     
                
             if (!IsPostBack)
             {  
@@ -190,7 +190,12 @@ namespace SIP.Formas.POA
             txtCantidadUnidades.Value = String.Empty;
             txtEmpleos.Value = String.Empty;
             txtJornales.Value = String.Empty;
-            ddlSituacionObra.SelectedIndex = -1;
+
+
+            // Todas las obras que se agregan en el anteproyecto, tendran la situación de obra <Nueva>
+            ddlSituacionObra.SelectedIndex = 1;
+
+
             ddlModalidad.SelectedIndex = -1;
             txtImporteTotal.Value = String.Empty;
             txtNumeroAnterior.Value = String.Empty;
@@ -323,14 +328,12 @@ namespace SIP.Formas.POA
             DataAccessLayer.Models.POA poa = uow.POABusinessLogic.Get(p => p.UnidadPresupuestalId == unidadpresupuestalId & p.EjercicioId == ejercicioId).FirstOrDefault();
             POADetalle poadetalle = null;
 
-            if (poa == null) 
+            if (poa == null)
             {
                 poa = new DataAccessLayer.Models.POA();
                 poa.UnidadPresupuestalId = unidadpresupuestalId;
                 poa.EjercicioId = ejercicioId;
-            }
-      
-                       
+            }     
 
             if (_Accion.Text.Equals("N"))
                 poadetalle = new POADetalle();

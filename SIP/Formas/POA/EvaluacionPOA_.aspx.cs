@@ -766,6 +766,8 @@ namespace SIP.Formas.POA
             HtmlInputCheckBox chkRequiere = (HtmlInputCheckBox)e.Row.FindControl("chkRequiere");
             HtmlInputCheckBox chkPresento = (HtmlInputCheckBox)e.Row.FindControl("chkPresento");
             ImageButton imgBtnEdit = (ImageButton)e.Row.FindControl("imgBtnEdit");
+
+            ImageButton imgDoctos = (ImageButton)e.Row.FindControl("imgDoctos");
             
             //Label lblArchivo = (Label)e.Row.FindControl("lblArchivo");
 
@@ -816,6 +818,8 @@ namespace SIP.Formas.POA
             if (imgBtnEdit != null)
                 imgBtnEdit.Attributes["onclick"] = "fnc_Edicion(" + id + "," + numGrid + ");return false;";
 
+            if (imgDoctos!=null)
+                imgDoctos.Attributes["onclick"] = "fnc_VerDetalleDoctos(" + id + ");return false;";
 
 
             //Se coloca la fucnion a corespondiente para visualizar el DOCUMENTO ADJUNTO A LA PREGUNTA
@@ -840,6 +844,48 @@ namespace SIP.Formas.POA
             }
             
             
+        }
+
+        [WebMethod]
+        public static List<object> GetDetalleDocumentos(int idPregunta)
+        {
+            string M = string.Empty;
+
+            List<object> R = new List<object>();
+
+            UnitOfWork uow = new UnitOfWork();
+
+            try
+            {
+                POAPlantillaDetalle obj = uow.POAPlantillaDetalleBusinessLogic.GetByID(idPregunta);
+
+                R.Add(string.Empty);
+
+                if (obj != null)
+                {
+                    if (obj.DetalleDoctos.Count > 0)
+                    {
+                        var list = (from d in obj.DetalleDoctos
+                                    select new { d.Id, d.NombreArchivo });
+
+                        R.Add(list);
+                    }
+                    else
+                    {
+                        R.Add("N"); //Para indicar que no existen documentos adjuntos
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                R.Add(ex.Message);
+            }
+
+            
+
+            return R;
+
         }
 
 

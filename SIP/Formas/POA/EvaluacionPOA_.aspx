@@ -114,6 +114,65 @@
         }
 
 
+        function fnc_VerDetalleDoctos(idPregunta) {
+            PageMethods.GetDetalleDocumentos(idPregunta, fnc_ResponseVerDetalleDoctos); //Se manda a llamar el metodo a C#
+        }
+
+
+        function fnc_ResponseVerDetalleDoctos(response) {
+
+            var divDoctos = document.getElementById("divDoctosDetalle");
+            var totalNodes = divDoctos.childNodes.length;
+
+            if (totalNodes >= 1) {
+                for (index = totalNodes - 1; index >= 0; index--) {
+                    divDoctos.removeChild(divDoctos.childNodes[index]);
+                }
+            }
+
+            if (response[0] == "") {
+
+                if (response[1] != "N") {
+
+                    for (index = 0; index < response[1].length; index++) {
+
+                        var funcionDoc = "fnc_AbrirArchivo(" + response[1][index]["Id"] + ")";
+                        var inputTag = document.createElement("div");
+                        inputTag.id = "div" + index;
+
+                        var html = "<table>";
+                        html += "<tr>";
+
+                        html += "<td>";
+                        html += "<a href='#'>"
+                        html += "<span id='doc" + index + "' onClick = " + funcionDoc + ">" + response[1][index]["NombreArchivo"] + "</span>";
+                        html += "</a>";
+                        html += "</td>";
+
+                        //html += "<td>";
+                        //html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                        //html += "</td>";
+
+                        //html += "<td colspan=2>";
+                        //html += "<a href='#'>"
+                        //html += "<span id='btnE" + index + "' onClick = " + funcionEliminar + ">Eliminar</span>";
+                        //html += "</a>";
+                        //html += "</td>";
+
+                        html += "</tr>";
+                        html += "</table>";
+
+                        inputTag.innerHTML = html; 
+                        divDoctos.appendChild(inputTag);
+
+                    }
+
+
+                }
+            }
+
+            $("#modalDoctos").modal('show') //Se muestra el modal
+        }
 
 
         function fnc_Edicion(idPregunta,numGrid) {
@@ -773,6 +832,7 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -877,6 +937,7 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -978,6 +1039,7 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1079,6 +1141,7 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1189,6 +1252,7 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1286,6 +1350,7 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1383,6 +1448,7 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1479,6 +1545,7 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1579,6 +1646,7 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1678,6 +1746,7 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
@@ -1785,6 +1854,7 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
@@ -1888,6 +1958,7 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
@@ -1987,6 +2058,7 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
@@ -2086,6 +2158,7 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
@@ -2186,6 +2259,7 @@
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="Acciones">
                                                             <ItemTemplate>
+                                                                <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                 <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                             </ItemTemplate>
                                                             <HeaderStyle BackColor="#EEEEEE" />
@@ -2283,6 +2357,7 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
@@ -2382,6 +2457,7 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
@@ -2493,8 +2569,7 @@
           
     </div>
     <div class="modal fade" id="modalDatos" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
-        
-            <div class="modal-dialog modal-sm">
+         <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -2531,10 +2606,26 @@
 
                        </div>
                 </div>
-                
-              
-           
-
     </div>
         
+
+    <div class="modal fade" id="modalDoctos" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+         <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="modalTitleDoctos">Documentos adjuntos</h4>
+                      </div>
+                       <div class="modal-body">
+                            <div class="form-group">
+                                <div id="divDoctosDetalle">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input value="Aceptar" data-dismiss="modal" aria-hidden="true" type="button" id="btnAceptar" runat="server" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+            </div>
+    </div>
 </asp:Content>

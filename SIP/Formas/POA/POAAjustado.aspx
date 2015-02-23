@@ -45,7 +45,7 @@
                             <Columns>
                                 <asp:TemplateField HeaderText="Dependencia" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
                                     <ItemTemplate>
-                                        <asp:Label ID="lblDependencia" runat="server" Text='<%# Bind("POA.UnidadPresupuestal.Nombre") %>'></asp:Label>
+                                        <asp:Label ID="lblDependencia" runat="server" Text='<%# Bind("POA.UnidadPresupuestal.Abreviatura") %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Numero" ItemStyle-CssClass="col-md-1" HeaderStyle-CssClass="panel-footer">                          
@@ -60,7 +60,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
-                                <asp:TemplateField HeaderText="Porcentaje Plantillas Aprobadas (Planeación)" SortExpression="Avance Físico">
+                                <asp:TemplateField HeaderText="Avance Planeación" SortExpression="Avance Físico">
                                     <ItemTemplate>                           
                                         <div id = "divAvanceP" runat="server">
                                             <span id="spanAvanceP" runat="server"></span>
@@ -71,7 +71,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
-                                <asp:TemplateField HeaderText="Porcentaje Plantillas Aprobadas (Ejecución)" SortExpression="Avance Físico">
+                                <asp:TemplateField HeaderText="Avance Ejecución" SortExpression="Avance Físico">
                                     <ItemTemplate>                           
                                         <div id = "divAvanceE" runat="server">
                                             <span id="spanAvanceE" runat="server"></span>

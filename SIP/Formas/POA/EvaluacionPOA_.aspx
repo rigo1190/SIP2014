@@ -832,8 +832,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -937,8 +937,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1039,8 +1039,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1141,8 +1141,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1252,8 +1252,8 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
-                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1350,8 +1350,8 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
-                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1448,8 +1448,8 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
-                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1545,8 +1545,8 @@
                                                             <Columns>
                                                                 <asp:TemplateField HeaderText="Acciones">
                                                                     <ItemTemplate>
-                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                     </ItemTemplate>
                                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1646,8 +1646,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1746,8 +1746,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="Acciones">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                        <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                     </ItemTemplate>
                                                     <HeaderStyle BackColor="#EEEEEE" />
                                                     <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1854,8 +1854,8 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
                                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -1958,8 +1958,8 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
                                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -2058,8 +2058,8 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
                                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -2158,8 +2158,8 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
                                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -2259,8 +2259,8 @@
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="Acciones">
                                                             <ItemTemplate>
-                                                                <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                                 <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                                <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             </ItemTemplate>
                                                             <HeaderStyle BackColor="#EEEEEE" />
                                                             <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -2357,8 +2357,8 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
                                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />
@@ -2457,8 +2457,8 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="Acciones">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                             <asp:ImageButton AutoPostBack="false" ID="imgBtnEdit" ToolTip="Editar" runat="server" ImageUrl="~/img/Edit1.png" />
+                                                            <asp:ImageButton AutoPostBack="false" ID="imgDoctos" ToolTip="Ver doctos. adjuntos" runat="server" ImageUrl="~/img/Sub.png" />
                                                         </ItemTemplate>
                                                         <HeaderStyle BackColor="#EEEEEE" />
                                                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" Width="50px" BackColor="#EEEEEE" />

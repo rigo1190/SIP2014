@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DataAccessLayer.Models.UnidadPresupuestal">
+  <Class Name="DataAccessLayer.Models.UnidadPresupuestal" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAgAAAAAQEAQ=</HashCode>
+      <HashCode>AAAAAAAACAAAAABAAAAAwAAAAAAAAAABAgQAAAAQEMQ=</HashCode>
       <FileName>Models\UnidadPresupuestal.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -21,9 +21,12 @@
   <Class Name="DataAccessLayer.Models.Usuario">
     <Position X="4.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAACAgAAAAAAAAAAiAAAQAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAEAAACAgAAAAAAAAgAiAAAQAAAAABA=</HashCode>
       <FileName>Models\Usuario.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Rol" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="DataAccessLayer.Models.OpcionSistema">
     <Position X="12" Y="0.5" Width="1.5" />
@@ -35,31 +38,20 @@
   <Class Name="DataAccessLayer.Models.Permiso">
     <Position X="12" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAABA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAABA=</HashCode>
       <FileName>Models\Permiso.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="OpcionSistema" />
       <Property Name="Rol" />
+      <Property Name="OpcionSistema" />
     </ShowAsAssociation>
   </Class>
   <Class Name="DataAccessLayer.Models.Rol">
-    <Position X="8.75" Y="4" Width="1.5" />
+    <Position X="7.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAgAAAAgQEAA=</HashCode>
+      <HashCode>AAAAAIAAAAAAAgAAAAAAwAAAAAAAAAAAAgAAAAgQEAA=</HashCode>
       <FileName>Models\Rol.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="DataAccessLayer.Models.UsuarioRol">
-    <Position X="5.25" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAgAAAAAEAAAAABA=</HashCode>
-      <FileName>Models\UsuarioRol.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Rol" />
-      <Property Name="Usuario" />
-    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

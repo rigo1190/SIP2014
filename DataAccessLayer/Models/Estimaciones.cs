@@ -37,8 +37,15 @@ namespace DataAccessLayer.Models
         public int Status { get; set; }
 
         [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
-        public string FolioDePago { get; set; }
-        public string Observaciones { get; set; }
+        public string FolioCL { get; set; }
+        
+        public string ConceptoDePago { get; set; }
+
+        public DateTime PeriodoInicio { get; set; }
+
+        public DateTime PeriodoTermino { get; set; }
+
+
 
 
         public virtual ContratosDeObra ContratoDeObra { get; set; }

@@ -39,8 +39,27 @@ namespace DataAccessLayer.Models
         [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string RFCcontratista { get; set; }
 
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string ClaveContratista { get; set; }
+
         [StringLength(255, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string RazonSocialContratista { get; set; }
+
+        [StringLength(255, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string ClavePresupuestal { get; set; }
+
+
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string NumeroFianza { get; set; }
+
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string NumeroFianzaCumplimiento { get; set; }
+
+        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string NumeroFianzaViciosOcultos { get; set; }
+
+        [StringLength(255, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
+        public string NombreAfianzadora { get; set; }
 
         public virtual Obra Obra { get; set; }
 

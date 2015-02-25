@@ -120,6 +120,7 @@ namespace SIP.Formas.ControlFinanciero
                     int i = 0;
 
                     decimal importe;
+                    decimal importeTotal=0;
                     decimal cantidad;
                     while (nregistros > 0)
                     {
@@ -151,7 +152,9 @@ namespace SIP.Formas.ControlFinanciero
                         {                        
                             row["Cantidad"] = cantidad;
                             row["Precio"] = importe.ToString("C2");
-                            row["Subtotal"] = (cantidad * importe).ToString("C2"); 
+                            row["Subtotal"] = (cantidad * importe).ToString("C2");
+
+                            importeTotal = importeTotal + (cantidad * importe);
                         }
 
                         if (i!=0)
@@ -168,7 +171,8 @@ namespace SIP.Formas.ControlFinanciero
                     this.divCargarArchivo.Style.Add("display", "none");
                     this.divGuardarPresupuesto.Style.Add("display", "block");
                     this.divTMP.Style.Add("display","block");
-                    
+
+                    this.btnGuardarPresupuesto.Text = "Guardar Presupuesto Contratado por: " + importeTotal.ToString("C0") ;
 
                 }
 
@@ -410,7 +414,7 @@ namespace SIP.Formas.ControlFinanciero
                 thThree.InnerText = "Concepto";
                 thFour.InnerText = "U.M.";
                 thFive.InnerText = "Cantidad";
-                thSix.InnerText = "Precio U.";
+                thSix.InnerText = "Precio";
                 thSeven.InnerText = "Subtotal";
 
                 trHead.Controls.Add(thOne);
@@ -482,6 +486,8 @@ namespace SIP.Formas.ControlFinanciero
 
 
         }
+
+       
 
 
     }

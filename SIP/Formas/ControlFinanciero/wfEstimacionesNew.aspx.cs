@@ -175,7 +175,7 @@ namespace SIP.Formas.ControlFinanciero
                     txtAmortizacion.Text = amortizacion.ToString("C2");
                     txtRetencion5.Text = ret5.ToString("C2");
                     txtRetencion2.Text = ret2.ToString("C2");
-                    txtImporteApagar.Text = importefinal.ToString("C2");
+                    txtImporteApagar.Text = importefinal.ToString("C0");
 
 
                     List<Estimaciones> listaEstimaciones = uow.EstimacionesBL.Get(p=>p.ContratoDeObra.ObraId == this.idObra ).ToList();

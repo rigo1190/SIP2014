@@ -101,7 +101,7 @@
                            <label for="ImporteContratado">Importe Contratado</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" disabled="disabled"  class="input-sm required form-control campoNumerico" id="txtImporteContratado" runat="server" style="text-align: left; align-items:flex-start"  />
+                            <input type="text" disabled="disabled"  class="input-sm required form-control campoNumerico" id="txtImporteContratado" runat="server" style="text-align: left; align-items:flex-start" data-m-dec="0"   />
                          </div>
                      </div>
 
@@ -117,7 +117,7 @@
                            <label for="Anticipo">Anticipo</label>
                          <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" disabled="disabled" class="input-sm required form-control campoNumerico" id="txtImporteAnticipo" runat="server" style="text-align: left; align-items:flex-start"  />
+                            <input type="text" disabled="disabled" class="input-sm required form-control campoNumerico" id="txtImporteAnticipo" runat="server" style="text-align: left; align-items:flex-start" data-m-dec="0"  />
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtImporteAnticipo" ErrorMessage="El Importe del anticipo es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
                         </div>
                       </div>

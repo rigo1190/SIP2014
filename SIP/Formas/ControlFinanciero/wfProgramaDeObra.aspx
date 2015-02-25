@@ -98,13 +98,13 @@
 
                     <asp:TemplateField HeaderText="Inicio" SortExpression="Inicio">                    
                         <ItemTemplate>                            
-                                <asp:Label ID="lblInicio" runat="server" Text='<%# Bind("Inicio") %>'></asp:Label>
+                                <asp:Label ID="lblInicio" runat="server" Text='<%# Bind("Inicio","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Termino" SortExpression="Termino">                    
                         <ItemTemplate>                            
-                                <asp:Label ID="lblSubTermino" runat="server" Text='<%# Bind("Termino") %>'></asp:Label>
+                                <asp:Label ID="lblSubTermino" runat="server" Text='<%# Bind("Termino","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
 

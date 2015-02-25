@@ -43,7 +43,7 @@ namespace SIP.Formas.ControlFinanciero
 
                 txtRFC.Value = contrato.RFCcontratista;
                 txtRazonSocial.Value = contrato.RazonSocialContratista;
-                //txtImporteTotal.Value = contrato.Total.ToString();
+                txtImporteTotal.Value = contrato.Total.ToString("C0");
 
                 dtpContrato.Value = String.Format("{0:d}", contrato.FechaDelContrato);
                 dtpInicio.Value = String.Format("{0:d}", contrato.FechaDeInicio);

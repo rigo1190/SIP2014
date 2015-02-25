@@ -121,7 +121,7 @@
                     
                     <asp:TemplateField HeaderText="Importe">
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Importe")).ToString("c") %>   
+                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Importe")).ToString("C0") %>   
                         </ItemTemplate>                        
                     </asp:TemplateField>
                     

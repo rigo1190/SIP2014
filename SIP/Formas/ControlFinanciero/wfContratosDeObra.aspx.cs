@@ -60,7 +60,7 @@ namespace SIP.Formas.ControlFinanciero
                     linkC.Text = contrato.NumeroDeContrato;
                     
                     if (obra.StatusControlFinanciero > 1)
-                        linkP.Text = contrato.Total.ToString("C2");
+                        linkP.Text = contrato.Total.ToString("C0");
 
                     if (obra.StatusControlFinanciero > 2)
                         linkPdO.Text = "Cargado...";

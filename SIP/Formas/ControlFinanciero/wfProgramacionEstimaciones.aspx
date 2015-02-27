@@ -113,7 +113,7 @@
 
                     <asp:TemplateField HeaderText="Importe Final">                    
                         <ItemTemplate>                            
-                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteFinal","{0:C2}") %>'></asp:Label>
+                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteFinal","{0:C0}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -246,7 +246,7 @@
 
                     <asp:TemplateField HeaderText="Importe Final">                    
                         <ItemTemplate>                            
-                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteAPagar","{0:C2}") %>'></asp:Label>
+                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteAPagar","{0:C0}") %>'></asp:Label>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" />
                     </asp:TemplateField>

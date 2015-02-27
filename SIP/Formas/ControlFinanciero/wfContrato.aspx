@@ -69,14 +69,12 @@
                      
 
                      
-         <%--            <div class="form-group">
+                     <div class="form-group">
                            <label for="txtImporteTotal">Importe Contratado</label>
                          <div class="input-group">
-                            <span class="input-group-addon">$</span>
-                            <input type="text" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start"  />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtImporteTotal" ErrorMessage="El Importe es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                            <input type="text" disabled="disabled" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start"  />
                         </div>
-                      </div>--%>
+                      </div>
 
 
                      

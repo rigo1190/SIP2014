@@ -103,7 +103,7 @@
                     
                     <asp:TemplateField HeaderText="Importe Contratado">
                         <ItemTemplate>
-                            <asp:Label ID="label3" runat="server" Text='<%# Bind("Total","{0:C2}") %>'></asp:Label>
+                            <asp:Label ID="label3" runat="server" Text='<%# Bind("Total","{0:C0}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>                    
 
@@ -177,49 +177,49 @@
 
                     <asp:TemplateField HeaderText="Fecha">
                         <ItemTemplate>
-                            <asp:Label ID="label2" runat="server" Text='<%# Bind("FechaDeEstimacion") %>'></asp:Label>
+                            <asp:Label ID="label2" runat="server" Text='<%# Bind("FechaDeEstimacion","{0:d}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>                    
 
                     <asp:TemplateField HeaderText="Subtotal">
                         <ItemTemplate>
-                            <asp:Label ID="label3" runat="server" Text='<%# Bind("ImporteEstimado") %>'></asp:Label>
+                            <asp:Label ID="label3" runat="server" Text='<%# Bind("ImporteEstimado","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>                    
 
                     <asp:TemplateField HeaderText="IVA">
                         <ItemTemplate>
-                            <asp:Label ID="label4" runat="server" Text='<%# Bind("IVA") %>'></asp:Label>
+                            <asp:Label ID="label4" runat="server" Text='<%# Bind("IVA","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>                    
 
                     <asp:TemplateField HeaderText="Total">
                         <ItemTemplate>
-                            <asp:Label ID="label5" runat="server" Text='<%# Bind("Total") %>'></asp:Label>
+                            <asp:Label ID="label5" runat="server" Text='<%# Bind("Total","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>                
                     
                     <asp:TemplateField HeaderText="Amortización de Anticipos">
                         <ItemTemplate>
-                            <asp:Label ID="label6" runat="server" Text='<%# Bind("AmortizacionAnticipo") %>'></asp:Label>
+                            <asp:Label ID="label6" runat="server" Text='<%# Bind("AmortizacionAnticipo","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>       
 
                     <asp:TemplateField HeaderText="Retención del 5 al millar">
                         <ItemTemplate>
-                            <asp:Label ID="label7" runat="server" Text='<%# Bind("Retencion5AlMillar") %>'></asp:Label>
+                            <asp:Label ID="label7" runat="server" Text='<%# Bind("Retencion5AlMillar","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>       
                     
                     <asp:TemplateField HeaderText="Retención del 2 al millar">
                         <ItemTemplate>
-                            <asp:Label ID="label8" runat="server" Text='<%# Bind("Retencion2AlMillar") %>'></asp:Label>
+                            <asp:Label ID="label8" runat="server" Text='<%# Bind("Retencion2AlMillar","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>          
                     
                     <asp:TemplateField HeaderText="Importe a Pagar">
                         <ItemTemplate>
-                            <asp:Label ID="label9" runat="server" Text='<%# Bind("ImporteNetoACobrar") %>'></asp:Label>
+                            <asp:Label ID="label9" runat="server" Text='<%# Bind("ImporteNetoACobrar","{0:C0}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>       
                                                                                               

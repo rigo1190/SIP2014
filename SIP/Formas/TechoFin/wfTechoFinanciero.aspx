@@ -91,20 +91,20 @@
 
                     <asp:TemplateField HeaderText="Techo Financiero">
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Importe")).ToString("c") %>   
+                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "Importe")).ToString("C0") %>   
                         </ItemTemplate>                        
                     </asp:TemplateField>
 
 
                     <asp:TemplateField HeaderText="Asignado a U.P.">
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignadoUP")).ToString("c") %>   
+                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignadoUP")).ToString("C0") %>   
                         </ItemTemplate>                        
                     </asp:TemplateField>
 
                     <asp:TemplateField HeaderText="Asignado a Obras">
                         <ItemTemplate>
-                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignadoObras")).ToString("c") %>   
+                            <%# Convert.ToDecimal(DataBinder.Eval(Container.DataItem, "ImporteAsignadoObras")).ToString("C0") %>   
                         </ItemTemplate>                        
                     </asp:TemplateField>
 

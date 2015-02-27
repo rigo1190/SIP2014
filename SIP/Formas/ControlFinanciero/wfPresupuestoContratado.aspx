@@ -57,7 +57,7 @@
         <div id="divGuardarPresupuesto" class="row" runat="server">
             <div class="col-md-4" >.</div>
             <div class="col-md-4" >
-                <asp:Button  CssClass="btn btn-primary" Text="Guardar Presupuesto Contratado" ID="Button1" runat="server" AutoPostBack="false" OnClick="btnGuardarPresupuestoContratado_Click" />
+                <asp:Button  CssClass="btn btn-primary" Text="Guardar Presupuesto Contratado" ID="btnGuardarPresupuesto" runat="server" AutoPostBack="false" OnClick="btnGuardarPresupuestoContratado_Click" />
             </div>
             <div class="col-md-4" >.</div>
         </div>
@@ -68,7 +68,7 @@
                 <h3 class="panel-title">Presupuesto Contratado a Registrar</h3>
             </div>
                 
-            <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server"  >
+            <asp:GridView Height="25px" ShowHeaderWhenEmpty="true" CssClass="table" ID="grid" DataKeyNames="Id" AutoGenerateColumns="False" runat="server" >
                 <Columns>
                               
                     <asp:TemplateField HeaderText="No" SortExpression="No" >                    

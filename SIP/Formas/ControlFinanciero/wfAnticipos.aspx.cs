@@ -59,7 +59,7 @@ namespace SIP.Formas.ControlFinanciero
             {
                 
 
-                txtFolio.Value = anticipo.FolioDePago;
+                txtFolio.Value = anticipo.FolioCL;
                 dtpFecha.Value = String.Format("{0:d}", anticipo.FechaDeEstimacion);
                 txtImporteAnticipo.Value = anticipo.Total.ToString();
 
@@ -88,7 +88,7 @@ namespace SIP.Formas.ControlFinanciero
 
                 anticipo.ContratoDeObraId = contrato.Id;
                 anticipo.NumeroDeEstimacion = 0;
-                anticipo.FolioDePago = txtFolio.Value;
+                anticipo.FolioCL = txtFolio.Value;
                 anticipo.FechaDeEstimacion = DateTime.Parse(dtpFecha.Value.ToString());
                 anticipo.ImporteEstimado = 0;
                 anticipo.IVA = 0;
@@ -115,7 +115,7 @@ namespace SIP.Formas.ControlFinanciero
 
                 anticipo = uow.EstimacionesBL.Get(p=>p.ContratoDeObraId == contrato.Id && p.NumeroDeEstimacion == 0).First();
 
-                anticipo.FolioDePago = txtFolio.Value;
+                anticipo.FolioCL = txtFolio.Value;
                 anticipo.FechaDeEstimacion = DateTime.Parse(dtpFecha.Value.ToString());
                 anticipo.Total = Convert.ToDecimal(txtImporteAnticipo.Value.ToString());
                 anticipo.ImporteNetoACobrar = Convert.ToDecimal(txtImporteAnticipo.Value.ToString());

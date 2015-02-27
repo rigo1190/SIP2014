@@ -33,6 +33,14 @@ namespace DataAccessLayer.Models
 
         public decimal Retencion5AlMillar { get; set; }
         public decimal Retencion2AlMillar { get; set; }
+
+        public decimal Retencion2AlMillarSV { get; set; }
+
+        public decimal Otros { get; set; }
+        public decimal Sanciones { get; set; }
+
+        public decimal ISR { get; set; }
+
         public decimal ImporteNetoACobrar { get; set; }
         public int Status { get; set; }
 

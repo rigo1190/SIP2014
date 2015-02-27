@@ -23,7 +23,7 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
             idObra = int.Parse(Session["XidObra"].ToString());
 
             Obra obra = uow.ObraBusinessLogic.GetByID(idObra);
@@ -89,9 +89,9 @@ namespace SIP.Formas.ControlFinanciero
             _R.Value = R;
             var wb = new XLWorkbook(R);
             var ws = wb.Worksheet(1);
-            var firstRowUsed = ws.FirstRowUsed();
+            var firstRowUsed = ws.FirstRow();
             var lastRowUsed = ws.LastRowUsed();
-            var rows = firstRowUsed.RowUsed();
+            var rows = ws.FirstRow();
 
             int nregistros = lastRowUsed.RowNumber() - firstRowUsed.RowNumber();
 
@@ -109,7 +109,7 @@ namespace SIP.Formas.ControlFinanciero
             DateTime? inicio, termino;
             while (nregistros > 0)
             {
-                if (i != 0)
+                if (i > 9)
                 {
                     ProgramasDeObrasTMP obj = new ProgramasDeObrasTMP();
 
@@ -167,7 +167,7 @@ namespace SIP.Formas.ControlFinanciero
             sqlConnection1.Close();
 
 
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
 
 
 

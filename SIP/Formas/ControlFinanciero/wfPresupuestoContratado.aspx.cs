@@ -25,7 +25,7 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
             idObra = int.Parse(Session["XidObra"].ToString());
 
             Obra obra = uow.ObraBusinessLogic.GetByID(idObra);
@@ -100,11 +100,12 @@ namespace SIP.Formas.ControlFinanciero
 
                     var wb = new XLWorkbook(R);
                     var ws = wb.Worksheet(1);
-                    var firstRowUsed = ws.FirstRowUsed();
+                    var firstRowUsed = ws.FirstRow();
                     var lastRowUsed = ws.LastRowUsed();
-                    var rows = firstRowUsed.RowUsed();
+                    var rows = ws.FirstRow();  
 
                     int nregistros = lastRowUsed.RowNumber() - firstRowUsed.RowNumber();
+                    
 
                     DataTable table = new DataTable();
                     table.Columns.Add("id");
@@ -115,6 +116,9 @@ namespace SIP.Formas.ControlFinanciero
                     table.Columns.Add("Cantidad");
                     table.Columns.Add("Precio");
                     table.Columns.Add("Subtotal");
+
+
+                    
 
                     nregistros++;
                     int i = 0;
@@ -157,7 +161,7 @@ namespace SIP.Formas.ControlFinanciero
                             importeTotal = importeTotal + (cantidad * importe);
                         }
 
-                        if (i!=0)
+                        if (i > 9)
                             table.Rows.Add(row);
 
                         rows = rows.RowBelow();
@@ -240,9 +244,9 @@ namespace SIP.Formas.ControlFinanciero
 
             var wb = new XLWorkbook(_R.Value);
             var ws = wb.Worksheet(1);
-            var firstRowUsed = ws.FirstRowUsed();
+            var firstRowUsed = ws.FirstRow();
             var lastRowUsed = ws.LastRowUsed();
-            var rows = firstRowUsed.RowUsed();
+            var rows = ws.FirstRow(); 
 
             int nregistros = lastRowUsed.RowNumber() - firstRowUsed.RowNumber();
 
@@ -257,7 +261,7 @@ namespace SIP.Formas.ControlFinanciero
 
             while (nregistros > 0)
             {
-                if (i > 0)
+                if (i > 9)
                 {
 
                 

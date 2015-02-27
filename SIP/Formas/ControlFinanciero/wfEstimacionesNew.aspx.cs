@@ -25,7 +25,8 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            
+            uow = new UnitOfWork(Session["IdUser"].ToString());
             this.idObra = int.Parse(Session["XidObra"].ToString());
             int usuario = int.Parse(Session["IdUser"].ToString());
 
@@ -63,9 +64,9 @@ namespace SIP.Formas.ControlFinanciero
             _R.Value = R;
             var wb = new XLWorkbook(R);
             var ws = wb.Worksheet(1);
-            var firstRowUsed = ws.FirstRowUsed();
+            var firstRowUsed = ws.FirstRow();
             var lastRowUsed = ws.LastRowUsed();
-            var rows = firstRowUsed.RowUsed();
+            var rows = ws.FirstRow();
 
             int nregistros = lastRowUsed.RowNumber() - firstRowUsed.RowNumber();
 
@@ -81,7 +82,7 @@ namespace SIP.Formas.ControlFinanciero
                     decimal cantidad;
                     while (nregistros > 0)
                     {
-                        if (i != 0)
+                        if (i > 9)
                         {
                             EstimacionesConceptosTMP obj = new EstimacionesConceptosTMP();
 
@@ -134,9 +135,7 @@ namespace SIP.Formas.ControlFinanciero
                     reader = cmd.ExecuteReader();            
                     sqlConnection1.Close();
 
-
-                    uow = new UnitOfWork();
-
+                    uow = new UnitOfWork(Session["IdUser"].ToString());
                     
 
                     this.grid.DataSource = uow.EstimacionesConceptosTMPBL.Get(p=>p.Usuario == usuario).ToList ();
@@ -146,7 +145,7 @@ namespace SIP.Formas.ControlFinanciero
                     List<EstimacionesConceptosTMP> listaConceptos = uow.EstimacionesConceptosTMPBL.Get(p => p.Usuario == usuario).ToList();
 
                     decimal importeEstimado, iva, total;
-                    decimal amortizacion, ret5, ret2,importefinal;
+                    decimal amortizacion, ret5, ret2, ret2bis,sancion, importefinal;
 
                     importeEstimado=0;
                     iva=0;
@@ -154,6 +153,8 @@ namespace SIP.Formas.ControlFinanciero
                     amortizacion=0;
                     ret5=0;
                     ret2=0;
+                    ret2bis = 0;
+                    sancion = 0;
                     importefinal = 0;
 
                     foreach (EstimacionesConceptosTMP item in listaConceptos)
@@ -164,6 +165,8 @@ namespace SIP.Formas.ControlFinanciero
                         amortizacion = amortizacion + item.amortizacion;
                         ret5 = ret5 + item.retencion5;
                         ret2 = ret2 + item.retencion2;
+                        ret2bis = ret2bis + item.retencion2SyV;
+                        sancion = sancion + item.sancion;
                         importefinal = importefinal + item.importeFinal;
 
                     }
@@ -264,7 +267,7 @@ namespace SIP.Formas.ControlFinanciero
 
 
             decimal importeEstimado, iva, total;
-            decimal amortizacion, ret5, ret2, importefinal;
+            decimal amortizacion, ret5, ret2, ret2Bis, importefinal;
 
             importeEstimado = 0;
             iva = 0;
@@ -272,6 +275,7 @@ namespace SIP.Formas.ControlFinanciero
             amortizacion = 0;
             ret5 = 0;
             ret2 = 0;
+            ret2Bis = 0;
             importefinal = 0;
 
             List<EstimacionesConceptosTMP> listaConceptos = uow.EstimacionesConceptosTMPBL.Get(p => p.Usuario == usuario && p.Status == 1).ToList();
@@ -284,6 +288,7 @@ namespace SIP.Formas.ControlFinanciero
                 amortizacion = amortizacion + item.amortizacion;
                 ret5 = ret5 + item.retencion5;
                 ret2 = ret2 + item.retencion2;
+                ret2Bis = ret2Bis + item.retencion2SyV;
                 importefinal = importefinal + item.importeFinal;
 
             }
@@ -303,10 +308,16 @@ namespace SIP.Formas.ControlFinanciero
             estimacion.AmortizacionAnticipo = amortizacion;
             estimacion.Retencion2AlMillar = ret2;
             estimacion.Retencion5AlMillar = ret5;
+            estimacion.Retencion2AlMillarSV = ret2Bis;
+            estimacion.Sanciones = 0;
+            estimacion.ISR = 0;
+            estimacion.Otros = 0;
+            estimacion.PeriodoInicio = DateTime.Parse(dtpFecha.Value.ToString());
+            estimacion.PeriodoTermino = DateTime.Parse(dtpFecha.Value.ToString());
             estimacion.ImporteNetoACobrar = importefinal;
-
+            estimacion.ConceptoDePago = "est" + txtNumEstimacion.Text; 
             estimacion.Status = 1;
-
+            estimacion.FolioCL = "123";
 
             uow.EstimacionesBL.Insert(estimacion);
 

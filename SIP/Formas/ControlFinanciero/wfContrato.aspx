@@ -37,7 +37,7 @@
     <div class="row">
 
                     
-                 <div class="col-md-4">
+                 <div class="col-md-6">
 
                       <div class="form-group">
                            <label for="Numero">Número de Contrato</label>
@@ -47,6 +47,13 @@
                         </div>
                       </div>
                      
+                     <div class="form-group">
+                         <label for="ClaveContratista">Clave contratista</label>
+                         <div>
+                            <input type="text" class="input-sm required form-control" id="txtClaveContratista" runat="server" style="text-align: left; align-items:flex-start" autocomplete="off"/>                                                        
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtClaveContratista" ErrorMessage="La clave del contratista es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                        </div>
+                      </div>
                      
 
                      <div class="form-group">
@@ -66,22 +73,23 @@
                         </div>
                       </div>
 
-                     
+                      <div class="form-group">
+                           <label for="ClavePtal">Clave Presupuestal a Afectar</label>
+                         <div>
+                            <input type="text" class="input-sm required form-control" id="txtClavePresupuestal" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="50"/>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtClavePresupuestal" ErrorMessage="La clave presupuestal es obligatoria" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                        </div>
+                      </div>                     
 
                      
-                     <div class="form-group">
-                           <label for="txtImporteTotal">Importe Contratado</label>
-                         <div class="input-group">
-                            <input type="text" disabled="disabled" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start"  />
-                        </div>
-                      </div>
+                     
 
 
                      
 
                  </div>
 
-                 <div class="col-md-4">
+                 <div class="col-md-3">
 
 
                      <div class="form-group">
@@ -111,7 +119,31 @@
                       </div>
 
                      
+                      <div class="form-group">
+                           <label for="nombreAfianzadora">Nombre de Afianzadora</label>
+                         <div>
+                            <input type="text" class="input-sm required form-control" id="txtNombreAfianzadora" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="50"/>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtNombreAfianzadora" ErrorMessage="El nombre de la afianzadora es obligatoria" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                        </div>
+                      </div>
 
+                     
+                      <div class="form-group">
+                           <label for="fianza">Número de Fianza</label>
+                         <div>
+                            <input type="text" class="input-sm required form-control" id="txtFianza" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="50"/>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtFianza" ErrorMessage="El número de fianza es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                        </div>
+                      </div>
+
+
+                     <div class="form-group">
+                           <label for="fianzaCumplimiento">Número de Fianza de Cumplimiento</label>
+                         <div>
+                            <input type="text" class="input-sm required form-control" id="txtFianzaCumplimiento" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="50"/>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtFianzaCumplimiento" ErrorMessage="El número de fianza de cumplimiento es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                        </div>
+                      </div>
 
 
                      
@@ -121,18 +153,18 @@
                   </div>
 
 
-                <div class="col-md-4">      
+                <div class="col-md-3">      
                     
-                    <div class="form-group">
+                     
+
+                      <div class="form-group">
                            <label for="PorcentajeAnticipo">Porcentaje de Anticipo</label>
                          <div>
                             <input type="text" class="input-sm required form-control campoNumerico" id="txtPorcentajeAnticipo" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="50"/>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtPorcentajeAnticipo" ErrorMessage="El porcentaje de anticipo es obligatorio" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
                         </div>
                       </div>
-
-                       
-
+                     
                      <div class="form-group">
                            <label for="desc5almillar">Aplicar 5 al millar</label>
                          <div>
@@ -145,6 +177,22 @@
                            <label for="desc2almillar">Aplicar 2 al millar</label>
                          <div>
                             <input type="checkbox" class="input-sm required form-control campoNumerico" id="chk2almillar" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="100"/>
+                        </div>
+                      </div>
+
+                     <div class="form-group">
+                           <label for="desc2almillarSV">Aplicar 2 al millar (Sup. y Vig.)</label>
+                         <div>
+                            <input type="checkbox" class="input-sm required form-control campoNumerico" id="chk2almillarSV" runat="server" style="text-align: left; align-items:flex-start" data-v-min="0" data-v-max="100"/>
+                        </div>
+                      </div>                  
+
+
+
+                     <div class="form-group">
+                           <label for="txtImporteTotal">Importe Contratado</label>
+                         <div class="input-group">
+                            <input type="text" disabled="disabled" class="input-sm required form-control campoNumerico" id="txtImporteTotal" runat="server" style="text-align: left; align-items:flex-start"  />
                         </div>
                       </div>
                     

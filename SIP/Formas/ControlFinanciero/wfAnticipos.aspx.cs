@@ -19,7 +19,7 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
             this.idObra = int.Parse(Session["XidObra"].ToString());
             if (!IsPostBack)
             {
@@ -96,8 +96,17 @@ namespace SIP.Formas.ControlFinanciero
                 anticipo.AmortizacionAnticipo = 0;
                 anticipo.Retencion2AlMillar = 0;
                 anticipo.Retencion5AlMillar = 0;
+                anticipo.Retencion2AlMillarSV = 0;
+                anticipo.Sanciones = 0;
+                anticipo.Otros = 0;
+                anticipo.ISR = 0;
                 anticipo.ImporteNetoACobrar = Convert.ToDecimal(txtImporteAnticipo.Value.ToString());
                 anticipo.Status = 2;
+                
+                anticipo.ConceptoDePago = "Anticipo";
+                anticipo.PeriodoInicio = DateTime.Parse(dtpFecha.Value.ToString());
+                anticipo.PeriodoTermino = DateTime.Parse(dtpFecha.Value.ToString());
+
 
                 uow.EstimacionesBL.Insert(anticipo);
 

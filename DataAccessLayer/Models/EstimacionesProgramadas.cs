@@ -29,6 +29,7 @@ namespace DataAccessLayer.Models
         public decimal AmortizacionAnticipo { get; set; }
         public decimal Retencion5AlMillar { get; set; }
         public decimal Retencion2AlMillar { get; set; }
+        public decimal Retencion2AlMillarSyV { get; set; }
         public decimal ImporteAPagar { get; set; }
 
 

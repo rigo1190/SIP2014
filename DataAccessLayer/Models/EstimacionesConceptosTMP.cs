@@ -50,6 +50,10 @@ namespace DataAccessLayer.Models
         public decimal amortizacion { get; set; }
         public decimal retencion5 { get; set; }
         public decimal retencion2 { get; set; }
+
+        public decimal retencion2SyV { get; set; }
+
+        public decimal sancion { get; set; }
         public decimal importeFinal { get; set; }
 
     }

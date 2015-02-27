@@ -33,6 +33,8 @@ namespace DataAccessLayer.Models
         public bool Descontar5AlMillar { get; set; }
         public bool Descontar2AlMillar { get; set; }
 
+        public bool Descontar2AlMillarSV { get; set; }
+
         public DateTime FechaDeInicio { get; set; }
         public DateTime FechaDeTermino { get; set; }
 
@@ -55,8 +57,7 @@ namespace DataAccessLayer.Models
         [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string NumeroFianzaCumplimiento { get; set; }
 
-        [StringLength(50, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
-        public string NumeroFianzaViciosOcultos { get; set; }
+ 
 
         [StringLength(255, ErrorMessage = "El campo {0} debe contener un máximo de {1} caracteres")]
         public string NombreAfianzadora { get; set; }

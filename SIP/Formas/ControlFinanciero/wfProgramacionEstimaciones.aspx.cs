@@ -24,7 +24,7 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
             idObra = int.Parse(Session["XidObra"].ToString());
 
             Obra obra = uow.ObraBusinessLogic.GetByID(idObra);
@@ -97,7 +97,7 @@ namespace SIP.Formas.ControlFinanciero
             PresupuestosContratados concepto;
 
             decimal importeEstimado, iva, total;
-            decimal amortizacion, ret5, ret2;
+            decimal amortizacion, ret5, ret2, ret2bis;
 
             importeEstimado = 0;
             
@@ -115,10 +115,12 @@ namespace SIP.Formas.ControlFinanciero
             amortizacion = decimal.Parse(contrato.PorcentajeDeAnticipo.ToString()) / decimal.Parse("100");
             if (contrato.Descontar5AlMillar) { ret5 = decimal.Parse("0.005"); } else { ret5 = 0; }
             if (contrato.Descontar2AlMillar) { ret2 = decimal.Parse("0.002"); } else { ret2 = 0; }
+            if (contrato.Descontar2AlMillarSV) { ret2bis = decimal.Parse("0.002"); } else { ret2bis = 0; }
                         
             amortizacion = total * amortizacion;
             ret5 = total * ret5;
             ret2 = total * ret2;
+            ret2bis = total * ret2bis;
 
             List<EstimacionesProgramadas> listaEstimacionesProgramadas = uow.EstimacionesProgramadasBL.Get(p => p.ContratoDeObra.ObraId == this.idObra).ToList();
             int NumEstimacion = 0;
@@ -138,7 +140,8 @@ namespace SIP.Formas.ControlFinanciero
             estimacion.AmortizacionAnticipo = amortizacion;
             estimacion.Retencion5AlMillar = ret5;
             estimacion.Retencion2AlMillar = ret2;
-            estimacion.ImporteAPagar = total - (amortizacion + ret5 + ret2);
+            estimacion.Retencion2AlMillarSyV = ret2bis;
+            estimacion.ImporteAPagar = total - (amortizacion + ret5 + ret2 +  ret2bis);
 
             uow.EstimacionesProgramadasBL.Insert(estimacion);
 
@@ -235,6 +238,23 @@ namespace SIP.Formas.ControlFinanciero
 
         }
 
+        protected void gridEstimaciones_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                int idEstimacion = Utilerias.StrToInt(gridEstimaciones.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
+                ImageButton imgBtnEliminar = (ImageButton)e.Row.FindControl("imgBtnEliminar");
+
+
+                EstimacionesProgramadas estimacion = uow.EstimacionesProgramadasBL.GetByID(idEstimacion);
+                List<EstimacionesProgramadas> lista = uow.EstimacionesProgramadasBL.Get(p => p.ContratoDeObraId == estimacion.ContratoDeObraId && p.NumeroDeEstimacion > estimacion.NumeroDeEstimacion).ToList();
+
+                if (lista.Count > 0 || estimacion.ContratoDeObra.Obra.StatusControlFinanciero > 3)
+                    imgBtnEliminar.Visible = false;
+
+            }
+        }
+
         #endregion
 
 
@@ -273,13 +293,14 @@ namespace SIP.Formas.ControlFinanciero
             table.Columns.Add("Anticipo", typeof(decimal));
             table.Columns.Add("Ret5", typeof(decimal));
             table.Columns.Add("Ret2", typeof(decimal));
+            table.Columns.Add("Ret2Bis", typeof(decimal));
             table.Columns.Add("ImporteFinal", typeof(decimal));
 
             int i = 0;
 
 
             ContratosDeObra contrato = uow.ContratosDeObraBL.Get(p => p.ObraId == this.idObra).First();
-            decimal anticipo, ret5, ret2, total;
+            decimal anticipo, ret5, ret2, ret2bis, total;
 
             List<ProgramasDeObras> listaConceptos;
 
@@ -290,6 +311,7 @@ namespace SIP.Formas.ControlFinanciero
                 anticipo = decimal.Parse(contrato.PorcentajeDeAnticipo.ToString()) / decimal.Parse("100");
                 if (contrato.Descontar5AlMillar) { ret5 = decimal.Parse("0.005"); } else { ret5 = 0; }
                 if (contrato.Descontar2AlMillar) { ret2 = decimal.Parse("0.002"); } else { ret2 = 0; }
+                if (contrato.Descontar2AlMillarSV ) { ret2bis = decimal.Parse("0.002"); } else { ret2bis = 0; }
 
                 i++;
 
@@ -297,6 +319,7 @@ namespace SIP.Formas.ControlFinanciero
                 anticipo = total * anticipo;
                 ret5 = total * ret5;
                 ret2 = total * ret2;
+                ret2bis = total * ret2bis;
 
                 listaConceptos = uow.ProgramasDeObrasBL.Get(p => p.ContratoDeObra.ObraId == this.idObra && p.Status == 1 && p.Termino == item.Key.Termino).ToList();
 
@@ -309,7 +332,8 @@ namespace SIP.Formas.ControlFinanciero
                 row["Anticipo"] = anticipo;
                 row["Ret5"] = ret5;
                 row["Ret2"] = ret2;
-                row["ImporteFinal"] = total - (anticipo + ret5 + ret2);
+                row["Ret2Bis"] = ret2bis;
+                row["ImporteFinal"] = total - (anticipo + ret5 + ret2 + ret2bis);
 
                 table.Rows.Add(row);
             }
@@ -347,22 +371,7 @@ namespace SIP.Formas.ControlFinanciero
         }
         #endregion
 
-        protected void gridEstimaciones_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                int idEstimacion = Utilerias.StrToInt(gridEstimaciones.DataKeys[e.Row.RowIndex].Values["Id"].ToString());
-                ImageButton imgBtnEliminar = (ImageButton)e.Row.FindControl("imgBtnEliminar");
-
-
-                EstimacionesProgramadas estimacion = uow.EstimacionesProgramadasBL.GetByID(idEstimacion);
-                List<EstimacionesProgramadas> lista = uow.EstimacionesProgramadasBL.Get(p => p.ContratoDeObraId == estimacion.ContratoDeObraId && p.NumeroDeEstimacion > estimacion.NumeroDeEstimacion).ToList();
-
-                if (lista.Count > 0 || estimacion.ContratoDeObra.Obra.StatusControlFinanciero > 3)
-                    imgBtnEliminar.Visible = false;
-                  
-            }
-        }
+        
 
     }
 }

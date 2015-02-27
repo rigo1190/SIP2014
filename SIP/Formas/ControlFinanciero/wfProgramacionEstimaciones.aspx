@@ -111,9 +111,15 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
+                    <asp:TemplateField HeaderText="Retención 2 al millar Vig y Sup">                    
+                        <ItemTemplate>                            
+                                <asp:Label ID="lblRet2Bis" runat="server" Text='<%# Bind("Ret2Bis","{0:C2}") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Importe Final">                    
                         <ItemTemplate>                            
-                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteFinal","{0:C0}") %>'></asp:Label>
+                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteFinal","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
@@ -244,9 +250,16 @@
                         </ItemTemplate>
                     </asp:TemplateField>
 
+
+                    <asp:TemplateField HeaderText="Retención 2 al millar Sup y Vig">                    
+                        <ItemTemplate>                            
+                                <asp:Label ID="lblRet2bis" runat="server" Text='<%# Bind("Retencion2AlMillarSyV","{0:C2}") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+
                     <asp:TemplateField HeaderText="Importe Final">                    
                         <ItemTemplate>                            
-                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteAPagar","{0:C0}") %>'></asp:Label>
+                                <asp:Label ID="lblImporteFinal" runat="server" Text='<%# Bind("ImporteAPagar","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="right" VerticalAlign="Middle" />
                     </asp:TemplateField>

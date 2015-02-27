@@ -20,7 +20,7 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
             idObra = int.Parse(Session["XidObra"].ToString());
             
             if (!IsPostBack)
@@ -41,6 +41,7 @@ namespace SIP.Formas.ControlFinanciero
 
                 txtNumContrato.Value = contrato.NumeroDeContrato;
 
+                txtClaveContratista.Value = contrato.ClaveContratista; 
                 txtRFC.Value = contrato.RFCcontratista;
                 txtRazonSocial.Value = contrato.RazonSocialContratista;
                 txtImporteTotal.Value = contrato.Total.ToString("C0");
@@ -48,11 +49,17 @@ namespace SIP.Formas.ControlFinanciero
                 dtpContrato.Value = String.Format("{0:d}", contrato.FechaDelContrato);
                 dtpInicio.Value = String.Format("{0:d}", contrato.FechaDeInicio);
                 dtpTermino.Value = String.Format("{0:d}", contrato.FechaDeTermino);
-
+                txtClavePresupuestal.Value = contrato.ClavePresupuestal;
+                
                 txtPorcentajeAnticipo.Value = contrato.PorcentajeDeAnticipo.ToString();
                 chk5almillar.Checked = contrato.Descontar5AlMillar;
                 chk2almillar.Checked = contrato.Descontar2AlMillar;
+                chk2almillarSV.Checked = contrato.Descontar2AlMillarSV; 
 
+                txtNombreAfianzadora.Value = contrato.NombreAfianzadora;
+                txtFianza.Value = contrato.NumeroFianza;
+                txtFianzaCumplimiento.Value = contrato.NumeroFianzaCumplimiento;
+                
             }
 
             if (obra.StatusControlFinanciero > 3)
@@ -75,7 +82,9 @@ namespace SIP.Formas.ControlFinanciero
                 contrato = new ContratosDeObra();
 
                 contrato.ObraId = this.idObra;
+
                 contrato.NumeroDeContrato = txtNumContrato.Value;
+                contrato.ClaveContratista = txtClaveContratista.Value;  
                 contrato.RFCcontratista = txtRFC.Value;
                 contrato.RazonSocialContratista = txtRazonSocial.Value;
                 //contrato.Total = decimal.Parse(txtImporteTotal.Value.ToString());
@@ -83,10 +92,19 @@ namespace SIP.Formas.ControlFinanciero
                 contrato.FechaDelContrato = DateTime.Parse(dtpContrato.Value.ToString());
                 contrato.FechaDeInicio = DateTime.Parse(dtpInicio.Value.ToString());
                 contrato.FechaDeTermino = DateTime.Parse(dtpTermino.Value.ToString());
-
+                contrato.ClavePresupuestal = txtClavePresupuestal.Value;
                 contrato.PorcentajeDeAnticipo = double.Parse(txtPorcentajeAnticipo.Value.ToString());
                 contrato.Descontar5AlMillar = bool.Parse(chk5almillar.Checked.ToString());
                 contrato.Descontar2AlMillar = bool.Parse(chk2almillar.Checked.ToString());
+                contrato.Descontar2AlMillarSV = bool.Parse(chk2almillarSV.Checked.ToString());
+
+                contrato.NombreAfianzadora = txtNombreAfianzadora.Value;
+                contrato.NumeroFianza = txtFianza.Value;
+                contrato.NumeroFianzaCumplimiento = txtFianzaCumplimiento.Value;
+
+
+                contrato.CreatedById = int.Parse(Session["IdUser"].ToString());
+                
 
                 uow.ContratosDeObraBL.Insert(contrato);
 
@@ -106,6 +124,7 @@ namespace SIP.Formas.ControlFinanciero
                 contrato = uow.ContratosDeObraBL.Get(p => p.ObraId == this.idObra).FirstOrDefault();
 
                 contrato.NumeroDeContrato = txtNumContrato.Value;
+                contrato.ClaveContratista = txtClaveContratista.Value;  
                 contrato.RFCcontratista = txtRFC.Value;
                 contrato.RazonSocialContratista = txtRazonSocial.Value;
                 //contrato.Total = decimal.Parse(txtImporteTotal.Value.ToString());
@@ -113,10 +132,16 @@ namespace SIP.Formas.ControlFinanciero
                 contrato.FechaDelContrato = DateTime.Parse(dtpContrato.Value.ToString());
                 contrato.FechaDeInicio = DateTime.Parse(dtpInicio.Value.ToString());
                 contrato.FechaDeTermino = DateTime.Parse(dtpTermino.Value.ToString());
-
+                contrato.ClavePresupuestal = txtClavePresupuestal.Value;
                 contrato.PorcentajeDeAnticipo = double.Parse(txtPorcentajeAnticipo.Value.ToString());
                 contrato.Descontar5AlMillar = bool.Parse(chk5almillar.Checked.ToString());
                 contrato.Descontar2AlMillar = bool.Parse(chk2almillar.Checked.ToString());
+                contrato.Descontar2AlMillarSV = bool.Parse(chk2almillarSV.Checked.ToString());
+
+                contrato.NombreAfianzadora = txtNombreAfianzadora.Value;
+                contrato.NumeroFianza = txtFianza.Value;
+                contrato.NumeroFianzaCumplimiento = txtFianzaCumplimiento.Value;
+                contrato.EditedById = int.Parse(Session["IdUser"].ToString());
 
                 uow.ContratosDeObraBL.Update(contrato);
                 

@@ -15,7 +15,7 @@ namespace SIP.Formas.ControlFinanciero
         private UnitOfWork uow;
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            uow = new UnitOfWork(Session["IdUser"].ToString());
             if (!IsPostBack)
             {
                 BindGrid();

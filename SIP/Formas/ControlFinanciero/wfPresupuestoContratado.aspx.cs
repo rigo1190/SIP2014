@@ -178,6 +178,11 @@ namespace SIP.Formas.ControlFinanciero
 
                     this.btnGuardarPresupuesto.Text = "Guardar Presupuesto Contratado por: " + importeTotal.ToString("C0") ;
 
+
+                    if (importeTotal == 0) {
+                        this.divGuardarPresupuesto.Style.Add("display", "none");
+                    }
+
                 }
 
                 

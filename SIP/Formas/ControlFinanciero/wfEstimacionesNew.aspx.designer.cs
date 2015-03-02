@@ -139,13 +139,13 @@ namespace SIP.Formas.ControlFinanciero {
         protected global::System.Web.UI.WebControls.TextBox txtImporteTotal;
         
         /// <summary>
-        /// txtImporteApagar control.
+        /// txtRet2Bis control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtImporteApagar;
+        protected global::System.Web.UI.WebControls.TextBox txtRet2Bis;
         
         /// <summary>
         /// dtpFecha control.
@@ -164,6 +164,15 @@ namespace SIP.Formas.ControlFinanciero {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        
+        /// <summary>
+        /// txtImporteApagar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtImporteApagar;
         
         /// <summary>
         /// divBtnGuardarAnticipo control.

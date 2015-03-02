@@ -111,7 +111,7 @@
                             </div>
                             <div class="col-md-6">
                                 <a>Importe Total</a> <asp:textbox width="180px" id="txtImporteTotal" text="0" cssclass="form-control" runat="server" disabled="disabled"></asp:textbox>
-                                <a>Importe a pagar</a> <asp:textbox width="180px" id="txtImporteApagar" text="0" cssclass="form-control" runat="server" disabled="disabled"></asp:textbox>                                                                
+                                <a>Ret. 2 al Millar Sup. y Vig.</a> <asp:textbox width="180px" id="txtRet2Bis" text="0" cssclass="form-control" runat="server" disabled="disabled"></asp:textbox>
                             </div>
                         </div>
                     </div>
@@ -120,18 +120,39 @@
                     <div class="col-md-4">
                     
 
-                      <div class="form-group">
-                           <label for="Fecha">Fecha</label>
-                         <div>
-                            <input type="text" class="required form-control date-picker" id="dtpFecha" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="dtpFecha" ErrorMessage="La fecha es obligatoria" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
-                        </div>
-                      </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <a>Fecha</a> <input type="text" class="required form-control date-picker" id="dtpFecha" runat="server" data-date-format = "dd/mm/yyyy"  autocomplete="off" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="dtpFecha" ErrorMessage="La fecha es obligatoria" ValidationGroup="validateX">*</asp:RequiredFieldValidator>
+                            
+                                <a>Importe a pagar</a> <asp:textbox width="180px" id="txtImporteApagar" text="0" cssclass="form-control" runat="server" disabled="disabled"></asp:textbox>                                                                                          
+                                    
+                              </div>
+
+
+                            
+                            
+                            <div class="col-md-6">
+                                
+
+                                 
 
                      
-                     <div class="form-group"  id="divBtnGuardarAnticipo" runat="server">
-                        <asp:Button   CssClass="btn btn-primary"  Text="Guardar Estimación" ID="btnGuardarEstimacion" runat="server" AutoPostBack="false"  ValidationGroup="validateX" OnClick ="btnGuardarEstimacion_Click" />                        
-                     </div>
+                             <div class="form-group"  id="divBtnGuardarAnticipo" runat="server">
+                                <asp:Button   CssClass="btn btn-primary"  Text="Guardar Estimación" ID="btnGuardarEstimacion" runat="server" AutoPostBack="false"  ValidationGroup="validateX" OnClick ="btnGuardarEstimacion_Click" />                        
+                             </div>
+
+
+
+                            </div>
+                        </div>
+
+
+
+
+                     
 
  
 

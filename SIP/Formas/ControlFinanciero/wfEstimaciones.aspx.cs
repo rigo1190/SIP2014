@@ -20,7 +20,9 @@ namespace SIP.Formas.ControlFinanciero
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            uow = new UnitOfWork();
+            
+            uow = new UnitOfWork(Session["IdUser"].ToString());
+
             this.idObra = int.Parse(Session["XidObra"].ToString());
             Obra obra = uow.ObraBusinessLogic.GetByID(idObra);
 

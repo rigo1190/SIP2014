@@ -125,6 +125,12 @@
                         </ItemTemplate>
                     </asp:TemplateField>         
 
+                    <asp:TemplateField HeaderText="Ret. 2 al millar Sup y Vig">
+                        <ItemTemplate>
+                            <asp:Label ID="label6" runat="server" Text='<%# Bind("Descontar2AlMillarSV") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>         
+
                     <asp:TemplateField HeaderText="Fecha del Contrato">
                         <ItemTemplate>
                             <asp:Label ID="label7" runat="server" Text='<%# Bind("FechaDelContrato","{0:d}") %>'></asp:Label>
@@ -214,6 +220,12 @@
                     <asp:TemplateField HeaderText="Retención del 2 al millar">
                         <ItemTemplate>
                             <asp:Label ID="label8" runat="server" Text='<%# Bind("Retencion2AlMillar","{0:C2}") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>          
+
+                    <asp:TemplateField HeaderText="Retención del 2 al millar sup y vig">
+                        <ItemTemplate>
+                            <asp:Label ID="label81" runat="server" Text='<%# Bind("Retencion2AlMillarSV","{0:C2}") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>          
                     

@@ -124,6 +124,8 @@
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Anteproyecto de POA</a></li>                               
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>                               
 				                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
+                                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/SeleccionarObras.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Imprimir oficios DSP y RPAI</a></li>
+                                 
                              </ul>
                           </li>
 
@@ -132,6 +134,8 @@
                                   <li><a href="<%=ResolveClientUrl("~/Formas/POA/POA.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Anteproyecto de POA</a></li>
                                   <li><a href="<%=ResolveClientUrl("~/Formas/POA/frmPOAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Proyecto de POA ajustado</a></li>
 				                <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
+                                 <li><a href="<%=ResolveClientUrl("~/Formas/POA/SeleccionarObras.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Imprimir oficios DSP y RPAI</a></li>
+                                 
                              </ul>
                           </li>
 

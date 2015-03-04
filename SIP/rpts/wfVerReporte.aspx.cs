@@ -44,7 +44,25 @@ namespace SIP.rpts
                 case 1: //REPORTE DE EVALUACION DE PLANEACION
                     rdc.SetParameterValue("POADetalleID", primerArray[0]);
                     break;
-
+                case 2: //REPORTE DE DSP
+                    rdc.SetParameterValue("@UnidadPresupuestalID", primerArray[0]);
+                    rdc.RecordSelectionFormula = "{pa_DSP;1.POADetalleID} in ["+primerArray[1]+"]";
+                    break;
+                case 3: //REPORTE DE DETALLE DE OBRAS APROBADAS DSP
+                    rdc.SetParameterValue("@UnidadPresupuestalID", primerArray[0]);
+                    rdc.RecordSelectionFormula = "{sp_DetalleObrasDSP;1.POADetalleID} in ["+primerArray[1]+"]";
+                    break;
+                case 4: //REPORTE DE DETALLE DE OBRAS RECHAZADAS DSP
+                     rdc.SetParameterValue("@UnidadPresupuestalID", primerArray[0]);
+                    break;
+                case 5: //REPORTE DE RPAI
+                     rdc.SetParameterValue("@UnidadPresupuestalID", primerArray[0]);
+                     rdc.RecordSelectionFormula = "{sp_RPAI;1.POADetalleID} in [" + primerArray[1] + "]";
+                    break;
+                case 6: //REPORTE DE DETALLE DE OBRAS DE RPAI
+                    rdc.SetParameterValue("@UnidadPresupuestalID", primerArray[0]);
+                    rdc.RecordSelectionFormula = "{sp_DetalleObrasRPAI;1.POADetalleID} in [" + primerArray[1] + "]";
+                    break;
                     //20's REPORTES DE TECHO FINANCIERO
                 case 21:
                     rdc.SetParameterValue("up", primerArray[0]);
@@ -126,7 +144,21 @@ namespace SIP.rpts
                 case 1:
                     nombreReporte = "rptEvaluacionPOA.rpt";
                     break;
-
+                case 2:
+                    nombreReporte = "rptDSP.rpt";
+                    break;
+                case 3:
+                    nombreReporte = "rtpDetalleObrasDSP.rpt";
+                    break;
+                case 4:
+                    nombreReporte = "rptDetalleObrasRechazadasDSP.rpt";
+                    break;
+                case 5:
+                    nombreReporte = "rptRPAI.rpt";
+                    break;
+                case 6:
+                    nombreReporte = "rptDetalleObrasRPAI.rpt";
+                    break;
                 //20's REPORTES DE TECHO FINANCIERO
                 case 21:
                     nombreReporte = "FuentesDeFinanciamientoDisponibles.rpt";

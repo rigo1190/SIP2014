@@ -279,6 +279,7 @@
     <Content Include="Formas\POA\POAAjustadoEvaluacion.aspx" />
     <Content Include="Formas\POA\POAAjustadoFinanciamiento.aspx" />
     <Content Include="Formas\POA\POAFinanciamiento.aspx" />
+    <Content Include="Formas\POA\SeleccionarObras.aspx" />
     <Content Include="Formas\POA\WebServicePOA.asmx" />
     <Content Include="Formas\SelectorEjercicioDependencia.aspx" />
     <Content Include="Formas\TechoFin\wfOficiosFuentesFinanciamientoDisponibles.aspx" />
@@ -691,6 +692,12 @@
     <Compile Include="Formas\POA\POAFinanciamiento.aspx.designer.cs">
       <DependentUpon>POAFinanciamiento.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Formas\POA\SeleccionarObras.aspx.cs">
+      <DependentUpon>SeleccionarObras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Formas\POA\SeleccionarObras.aspx.designer.cs">
+      <DependentUpon>SeleccionarObras.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Formas\POA\WebServicePOA.asmx.cs">
       <DependentUpon>WebServicePOA.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -855,11 +862,36 @@
       <DependentUpon>rptControlFinancieroConceptosDeLaEstimacion.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="rpts\rptDetalleObrasRechazadasDSP.cs">
+      <DependentUpon>rptDetalleObrasRechazadasDSP.rpt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="rpts\rptDetalleObrasRPAI.cs">
+      <DependentUpon>rptDetalleObrasRPAI.rpt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="rpts\rptDSP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptDSP.rpt</DependentUpon>
+    </Compile>
     <Compile Include="rpts\rptEvaluacionPOA1.cs">
       <DependentUpon>rptEvaluacionPOA.rpt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rpts\rptRPAI.cs">
+      <DependentUpon>rptRPAI.rpt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="rpts\rtpDetalleObrasDSP.cs">
+      <DependentUpon>rtpDetalleObrasDSP.rpt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="rpts\TechosFinancierosXup.cs">
       <AutoGen>True</AutoGen>
@@ -945,6 +977,18 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptControlFinancieroConceptosDeLaEstimacion.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptDetalleObrasRechazadasDSP.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptDetalleObrasRechazadasDSP.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptDetalleObrasRPAI.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptDetalleObrasRPAI.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptDSP.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptDSP.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="rpts\rptEvaluacionPOA.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptEvaluacionPOA1.cs</LastGenOutput>
@@ -952,6 +996,14 @@
     <EmbeddedResource Include="rpts\rptFondos.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>rptFondos1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rptRPAI.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptRPAI.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rpts\rtpDetalleObrasDSP.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rtpDetalleObrasDSP.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="rpts\TechosFinancierosXup.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

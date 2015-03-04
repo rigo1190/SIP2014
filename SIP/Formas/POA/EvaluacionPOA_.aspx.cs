@@ -32,12 +32,15 @@ namespace SIP.Formas.POA
 
                 BindControlesObra(idObra, POADetalleID);
 
-                CargarPreguntasPlantillas(POADetalleID);
+                List<POAPlantilla> listPoaPlantillas = uow.POAPlantillaBusinessLogic.Get(p => p.POADetalleId == POADetalleID).ToList();
+
+                if (listPoaPlantillas.Count == 0)
+                {
+                    CargarPreguntasPlantillas(POADetalleID);
+                    CargarPreguntasPlantillasEjecucion(POADetalleID);
+                }
 
                 BindGridsEvaluacion();
-
-                CargarPreguntasPlantillasEjecucion(POADetalleID);
-
                 BindGridsEvaluacionEjecucion();
 
             }
@@ -164,18 +167,17 @@ namespace SIP.Formas.POA
             List<Plantilla> listPlantillas = uow.PlantillaBusinessLogic.Get(e => e.DependeDe.Orden == 2).ToList(); //PLANTILLAS DE LA ETAPA DE PLANEACION
             POAPlantilla poaPlantilla;
             int POADetalleID = Utilerias.StrToInt(_IDPOADetalle.Value);
-
+            List<POAPlantilla> listPoaPlantillas = uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID).ToList();
 
             //var listPOAPlantillasPlaneacion = (from poapl in uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.Detalles.Count > 0)
             //                                   join pl in uow.PlantillaBusinessLogic.Get()
             //                                   on poapl.PlantillaId equals pl.Id
             //                                   select new { poaPlantillaID = poapl.Id, Padre = pl.Padre, Orden=pl.Orden }).Where(e => e.Padre.Orden == 2);
             
-            
+
             foreach (Plantilla p in listPlantillas)
             {
-                poaPlantilla = uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.PlantillaId == p.Id).FirstOrDefault();
-
+                poaPlantilla = listPoaPlantillas.Where(e => e.PlantillaId == p.Id).FirstOrDefault();//uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.PlantillaId == p.Id).FirstOrDefault();
 
                 switch (p.Orden)
                 {
@@ -310,6 +312,7 @@ namespace SIP.Formas.POA
         {
             POAPlantilla poaPlantilla;
             int POADetalleID = Utilerias.StrToInt(_IDPOADetalle.Value);
+            List<POAPlantilla> listPoaPlantillas = uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID).ToList();
 
             var list = (from pl1 in uow.PlantillaBusinessLogic.Get()
                         join pl2 in uow.PlantillaBusinessLogic.Get()
@@ -318,7 +321,7 @@ namespace SIP.Formas.POA
 
             foreach (var item in list)
             {
-                poaPlantilla = uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.PlantillaId == item.PlantillaID).FirstOrDefault();
+                poaPlantilla = listPoaPlantillas.Where(e => e.PlantillaId == item.PlantillaID).FirstOrDefault();//uow.POAPlantillaBusinessLogic.Get(e => e.POADetalleId == POADetalleID && e.PlantillaId == p.Id).FirstOrDefault();
 
                 if (poaPlantilla.Detalles == null)
                     continue;
@@ -836,11 +839,11 @@ namespace SIP.Formas.POA
             {
                 fp = GetFundamentacion(i, obj);
 
-                HtmlButton btnA = (HtmlButton)e.Row.FindControl("btnA"+i.ToString());
+                HtmlButton btnA = (HtmlButton)e.Row.FindControl("btnA" + i.ToString());
                 btnA.InnerText = fp[0] != string.Empty ? "Art:" : "N/A";
-                btnA.Attributes.Add("title",fp[0] != string.Empty ? fp[0] : "N/A");
+                btnA.Attributes.Add("title", fp[0] != string.Empty ? fp[0] : "N/A");
                 btnA.Attributes.Add("data-tooltip", "tooltip");
-                btnA.Attributes.Add("data-content",fp[1] != string.Empty ? fp[1] : string.Empty); //"Este es un ejemplo de articulada para cada uno de los puntos correspondientes, Este es un ejemplo de articulada para cada uno de los puntos correspondientes");// fp[1];
+                btnA.Attributes.Add("data-content", fp[1] != string.Empty ? fp[1] : string.Empty); //"Este es un ejemplo de articulada para cada uno de los puntos correspondientes, Este es un ejemplo de articulada para cada uno de los puntos correspondientes");// fp[1];
             }
             
             

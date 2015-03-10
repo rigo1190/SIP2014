@@ -82,7 +82,7 @@ namespace SIP.Formas.Catalogos
                 obj = uow.AperturaProgramaticaBusinessLogic.GetByID(int.Parse(_ElId.Value));
 
 
-            obj.EjercicioId = 6;
+            obj.EjercicioId = int.Parse(Session["EjercicioId"].ToString());
             obj.Clave = txtClave.Text;
             obj.Nombre = txtNombre.Text;
 

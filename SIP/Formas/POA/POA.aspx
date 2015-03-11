@@ -7,8 +7,7 @@
 
              $("#<%= ddlSituacionObra.ClientID %>").prop("disabled", true);
              $("#<%= ddlSituacionObra.ClientID %> option[value=1]").prop("selected", true);
-             //$("option[value='10']").attr('selected', 'selected');
-             //$("#groupsel_0 option[value=105]").prop("selected", true);
+           
                                                   
              $('.campoNumerico').autoNumeric('init');             
 

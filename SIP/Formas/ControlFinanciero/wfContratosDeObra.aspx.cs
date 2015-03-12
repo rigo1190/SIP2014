@@ -114,6 +114,14 @@ namespace SIP.Formas.ControlFinanciero
             Response.Redirect("wfProgramacionEstimaciones.aspx");
         }
 
+        protected void grid_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView grid = sender as GridView;
+            grid.PageIndex = e.NewPageIndex;
+
+            BindGrid();          
+        }
+
 
 
     }

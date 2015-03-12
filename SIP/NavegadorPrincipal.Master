@@ -29,9 +29,7 @@
 
     <script src="<%= ResolveClientUrl("~/Scripts/jquery.dataTables.min.js") %>"></script>
     <script src="<%= ResolveClientUrl("~/Scripts/dataTables.bootstrap.js") %>"></script>
-
-   
-    
+    <script src="<%= ResolveClientUrl("~/Scripts/jslinq.min.js") %>"></script>    
 
 
     <%-- <%: Scripts.Render("~/bundles/jquery") %>
@@ -48,10 +46,12 @@
       
 
     <script type="text/javascript">
+
         $(function () {
             // This will make every element with the class "date-picker" into a DatePicker element      
             $('.date-picker').datepicker();
         })
+
     </script>         
       
   
@@ -136,6 +136,12 @@
 				                <li><a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustado.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Evaluación de POA Ajustado</a></li>
                                  <li><a href="<%=ResolveClientUrl("~/Formas/POA/SeleccionarObras.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span> Imprimir oficios DSP y RPAI</a></li>
                                  
+                             </ul>
+                          </li>
+
+                          <li visible="true"  runat="server" id="mnControlPresupuestal" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-usd"></span>Control presupuestal<b class="caret"></b></a>
+                             <ul class="dropdown-menu">
+                                  <li><a href="<%=ResolveClientUrl("~/Formas/ControlPresupuestal/ConsultaPresupuestal.aspx") %>"><span class="glyphicon glyphicon-asterisk"></span>  Consulta presupuestal</a></li>                           
                              </ul>
                           </li>
 

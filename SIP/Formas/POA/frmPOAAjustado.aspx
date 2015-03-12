@@ -1238,13 +1238,7 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                     success: function (data) {
 
                         sessionStorage.setItem("catalogoLocalidades", JSON.stringify(data.d));
-
-                        //$('#ddlLocalidad').append($("<option>").val(0).text('Seleccione...'));
-
-                        //$.map(data.d, function (n) {
-                        //    $('#ddlLocalidad').append($("<option>").val(n.Id).text(n.Nombre));
-                        //});
-
+                        
                     },
                     error: function (response) {
                         var r = jQuery.parseJSON(response.responseText);
@@ -1317,27 +1311,14 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
                         sessionStorage.setItem("listaperturaprogramatica", JSON.stringify(data.d));
 
-                        var listprogramas = $linq(data.d).where(function (x) { return x.Nivel == 1; }).toArray();
-                        //var listsubprogramas = $linq(data.d).where(function (x) { return x.Nivel == 2; }).toArray();
-                        //var listsubsubprogramas = $linq(data.d).where(function (x) { return x.Nivel == 3; }).toArray();
+                        var listprogramas = $linq(data.d).where(function (x) { return x.Nivel == 1; }).toArray();                      
 
                         $('#ddlPrograma').append($("<option>").val(0).text('Seleccione...'));
 
                         $.map(listprogramas, function (n) {
                             $('#ddlPrograma').append($("<option>").val(n.Id).text(n.Nombre));
                         });
-
-                        //$('#ddlSubprograma').append($("<option>").val(0).text('Seleccione...'));
-
-                        //$.map(listsubprogramas, function (n) {
-                        //    $('#ddlSubprograma').append($("<option>").val(n.Id).text(n.Nombre));
-                        //});
-
-                        //$('#ddlSubsubprograma').append($("<option>").val(0).text('Seleccione...'));
-
-                        //$.map(listsubsubprogramas, function (n) {
-                        //    $('#ddlSubsubprograma').append($("<option>").val(n.Id).text(n.Nombre));
-                        //});
+                     
 
                     },
                     error: function (response) {

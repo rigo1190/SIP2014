@@ -64,7 +64,7 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                       <ul></ul>
             </div>
             
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" role="tablist" id="tabInfoObra">
               <li class="active"><a href="#datosgenerales" role="tab" data-toggle="tab"><strong>Datos generales</strong></a></li>
               <li><a href="#planveracruzanodesarrollo" role="tab" data-toggle="tab"><strong>Plan Veracruzano de Desarrollo</strong></a></li>        
             </ul>
@@ -723,7 +723,10 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
 
         function BeforeAddRecord() {
+
+            //ubicarse en tab datos generales
                                         
+            $('#tabInfoObra a:first').tab('show');
 
             $('#txtNumero').val('');
             $('#txtDescripcion').val('');
@@ -771,6 +774,14 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
             $("#ddlProgramaPVD option[value=0]").prop("selected", true);
             $("#ddlGrupoBeneficiario option[value=0]").prop("selected", true);
 
+            $('#txtClaveFuncionalidad').val('');
+            $('#txtClaveEje').val('');
+            $('#txtClavePlanSectorial').val('');
+            $('#txtClaveModalidad').val('');
+            $('#txtClaveProgramaPVD').val('');
+            $('#txtClaveGrupoBeneficiario').val('');           
+            
+
             $('#btnSaveToUpdate').hide();
             $('#btnSaveToAdd').show();            
 
@@ -781,7 +792,10 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
         }
         
         function BeforeEditRecord(rowId)
-        {                      
+        {
+            //ubicarse en tab datos generales
+
+            $('#tabInfoObra a:first').tab('show');
 
             sessionStorage.setItem("rowId", rowId);
 

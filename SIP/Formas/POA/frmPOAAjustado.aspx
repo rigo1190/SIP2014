@@ -674,6 +674,26 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                 $("#txtClaveFuncionalidad").val($(this).find('option:selected').data('clave'));
             });
 
+            $("#ddlEje").change(function () {
+                $("#txtClaveEje").val($(this).find('option:selected').data('clave'));
+            });
+
+            $("#ddlPlanSectorial").change(function () {
+                $("#txtClavePlanSectorial").val($(this).find('option:selected').data('clave'));
+            });
+
+            $("#ddlModalidadPVD").change(function () {
+                $("#txtClaveModalidad").val($(this).find('option:selected').data('clave'));
+            });
+
+            $("#ddlProgramaPVD").change(function () {
+                $("#txtClaveProgramaPVD").val($(this).find('option:selected').data('clave'));
+            });
+
+            $("#ddlGrupoBeneficiario").change(function () {
+                $("#txtClaveGrupoBeneficiario").val($(this).find('option:selected').data('clave'));
+            });
+
             $('#btnNuevo').click(function () {
                 BeforeAddRecord();
             });
@@ -855,15 +875,22 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                         fnc_ocultarDivObraAnterior();
 
                         $("#ddlFuncionalidad option[value=" + response.d.FuncionalidadId + "]").prop("selected", true);
-
                         $("#txtClaveFuncionalidad").val($("#ddlFuncionalidad").find('option:selected').data('clave'));
 
-
                         $("#ddlEje option[value=" + response.d.EjeId + "]").prop("selected", true);
+                        $("#txtClaveEje").val($("#ddlEje").find('option:selected').data('clave'));
+
                         $("#ddlPlanSectorial option[value=" + response.d.PlanSectorialId + "]").prop("selected", true);
+                        $("#txtClavePlanSectorial").val($("#ddlPlanSectorial").find('option:selected').data('clave'));
+
                         $("#ddlModalidadPVD option[value=" + response.d.ModalidadPVDId + "]").prop("selected", true);
+                        $("#txtClaveModalidad").val($("#ddlModalidadPVD").find('option:selected').data('clave'));
+                        
                         $("#ddlProgramaPVD option[value=" + response.d.ProgramaPVDId + "]").prop("selected", true);
+                        $("#txtClaveProgramaPVD").val($("#ddlProgramaPVD").find('option:selected').data('clave'));
+                        
                         $("#ddlGrupoBeneficiario option[value=" + response.d.GrupoBeneficiarioId + "]").prop("selected", true);
+                        $("#txtClaveGrupoBeneficiario").val($("#ddlGrupoBeneficiario").find('option:selected').data('clave'));
                        
                     },
                     error: function (response) {
@@ -1713,9 +1740,10 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
                         $('#ddlEje').append($("<option>").val(0).text('Seleccione...'));
 
-                        $.map(list, function (n) {
-                            $('#ddlEje').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()));
+                        $.map(list, function (n) {                        
+                            $('#ddlEje').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()).attr("data-clave", n.Clave));
                         });
+                        
 
                     },
                     error: function (response) {
@@ -1751,10 +1779,10 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
                         $('#ddlPlanSectorial').append($("<option>").val(0).text('Seleccione...'));
 
-                        $.map(data.d, function (n) {
-                            $('#ddlPlanSectorial').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()));
+                        $.map(data.d, function (n) {                          
+                            $('#ddlPlanSectorial').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()).attr("data-clave", n.Clave));
                         });
-
+                       
                     },
                     error: function (response) {
                         var r = jQuery.parseJSON(response.responseText);
@@ -1791,8 +1819,8 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
                         $('#ddlModalidadPVD').append($("<option>").val(0).text('Seleccione...'));
 
-                        $.map(list, function (n) {
-                            $('#ddlModalidadPVD').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()));
+                        $.map(list, function (n) {                           
+                            $('#ddlModalidadPVD').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()).attr("data-clave", n.Clave));
                         });
 
                     },
@@ -1829,8 +1857,8 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
                        
                         $('#ddlProgramaPVD').append($("<option>").val(0).text('Seleccione...'));
 
-                        $.map(data.d, function (n) {
-                            $('#ddlProgramaPVD').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()));
+                        $.map(data.d, function (n) {                           
+                            $('#ddlProgramaPVD').append($("<option>").val(n.Id).text(n.Descripcion.toUpperCase()).attr("data-clave", n.Clave));
                         });
 
                     },
@@ -1867,8 +1895,8 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
 
                         $('#ddlGrupoBeneficiario').append($("<option>").val(0).text('Seleccione...'));
 
-                        $.map(data.d, function (n) {
-                            $('#ddlGrupoBeneficiario').append($("<option>").val(n.Id).text(n.Nombre.toUpperCase()));
+                        $.map(data.d, function (n) {                           
+                            $('#ddlGrupoBeneficiario').append($("<option>").val(n.Id).text(n.Nombre.toUpperCase()).attr("data-clave", n.Clave));
                         });
 
                     },

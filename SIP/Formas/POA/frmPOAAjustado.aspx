@@ -33,7 +33,11 @@ Inherits="SIP.Formas.POA.frmPOAAjustado" EnableEventValidation = "false" %>
         <div id="divRecorrido">
 
             <div class="row">           
-            <div class="col-md-1"><button type="button" class="btn btn-default glyphicon glyphicon-filter" id="btnFiltro"></button></div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-default" aria-label="Left Align" id="btnFiltro">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
             <div class="col-md-7"></div>
             <div class="col-md-4 text-right">
                 <a href="<%=ResolveClientUrl("~/Formas/POA/POAAjustadoFinanciamiento.aspx") %>" ><span class="glyphicon glyphicon-arrow-right"></span> <strong>Modificar financiamientos</strong></a>

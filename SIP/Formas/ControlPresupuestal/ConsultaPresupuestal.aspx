@@ -314,8 +314,7 @@
      <asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server"></asp:ScriptManager>
 
      <div class="container">
-
-         <%--<div class="page-header"><h3>Consulta presupuestal</h3></div>--%>
+                  
 
           <div class="alert alert-danger" id="divErroresListado" style="display:none">
             <ul></ul>
@@ -326,7 +325,7 @@
                 <div style="float:left"><h2>Consulta presupuestal</h2></div>
                 <div style="float:right">
                     <button type="button" class="btn btn-default" aria-label="Left Align" id="btnFiltro">
-                        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </button>        
                 </div>
             </div> 

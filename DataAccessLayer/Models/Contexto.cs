@@ -67,7 +67,19 @@ namespace DataAccessLayer.Models
              .HasRequired(u => u.AperturaProgramatica)
              .WithMany(u => u.DetalleMetas)
              .HasForeignKey(u => u.AperturaProgramaticaId)
-             .WillCascadeOnDelete(true);         
+             .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<ObraFinanciamiento>()
+             .HasRequired(u => u.Obra)
+             .WithMany(u => u.DetalleFinanciamientos)
+             .HasForeignKey(u => u.ObraId)
+             .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<TransferenciaDetalle>()
+             .HasRequired(u => u.Transferencia)
+             .WithMany(u => u.Detalle)
+             .HasForeignKey(u => u.TransferenciaId)
+             .WillCascadeOnDelete(true);
             
         }
 
@@ -159,6 +171,8 @@ namespace DataAccessLayer.Models
         public virtual DbSet<POAPlantillaDetalleDoctos> POAPlantillaDetalleDoctos { get; set; }
         public virtual DbSet<RubroFundamentacion> RubroFundamentacion { get; set; }
         public virtual DbSet<FundamentacionPlantilla> FundamentacionPlantilla { get; set; }
+        public virtual DbSet<Transferencia> Transferencia { get; set; }
+        public virtual DbSet<TransferenciaDetalle> TransferenciaDetalle { get; set; }
     }
 
 }

@@ -84,6 +84,8 @@ namespace BusinessLogicLayer
 		private IBusinessLogic<FundamentacionPlantilla> fundamentacionPlantillaBL;
         private IBusinessLogic<RubroFundamentacion> rubroFundamentacionBL;
         private IBusinessLogic<POAPlantillaDetalleDoctos> poaPlantillaDetalleDoctosBL;
+        private IBusinessLogic<Transferencia> transferenciaBusinessLogic;
+        private IBusinessLogic<TransferenciaDetalle> transferenciaDetalleBusinessLogic;
 
 
         public UnitOfWork()
@@ -880,6 +882,32 @@ namespace BusinessLogicLayer
                     this.estimacionesprogramadasconceptosBL = new GenericBusinessLogic<EstimacionesProgramadasConceptos>(contexto);
                 }
                 return this.estimacionesprogramadasconceptosBL;
+            }
+        }
+
+        public IBusinessLogic<Transferencia> TransferenciasBusinessLogic
+        {
+            get
+            {
+                if (this.transferenciaBusinessLogic == null)
+                {
+                    this.transferenciaBusinessLogic = new GenericBusinessLogic<Transferencia>(contexto);
+                }
+
+                return this.transferenciaBusinessLogic;
+            }
+        }
+
+        public IBusinessLogic<TransferenciaDetalle> TransferenciaDetalleBusinessLogic
+        {
+            get
+            {
+                if (this.transferenciaDetalleBusinessLogic == null)
+                {
+                    this.transferenciaDetalleBusinessLogic = new GenericBusinessLogic<TransferenciaDetalle>(contexto);
+                }
+
+                return this.transferenciaDetalleBusinessLogic;
             }
         }
         

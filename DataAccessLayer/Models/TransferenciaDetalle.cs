@@ -4,10 +4,10 @@ namespace DataAccessLayer.Models
 {
     public class TransferenciaDetalle:Generica
     {
-        [Index("IX_TransferenciaId_ObraId", IsUnique = true)]
+        [Index("IX_TransferenciaId_ObraId",1, IsUnique = true)]
         public int TransferenciaId { get; set; }
 
-        [Index("IX_TransferenciaId_ObraId")]
+        [Index("IX_TransferenciaId_ObraId",2)]
         public int ObraId { get; set; }
         public decimal InversionEstimada { get; set; }
         public decimal Reduccion { get; set; }

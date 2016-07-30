@@ -13,7 +13,10 @@ namespace BusinessLogicLayer
 {
     public static class Utilerias
     {
-
+        /// <summary>
+        /// TEST
+        /// </summary>
+        /// <param name="padre"></param>
         public static void LimpiarCampos(Control padre)
         {
             if (padre is HtmlInputText)

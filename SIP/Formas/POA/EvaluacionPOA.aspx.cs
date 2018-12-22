@@ -15,6 +15,7 @@ namespace SIP.Formas.POA
     public partial class EvaluacionPOA : System.Web.UI.Page
     {
         private UnitOfWork uow;
+        //Comentario de ejemplo
         protected void Page_Load(object sender, EventArgs e)
         {
             uow = new UnitOfWork(Session["IdUser"].ToString());
@@ -23,9 +24,9 @@ namespace SIP.Formas.POA
             {
                 string M = string.Empty;
                 int idPOADetalle = Request.QueryString["pd"] !=null? Utilerias.StrToInt(Request.QueryString["pd"].ToString()):0;
-                int idObra = Request.QueryString["ob"] != null ? Utilerias.StrToInt(Request.QueryString["ob"].ToString()) : 0; //Se recupera el id del objeto OBRA            
+                int idObra = Request.QueryString["ob"] != null ? Utilerias.StrToInt(Request.QueryString["ob"].ToString()) : 0; //Se recupera el id del objeto OBRA
 
-                int ordenPlantilla = Utilerias.StrToInt(Request.QueryString["o"].ToString()); //Se recupera el orden de la plantilla que sera evaluada          
+                int ordenPlantilla = Utilerias.StrToInt(Request.QueryString["o"].ToString()); //Se recupera el orden de la plantilla que sera evaluada
 
                 BindControlesObra(idObra, idPOADetalle); //Se bindean los datos del poadetalle, se pasa como argumento el ID, recuperado de la sesion
 
@@ -38,7 +39,7 @@ namespace SIP.Formas.POA
                 if (poaPlantilla == null) //Si no existe ningun objeto con la plantilla creada, entonces se procede a clonar la plantilla
                     M = CopiarPlantilla(plantilla.Id);
                 else
-                    M= CrearPreguntasInexistentes(poaPlantilla.Id); //Se obtienen todas aquellas preguntas que se pudieron haber creado en las plantillas despues de HABER creado la clonada de plantillas, 
+                    M= CrearPreguntasInexistentes(poaPlantilla.Id); //Se obtienen todas aquellas preguntas que se pudieron haber creado en las plantillas despues de HABER creado la clonada de plantillas,
 
 
                 //Si hubo errores
@@ -102,7 +103,7 @@ namespace SIP.Formas.POA
                     POAPlantillaDetalle objPOAPlantillaDetalle = new POAPlantillaDetalle();
                     objPOAPlantillaDetalle.POAPlantillaId = POAPlantillaID; //ID del obj POAPlantilla
                     objPOAPlantillaDetalle.PlantillaDetalleId = obj.Id; //Id del obj Plantilla detalle
-                    
+
 
                     uow.POAPlantillaDetalleBusinessLogic.Insert(objPOAPlantillaDetalle);
                     uow.SaveChanges();
@@ -125,7 +126,7 @@ namespace SIP.Formas.POA
 
         private string CopiarPlantilla(int idPlantilla)
         {
-            
+
             string M = string.Empty;
 
             M = ImportarPlantilla(idPlantilla); //SE CREAN LOS POAPLANTILLAS
@@ -146,7 +147,7 @@ namespace SIP.Formas.POA
         /// 29/09/2014
         /// </summary>
         /// <param name="tree">Nombre del arbol a cargar</param>
-        
+
         private void BindArbol(TreeView tree)
         {
             if (tree.Nodes.Count > 0)
@@ -164,7 +165,7 @@ namespace SIP.Formas.POA
                 TreeNode nodeNew = new TreeNode();
                 nodeNew.Text = obj.Descripcion;
                 nodeNew.Value = obj.Id.ToString();
-                
+
 
                 tree.Nodes.Add(nodeNew); //Se agrega el nodo al arbol
 
@@ -192,14 +193,14 @@ namespace SIP.Formas.POA
                 nodeChild.Value = obj.Id.ToString();
                 nodeChild.Collapse();
 
-                //Se agrega al nodo padre 
+                //Se agrega al nodo padre
                 nodeParent.ChildNodes.Add(nodeChild);
 
                 if (obj.Detalles.Count > 0) //Si se tienen plantillas hijos, se anidan mas nodos al nodo padre
                     ColocarPlantillasHijos(nodeChild, obj.Detalles.ToList()); //Se manda a llamar la misma fucnion
             }
         }
-        
+
         /// <summary>
         /// Metodo encargado de bindear los datos de un POADetalle
         /// Creado por Rigoberto TS
@@ -211,7 +212,7 @@ namespace SIP.Formas.POA
             Obra obra;
             POADetalle poaDetalle;
 
-            if (idObra!=0) 
+            if (idObra!=0)
             {
 
                 obra = uow.ObraBusinessLogic.GetByID(idObra);
@@ -226,7 +227,7 @@ namespace SIP.Formas.POA
             }
             else if (idPoaDetalle != 0)
             {  //Quiere decir que se esta abriendo desde ANTEPROYECTO DE POA
-                
+
                 poaDetalle = uow.POADetalleBusinessLogic.GetByID(idPoaDetalle);
 
                 //Se bindean los datos directamente de POADETALLE
@@ -260,8 +261,8 @@ namespace SIP.Formas.POA
             POAPlantilla obj = new POAPlantilla();
             obj.PlantillaId = IDPlantilla;
             obj.POADetalleId = IDPoaDetalle;
-            
-            
+
+
 
             //SE ALMACENA EL POAPLANTILLA
             uow.POAPlantillaBusinessLogic.Insert(obj);
@@ -277,7 +278,7 @@ namespace SIP.Formas.POA
                 return M;
             }
 
-            //Se crea detalle de preguntas en POAPLANTILLADETALLE 
+            //Se crea detalle de preguntas en POAPLANTILLADETALLE
             M = ImportarDetallePlantilla(objPlantilla.DetallePreguntas.ToList(), obj.Id);
 
             //Si hubo errores
@@ -298,7 +299,7 @@ namespace SIP.Formas.POA
                     obj = new POAPlantilla();
                     obj.PlantillaId = p.Id;
                     obj.POADetalleId = IDPoaDetalle;
-                    
+
 
                     //SE ALMACENA EL POAPLANTILLA
                     uow.POAPlantillaBusinessLogic.Insert(obj);
@@ -314,7 +315,7 @@ namespace SIP.Formas.POA
                         return M;
                     }
 
-                    //Se crea detalle de preguntas en POAPLANTILLADETALLE 
+                    //Se crea detalle de preguntas en POAPLANTILLADETALLE
                     M = ImportarDetallePlantilla(p.DetallePreguntas.ToList(), obj.Id);
 
                     //Si hubo errores
@@ -326,7 +327,7 @@ namespace SIP.Formas.POA
 
 
             #endregion
-            
+
             return M;
         }
 
@@ -342,7 +343,7 @@ namespace SIP.Formas.POA
         /// <returns>Regresa una cadena. vacia si no hay errores</returns>
         public string ImportarDetallePlantilla(List<PlantillaDetalle> DetallePreguntas, int IDPOAPlantilla)
         {
-           
+
             string M = string.Empty;
 
             //Se crean OBJs de POAPlantillaDetalle, que es la que almacenara todas las preguntas de la plantilladetalle
@@ -352,7 +353,7 @@ namespace SIP.Formas.POA
                 POAPlantillaDetalle objPOAPlantillaDetalle = new POAPlantillaDetalle();
                 objPOAPlantillaDetalle.POAPlantillaId = IDPOAPlantilla; //ID del obj POAPlantilla
                 objPOAPlantillaDetalle.PlantillaDetalleId = pregunta.Id; //Id del obj Plantilla detalle
-                
+
                 //Se agregan mas datos, los de bitacora....pendiente
 
                 uow.POAPlantillaDetalleBusinessLogic.Insert(objPOAPlantillaDetalle);
@@ -364,7 +365,7 @@ namespace SIP.Formas.POA
                     M = string.Empty;
                     foreach (string cad in uow.Errors)
                         M += cad;
-                   
+
                     return M;
                 }
 
@@ -380,7 +381,7 @@ namespace SIP.Formas.POA
         /// </summary>
         /// <param name="idPOADetalle">ID del objeto POADetalle</param>
         /// <returns></returns>
-        public List<Plantilla> GetPlantillasPadre(int idPOADetalle) 
+        public List<Plantilla> GetPlantillasPadre(int idPOADetalle)
         {
             List<Plantilla> list = null;
             int ordenPlantilla = Utilerias.StrToInt(Request.Params["o"].ToString());
@@ -392,7 +393,7 @@ namespace SIP.Formas.POA
             return list;
 
         }
-        
+
         /// <summary>
         /// metodo encargado de bindear el grid de preguntas que marcara el usuario como NO, SI, NO APLICA
         /// Creado por Rigberto TS
@@ -408,13 +409,13 @@ namespace SIP.Formas.POA
 
             if (obj!=null)
             {
-                
+
                 grid.PageIndex = Utilerias.StrToInt(_PageIndex.Value);
                 grid.DataSource = obj.Detalles.OrderBy(e=>e.PlantillaDetalle.Orden).ToList();
                 grid.DataBind();
 
             }
-            
+
 
         }
 
@@ -436,7 +437,7 @@ namespace SIP.Formas.POA
 
             foreach (string pa in primerArray) //Se recorre el primer arreglo
             {
-                string[] segundoArrary = pa.Split('='); //Se separa el primer resultado, ahora por el caracter de = 
+                string[] segundoArrary = pa.Split('='); //Se separa el primer resultado, ahora por el caracter de =
 
                 M = GuardarPlantillaChecks(segundoArrary[0], segundoArrary[1], _uow, idUser); //Se guarda el objeto con los valores recien sacados de la separacion
 
@@ -447,7 +448,7 @@ namespace SIP.Formas.POA
                     R.Add(M);
                     return R;
                 }
-                    
+
             }
 
 
@@ -498,13 +499,13 @@ namespace SIP.Formas.POA
                     foreach (string cad in uow.Errors)
                         M += cad;
 
-                    
+
                     return M;
                 }
 
             }
 
-           
+
             return M;
 
         }
@@ -602,7 +603,7 @@ namespace SIP.Formas.POA
             R.Add(ruta);
 
             return R;
-           
+
         }
 
         /// <summary>
@@ -770,12 +771,12 @@ namespace SIP.Formas.POA
                     Label lblArchivo = (Label)e.Row.FindControl("lblArchivo");
 
                     //Se coloca la FUNCION de fnc_DesmarcarChecks en JAVASCRIPT
-                    chkSI.Attributes["onchange"] = "fnc_DesmarcarChecks(this," + e.Row.RowIndex + ",'" + grid.ID + "','" + chkNO.ID + "','" + chkNOAplica.ID + "')"; 
+                    chkSI.Attributes["onchange"] = "fnc_DesmarcarChecks(this," + e.Row.RowIndex + ",'" + grid.ID + "','" + chkNO.ID + "','" + chkNOAplica.ID + "')";
                     chkNO.Attributes["onchange"] = "fnc_DesmarcarChecks(this," + e.Row.RowIndex + ",'" + grid.ID + "','" + chkSI.ID + "','" + chkNOAplica.ID + "')";
                     chkNOAplica.Attributes["onchange"] = "fnc_DesmarcarChecks(this," + e.Row.RowIndex + ",'" + grid.ID + "','" + chkSI.ID + "','" + chkNO.ID + "')";
                     e.Row.Cells[1].Attributes.Add("onclick", "fnc_ClickRow(" + e.Row.RowIndex + ")");
                     e.Row.Cells[0].Attributes.Add("onclick", "fnc_ClickRow(" + e.Row.RowIndex + ")");
-                    
+
                     if (obj.Respuesta != 0)
                     {
                         switch (obj.Respuesta) //Segun sea la respuesta que traiga el objeto, se marca el radiobutton correspondiente
@@ -869,7 +870,7 @@ namespace SIP.Formas.POA
                 _SoloChecks.Value = "true";
                 string nomAnterior = string.Empty;
                 POAPlantillaDetalle obj = uow.POAPlantillaDetalleBusinessLogic.GetByID(idPregunta);
-                
+
                 nomAnterior = obj.NombreArchivo;
 
                 //Se tiene que almacenar el archivo adjunto, si es que se cargo uno
@@ -913,7 +914,7 @@ namespace SIP.Formas.POA
 
 
                 obj.Observaciones = txtObservacionesPregunta.Value;
-                
+
 
                 uow.POAPlantillaDetalleBusinessLogic.Update(obj);
                 uow.SaveChanges();
@@ -944,7 +945,7 @@ namespace SIP.Formas.POA
             //Si hubo errores
             if (R.Count > 1)
             {
-                
+
                 divMsgError.Style.Add("display", "block");
                 divMsgSuccess.Style.Add("display", "none");
                 lblMsgError.Text = R[1];
@@ -966,7 +967,7 @@ namespace SIP.Formas.POA
             divCapturaPreguntas.Style.Add("display", "none");
 
         }
-        
+
         /// <summary>
         /// Evento que se encarga de bindear el grid de preguntas cada vez que se vanza o rtrocede de pagina en el grid
         /// Creado por Rigoberto TS
@@ -987,7 +988,7 @@ namespace SIP.Formas.POA
 
             if (R.Count > 1)
             {
-                
+
                 divMsgError.Style.Add("display", "block");
                 divMsgSuccess.Style.Add("display", "none");
                 lblMsgError.Text = R[1];
@@ -998,18 +999,18 @@ namespace SIP.Formas.POA
                 divMsgError.Style.Add("display", "none");
                 divMsgSuccess.Style.Add("display", "none");
             }
-                
+
 
             BindGrid(Utilerias.StrToInt(_IDPlantilla.Value)); //Se bindea el grid
             divEvaluacion.Style.Add("display", "block");
             divCapturaPreguntas.Style.Add("display", "none");
             divDatos.Style.Add("display", "none");
-            
-            
+
+
         }
 
         #endregion
-        
+
 
     }
 
